@@ -29,22 +29,22 @@ This project is an independent, open source Python client for the Veeam Backup f
   <tbody>
     <tr>
       <td>8.0.2.159</td>
-      <td>8</td>
+      <td>v8</td>
       <td style="text-align:center;">&#9989;</td>
     </tr>
     <tr>
       <td>7.0.0.2911</td>
-      <td>7</td>
-      <td style="text-align:center;">&#9989;</td>
+      <td>v7</td>
+      <td style="text-align:center;">&#9203;</td>
     </tr>
     <tr>
       <td>6.0.0.367</td>
       <td>6</td>
-      <td style="text-align:center;">&#9989;</td>
+      <td style="text-align:center;">&#9203;</td>
     </tr>
     <tr>
       <td>&lt; 6.0.0.367</td>
-      <td>&lt; 6</td>
+      <td>&lt; v6</td>
       <td style="text-align:center;">&#10060;</td>
     </tr>
   </tbody>
@@ -53,7 +53,7 @@ This project is an independent, open source Python client for the Veeam Backup f
 ## How to support new API versions
 1. Download the OpenAPI schema into openapi_schemas
 2. Install the openapi-python-client package
-3. Run `python fix_openapi_yaml.py .\openapi_schemas\vb365_rest_{version}.yaml .\openapi_schemas\vb365_rest_{version}_fixed.yaml` 
+3. Run `python fix_openapi.py .\openapi_schemas\vb365_rest_{version}.json .\openapi_schemas\vb365_rest_{version}_fixed.json` 
 4. Run `openapi-python-client generate --path ".\openapi_schemas\vb365_rest_{version}_fixed.json" --output-path ".\veeam_365" --overwrite`
 5. Fix any warnings/errors
 6. Rename the folder to match the API version (i.e., `v8`)
@@ -79,7 +79,6 @@ The `VeeamClient` handles:
 - API version routing
 - Authentication
 - Token refresh
-- `x-api-version` header injection so package API version matches header values
 - Async calls
 - Operation discovery
 
@@ -88,14 +87,13 @@ Each packaged version can be called independently through separate imports, but 
 #### Create a client and connect
 ```python
 import asyncio
-from veeam_br.client import VeeamClient
+from veeam_365.client import VeeamClient
 
 async def main():
     vc = VeeamClient(
-        host="https://vbr.example.com:9419",
+        host="https://vb365.example.com/v8/",
         username="administrator",
         password="SuperSecretPassword",
-        api_version="1.3-rev1",
         verify_ssl=False,
     )
 
@@ -114,33 +112,6 @@ repos = await vc.call(
     vc.api("repositories").get_all_repositories
 )
 ```
-
-#### Filter certain object types
-Some objects, such as SmartObjectS3, use polymorphic subtypes with circular inheritance. These tend to not play well with package creation tools, so as part of the import process into this project, those relationships are broken. Where a repository would normally have a `bucket` object with immutability information inside, this breakage instead causes `bucket` to always be `UNSET` and instead populates the data into `additional_properties`. For example:
-```python
-from veeam_br.v1_3_rev1.models.e_repository_type import ERepositoryType
-
-smart_s3 = [
-    r for r in repos.data
-    if r.type_ == ERepositoryType.SMARTOBJECTS3
-]
-```
-
-So to access bucket & immutability data:
-```python
-for repo in smart_s3:
-    bucket = repo.additional_properties.get("bucket", {})
-    immutability = bucket.get("immutability", {})
-
-    print({
-        "name": repo.name,
-        "bucket": bucket.get("bucketName"),
-        "days": immutability.get("daysCount"),
-        "enabled": immutability.get("isEnabled"),
-    })
-```
-
-Until `openapi-python-client` figures out and implements a way around this or Veeam rewrites their OpenAPI schemas to not use circular references/inheritance, this is a known limitation.
 
 #### Call any endpoint
 Operations map directly to the OpenAPI layout:

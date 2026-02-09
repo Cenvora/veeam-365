@@ -1,0 +1,86 @@
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.rest_operator_info_links import RESTOperatorInfoLinks
+
+
+T = TypeVar("T", bound="RESTOperatorInfo")
+
+
+@_attrs_define
+class RESTOperatorInfo:
+    """
+    Attributes:
+        is_operator (bool): Defines whether the user acts as restore operator and is allowed to explore and restore data
+            from backups created by Veeam Backup for Microsoft 365.
+        field_links (RESTOperatorInfoLinks | Unset):
+    """
+
+    is_operator: bool
+    field_links: RESTOperatorInfoLinks | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        is_operator = self.is_operator
+
+        field_links: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.field_links, Unset):
+            field_links = self.field_links.to_dict()
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update(
+            {
+                "isOperator": is_operator,
+            }
+        )
+        if field_links is not UNSET:
+            field_dict["_links"] = field_links
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.rest_operator_info_links import RESTOperatorInfoLinks
+
+        d = dict(src_dict)
+        is_operator = d.pop("isOperator")
+
+        _field_links = d.pop("_links", UNSET)
+        field_links: RESTOperatorInfoLinks | Unset
+        if isinstance(_field_links, Unset):
+            field_links = UNSET
+        else:
+            field_links = RESTOperatorInfoLinks.from_dict(_field_links)
+
+        rest_operator_info = cls(
+            is_operator=is_operator,
+            field_links=field_links,
+        )
+
+        rest_operator_info.additional_properties = d
+        return rest_operator_info
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties

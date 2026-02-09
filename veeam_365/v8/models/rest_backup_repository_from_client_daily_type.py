@@ -1,0 +1,17 @@
+from enum import Enum
+
+
+class RESTBackupRepositoryFromClientDailyType(str, Enum):
+    EVERYDAY = "Everyday"
+    FRIDAY = "Friday"
+    MONDAY = "Monday"
+    SATURDAY = "Saturday"
+    SUNDAY = "Sunday"
+    THURSDAY = "Thursday"
+    TUESDAY = "Tuesday"
+    WEDNESDAY = "Wednesday"
+    WEEKENDS = "Weekends"
+    WORKDAYS = "Workdays"
+
+    def __str__(self) -> str:
+        return str(self.value)
