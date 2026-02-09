@@ -53,10 +53,10 @@ This project is an independent, open source Python client for the Veeam Backup f
 ## How to support new API versions
 1. Download the OpenAPI schema into openapi_schemas
 2. Install the openapi-python-client package
-3. Run `python fix_openapi_yaml.py .\openapi_schemas\vbr_rest_{version}.yaml .\openapi_schemas\vbr_rest_{version}_fixed.yaml` 
-4. Run `openapi-python-client generate --path ".\openapi_schemas\vbr_rest_{version}_fixed.json" --output-path ".\veeam_br" --overwrite`
+3. Run `python fix_openapi_yaml.py .\openapi_schemas\vb365_rest_{version}.yaml .\openapi_schemas\vb365_rest_{version}_fixed.yaml` 
+4. Run `openapi-python-client generate --path ".\openapi_schemas\vb365_rest_{version}_fixed.json" --output-path ".\veeam_365" --overwrite`
 5. Fix any warnings/errors
-6. Rename the folder to match the API version (i.e., `v1.3-rev1`)
+6. Rename the folder to match the API version (i.e., `v8`)
 7. Add the version mapping to versions.py
 8. Write pytest tests
 9. If an older API has been deprecated, delete its folder, json, and version.py entry, then update the supported versions section of the readme
