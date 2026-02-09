@@ -91,10 +91,11 @@ from veeam_365.client import VeeamClient
 
 async def main():
     vc = VeeamClient(
-        host="https://vb365.example.com/v8/",
+        host="https://vb365.example.com:4443",
         username="administrator",
         password="SuperSecretPassword",
         verify_ssl=False,
+        api_version="v8"
     )
 
     await vc.connect()
@@ -109,38 +110,42 @@ asyncio.run(main())
 #### Call an API endpoint (async)
 ```python
 repos = await vc.call(
-    vc.api("repositories").get_all_repositories
+  vc.api("backup_repository").backup_repository_get_repositories
 )
+
+# repos is a PageOfRESTBackupRepository model
+for repo in repos.data or []:
+  print(repo.name)
 ```
 
 #### Call any endpoint
 Operations map directly to the OpenAPI layout:
 ```markdown
 api/
-└── repositories/
-    └── get_all_repositories.py
+└── backup_repository/
+  └── backup_repository_get_repositories.py
 ```
 
 Call it like this:
 ```python
 await vc.call(
-    vc.api("repositories").get_all_repositories
+    vc.api("backup_repository").backup_repository_get_repositories
 )
 ```
 
 Or explicity:
 ```python
 await vc.call(
-    vc.api("repositories.get_all_repositories")
+    vc.api("backup_repository.backup_repository_get_repositories")
 )
 ```
 
 #### Pagination example
 ```python
 result = await vc.call(
-    vc.api("repositories").get_all_repositories,
+  vc.api("backup_repository").backup_repository_get_repositories,
     limit=50,
-    skip=0,
+    offset=0,
 )
 ```
 

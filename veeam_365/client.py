@@ -49,7 +49,6 @@ class VeeamClient:
     - version routing
     - authentication
     - token refresh
-    - x-api-version injection
     - API namespace routing
     """
 
@@ -61,7 +60,7 @@ class VeeamClient:
         api_version: str,
         verify_ssl: bool = True,
     ):
-        self.host = host
+        self.host = self._normalize_host(host, api_version)
         self.username = username
         self.password = password
         self.api_version = api_version
@@ -79,24 +78,73 @@ class VeeamClient:
         self._refresh_token = None
         self._expires_at: datetime | None = None
 
+    @staticmethod
+    def _normalize_host(host: str, api_version: str) -> str:
+        version_path = f"/{api_version.lstrip('/')}"
+        cleaned = host.rstrip("/")
+        if cleaned.endswith(version_path):
+            return cleaned[: -len(version_path)]
+        return cleaned
+
+    async def _request_token(
+        self,
+        *,
+        client,
+        grant_type: str,
+        username: str | None = None,
+        password: str | None = None,
+        refresh_token: str | None = None,
+    ):
+        TokenJsonBody = getattr(
+            importlib.import_module(f"{self.package}.models.token_json_body"),
+            "TokenJsonBody",
+        )
+        OAuthTokenResponse = getattr(
+            importlib.import_module(f"{self.package}.models.o_auth_token_response"),
+            "OAuthTokenResponse",
+        )
+        RESTExceptionInfo = getattr(
+            importlib.import_module(f"{self.package}.models.rest_exception_info"),
+            "RESTExceptionInfo",
+        )
+
+        body = TokenJsonBody(
+            grant_type=grant_type,
+            username=username,
+            password=password,
+            refresh_token=refresh_token,
+        )
+
+        response = await client.get_async_httpx_client().request(
+            "post",
+            f"/{self.api_version}/token",
+            json=body.to_dict(),
+            headers={"Content-Type": "application/json"},
+        )
+
+        if response.status_code == 200:
+            return OAuthTokenResponse.from_dict(response.json())
+
+        error = RESTExceptionInfo.from_dict(response.json())
+        raise RuntimeError(
+            f"Token request failed with status {response.status_code}: {error}"
+        )
+
     # ----------------------------
     # connection + auth
     # ----------------------------
 
     async def connect(self):
         Client = getattr(importlib.import_module(f"{self.package}.client"), "Client")
-        AuthenticatedClient = getattr(importlib.import_module(f"{self.package}.client"), "AuthenticatedClient")
-
-        login_mod = importlib.import_module(f"{self.package}.api.login.create_token")
-        create_token = getattr(login_mod, "asyncio")
-
-        TokenLoginSpec = getattr(
-            importlib.import_module(f"{self.package}.models.token_login_spec"),
-            "TokenLoginSpec",
+        AuthenticatedClient = getattr(
+            importlib.import_module(f"{self.package}.client"), "AuthenticatedClient"
         )
-        ELoginGrantType = getattr(
-            importlib.import_module(f"{self.package}.models.e_login_grant_type"),
-            "ELoginGrantType",
+
+        TokenJsonBodyGrantType = getattr(
+            importlib.import_module(
+                f"{self.package}.models.token_json_body_grant_type"
+            ),
+            "TokenJsonBodyGrantType",
         )
 
         # unauthenticated client
@@ -106,16 +154,11 @@ class VeeamClient:
             headers={"x-api-version": self.api_version},
         )
 
-        body = TokenLoginSpec(
-            grant_type=ELoginGrantType.PASSWORD,
+        token = await self._request_token(
+            client=self._client,
+            grant_type=TokenJsonBodyGrantType.PASSWORD,
             username=self.username,
             password=self.password,
-        )
-
-        token = await create_token(
-            client=self._client,
-            body=body,
-            x_api_version=self.api_version,
         )
 
         self._store_token(token, AuthenticatedClient)
@@ -144,31 +187,24 @@ class VeeamClient:
         if self._expires_at and datetime.utcnow() < self._expires_at:
             return
 
-        login_mod = importlib.import_module(f"{self.package}.api.login.create_token")
-        create_token = getattr(login_mod, "asyncio")
-
-        TokenLoginSpec = getattr(
-            importlib.import_module(f"{self.package}.models.token_login_spec"),
-            "TokenLoginSpec",
-        )
-        ELoginGrantType = getattr(
-            importlib.import_module(f"{self.package}.models.e_login_grant_type"),
-            "ELoginGrantType",
+        TokenJsonBodyGrantType = getattr(
+            importlib.import_module(
+                f"{self.package}.models.token_json_body_grant_type"
+            ),
+            "TokenJsonBodyGrantType",
         )
 
         Client = getattr(importlib.import_module(f"{self.package}.client"), "Client")
-        AuthenticatedClient = getattr(importlib.import_module(f"{self.package}.client"), "AuthenticatedClient")
+        AuthenticatedClient = getattr(
+            importlib.import_module(f"{self.package}.client"), "AuthenticatedClient"
+        )
 
         # try refresh first
         try:
-            body = TokenLoginSpec(
-                grant_type=ELoginGrantType.REFRESH_TOKEN,
-                refresh_token=self._refresh_token,
-            )
-            token = await create_token(
+            token = await self._request_token(
                 client=self._client,
-                body=body,
-                x_api_version=self.api_version,
+                grant_type=TokenJsonBodyGrantType.REFRESH_TOKEN,
+                refresh_token=self._refresh_token,
             )
         except Exception:
             # fallback to password
@@ -177,15 +213,11 @@ class VeeamClient:
                 verify_ssl=self.verify_ssl,
                 headers={"x-api-version": self.api_version},
             )
-            body = TokenLoginSpec(
-                grant_type=ELoginGrantType.PASSWORD,
+            token = await self._request_token(
+                client=tmp,
+                grant_type=TokenJsonBodyGrantType.PASSWORD,
                 username=self.username,
                 password=self.password,
-            )
-            token = await create_token(
-                client=tmp,
-                body=body,
-                x_api_version=self.api_version,
             )
 
         self._store_token(token, AuthenticatedClient)
