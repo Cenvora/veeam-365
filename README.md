@@ -63,13 +63,13 @@ This project is an independent, open source Python client for the Veeam Backup f
 
 ## Install
 ### From PyPi
-`pip install veeam-br`
+`pip install veeam-365`
 
 ### From Source
 Clone the repository and install dependencies:
 ```sh
-git clone https://github.com/Cenvora/veeam-br.git
-cd veeam-br
+git clone https://github.com/Cenvora/veeam-365.git
+cd veeam-365
 pip install -e .
 ```
 
