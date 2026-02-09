@@ -151,7 +151,6 @@ class VeeamClient:
         self._client = Client(
             base_url=self.host,
             verify_ssl=self.verify_ssl,
-            headers={"x-api-version": self.api_version},
         )
 
         token = await self._request_token(
@@ -211,7 +210,6 @@ class VeeamClient:
             tmp = Client(
                 base_url=self.host,
                 verify_ssl=self.verify_ssl,
-                headers={"x-api-version": self.api_version},
             )
             token = await self._request_token(
                 client=tmp,
@@ -247,11 +245,7 @@ class VeeamClient:
         """
         Wrap any API call with:
         - automatic token refresh
-        - automatic x-api-version injection
         """
         await self._refresh_token_if_needed()
-
-        if "x_api_version" not in kwargs:
-            kwargs["x_api_version"] = self.api_version
 
         return await fn(client=self._client, *args, **kwargs)
