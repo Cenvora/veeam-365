@@ -57,40 +57,48 @@ def find_schemas_used_in_allof(schemas):
 
 def fix_response_content_types(paths):
     fixed = []
-    token_path = paths.get("/v8/token") if isinstance(paths, dict) else None
-    if not isinstance(token_path, dict):
+    if not isinstance(paths, dict):
         return fixed
 
-    post_op = token_path.get("post")
-    if not isinstance(post_op, dict):
-        return fixed
+    for path, path_item in paths.items():
+        if not isinstance(path, str) or not path.endswith("/token"):
+            continue
+        if not path.startswith("/v"):
+            continue
+        if not isinstance(path_item, dict):
+            continue
 
-    responses = post_op.get("responses")
-    if not isinstance(responses, dict):
-        return fixed
+        post_op = path_item.get("post")
+        if not isinstance(post_op, dict):
+            continue
 
-    resp_200 = responses.get("200")
-    if not isinstance(resp_200, dict):
-        return fixed
+        responses = post_op.get("responses")
+        if not isinstance(responses, dict):
+            continue
 
-    content = resp_200.get("content")
-    if not isinstance(content, dict):
-        return fixed
+        resp_200 = responses.get("200")
+        if not isinstance(resp_200, dict):
+            continue
 
-    wildcard = content.get("*/*")
-    if not isinstance(wildcard, dict):
-        return fixed
+        content = resp_200.get("content")
+        if not isinstance(content, dict):
+            continue
 
-    schema = wildcard.get("schema")
-    if not isinstance(schema, dict):
-        return fixed
+        wildcard = content.get("*/*")
+        if not isinstance(wildcard, dict):
+            continue
 
-    if schema.get("$ref") != "#/components/schemas/OAuthTokenResponse":
-        return fixed
+        schema = wildcard.get("schema")
+        if not isinstance(schema, dict):
+            continue
 
-    content["application/json"] = wildcard
-    del content["*/*"]
-    fixed.append("/v8/token:200 content-type */* -> application/json")
+        if schema.get("$ref") != "#/components/schemas/OAuthTokenResponse":
+            continue
+
+        content["application/json"] = wildcard
+        del content["*/*"]
+        fixed.append(f"{path}:200 content-type */* -> application/json")
+
     return fixed
 
 

@@ -35,12 +35,12 @@ This project is an independent, open source Python client for the Veeam Backup f
     <tr>
       <td>7.0.0.2911</td>
       <td>v7</td>
-      <td style="text-align:center;">&#9203;</td>
+      <td style="text-align:center;">&#9989;</td>
     </tr>
     <tr>
       <td>6.0.0.367</td>
       <td>6</td>
-      <td style="text-align:center;">&#9203;</td>
+      <td style="text-align:center;">&#9989;</td>
     </tr>
     <tr>
       <td>&lt; 6.0.0.367</td>

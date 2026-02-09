@@ -3,7 +3,6 @@ import re
 from datetime import datetime, timedelta
 from typing import Any
 
-
 # ----------------------------
 # helpers
 # ----------------------------
@@ -86,9 +85,7 @@ class VeeamClient:
 
     async def connect(self):
         Client = getattr(importlib.import_module(f"{self.package}.client"), "Client")
-        AuthenticatedClient = getattr(
-            importlib.import_module(f"{self.package}.client"), "AuthenticatedClient"
-        )
+        AuthenticatedClient = getattr(importlib.import_module(f"{self.package}.client"), "AuthenticatedClient")
 
         login_mod = importlib.import_module(f"{self.package}.api.login.create_token")
         create_token = getattr(login_mod, "asyncio")
@@ -160,9 +157,7 @@ class VeeamClient:
         )
 
         Client = getattr(importlib.import_module(f"{self.package}.client"), "Client")
-        AuthenticatedClient = getattr(
-            importlib.import_module(f"{self.package}.client"), "AuthenticatedClient"
-        )
+        AuthenticatedClient = getattr(importlib.import_module(f"{self.package}.client"), "AuthenticatedClient")
 
         # try refresh first
         try:

@@ -1,0 +1,238 @@
+from __future__ import annotations
+
+import datetime
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+from dateutil.parser import isoparse
+
+from ..models.rest_exchange_item_importance import RESTExchangeItemImportance
+from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.rest_attachment import RESTAttachment
+    from ..models.rest_exchange_message_item_actions import RESTExchangeMessageItemActions
+    from ..models.rest_exchange_message_item_links import RESTExchangeMessageItemLinks
+
+
+T = TypeVar("T", bound="RESTExchangeMessageItem")
+
+
+@_attrs_define
+class RESTExchangeMessageItem:
+    """
+    Attributes:
+        from_ (str | Unset):
+        cc (str | Unset):
+        bcc (str | Unset):
+        to (str | Unset):
+        sent (datetime.datetime | Unset):
+        received (datetime.datetime | Unset):
+        reminder (bool | Unset):
+        attachments (list[RESTAttachment] | Unset):
+        subject (str | Unset):
+        item_class (str | Unset):
+        importance (RESTExchangeItemImportance | Unset):
+        field_links (RESTExchangeMessageItemLinks | Unset):
+        field_actions (RESTExchangeMessageItemActions | Unset):
+        id (str | Unset):
+    """
+
+    from_: str | Unset = UNSET
+    cc: str | Unset = UNSET
+    bcc: str | Unset = UNSET
+    to: str | Unset = UNSET
+    sent: datetime.datetime | Unset = UNSET
+    received: datetime.datetime | Unset = UNSET
+    reminder: bool | Unset = UNSET
+    attachments: list[RESTAttachment] | Unset = UNSET
+    subject: str | Unset = UNSET
+    item_class: str | Unset = UNSET
+    importance: RESTExchangeItemImportance | Unset = UNSET
+    field_links: RESTExchangeMessageItemLinks | Unset = UNSET
+    field_actions: RESTExchangeMessageItemActions | Unset = UNSET
+    id: str | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        from_ = self.from_
+
+        cc = self.cc
+
+        bcc = self.bcc
+
+        to = self.to
+
+        sent: str | Unset = UNSET
+        if not isinstance(self.sent, Unset):
+            sent = self.sent.isoformat()
+
+        received: str | Unset = UNSET
+        if not isinstance(self.received, Unset):
+            received = self.received.isoformat()
+
+        reminder = self.reminder
+
+        attachments: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.attachments, Unset):
+            attachments = []
+            for attachments_item_data in self.attachments:
+                attachments_item = attachments_item_data.to_dict()
+                attachments.append(attachments_item)
+
+        subject = self.subject
+
+        item_class = self.item_class
+
+        importance: str | Unset = UNSET
+        if not isinstance(self.importance, Unset):
+            importance = self.importance.value
+
+        field_links: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.field_links, Unset):
+            field_links = self.field_links.to_dict()
+
+        field_actions: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.field_actions, Unset):
+            field_actions = self.field_actions.to_dict()
+
+        id = self.id
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update({})
+        if from_ is not UNSET:
+            field_dict["from"] = from_
+        if cc is not UNSET:
+            field_dict["cc"] = cc
+        if bcc is not UNSET:
+            field_dict["bcc"] = bcc
+        if to is not UNSET:
+            field_dict["to"] = to
+        if sent is not UNSET:
+            field_dict["sent"] = sent
+        if received is not UNSET:
+            field_dict["received"] = received
+        if reminder is not UNSET:
+            field_dict["reminder"] = reminder
+        if attachments is not UNSET:
+            field_dict["attachments"] = attachments
+        if subject is not UNSET:
+            field_dict["subject"] = subject
+        if item_class is not UNSET:
+            field_dict["itemClass"] = item_class
+        if importance is not UNSET:
+            field_dict["importance"] = importance
+        if field_links is not UNSET:
+            field_dict["_links"] = field_links
+        if field_actions is not UNSET:
+            field_dict["_actions"] = field_actions
+        if id is not UNSET:
+            field_dict["id"] = id
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.rest_attachment import RESTAttachment
+        from ..models.rest_exchange_message_item_actions import RESTExchangeMessageItemActions
+        from ..models.rest_exchange_message_item_links import RESTExchangeMessageItemLinks
+
+        d = dict(src_dict)
+        from_ = d.pop("from", UNSET)
+
+        cc = d.pop("cc", UNSET)
+
+        bcc = d.pop("bcc", UNSET)
+
+        to = d.pop("to", UNSET)
+
+        _sent = d.pop("sent", UNSET)
+        sent: datetime.datetime | Unset
+        if isinstance(_sent, Unset):
+            sent = UNSET
+        else:
+            sent = isoparse(_sent)
+
+        _received = d.pop("received", UNSET)
+        received: datetime.datetime | Unset
+        if isinstance(_received, Unset):
+            received = UNSET
+        else:
+            received = isoparse(_received)
+
+        reminder = d.pop("reminder", UNSET)
+
+        _attachments = d.pop("attachments", UNSET)
+        attachments: list[RESTAttachment] | Unset = UNSET
+        if _attachments is not UNSET:
+            attachments = []
+            for attachments_item_data in _attachments:
+                attachments_item = RESTAttachment.from_dict(attachments_item_data)
+
+                attachments.append(attachments_item)
+
+        subject = d.pop("subject", UNSET)
+
+        item_class = d.pop("itemClass", UNSET)
+
+        _importance = d.pop("importance", UNSET)
+        importance: RESTExchangeItemImportance | Unset
+        if isinstance(_importance, Unset):
+            importance = UNSET
+        else:
+            importance = RESTExchangeItemImportance(_importance)
+
+        _field_links = d.pop("_links", UNSET)
+        field_links: RESTExchangeMessageItemLinks | Unset
+        if isinstance(_field_links, Unset):
+            field_links = UNSET
+        else:
+            field_links = RESTExchangeMessageItemLinks.from_dict(_field_links)
+
+        _field_actions = d.pop("_actions", UNSET)
+        field_actions: RESTExchangeMessageItemActions | Unset
+        if isinstance(_field_actions, Unset):
+            field_actions = UNSET
+        else:
+            field_actions = RESTExchangeMessageItemActions.from_dict(_field_actions)
+
+        id = d.pop("id", UNSET)
+
+        rest_exchange_message_item = cls(
+            from_=from_,
+            cc=cc,
+            bcc=bcc,
+            to=to,
+            sent=sent,
+            received=received,
+            reminder=reminder,
+            attachments=attachments,
+            subject=subject,
+            item_class=item_class,
+            importance=importance,
+            field_links=field_links,
+            field_actions=field_actions,
+            id=id,
+        )
+
+        rest_exchange_message_item.additional_properties = d
+        return rest_exchange_message_item
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties

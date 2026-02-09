@@ -1,0 +1,100 @@
+from __future__ import annotations
+
+from collections.abc import Mapping
+from typing import TYPE_CHECKING, Any, TypeVar, cast
+
+from attrs import define as _attrs_define
+from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.rest_restore_object import RESTRestoreObject
+
+
+T = TypeVar("T", bound="RESTSharePointCommonRestoreStatistics")
+
+
+@_attrs_define
+class RESTSharePointCommonRestoreStatistics:
+    """
+    Attributes:
+        failed_restrictions_count (int | None | Unset):
+        restore_issues (list[RESTRestoreObject] | Unset):
+    """
+
+    failed_restrictions_count: int | None | Unset = UNSET
+    restore_issues: list[RESTRestoreObject] | Unset = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
+        failed_restrictions_count: int | None | Unset
+        if isinstance(self.failed_restrictions_count, Unset):
+            failed_restrictions_count = UNSET
+        else:
+            failed_restrictions_count = self.failed_restrictions_count
+
+        restore_issues: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.restore_issues, Unset):
+            restore_issues = []
+            for restore_issues_item_data in self.restore_issues:
+                restore_issues_item = restore_issues_item_data.to_dict()
+                restore_issues.append(restore_issues_item)
+
+        field_dict: dict[str, Any] = {}
+        field_dict.update(self.additional_properties)
+        field_dict.update({})
+        if failed_restrictions_count is not UNSET:
+            field_dict["failedRestrictionsCount"] = failed_restrictions_count
+        if restore_issues is not UNSET:
+            field_dict["restoreIssues"] = restore_issues
+
+        return field_dict
+
+    @classmethod
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.rest_restore_object import RESTRestoreObject
+
+        d = dict(src_dict)
+
+        def _parse_failed_restrictions_count(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        failed_restrictions_count = _parse_failed_restrictions_count(d.pop("failedRestrictionsCount", UNSET))
+
+        _restore_issues = d.pop("restoreIssues", UNSET)
+        restore_issues: list[RESTRestoreObject] | Unset = UNSET
+        if _restore_issues is not UNSET:
+            restore_issues = []
+            for restore_issues_item_data in _restore_issues:
+                restore_issues_item = RESTRestoreObject.from_dict(restore_issues_item_data)
+
+                restore_issues.append(restore_issues_item)
+
+        rest_share_point_common_restore_statistics = cls(
+            failed_restrictions_count=failed_restrictions_count,
+            restore_issues=restore_issues,
+        )
+
+        rest_share_point_common_restore_statistics.additional_properties = d
+        return rest_share_point_common_restore_statistics
+
+    @property
+    def additional_keys(self) -> list[str]:
+        return list(self.additional_properties.keys())
+
+    def __getitem__(self, key: str) -> Any:
+        return self.additional_properties[key]
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.additional_properties[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        del self.additional_properties[key]
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.additional_properties
