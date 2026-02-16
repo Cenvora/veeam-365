@@ -60,7 +60,7 @@ class VeeamClient:
         api_version: str,
         verify_ssl: bool = True,
     ):
-        self.host = self._normalize_host(host, api_version)
+        self.host = host.rstrip("/")
         self.username = username
         self.password = password
         self.api_version = api_version
@@ -78,14 +78,6 @@ class VeeamClient:
         self._refresh_token = None
         self._expires_at: datetime | None = None
 
-    @staticmethod
-    def _normalize_host(host: str, api_version: str) -> str:
-        version_path = f"/{api_version.lstrip('/')}"
-        cleaned = host.rstrip("/")
-        if cleaned.endswith(version_path):
-            return cleaned[: -len(version_path)]
-        return cleaned
-
     async def _request_token(
         self,
         *,
@@ -99,13 +91,13 @@ class VeeamClient:
             importlib.import_module(f"{self.package}.models.token_json_body"),
             "TokenJsonBody",
         )
-        OAuthTokenResponse = getattr(
-            importlib.import_module(f"{self.package}.models.o_auth_token_response"),
-            "OAuthTokenResponse",
-        )
         RESTExceptionInfo = getattr(
             importlib.import_module(f"{self.package}.models.rest_exception_info"),
             "RESTExceptionInfo",
+        )
+        token_asyncio = getattr(
+            importlib.import_module(f"{self.package}.api.auth.token"),
+            "asyncio",
         )
 
         body = TokenJsonBody(
@@ -115,20 +107,14 @@ class VeeamClient:
             refresh_token=refresh_token,
         )
 
-        response = await client.get_async_httpx_client().request(
-            "post",
-            f"/{self.api_version}/token",
-            json=body.to_dict(),
-            headers={"Content-Type": "application/json"},
-        )
+        result = await token_asyncio(client=client, body=body)
 
-        if response.status_code == 200:
-            return OAuthTokenResponse.from_dict(response.json())
+        if isinstance(result, RESTExceptionInfo):
+            raise RuntimeError(
+                f"Token request failed: {result}"
+            )
 
-        error = RESTExceptionInfo.from_dict(response.json())
-        raise RuntimeError(
-            f"Token request failed with status {response.status_code}: {error}"
-        )
+        return result
 
     # ----------------------------
     # connection + auth
@@ -147,9 +133,9 @@ class VeeamClient:
             "TokenJsonBodyGrantType",
         )
 
-        # unauthenticated client
+        # unauthenticated client with base_url/{api_version}
         self._client = Client(
-            base_url=self.host,
+            base_url=f"{self.host}/{self.api_version}",
             verify_ssl=self.verify_ssl,
         )
 
@@ -176,10 +162,9 @@ class VeeamClient:
         self._expires_at = datetime.utcnow() + timedelta(seconds=token.expires_in - 30)
 
         self._client = AuthenticatedClient(
-            base_url=self.host,
+            base_url=f"{self.host}/{self.api_version}",
             token=self._access_token,
             verify_ssl=self.verify_ssl,
-            headers={"x-api-version": self.api_version},
         )
 
     async def _refresh_token_if_needed(self):
@@ -208,7 +193,7 @@ class VeeamClient:
         except Exception:
             # fallback to password
             tmp = Client(
-                base_url=self.host,
+                base_url=f"{self.host}/{self.api_version}",
                 verify_ssl=self.verify_ssl,
             )
             token = await self._request_token(
