@@ -133,9 +133,9 @@ class VeeamClient:
             "TokenJsonBodyGrantType",
         )
 
-        # unauthenticated client with base_url/{api_version}
+        # unauthenticated client
         self._client = Client(
-            base_url=f"{self.host}/{self.api_version}",
+            base_url=self.host,
             verify_ssl=self.verify_ssl,
         )
 
@@ -162,7 +162,7 @@ class VeeamClient:
         self._expires_at = datetime.utcnow() + timedelta(seconds=token.expires_in - 30)
 
         self._client = AuthenticatedClient(
-            base_url=f"{self.host}/{self.api_version}",
+            base_url=self.host,
             token=self._access_token,
             verify_ssl=self.verify_ssl,
         )
@@ -193,7 +193,7 @@ class VeeamClient:
         except Exception:
             # fallback to password
             tmp = Client(
-                base_url=f"{self.host}/{self.api_version}",
+                base_url=self.host,
                 verify_ssl=self.verify_ssl,
             )
             token = await self._request_token(
