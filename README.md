@@ -96,7 +96,7 @@ async def main():
         password="SuperSecretPassword",
         verify_ssl=False,
         api_version="v8",
-        disable_antiforger_token=True
+        disable_antiforgery_token=True
     )
 
     await vc.connect()
