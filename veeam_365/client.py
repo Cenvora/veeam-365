@@ -95,7 +95,8 @@ class VeeamClient:
             importlib.import_module(f"{self.package}.models.rest_exception_info"),
             "RESTExceptionInfo",
         )
-        token_asyncio = getattr(
+        # Get the async version of the token API endpoint
+        token_api = getattr(
             importlib.import_module(f"{self.package}.api.auth.token"),
             "asyncio",
         )
@@ -107,7 +108,7 @@ class VeeamClient:
             refresh_token=refresh_token,
         )
 
-        result = await token_asyncio(client=client, body=body)
+        result = await token_api(client=client, body=body)
 
         if isinstance(result, RESTExceptionInfo):
             raise RuntimeError(
