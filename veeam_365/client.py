@@ -1,7 +1,9 @@
+import builtins
 import importlib
 import re
 from datetime import datetime, timedelta
 from typing import Any
+
 
 # ----------------------------
 # helpers
@@ -11,6 +13,23 @@ from typing import Any
 def _camel_to_snake(name: str) -> str:
     s1 = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", name)
     return re.sub("([a-z0-9])([A-Z])", r"\1_\2", s1).lower()
+
+
+def _import_with_unset_patch(module_path: str, package: str):
+    """
+    Import a module with Unset patching to work around generated code issue.
+
+    The generated OpenAPI code uses Unset in type annotations but doesn't import it.
+    This helper temporarily injects Unset into builtins during import.
+    """
+    types_mod = importlib.import_module(f"{package}.types")
+    builtins.Unset = types_mod.Unset
+
+    try:
+        return importlib.import_module(module_path)
+    finally:
+        if hasattr(builtins, "Unset"):
+            delattr(builtins, "Unset")
 
 
 # ----------------------------
@@ -24,7 +43,7 @@ class ApiNamespace:
 
     Example:
         vc.api("repositories").get_all_repositories
-        → veeam_br.vX.api.repositories.get_all_repositories.asyncio
+        → veeam_365.vX.api.repositories.get_all_repositories.asyncio
     """
 
     def __init__(self, client: "VeeamClient", base_module: str):
@@ -32,7 +51,7 @@ class ApiNamespace:
         self._base = base_module
 
     def __getattr__(self, name: str):
-        mod = importlib.import_module(f"{self._base}.{name}")
+        mod = _import_with_unset_patch(f"{self._base}.{name}", self._client.package)
         return mod.asyncio
 
 
@@ -59,12 +78,14 @@ class VeeamClient:
         password: str,
         api_version: str,
         verify_ssl: bool = True,
+        disable_antiforgery_token: bool = True,
     ):
-        self.host = self._normalize_host(host, api_version)
+        self.host = host
         self.username = username
         self.password = password
         self.api_version = api_version
         self.verify_ssl = verify_ssl
+        self.disable_antiforgery_token = disable_antiforgery_token
 
         from .versions import VERSION_TO_PACKAGE
 
@@ -78,58 +99,6 @@ class VeeamClient:
         self._refresh_token = None
         self._expires_at: datetime | None = None
 
-    @staticmethod
-    def _normalize_host(host: str, api_version: str) -> str:
-        version_path = f"/{api_version.lstrip('/')}"
-        cleaned = host.rstrip("/")
-        if cleaned.endswith(version_path):
-            return cleaned[: -len(version_path)]
-        return cleaned
-
-    async def _request_token(
-        self,
-        *,
-        client,
-        grant_type: str,
-        username: str | None = None,
-        password: str | None = None,
-        refresh_token: str | None = None,
-    ):
-        TokenJsonBody = getattr(
-            importlib.import_module(f"{self.package}.models.token_json_body"),
-            "TokenJsonBody",
-        )
-        OAuthTokenResponse = getattr(
-            importlib.import_module(f"{self.package}.models.o_auth_token_response"),
-            "OAuthTokenResponse",
-        )
-        RESTExceptionInfo = getattr(
-            importlib.import_module(f"{self.package}.models.rest_exception_info"),
-            "RESTExceptionInfo",
-        )
-
-        body = TokenJsonBody(
-            grant_type=grant_type,
-            username=username,
-            password=password,
-            refresh_token=refresh_token,
-        )
-
-        response = await client.get_async_httpx_client().request(
-            "post",
-            f"/{self.api_version}/token",
-            json=body.to_dict(),
-            headers={"Content-Type": "application/json"},
-        )
-
-        if response.status_code == 200:
-            return OAuthTokenResponse.from_dict(response.json())
-
-        error = RESTExceptionInfo.from_dict(response.json())
-        raise RuntimeError(
-            f"Token request failed with status {response.status_code}: {error}"
-        )
-
     # ----------------------------
     # connection + auth
     # ----------------------------
@@ -140,11 +109,20 @@ class VeeamClient:
             importlib.import_module(f"{self.package}.client"), "AuthenticatedClient"
         )
 
-        TokenJsonBodyGrantType = getattr(
+        login_mod = _import_with_unset_patch(
+            f"{self.package}.api.auth.token", self.package
+        )
+        create_token = getattr(login_mod, "asyncio")
+
+        TokenDataBody = getattr(
+            importlib.import_module(f"{self.package}.models.token_data_body"),
+            "TokenDataBody",
+        )
+        TokenDataBodyGrantType = getattr(
             importlib.import_module(
-                f"{self.package}.models.token_json_body_grant_type"
+                f"{self.package}.models.token_data_body_grant_type"
             ),
-            "TokenJsonBodyGrantType",
+            "TokenDataBodyGrantType",
         )
 
         # unauthenticated client
@@ -153,11 +131,16 @@ class VeeamClient:
             verify_ssl=self.verify_ssl,
         )
 
-        token = await self._request_token(
-            client=self._client,
-            grant_type=TokenJsonBodyGrantType.PASSWORD,
+        body = TokenDataBody(
+            grant_type=TokenDataBodyGrantType.PASSWORD,
             username=self.username,
             password=self.password,
+            disable_antiforgery_token=self.disable_antiforgery_token,
+        )
+
+        token = await create_token(
+            client=self._client,
+            body=body,
         )
 
         self._store_token(token, AuthenticatedClient)
@@ -179,18 +162,26 @@ class VeeamClient:
             base_url=self.host,
             token=self._access_token,
             verify_ssl=self.verify_ssl,
-            headers={"x-api-version": self.api_version},
         )
 
     async def _refresh_token_if_needed(self):
         if self._expires_at and datetime.utcnow() < self._expires_at:
             return
 
-        TokenJsonBodyGrantType = getattr(
+        login_mod = _import_with_unset_patch(
+            f"{self.package}.api.auth.token", self.package
+        )
+        create_token = getattr(login_mod, "asyncio")
+
+        TokenDataBody = getattr(
+            importlib.import_module(f"{self.package}.models.token_data_body"),
+            "TokenDataBody",
+        )
+        TokenDataBodyGrantType = getattr(
             importlib.import_module(
-                f"{self.package}.models.token_json_body_grant_type"
+                f"{self.package}.models.token_data_body_grant_type"
             ),
-            "TokenJsonBodyGrantType",
+            "TokenDataBodyGrantType",
         )
 
         Client = getattr(importlib.import_module(f"{self.package}.client"), "Client")
@@ -200,10 +191,14 @@ class VeeamClient:
 
         # try refresh first
         try:
-            token = await self._request_token(
-                client=self._client,
-                grant_type=TokenJsonBodyGrantType.REFRESH_TOKEN,
+            body = TokenDataBody(
+                grant_type=TokenDataBodyGrantType.REFRESH_TOKEN,
                 refresh_token=self._refresh_token,
+                disable_antiforgery_token=self.disable_antiforgery_token,
+            )
+            token = await create_token(
+                client=self._client,
+                body=body,
             )
         except Exception:
             # fallback to password
@@ -211,11 +206,15 @@ class VeeamClient:
                 base_url=self.host,
                 verify_ssl=self.verify_ssl,
             )
-            token = await self._request_token(
-                client=tmp,
-                grant_type=TokenJsonBodyGrantType.PASSWORD,
+            body = TokenDataBody(
+                grant_type=TokenDataBodyGrantType.PASSWORD,
                 username=self.username,
                 password=self.password,
+                disable_antiforgery_token=self.disable_antiforgery_token,
+            )
+            token = await create_token(
+                client=tmp,
+                body=body,
             )
 
         self._store_token(token, AuthenticatedClient)
@@ -235,7 +234,7 @@ class VeeamClient:
 
         # direct operation
         if "." in name:
-            mod = importlib.import_module(f"{self.package}.api.{name}")
+            mod = _import_with_unset_patch(f"{self.package}.api.{name}", self.package)
             return mod.asyncio
 
         # namespace

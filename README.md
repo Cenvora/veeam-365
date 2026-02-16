@@ -95,7 +95,8 @@ async def main():
         username="administrator",
         password="SuperSecretPassword",
         verify_ssl=False,
-        api_version="v8"
+        api_version="v8",
+        disable_antiforger_token=True
     )
 
     await vc.connect()
@@ -106,6 +107,10 @@ async def main():
 
 asyncio.run(main())
 ```
+
+**Optional Parameters:**
+- `verify_ssl` (bool, default: `True`): Enable/disable SSL certificate verification
+- `disable_antiforgery_token` (bool, default: `True`): Disable antiforgery token requirement. Set to `True` for programmatic/API clients (recommended). Set to `False` only if using browser-based authentication with cookies.
 
 #### Call an API endpoint (async)
 ```python
