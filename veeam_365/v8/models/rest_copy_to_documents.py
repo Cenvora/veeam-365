@@ -1,53 +1,64 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
 
 from ..models.rest_copy_to_documents_document_last_version_action import RestCopyToDocumentsDocumentLastVersionAction
 from ..models.rest_copy_to_documents_document_version import RestCopyToDocumentsDocumentVersion
 from ..models.rest_copy_to_documents_office_region import RestCopyToDocumentsOfficeRegion
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
 
 if TYPE_CHECKING:
-    from ..models.rest_one_drive import RESTOneDrive
-    from ..models.rest_one_drive_document import RESTOneDriveDocument
+  from ..models.rest_one_drive import RESTOneDrive
+  from ..models.rest_one_drive_document import RESTOneDriveDocument
+
+
+
 
 
 T = TypeVar("T", bound="RestCopyToDocuments")
 
 
+
 @_attrs_define
 class RestCopyToDocuments:
-    """
-    Attributes:
-        documents (list[RESTOneDriveDocument] | Unset): Specifies IDs of the OneDrive documents that you want to copy.
-            For more information on how to get such IDs, see [Get OneDrive
-            Documents](OneDriveDocument#operation/OneDriveDocument_Get).
-        onedrive (RESTOneDrive | Unset):
-        folder (str | Unset): Specifies the target folder for the copied OneDrive documents.
-        document_version (RestCopyToDocumentsDocumentVersion | Unset): Specifies what version of the OneDrive documents
-            will be copied.
-        document_last_version_action (RestCopyToDocumentsDocumentLastVersionAction | Unset): Specifies the action that
-            will be performed with the last version of the copied OneDrive document on the destination server.
-        user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
-            see [Get Device Code](RestoreSession#operation/RestoreSession_DeviceCodeAction).
-            This property is required if you want to use a device code for data restore.
-        application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
-            for restore. Example: 00000000-0000-0000-0000-000000000000.
-        application_certificate_password (str | Unset): Specifies a password.
-        application_certificate (str | Unset): Specifies the SSL certificate configured for the Microsoft Entra
-            application that you want to use for data restore. You must provide the certificate as a Base64 string.
-        user_name (str | Unset): Specifies the user name that you want to use for authenticating to the organization.
-        user_password (str | Unset): Specifies a password.
-        office_region (RestCopyToDocumentsOfficeRegion | Unset): Specifies the region of the target Microsoft 365
-            organization.
-        organization_name (str | Unset): Specifies the name of the target Microsoft 365 organization.
-    """
+    """ 
+        Attributes:
+            changed_items (bool | None | Unset): Defines whether all versions of OneDrive items will be copied.
+            deleted_items (bool | None | Unset): Defines whether the deleted OneDrive items will be copied.
+            documents (list[RESTOneDriveDocument] | Unset): Specifies IDs of the OneDrive documents that you want to copy.
+                For more information on how to get such IDs, see [Get OneDrive
+                Documents](#/OneDriveDocument/OneDriveDocument_Get).
+            onedrive (RESTOneDrive | Unset):
+            folder (str | Unset): Specifies the target folder for the copied OneDrive documents.
+            document_version (RestCopyToDocumentsDocumentVersion | Unset): Specifies what version of the OneDrive documents
+                will be copied.
+            document_last_version_action (RestCopyToDocumentsDocumentLastVersionAction | Unset): Specifies the action that
+                will be performed with the last version of the copied OneDrive document on the destination server.
+            user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
+                see [Get Device Code](#/RestoreSession/RestoreSession_DeviceCodeAction).
+                This property is required if you want to use a device code for data restore.
+            application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
+                for restore. Example: 00000000-0000-0000-0000-000000000000.
+            application_certificate_password (str | Unset): Specifies a password.
+            application_certificate (str | Unset): Specifies the TLS certificate configured for the Microsoft Entra
+                application that you want to use for data restore. You must provide the certificate as a Base64 string.
+            user_name (str | Unset): Specifies the user name that you want to use for authenticating to the organization.
+            user_password (str | Unset): Specifies a password.
+            office_region (RestCopyToDocumentsOfficeRegion | Unset): Specifies the region of the target Microsoft 365
+                organization.
+            organization_name (str | Unset): Specifies the name of the target Microsoft 365 organization.
+     """
 
+    changed_items: bool | None | Unset = UNSET
+    deleted_items: bool | None | Unset = UNSET
     documents: list[RESTOneDriveDocument] | Unset = UNSET
     onedrive: RESTOneDrive | Unset = UNSET
     folder: str | Unset = UNSET
@@ -63,13 +74,33 @@ class RestCopyToDocuments:
     organization_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_one_drive import RESTOneDrive
+        from ..models.rest_one_drive_document import RESTOneDriveDocument
+        changed_items: bool | None | Unset
+        if isinstance(self.changed_items, Unset):
+            changed_items = UNSET
+        else:
+            changed_items = self.changed_items
+
+        deleted_items: bool | None | Unset
+        if isinstance(self.deleted_items, Unset):
+            deleted_items = UNSET
+        else:
+            deleted_items = self.deleted_items
+
         documents: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.documents, Unset):
             documents = []
             for documents_item_data in self.documents:
                 documents_item = documents_item_data.to_dict()
                 documents.append(documents_item)
+
+
 
         onedrive: dict[str, Any] | Unset = UNSET
         if not isinstance(self.onedrive, Unset):
@@ -81,9 +112,11 @@ class RestCopyToDocuments:
         if not isinstance(self.document_version, Unset):
             document_version = self.document_version.value
 
+
         document_last_version_action: str | Unset = UNSET
         if not isinstance(self.document_last_version_action, Unset):
             document_last_version_action = self.document_last_version_action.value
+
 
         user_code = self.user_code
 
@@ -107,11 +140,18 @@ class RestCopyToDocuments:
         if not isinstance(self.office_region, Unset):
             office_region = self.office_region.value
 
+
         organization_name = self.organization_name
+
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
+        if changed_items is not UNSET:
+            field_dict["changedItems"] = changed_items
+        if deleted_items is not UNSET:
+            field_dict["deletedItems"] = deleted_items
         if documents is not UNSET:
             field_dict["documents"] = documents
         if onedrive is not UNSET:
@@ -141,12 +181,33 @@ class RestCopyToDocuments:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_one_drive import RESTOneDrive
         from ..models.rest_one_drive_document import RESTOneDriveDocument
-
         d = dict(src_dict)
+        def _parse_changed_items(data: object) -> bool | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(bool | None | Unset, data)
+
+        changed_items = _parse_changed_items(d.pop("changedItems", UNSET))
+
+
+        def _parse_deleted_items(data: object) -> bool | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(bool | None | Unset, data)
+
+        deleted_items = _parse_deleted_items(d.pop("deletedItems", UNSET))
+
+
         _documents = d.pop("documents", UNSET)
         documents: list[RESTOneDriveDocument] | Unset = UNSET
         if _documents is not UNSET:
@@ -154,30 +215,42 @@ class RestCopyToDocuments:
             for documents_item_data in _documents:
                 documents_item = RESTOneDriveDocument.from_dict(documents_item_data)
 
+
+
                 documents.append(documents_item)
+
 
         _onedrive = d.pop("onedrive", UNSET)
         onedrive: RESTOneDrive | Unset
-        if isinstance(_onedrive, Unset):
+        if isinstance(_onedrive,  Unset):
             onedrive = UNSET
         else:
             onedrive = RESTOneDrive.from_dict(_onedrive)
+
+
+
 
         folder = d.pop("folder", UNSET)
 
         _document_version = d.pop("documentVersion", UNSET)
         document_version: RestCopyToDocumentsDocumentVersion | Unset
-        if isinstance(_document_version, Unset):
+        if isinstance(_document_version,  Unset):
             document_version = UNSET
         else:
             document_version = RestCopyToDocumentsDocumentVersion(_document_version)
 
+
+
+
         _document_last_version_action = d.pop("documentLastVersionAction", UNSET)
         document_last_version_action: RestCopyToDocumentsDocumentLastVersionAction | Unset
-        if isinstance(_document_last_version_action, Unset):
+        if isinstance(_document_last_version_action,  Unset):
             document_last_version_action = UNSET
         else:
             document_last_version_action = RestCopyToDocumentsDocumentLastVersionAction(_document_last_version_action)
+
+
+
 
         user_code = d.pop("userCode", UNSET)
 
@@ -191,12 +264,15 @@ class RestCopyToDocuments:
                     raise TypeError()
                 application_id_type_0 = UUID(data)
 
+
+
                 return application_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         application_id = _parse_application_id(d.pop("applicationId", UNSET))
+
 
         application_certificate_password = d.pop("applicationCertificatePassword", UNSET)
 
@@ -208,14 +284,19 @@ class RestCopyToDocuments:
 
         _office_region = d.pop("officeRegion", UNSET)
         office_region: RestCopyToDocumentsOfficeRegion | Unset
-        if isinstance(_office_region, Unset):
+        if isinstance(_office_region,  Unset):
             office_region = UNSET
         else:
             office_region = RestCopyToDocumentsOfficeRegion(_office_region)
 
+
+
+
         organization_name = d.pop("organizationName", UNSET)
 
         rest_copy_to_documents = cls(
+            changed_items=changed_items,
+            deleted_items=deleted_items,
             documents=documents,
             onedrive=onedrive,
             folder=folder,
@@ -230,6 +311,7 @@ class RestCopyToDocuments:
             office_region=office_region,
             organization_name=organization_name,
         )
+
 
         rest_copy_to_documents.additional_properties = d
         return rest_copy_to_documents

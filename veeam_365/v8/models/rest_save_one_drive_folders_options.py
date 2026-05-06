@@ -1,33 +1,44 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_one_drive_folder import RESTOneDriveFolder
+  from ..models.rest_one_drive_folder import RESTOneDriveFolder
+
+
+
 
 
 T = TypeVar("T", bound="RESTSaveOneDriveFoldersOptions")
 
 
+
 @_attrs_define
 class RESTSaveOneDriveFoldersOptions:
-    """
-    Attributes:
-        folders (list[RESTOneDriveFolder] | Unset): Specifies IDs of the OneDrive folders that you want to save. For
-            more information on how to get such IDs, see [Get OneDrive
-            Folders](OneDriveFolder#operation/OneDriveFolder_Get).
-    """
+    """ 
+        Attributes:
+            folders (list[RESTOneDriveFolder] | Unset): Specifies IDs of the OneDrive folders that you want to save. For
+                more information on how to get such IDs, see [Get OneDrive Folders](#/OneDriveFolder/OneDriveFolder_Get).
+     """
 
     folders: list[RESTOneDriveFolder] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_one_drive_folder import RESTOneDriveFolder
         folders: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.folders, Unset):
             folders = []
@@ -35,18 +46,23 @@ class RESTSaveOneDriveFoldersOptions:
                 folders_item = folders_item_data.to_dict()
                 folders.append(folders_item)
 
+
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if folders is not UNSET:
             field_dict["folders"] = folders
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_one_drive_folder import RESTOneDriveFolder
-
         d = dict(src_dict)
         _folders = d.pop("folders", UNSET)
         folders: list[RESTOneDriveFolder] | Unset = UNSET
@@ -55,11 +71,15 @@ class RESTSaveOneDriveFoldersOptions:
             for folders_item_data in _folders:
                 folders_item = RESTOneDriveFolder.from_dict(folders_item_data)
 
+
+
                 folders.append(folders_item)
+
 
         rest_save_one_drive_folders_options = cls(
             folders=folders,
         )
+
 
         rest_save_one_drive_folders_options.additional_properties = d
         return rest_save_one_drive_folders_options

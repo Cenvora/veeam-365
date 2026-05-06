@@ -1,33 +1,40 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-    from ..models.rest_organization_current_sync_state import RESTOrganizationCurrentSyncState
-    from ..models.rest_organization_last_sync_state import RESTOrganizationLastSyncState
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_organization_current_sync_state import RESTOrganizationCurrentSyncState
+  from ..models.rest_organization_last_sync_state import RESTOrganizationLastSyncState
+
+
+
 
 
 T = TypeVar("T", bound="RESTOrganizationSyncState")
 
 
+
 @_attrs_define
 class RESTOrganizationSyncState:
-    """
-    Attributes:
-        organization_id (UUID | Unset): ID of the Microsoft 365 organization. Example:
-            00000000-0000-0000-0000-000000000000.
-        last_sync_state (None | RESTOrganizationLastSyncState | Unset): Details of the latest synchronization.
-        current_sync_state (RESTOrganizationCurrentSyncState | Unset):
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            organization_id (UUID | Unset): ID of the Microsoft 365 organization. Example:
+                00000000-0000-0000-0000-000000000000.
+            last_sync_state (None | RESTOrganizationLastSyncState | Unset): Details of the latest synchronization.
+            current_sync_state (RESTOrganizationCurrentSyncState | Unset):
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     organization_id: UUID | Unset = UNSET
     last_sync_state: None | RESTOrganizationLastSyncState | Unset = UNSET
@@ -35,9 +42,14 @@ class RESTOrganizationSyncState:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> dict[str, Any]:
-        from ..models.rest_organization_last_sync_state import RESTOrganizationLastSyncState
 
+
+
+
+    def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+        from ..models.rest_organization_current_sync_state import RESTOrganizationCurrentSyncState
+        from ..models.rest_organization_last_sync_state import RESTOrganizationLastSyncState
         organization_id: str | Unset = UNSET
         if not isinstance(self.organization_id, Unset):
             organization_id = str(self.organization_id)
@@ -58,9 +70,11 @@ class RESTOrganizationSyncState:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if organization_id is not UNSET:
             field_dict["organizationId"] = organization_id
         if last_sync_state is not UNSET:
@@ -72,19 +86,23 @@ class RESTOrganizationSyncState:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         from ..models.rest_organization_current_sync_state import RESTOrganizationCurrentSyncState
         from ..models.rest_organization_last_sync_state import RESTOrganizationLastSyncState
-
         d = dict(src_dict)
         _organization_id = d.pop("organizationId", UNSET)
         organization_id: UUID | Unset
-        if isinstance(_organization_id, Unset):
+        if isinstance(_organization_id,  Unset):
             organization_id = UNSET
         else:
             organization_id = UUID(_organization_id)
+
+
+
 
         def _parse_last_sync_state(data: object) -> None | RESTOrganizationLastSyncState | Unset:
             if data is None:
@@ -96,6 +114,8 @@ class RESTOrganizationSyncState:
                     raise TypeError()
                 last_sync_state_type_1 = RESTOrganizationLastSyncState.from_dict(data)
 
+
+
                 return last_sync_state_type_1
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -103,19 +123,26 @@ class RESTOrganizationSyncState:
 
         last_sync_state = _parse_last_sync_state(d.pop("lastSyncState", UNSET))
 
+
         _current_sync_state = d.pop("currentSyncState", UNSET)
         current_sync_state: RESTOrganizationCurrentSyncState | Unset
-        if isinstance(_current_sync_state, Unset):
+        if isinstance(_current_sync_state,  Unset):
             current_sync_state = UNSET
         else:
             current_sync_state = RESTOrganizationCurrentSyncState.from_dict(_current_sync_state)
 
+
+
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_organization_sync_state = cls(
             organization_id=organization_id,
@@ -123,6 +150,7 @@ class RESTOrganizationSyncState:
             current_sync_state=current_sync_state,
             field_links=field_links,
         )
+
 
         rest_organization_sync_state.additional_properties = d
         return rest_organization_sync_state

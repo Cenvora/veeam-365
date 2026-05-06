@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTJobSchedulePolicyType(str, Enum):
     DAILY = "Daily"
     MANUALONLY = "ManualOnly"

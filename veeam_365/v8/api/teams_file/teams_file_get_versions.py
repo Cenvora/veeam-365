@@ -1,14 +1,19 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.page_of_rest_teams_file import PageOfRESTTeamsFile
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -19,45 +24,50 @@ def _get_kwargs(
     *,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     params["offset"] = offset
 
     params["limit"] = limit
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/RestoreSessions/{restore_session_id}/organization/teams/{team_id}/channels/{channel_id}/files/{file_id}/versions".format(
-            restore_session_id=quote(str(restore_session_id), safe=""),
-            team_id=quote(str(team_id), safe=""),
-            channel_id=quote(str(channel_id), safe=""),
-            file_id=quote(str(file_id), safe=""),
-        ),
+        "url": "/v8/RestoreSessions/{restore_session_id}/organization/teams/{team_id}/channels/{channel_id}/files/{file_id}/versions".format(restore_session_id=quote(str(restore_session_id), safe=""),team_id=quote(str(team_id), safe=""),channel_id=quote(str(channel_id), safe=""),file_id=quote(str(file_id), safe=""),),
         "params": params,
     }
+
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> PageOfRESTTeamsFile | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTTeamsFile | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTTeamsFile.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[PageOfRESTTeamsFile | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTTeamsFile | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -75,8 +85,9 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> Response[PageOfRESTTeamsFile | RESTExceptionInfo]:
-    """Get Previous Versions of File
+    """ Get Previous Versions of File
 
      Returns a collection of versions of a backed-up Microsoft Teams file with the specified ID.
 
@@ -94,15 +105,17 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTTeamsFile | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        team_id=team_id,
-        channel_id=channel_id,
-        file_id=file_id,
-        offset=offset,
-        limit=limit,
+team_id=team_id,
+channel_id=channel_id,
+file_id=file_id,
+offset=offset,
+limit=limit,
+
     )
 
     response = client.get_httpx_client().request(
@@ -110,7 +123,6 @@ def sync_detailed(
     )
 
     return _build_response(client=client, response=response)
-
 
 def sync(
     restore_session_id: UUID,
@@ -121,8 +133,9 @@ def sync(
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> PageOfRESTTeamsFile | RESTExceptionInfo | None:
-    """Get Previous Versions of File
+    """ Get Previous Versions of File
 
      Returns a collection of versions of a backed-up Microsoft Teams file with the specified ID.
 
@@ -140,18 +153,19 @@ def sync(
 
     Returns:
         PageOfRESTTeamsFile | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         restore_session_id=restore_session_id,
-        team_id=team_id,
-        channel_id=channel_id,
-        file_id=file_id,
-        client=client,
-        offset=offset,
-        limit=limit,
-    ).parsed
+team_id=team_id,
+channel_id=channel_id,
+file_id=file_id,
+client=client,
+offset=offset,
+limit=limit,
 
+    ).parsed
 
 async def asyncio_detailed(
     restore_session_id: UUID,
@@ -162,8 +176,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> Response[PageOfRESTTeamsFile | RESTExceptionInfo]:
-    """Get Previous Versions of File
+    """ Get Previous Versions of File
 
      Returns a collection of versions of a backed-up Microsoft Teams file with the specified ID.
 
@@ -181,21 +196,24 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTTeamsFile | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        team_id=team_id,
-        channel_id=channel_id,
-        file_id=file_id,
-        offset=offset,
-        limit=limit,
+team_id=team_id,
+channel_id=channel_id,
+file_id=file_id,
+offset=offset,
+limit=limit,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     restore_session_id: UUID,
@@ -206,8 +224,9 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> PageOfRESTTeamsFile | RESTExceptionInfo | None:
-    """Get Previous Versions of File
+    """ Get Previous Versions of File
 
      Returns a collection of versions of a backed-up Microsoft Teams file with the specified ID.
 
@@ -225,16 +244,16 @@ async def asyncio(
 
     Returns:
         PageOfRESTTeamsFile | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            restore_session_id=restore_session_id,
-            team_id=team_id,
-            channel_id=channel_id,
-            file_id=file_id,
-            client=client,
-            offset=offset,
-            limit=limit,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        restore_session_id=restore_session_id,
+team_id=team_id,
+channel_id=channel_id,
+file_id=file_id,
+client=client,
+offset=offset,
+limit=limit,
+
+    )).parsed

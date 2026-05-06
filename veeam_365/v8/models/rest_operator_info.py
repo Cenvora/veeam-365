@@ -1,70 +1,86 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_operator_info_links import RESTOperatorInfoLinks
+  from ..models.rest_operator_info_links import RESTOperatorInfoLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTOperatorInfo")
 
 
+
 @_attrs_define
 class RESTOperatorInfo:
-    """
-    Attributes:
-        is_operator (bool): Defines whether the user acts as restore operator and is allowed to explore and restore data
-            from backups created by Veeam Backup for Microsoft 365.
-        field_links (RESTOperatorInfoLinks | Unset):
-    """
+    """ 
+        Attributes:
+            is_operator (bool): Defines whether the user acts as restore operator and is allowed to explore and restore data
+                from backups created by Veeam Backup for Microsoft 365.
+            field_links (RESTOperatorInfoLinks | Unset):
+     """
 
     is_operator: bool
     field_links: RESTOperatorInfoLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_operator_info_links import RESTOperatorInfoLinks
         is_operator = self.is_operator
 
         field_links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "isOperator": is_operator,
-            }
-        )
+        field_dict.update({
+            "isOperator": is_operator,
+        })
         if field_links is not UNSET:
             field_dict["_links"] = field_links
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_operator_info_links import RESTOperatorInfoLinks
-
         d = dict(src_dict)
         is_operator = d.pop("isOperator")
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTOperatorInfoLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTOperatorInfoLinks.from_dict(_field_links)
+
+
+
 
         rest_operator_info = cls(
             is_operator=is_operator,
             field_links=field_links,
         )
+
 
         rest_operator_info.additional_properties = d
         return rest_operator_info

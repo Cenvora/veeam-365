@@ -1,34 +1,42 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.rest_job_statistics_bottleneck import RESTJobStatisticsBottleneck
 from ..types import UNSET, Unset
+
+
+
+
+
 
 T = TypeVar("T", bound="RESTJobStatistics")
 
 
+
 @_attrs_define
 class RESTJobStatistics:
-    """
-    Attributes:
-        processing_rate_bytes_ps (int | Unset): Average speed of data processing. This counter is a ratio between the
-            amount of data that has actually been read and job duration. The value is given in bytes per second.
-        processing_rate_items_ps (int | Unset): Average speed of data processing. This counter is a ratio between the
-            amount of data that has actually been read and job duration. The value is given in items per second.
-        read_rate_bytes_ps (int | Unset): Average speed of reading data from the backup repository. The value is given
-            in bytes per second.
-        write_rate_bytes_ps (int | Unset): Average speed of writing data to the backup repository. The value is given in
-            bytes per second.
-        transferred_data_bytes (int | Unset): Amount of data transferred from source to target before applying
-            compression and deduplication. The value is given in bytes per second.
-        processed_objects (int | Unset): Number of items processed by the backup or backup copy job.
-        bottleneck (RESTJobStatisticsBottleneck | Unset): Bottleneck in the data transmission process.
-    """
+    """ 
+        Attributes:
+            processing_rate_bytes_ps (int | Unset): Average speed of data processing. This counter is a ratio between the
+                amount of data that has actually been read and job duration. The value is given in bytes per second.
+            processing_rate_items_ps (int | Unset): Average speed of data processing. This counter is a ratio between the
+                amount of data that has actually been read and job duration. The value is given in items per second.
+            read_rate_bytes_ps (int | Unset): Average speed of reading data from the backup repository. The value is given
+                in bytes per second.
+            write_rate_bytes_ps (int | Unset): Average speed of writing data to the backup repository. The value is given in
+                bytes per second.
+            transferred_data_bytes (int | Unset): Amount of data transferred from source to target before applying
+                compression and deduplication. The value is given in bytes per second.
+            processed_objects (int | Unset): Number of items processed by the backup or backup copy job.
+            bottleneck (RESTJobStatisticsBottleneck | Unset): Bottleneck in the data transmission process.
+     """
 
     processing_rate_bytes_ps: int | Unset = UNSET
     processing_rate_items_ps: int | Unset = UNSET
@@ -38,6 +46,10 @@ class RESTJobStatistics:
     processed_objects: int | Unset = UNSET
     bottleneck: RESTJobStatisticsBottleneck | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         processing_rate_bytes_ps = self.processing_rate_bytes_ps
@@ -56,9 +68,12 @@ class RESTJobStatistics:
         if not isinstance(self.bottleneck, Unset):
             bottleneck = self.bottleneck.value
 
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if processing_rate_bytes_ps is not UNSET:
             field_dict["processingRateBytesPS"] = processing_rate_bytes_ps
         if processing_rate_items_ps is not UNSET:
@@ -75,6 +90,8 @@ class RESTJobStatistics:
             field_dict["bottleneck"] = bottleneck
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -93,10 +110,13 @@ class RESTJobStatistics:
 
         _bottleneck = d.pop("bottleneck", UNSET)
         bottleneck: RESTJobStatisticsBottleneck | Unset
-        if isinstance(_bottleneck, Unset):
+        if isinstance(_bottleneck,  Unset):
             bottleneck = UNSET
         else:
             bottleneck = RESTJobStatisticsBottleneck(_bottleneck)
+
+
+
 
         rest_job_statistics = cls(
             processing_rate_bytes_ps=processing_rate_bytes_ps,
@@ -107,6 +127,7 @@ class RESTJobStatistics:
             processed_objects=processed_objects,
             bottleneck=bottleneck,
         )
+
 
         rest_job_statistics.additional_properties = d
         return rest_job_statistics

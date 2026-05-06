@@ -1,34 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTInternetProxy")
 
 
+
 @_attrs_define
 class RESTInternetProxy:
-    """
-    Attributes:
-        use_internet_proxy (bool | Unset): Defines whether the internet proxy server is used in the Veeam Backup for
-            Microsoft 365 infrastructure.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-        host_name (str | Unset): Name of the internet proxy server.
-        port (int | None | Unset): Port number which is used to connect to the specified internet proxy server. The
-            default port is *3128*.
-        use_authentication (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will use an
-            authentication credentials when connecting to the internet proxy server.
-        username (str | Unset): User name for the authentication to the internet proxy server.
-    """
+    """ 
+        Attributes:
+            use_internet_proxy (bool | Unset): Defines whether the internet proxy server is used in the Veeam Backup for
+                Microsoft 365 infrastructure.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+            host_name (str | Unset): Name of the internet proxy server.
+            port (int | None | Unset): Port number which is used to connect to the specified internet proxy server. The
+                default port is *3128*.
+            use_authentication (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will use an
+                authentication credentials when connecting to the internet proxy server.
+            username (str | Unset): User name for the authentication to the internet proxy server.
+     """
 
     use_internet_proxy: bool | Unset = UNSET
     field_links: RESTLinkHALDictionary | Unset = UNSET
@@ -38,7 +45,12 @@ class RESTInternetProxy:
     username: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         use_internet_proxy = self.use_internet_proxy
 
         field_links: dict[str, Any] | Unset = UNSET
@@ -61,9 +73,11 @@ class RESTInternetProxy:
 
         username = self.username
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if use_internet_proxy is not UNSET:
             field_dict["useInternetProxy"] = use_internet_proxy
         if field_links is not UNSET:
@@ -79,19 +93,23 @@ class RESTInternetProxy:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         use_internet_proxy = d.pop("useInternetProxy", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         host_name = d.pop("hostName", UNSET)
 
@@ -104,6 +122,7 @@ class RESTInternetProxy:
 
         port = _parse_port(d.pop("port", UNSET))
 
+
         def _parse_use_authentication(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -112,6 +131,7 @@ class RESTInternetProxy:
             return cast(bool | None | Unset, data)
 
         use_authentication = _parse_use_authentication(d.pop("useAuthentication", UNSET))
+
 
         username = d.pop("username", UNSET)
 
@@ -123,6 +143,7 @@ class RESTInternetProxy:
             use_authentication=use_authentication,
             username=username,
         )
+
 
         rest_internet_proxy.additional_properties = d
         return rest_internet_proxy

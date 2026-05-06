@@ -1,15 +1,19 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_async_restore_response import RESTAsyncRestoreResponse
 from ...models.rest_copy_to_folder import RESTCopyToFolder
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -19,20 +23,22 @@ def _get_kwargs(
     version_id: int,
     *,
     body: RESTCopyToFolder,
+
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v8/RestoreSessions/{restore_session_id}/Organization/OneDrives/{one_drive_id}/Folders/{folder_id}/Versions/{version_id}/copyTo".format(
-            restore_session_id=quote(str(restore_session_id), safe=""),
-            one_drive_id=quote(str(one_drive_id), safe=""),
-            folder_id=quote(str(folder_id), safe=""),
-            version_id=quote(str(version_id), safe=""),
-        ),
+        "url": "/v8/RestoreSessions/{restore_session_id}/Organization/OneDrives/{one_drive_id}/Folders/{folder_id}/Versions/{version_id}/copyTo".format(restore_session_id=quote(str(restore_session_id), safe=""),one_drive_id=quote(str(one_drive_id), safe=""),folder_id=quote(str(folder_id), safe=""),version_id=quote(str(version_id), safe=""),),
     }
 
     _kwargs["json"] = body.to_dict()
+
 
     headers["Content-Type"] = "application/json"
 
@@ -40,22 +46,24 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTAsyncRestoreResponse | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTAsyncRestoreResponse | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = RESTAsyncRestoreResponse.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTAsyncRestoreResponse | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTAsyncRestoreResponse | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -72,8 +80,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTCopyToFolder,
+
 ) -> Response[RESTAsyncRestoreResponse | RESTExceptionInfo]:
-    """Copy Version of OneDrive Folder
+    """ Copy Version of OneDrive Folder
 
      Copies a specific version of a backed-up OneDrive folder to another location in Microsoft OneDrive.
 
@@ -90,14 +99,16 @@ def sync_detailed(
 
     Returns:
         Response[RESTAsyncRestoreResponse | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        one_drive_id=one_drive_id,
-        folder_id=folder_id,
-        version_id=version_id,
-        body=body,
+one_drive_id=one_drive_id,
+folder_id=folder_id,
+version_id=version_id,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -105,7 +116,6 @@ def sync_detailed(
     )
 
     return _build_response(client=client, response=response)
-
 
 def sync(
     restore_session_id: UUID,
@@ -115,8 +125,9 @@ def sync(
     *,
     client: AuthenticatedClient | Client,
     body: RESTCopyToFolder,
+
 ) -> RESTAsyncRestoreResponse | RESTExceptionInfo | None:
-    """Copy Version of OneDrive Folder
+    """ Copy Version of OneDrive Folder
 
      Copies a specific version of a backed-up OneDrive folder to another location in Microsoft OneDrive.
 
@@ -133,17 +144,18 @@ def sync(
 
     Returns:
         RESTAsyncRestoreResponse | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         restore_session_id=restore_session_id,
-        one_drive_id=one_drive_id,
-        folder_id=folder_id,
-        version_id=version_id,
-        client=client,
-        body=body,
-    ).parsed
+one_drive_id=one_drive_id,
+folder_id=folder_id,
+version_id=version_id,
+client=client,
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     restore_session_id: UUID,
@@ -153,8 +165,9 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTCopyToFolder,
+
 ) -> Response[RESTAsyncRestoreResponse | RESTExceptionInfo]:
-    """Copy Version of OneDrive Folder
+    """ Copy Version of OneDrive Folder
 
      Copies a specific version of a backed-up OneDrive folder to another location in Microsoft OneDrive.
 
@@ -171,20 +184,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTAsyncRestoreResponse | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        one_drive_id=one_drive_id,
-        folder_id=folder_id,
-        version_id=version_id,
-        body=body,
+one_drive_id=one_drive_id,
+folder_id=folder_id,
+version_id=version_id,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     restore_session_id: UUID,
@@ -194,8 +210,9 @@ async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: RESTCopyToFolder,
+
 ) -> RESTAsyncRestoreResponse | RESTExceptionInfo | None:
-    """Copy Version of OneDrive Folder
+    """ Copy Version of OneDrive Folder
 
      Copies a specific version of a backed-up OneDrive folder to another location in Microsoft OneDrive.
 
@@ -212,15 +229,15 @@ async def asyncio(
 
     Returns:
         RESTAsyncRestoreResponse | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            restore_session_id=restore_session_id,
-            one_drive_id=one_drive_id,
-            folder_id=folder_id,
-            version_id=version_id,
-            client=client,
-            body=body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        restore_session_id=restore_session_id,
+one_drive_id=one_drive_id,
+folder_id=folder_id,
+version_id=version_id,
+client=client,
+body=body,
+
+    )).parsed

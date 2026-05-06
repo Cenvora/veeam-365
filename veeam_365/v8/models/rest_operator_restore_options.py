@@ -1,32 +1,39 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_exchange_item_string_id import RESTExchangeItemStringId
+  from ..models.rest_exchange_item_string_id import RESTExchangeItemStringId
+
+
+
 
 
 T = TypeVar("T", bound="RESTOperatorRestoreOptions")
 
 
+
 @_attrs_define
 class RESTOperatorRestoreOptions:
-    """
-    Attributes:
-        changed_items (bool | Unset): Defines whether all versions of mailbox items will be restored.
-        deleted_items (bool | Unset): Defines whether the deleted mailbox items will be restored.
-        mark_restored_as_unread (bool | Unset): Defines whether the restored mailbox items will be marked as unread.
-        folder (str | Unset): Specifies the folder to which you want to restore mailbox items.
-        items (list[RESTExchangeItemStringId] | Unset): Specifies IDs of the mailbox items that you want to restore. For
-            more information on how to get such IDs, see [Get Mailbox Items](ExchangeItem#operation/ExchangeItem_Get).
-        reason (str | Unset): Specifies a reason for the restore operation.
-    """
+    """ 
+        Attributes:
+            changed_items (bool | Unset): Defines whether all versions of mailbox items will be restored.
+            deleted_items (bool | Unset): Defines whether the deleted mailbox items will be restored.
+            mark_restored_as_unread (bool | Unset): Defines whether the restored mailbox items will be marked as unread.
+            folder (str | Unset): Specifies the folder to which you want to restore mailbox items.
+            items (list[RESTExchangeItemStringId] | Unset): Specifies IDs of the mailbox items that you want to restore. For
+                more information on how to get such IDs, see [Get Mailbox Items](#/ExchangeItem/ExchangeItem_Get).
+            reason (str | Unset): Specifies a reason for the restore operation.
+     """
 
     changed_items: bool | Unset = UNSET
     deleted_items: bool | Unset = UNSET
@@ -36,7 +43,12 @@ class RESTOperatorRestoreOptions:
     reason: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_exchange_item_string_id import RESTExchangeItemStringId
         changed_items = self.changed_items
 
         deleted_items = self.deleted_items
@@ -52,11 +64,15 @@ class RESTOperatorRestoreOptions:
                 items_item = items_item_data.to_dict()
                 items.append(items_item)
 
+
+
         reason = self.reason
+
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if changed_items is not UNSET:
             field_dict["changedItems"] = changed_items
         if deleted_items is not UNSET:
@@ -72,10 +88,11 @@ class RESTOperatorRestoreOptions:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_exchange_item_string_id import RESTExchangeItemStringId
-
         d = dict(src_dict)
         changed_items = d.pop("changedItems", UNSET)
 
@@ -92,7 +109,10 @@ class RESTOperatorRestoreOptions:
             for items_item_data in _items:
                 items_item = RESTExchangeItemStringId.from_dict(items_item_data)
 
+
+
                 items.append(items_item)
+
 
         reason = d.pop("reason", UNSET)
 
@@ -104,6 +124,7 @@ class RESTOperatorRestoreOptions:
             items=items,
             reason=reason,
         )
+
 
         rest_operator_restore_options.additional_properties = d
         return rest_operator_restore_options

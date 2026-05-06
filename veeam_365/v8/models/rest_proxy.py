@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
 
 from ..models.rest_proxy_internet_proxy_type import RESTProxyInternetProxyType
 from ..models.rest_proxy_maintenance_mode_state import RESTProxyMaintenanceModeState
@@ -15,47 +16,53 @@ from ..models.rest_proxy_status import RESTProxyStatus
 from ..models.rest_proxy_throttling_unit import RESTProxyThrottlingUnit
 from ..models.rest_proxy_type import RESTProxyType
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
 
 if TYPE_CHECKING:
-    from ..models.rest_internet_proxy_settings import RESTInternetProxySettings
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_internet_proxy_settings import RESTInternetProxySettings
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTProxy")
 
 
+
 @_attrs_define
 class RESTProxy:
-    """
-    Attributes:
-        type_ (RESTProxyType | Unset): Type of the backup proxy server.
-        use_internet_proxy (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will use an internet
-            proxy server to process backup and backup copy jobs.
-        internet_proxy_type (RESTProxyInternetProxyType | Unset): Type of the internet proxy server.
-        operating_system (RESTProxyOperatingSystem | Unset): Type of the operating system that the backup proxy server
-            runs.
-        internet_proxy_settings (RESTInternetProxySettings | Unset):
-        id (None | Unset | UUID): Backup proxy server ID. Example: 00000000-0000-0000-0000-000000000000.
-        proxy_pool_id (None | Unset | UUID): Backup proxy pool ID. Example: 00000000-0000-0000-0000-000000000000.
-        host_name (str | Unset): DNS name or IP address of the backup proxy server.
-        fqdn (str | Unset): Fully qualified domain name of the backup proxy server.
-        description (str | Unset): Description of the backup proxy server.
-        port (int | None | Unset): Port number to connect to the backup proxy server.
-        enable_network_throttling (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 limits the
-            network bandwidth for performance optimization.
-        throttling_value (int | None | Unset): Value of the network bandwidth limit.
-        throttling_unit (RESTProxyThrottlingUnit | Unset): Measuring unit for the network bandwidth limit.
-        status (RESTProxyStatus | Unset): Status of the backup proxy server.
-        maintenance_mode_state (RESTProxyMaintenanceModeState | Unset): State of the maintenance mode for the backup
-            proxy server.
-        cpu_usage_percent (float | None | Unset): Percent of CPU usage for the backup proxy server.
-        memory_usage_percent (float | None | Unset): Percent of memory usage for the backup proxy server.
-        version (None | str | Unset): Version of Veeam Backup for Microsoft 365 installed on the backup proxy server.
-        service_account (None | str | Unset): Service account that is used to run *Veeam Backup for Microsoft 365 Proxy
-            Service*.
-        role (list[RESTProxyRole] | Unset): Array of roles assigned to the backup proxy server.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            type_ (RESTProxyType | Unset): Type of the backup proxy server.
+            use_internet_proxy (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will use an internet
+                proxy server to process backup and backup copy jobs.
+            internet_proxy_type (RESTProxyInternetProxyType | Unset): Type of the internet proxy server.
+            operating_system (RESTProxyOperatingSystem | Unset): Type of the operating system that the backup proxy server
+                runs.
+            internet_proxy_settings (RESTInternetProxySettings | Unset):
+            id (None | Unset | UUID): Backup proxy server ID. Example: 00000000-0000-0000-0000-000000000000.
+            proxy_pool_id (None | Unset | UUID): Backup proxy pool ID. Example: 00000000-0000-0000-0000-000000000000.
+            host_name (str | Unset): DNS name or IP address of the backup proxy server.
+            fqdn (str | Unset): Fully qualified domain name of the backup proxy server.
+            description (str | Unset): Description of the backup proxy server.
+            port (int | None | Unset): Port number to connect to the backup proxy server.
+            enable_network_throttling (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 limits the
+                network bandwidth for performance optimization.
+            throttling_value (int | None | Unset): Value of the network bandwidth limit.
+            throttling_unit (RESTProxyThrottlingUnit | Unset): Measuring unit for the network bandwidth limit.
+            status (RESTProxyStatus | Unset): Status of the backup proxy server.
+            maintenance_mode_state (RESTProxyMaintenanceModeState | Unset): State of the maintenance mode for the backup
+                proxy server.
+            cpu_usage_percent (float | None | Unset): Percent of CPU usage for the backup proxy server.
+            memory_usage_percent (float | None | Unset): Percent of memory usage for the backup proxy server.
+            version (None | str | Unset): Version of Veeam Backup for Microsoft 365 installed on the backup proxy server.
+            service_account (None | str | Unset): Service account that is used to run *Veeam Backup for Microsoft 365 Proxy
+                Service*.
+            role (list[RESTProxyRole] | Unset): Array of roles assigned to the backup proxy server.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     type_: RESTProxyType | Unset = UNSET
     use_internet_proxy: bool | None | Unset = UNSET
@@ -81,10 +88,17 @@ class RESTProxy:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_internet_proxy_settings import RESTInternetProxySettings
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
+
 
         use_internet_proxy: bool | None | Unset
         if isinstance(self.use_internet_proxy, Unset):
@@ -96,9 +110,11 @@ class RESTProxy:
         if not isinstance(self.internet_proxy_type, Unset):
             internet_proxy_type = self.internet_proxy_type.value
 
+
         operating_system: str | Unset = UNSET
         if not isinstance(self.operating_system, Unset):
             operating_system = self.operating_system.value
+
 
         internet_proxy_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.internet_proxy_settings, Unset):
@@ -148,13 +164,16 @@ class RESTProxy:
         if not isinstance(self.throttling_unit, Unset):
             throttling_unit = self.throttling_unit.value
 
+
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
 
+
         maintenance_mode_state: str | Unset = UNSET
         if not isinstance(self.maintenance_mode_state, Unset):
             maintenance_mode_state = self.maintenance_mode_state.value
+
 
         cpu_usage_percent: float | None | Unset
         if isinstance(self.cpu_usage_percent, Unset):
@@ -187,13 +206,17 @@ class RESTProxy:
                 role_item = role_item_data.value
                 role.append(role_item)
 
+
+
         field_links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if type_ is not UNSET:
             field_dict["type"] = type_
         if use_internet_proxy is not UNSET:
@@ -241,18 +264,22 @@ class RESTProxy:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_internet_proxy_settings import RESTInternetProxySettings
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
         type_: RESTProxyType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTProxyType(_type_)
+
+
+
 
         def _parse_use_internet_proxy(data: object) -> bool | None | Unset:
             if data is None:
@@ -263,26 +290,36 @@ class RESTProxy:
 
         use_internet_proxy = _parse_use_internet_proxy(d.pop("useInternetProxy", UNSET))
 
+
         _internet_proxy_type = d.pop("internetProxyType", UNSET)
         internet_proxy_type: RESTProxyInternetProxyType | Unset
-        if isinstance(_internet_proxy_type, Unset):
+        if isinstance(_internet_proxy_type,  Unset):
             internet_proxy_type = UNSET
         else:
             internet_proxy_type = RESTProxyInternetProxyType(_internet_proxy_type)
 
+
+
+
         _operating_system = d.pop("operatingSystem", UNSET)
         operating_system: RESTProxyOperatingSystem | Unset
-        if isinstance(_operating_system, Unset):
+        if isinstance(_operating_system,  Unset):
             operating_system = UNSET
         else:
             operating_system = RESTProxyOperatingSystem(_operating_system)
 
+
+
+
         _internet_proxy_settings = d.pop("internetProxySettings", UNSET)
         internet_proxy_settings: RESTInternetProxySettings | Unset
-        if isinstance(_internet_proxy_settings, Unset):
+        if isinstance(_internet_proxy_settings,  Unset):
             internet_proxy_settings = UNSET
         else:
             internet_proxy_settings = RESTInternetProxySettings.from_dict(_internet_proxy_settings)
+
+
+
 
         def _parse_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -294,12 +331,15 @@ class RESTProxy:
                     raise TypeError()
                 id_type_0 = UUID(data)
 
+
+
                 return id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         id = _parse_id(d.pop("id", UNSET))
+
 
         def _parse_proxy_pool_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -311,12 +351,15 @@ class RESTProxy:
                     raise TypeError()
                 proxy_pool_id_type_0 = UUID(data)
 
+
+
                 return proxy_pool_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         proxy_pool_id = _parse_proxy_pool_id(d.pop("proxyPoolId", UNSET))
+
 
         host_name = d.pop("hostName", UNSET)
 
@@ -333,6 +376,7 @@ class RESTProxy:
 
         port = _parse_port(d.pop("port", UNSET))
 
+
         def _parse_enable_network_throttling(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -341,6 +385,7 @@ class RESTProxy:
             return cast(bool | None | Unset, data)
 
         enable_network_throttling = _parse_enable_network_throttling(d.pop("enableNetworkThrottling", UNSET))
+
 
         def _parse_throttling_value(data: object) -> int | None | Unset:
             if data is None:
@@ -351,26 +396,36 @@ class RESTProxy:
 
         throttling_value = _parse_throttling_value(d.pop("throttlingValue", UNSET))
 
+
         _throttling_unit = d.pop("throttlingUnit", UNSET)
         throttling_unit: RESTProxyThrottlingUnit | Unset
-        if isinstance(_throttling_unit, Unset):
+        if isinstance(_throttling_unit,  Unset):
             throttling_unit = UNSET
         else:
             throttling_unit = RESTProxyThrottlingUnit(_throttling_unit)
 
+
+
+
         _status = d.pop("status", UNSET)
         status: RESTProxyStatus | Unset
-        if isinstance(_status, Unset):
+        if isinstance(_status,  Unset):
             status = UNSET
         else:
             status = RESTProxyStatus(_status)
 
+
+
+
         _maintenance_mode_state = d.pop("maintenanceModeState", UNSET)
         maintenance_mode_state: RESTProxyMaintenanceModeState | Unset
-        if isinstance(_maintenance_mode_state, Unset):
+        if isinstance(_maintenance_mode_state,  Unset):
             maintenance_mode_state = UNSET
         else:
             maintenance_mode_state = RESTProxyMaintenanceModeState(_maintenance_mode_state)
+
+
+
 
         def _parse_cpu_usage_percent(data: object) -> float | None | Unset:
             if data is None:
@@ -381,6 +436,7 @@ class RESTProxy:
 
         cpu_usage_percent = _parse_cpu_usage_percent(d.pop("cpuUsagePercent", UNSET))
 
+
         def _parse_memory_usage_percent(data: object) -> float | None | Unset:
             if data is None:
                 return data
@@ -389,6 +445,7 @@ class RESTProxy:
             return cast(float | None | Unset, data)
 
         memory_usage_percent = _parse_memory_usage_percent(d.pop("memoryUsagePercent", UNSET))
+
 
         def _parse_version(data: object) -> None | str | Unset:
             if data is None:
@@ -399,6 +456,7 @@ class RESTProxy:
 
         version = _parse_version(d.pop("version", UNSET))
 
+
         def _parse_service_account(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -408,6 +466,7 @@ class RESTProxy:
 
         service_account = _parse_service_account(d.pop("serviceAccount", UNSET))
 
+
         _role = d.pop("role", UNSET)
         role: list[RESTProxyRole] | Unset = UNSET
         if _role is not UNSET:
@@ -415,14 +474,20 @@ class RESTProxy:
             for role_item_data in _role:
                 role_item = RESTProxyRole(role_item_data)
 
+
+
                 role.append(role_item)
+
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_proxy = cls(
             type_=type_,
@@ -448,6 +513,7 @@ class RESTProxy:
             role=role,
             field_links=field_links,
         )
+
 
         rest_proxy.additional_properties = d
         return rest_proxy

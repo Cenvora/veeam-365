@@ -1,43 +1,50 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_job_backup_item_type import RESTJobBackupItemType
 from ..types import UNSET, Unset
 
+from ..models.rest_job_backup_item_type import RESTJobBackupItemType
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_group import RESTGroup
-    from ..models.rest_job_group_item_links_type_0 import RESTJobGroupItemLinksType0
+  from ..models.rest_group import RESTGroup
+  from ..models.rest_job_group_item_links_type_0 import RESTJobGroupItemLinksType0
+
+
+
 
 
 T = TypeVar("T", bound="RESTJobGroupItem")
 
 
+
 @_attrs_define
 class RESTJobGroupItem:
-    """
-    Attributes:
-        type_ (RESTJobBackupItemType | Unset): Type of the backup item.
-        group (RESTGroup | Unset):
-        members (bool | None | Unset): Defines whether this backup job will include/exclude the *Members* processing
-            option.
-        member_mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Mail* processing
-            option.
-        member_archive_mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Archive*
-            processing option.
-        member_onedrive (bool | None | Unset): Defines whether this backup job will include/exclude the *OneDrive*
-            processing option.
-        member_site (bool | None | Unset): Defines whether this backup job will include/exclude the *Site* processing
-            option.
-        mailbox (bool | None | Unset): Defines whether this job will back up a group mailbox.
-        group_site (bool | None | Unset): Defines whether this job will back up a group site.
-        id (None | str | Unset): Backup item ID.
-        field_links (None | RESTJobGroupItemLinksType0 | Unset):
-    """
+    """ 
+        Attributes:
+            type_ (RESTJobBackupItemType | Unset): Type of the backup item.
+            group (RESTGroup | Unset):
+            members (bool | None | Unset): Defines whether this backup job will include/exclude the *Members* processing
+                option.
+            member_mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Mail* processing
+                option.
+            member_archive_mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Archive*
+                processing option.
+            member_onedrive (bool | None | Unset): Defines whether this backup job will include/exclude the *OneDrive*
+                processing option.
+            member_site (bool | None | Unset): Defines whether this backup job will include/exclude the *Site* processing
+                option.
+            mailbox (bool | None | Unset): Defines whether this job will back up a group mailbox.
+            group_site (bool | None | Unset): Defines whether this job will back up a group site.
+            id (None | str | Unset): Backup item ID.
+            field_links (None | RESTJobGroupItemLinksType0 | Unset):
+     """
 
     type_: RESTJobBackupItemType | Unset = UNSET
     group: RESTGroup | Unset = UNSET
@@ -52,12 +59,17 @@ class RESTJobGroupItem:
     field_links: None | RESTJobGroupItemLinksType0 | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> dict[str, Any]:
-        from ..models.rest_job_group_item_links_type_0 import RESTJobGroupItemLinksType0
 
+
+
+
+    def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_group import RESTGroup
+        from ..models.rest_job_group_item_links_type_0 import RESTJobGroupItemLinksType0
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
+
 
         group: dict[str, Any] | Unset = UNSET
         if not isinstance(self.group, Unset):
@@ -119,9 +131,11 @@ class RESTJobGroupItem:
         else:
             field_links = self.field_links
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if type_ is not UNSET:
             field_dict["type"] = type_
         if group is not UNSET:
@@ -147,25 +161,32 @@ class RESTJobGroupItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_group import RESTGroup
         from ..models.rest_job_group_item_links_type_0 import RESTJobGroupItemLinksType0
-
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
         type_: RESTJobBackupItemType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTJobBackupItemType(_type_)
 
+
+
+
         _group = d.pop("group", UNSET)
         group: RESTGroup | Unset
-        if isinstance(_group, Unset):
+        if isinstance(_group,  Unset):
             group = UNSET
         else:
             group = RESTGroup.from_dict(_group)
+
+
+
 
         def _parse_members(data: object) -> bool | None | Unset:
             if data is None:
@@ -176,6 +197,7 @@ class RESTJobGroupItem:
 
         members = _parse_members(d.pop("members", UNSET))
 
+
         def _parse_member_mailbox(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -184,6 +206,7 @@ class RESTJobGroupItem:
             return cast(bool | None | Unset, data)
 
         member_mailbox = _parse_member_mailbox(d.pop("memberMailbox", UNSET))
+
 
         def _parse_member_archive_mailbox(data: object) -> bool | None | Unset:
             if data is None:
@@ -194,6 +217,7 @@ class RESTJobGroupItem:
 
         member_archive_mailbox = _parse_member_archive_mailbox(d.pop("memberArchiveMailbox", UNSET))
 
+
         def _parse_member_onedrive(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -202,6 +226,7 @@ class RESTJobGroupItem:
             return cast(bool | None | Unset, data)
 
         member_onedrive = _parse_member_onedrive(d.pop("memberOnedrive", UNSET))
+
 
         def _parse_member_site(data: object) -> bool | None | Unset:
             if data is None:
@@ -212,6 +237,7 @@ class RESTJobGroupItem:
 
         member_site = _parse_member_site(d.pop("memberSite", UNSET))
 
+
         def _parse_mailbox(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -220,6 +246,7 @@ class RESTJobGroupItem:
             return cast(bool | None | Unset, data)
 
         mailbox = _parse_mailbox(d.pop("mailbox", UNSET))
+
 
         def _parse_group_site(data: object) -> bool | None | Unset:
             if data is None:
@@ -230,6 +257,7 @@ class RESTJobGroupItem:
 
         group_site = _parse_group_site(d.pop("groupSite", UNSET))
 
+
         def _parse_id(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -238,6 +266,7 @@ class RESTJobGroupItem:
             return cast(None | str | Unset, data)
 
         id = _parse_id(d.pop("id", UNSET))
+
 
         def _parse_field_links(data: object) -> None | RESTJobGroupItemLinksType0 | Unset:
             if data is None:
@@ -249,12 +278,15 @@ class RESTJobGroupItem:
                     raise TypeError()
                 field_links_type_0 = RESTJobGroupItemLinksType0.from_dict(data)
 
+
+
                 return field_links_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | RESTJobGroupItemLinksType0 | Unset, data)
 
         field_links = _parse_field_links(d.pop("_links", UNSET))
+
 
         rest_job_group_item = cls(
             type_=type_,
@@ -269,6 +301,7 @@ class RESTJobGroupItem:
             id=id,
             field_links=field_links,
         )
+
 
         rest_job_group_item.additional_properties = d
         return rest_job_group_item

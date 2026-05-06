@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class TokenJsonBodyGrantType(str, Enum):
     OPERATOR = "operator"
     PASSWORD = "password"

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTJobSchedulePolicyPeriodicallyEvery(str, Enum):
     HOURS1 = "Hours1"
     HOURS12 = "Hours12"

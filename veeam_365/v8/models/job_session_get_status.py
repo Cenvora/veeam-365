@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class JobSessionGetStatus(str, Enum):
     FAILED = "Failed"
     RUNNING = "Running"

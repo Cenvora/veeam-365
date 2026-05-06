@@ -1,33 +1,42 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
 
 from ..models.rest_item_restore_details_type import RESTItemRestoreDetailsType
 from ..models.rest_restore_item_type import RESTRestoreItemType
 from ..models.rest_restore_status import RESTRestoreStatus
 from ..types import UNSET, Unset
+from typing import cast
+
+
+
+
+
 
 T = TypeVar("T", bound="RESTItemRestoreDetails")
 
 
+
 @_attrs_define
 class RESTItemRestoreDetails:
-    """
-    Attributes:
-        id (str): ID of the object.
-        item_restore_details_type (RESTItemRestoreDetailsType): Type of the restore operation performed with the object.
-        name (str): Name of the restored item.
-        item_type (RESTRestoreItemType): Type of the restored item.
-        status (RESTRestoreStatus): Status of the restored item.
-        title (str | Unset): Title of the restored item.
-        error (str | Unset): Error that occurred during the item restore.
-        path (str | Unset): Path to the restored item.
-        warnings (list[str] | Unset): Array of warnings appeared during the restore operation.
-    """
+    """ 
+        Attributes:
+            id (str): ID of the object.
+            item_restore_details_type (RESTItemRestoreDetailsType): Type of the restore operation performed with the object.
+            name (str): Name of the restored item.
+            item_type (RESTRestoreItemType): Type of the restored item.
+            status (RESTRestoreStatus): Status of the restored item.
+            title (str | Unset): Title of the restored item.
+            error (str | Unset): Error that occurred during the item restore.
+            path (str | Unset): Path to the restored item.
+            warnings (list[str] | Unset): Array of warnings appeared during the restore operation.
+     """
 
     id: str
     item_restore_details_type: RESTItemRestoreDetailsType
@@ -39,6 +48,10 @@ class RESTItemRestoreDetails:
     path: str | Unset = UNSET
     warnings: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
@@ -61,17 +74,18 @@ class RESTItemRestoreDetails:
         if not isinstance(self.warnings, Unset):
             warnings = self.warnings
 
+
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "itemRestoreDetailsType": item_restore_details_type,
-                "name": name,
-                "itemType": item_type,
-                "status": status,
-            }
-        )
+        field_dict.update({
+            "id": id,
+            "itemRestoreDetailsType": item_restore_details_type,
+            "name": name,
+            "itemType": item_type,
+            "status": status,
+        })
         if title is not UNSET:
             field_dict["title"] = title
         if error is not UNSET:
@@ -83,6 +97,8 @@ class RESTItemRestoreDetails:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -90,11 +106,20 @@ class RESTItemRestoreDetails:
 
         item_restore_details_type = RESTItemRestoreDetailsType(d.pop("itemRestoreDetailsType"))
 
+
+
+
         name = d.pop("name")
 
         item_type = RESTRestoreItemType(d.pop("itemType"))
 
+
+
+
         status = RESTRestoreStatus(d.pop("status"))
+
+
+
 
         title = d.pop("title", UNSET)
 
@@ -103,6 +128,7 @@ class RESTItemRestoreDetails:
         path = d.pop("path", UNSET)
 
         warnings = cast(list[str], d.pop("warnings", UNSET))
+
 
         rest_item_restore_details = cls(
             id=id,
@@ -115,6 +141,7 @@ class RESTItemRestoreDetails:
             path=path,
             warnings=warnings,
         )
+
 
         rest_item_restore_details.additional_properties = d
         return rest_item_restore_details

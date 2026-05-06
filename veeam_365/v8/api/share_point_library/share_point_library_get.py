@@ -1,14 +1,19 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.page_of_rest_share_point_library import PageOfRESTSharePointLibrary
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -17,43 +22,50 @@ def _get_kwargs(
     *,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     params["offset"] = offset
 
     params["limit"] = limit
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/RestoreSessions/{restore_session_id}/Organization/Sites/{site_id}/Libraries".format(
-            restore_session_id=quote(str(restore_session_id), safe=""),
-            site_id=quote(str(site_id), safe=""),
-        ),
+        "url": "/v8/RestoreSessions/{restore_session_id}/Organization/Sites/{site_id}/Libraries".format(restore_session_id=quote(str(restore_session_id), safe=""),site_id=quote(str(site_id), safe=""),),
         "params": params,
     }
+
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> PageOfRESTSharePointLibrary | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTSharePointLibrary | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTSharePointLibrary.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[PageOfRESTSharePointLibrary | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTSharePointLibrary | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -69,8 +81,9 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> Response[PageOfRESTSharePointLibrary | RESTExceptionInfo]:
-    """Get SharePoint Libraries
+    """ Get SharePoint Libraries
 
      Returns a collection of backed-up SharePoint document libraries to explore and restore.
 
@@ -86,13 +99,15 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTSharePointLibrary | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        site_id=site_id,
-        offset=offset,
-        limit=limit,
+site_id=site_id,
+offset=offset,
+limit=limit,
+
     )
 
     response = client.get_httpx_client().request(
@@ -101,7 +116,6 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     restore_session_id: UUID,
     site_id: str,
@@ -109,8 +123,9 @@ def sync(
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> PageOfRESTSharePointLibrary | RESTExceptionInfo | None:
-    """Get SharePoint Libraries
+    """ Get SharePoint Libraries
 
      Returns a collection of backed-up SharePoint document libraries to explore and restore.
 
@@ -126,16 +141,17 @@ def sync(
 
     Returns:
         PageOfRESTSharePointLibrary | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         restore_session_id=restore_session_id,
-        site_id=site_id,
-        client=client,
-        offset=offset,
-        limit=limit,
-    ).parsed
+site_id=site_id,
+client=client,
+offset=offset,
+limit=limit,
 
+    ).parsed
 
 async def asyncio_detailed(
     restore_session_id: UUID,
@@ -144,8 +160,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> Response[PageOfRESTSharePointLibrary | RESTExceptionInfo]:
-    """Get SharePoint Libraries
+    """ Get SharePoint Libraries
 
      Returns a collection of backed-up SharePoint document libraries to explore and restore.
 
@@ -161,19 +178,22 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTSharePointLibrary | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        site_id=site_id,
-        offset=offset,
-        limit=limit,
+site_id=site_id,
+offset=offset,
+limit=limit,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     restore_session_id: UUID,
@@ -182,8 +202,9 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> PageOfRESTSharePointLibrary | RESTExceptionInfo | None:
-    """Get SharePoint Libraries
+    """ Get SharePoint Libraries
 
      Returns a collection of backed-up SharePoint document libraries to explore and restore.
 
@@ -199,14 +220,14 @@ async def asyncio(
 
     Returns:
         PageOfRESTSharePointLibrary | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            restore_session_id=restore_session_id,
-            site_id=site_id,
-            client=client,
-            offset=offset,
-            limit=limit,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        restore_session_id=restore_session_id,
+site_id=site_id,
+client=client,
+offset=offset,
+limit=limit,
+
+    )).parsed

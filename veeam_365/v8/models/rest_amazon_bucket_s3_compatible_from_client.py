@@ -1,33 +1,40 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTAmazonBucketS3CompatibleFromClient")
 
 
+
 @_attrs_define
 class RESTAmazonBucketS3CompatibleFromClient:
-    """
-    Attributes:
-        service_point (str | Unset): Endpoint address.
-        custom_region_id (str | Unset): Region ID.
-        name (str | Unset): Bucket name.
-        trusted_server_certificate_thumbprint (None | str | Unset): String that represents thumbprint of a not trusted
-            S3 Compatible self-signed certificate.
-        trust_server_certificate (bool | None | Unset): Defines whether to trust S3 Compatible self-signed certificates.
-            If set to *true*, you can omit specifying the `TrustedServerCertificateThumbprint` parameter value.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            service_point (str | Unset): Specifies the endpoint address.
+            custom_region_id (str | Unset): Specifies the region ID.
+            name (str | Unset): Specifies the bucket name.
+            trusted_server_certificate_thumbprint (None | str | Unset): Specifies string that represents thumbprint of a not
+                trusted S3 Compatible self-signed certificate.
+            trust_server_certificate (bool | None | Unset): Defines whether to trust S3 Compatible self-signed certificates.
+                If set to *true*, you can omit specifying the `TrustedServerCertificateThumbprint` parameter value.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     service_point: str | Unset = UNSET
     custom_region_id: str | Unset = UNSET
@@ -37,7 +44,12 @@ class RESTAmazonBucketS3CompatibleFromClient:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         service_point = self.service_point
 
         custom_region_id = self.custom_region_id
@@ -60,9 +72,11 @@ class RESTAmazonBucketS3CompatibleFromClient:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if service_point is not UNSET:
             field_dict["servicePoint"] = service_point
         if custom_region_id is not UNSET:
@@ -78,10 +92,11 @@ class RESTAmazonBucketS3CompatibleFromClient:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         service_point = d.pop("servicePoint", UNSET)
 
@@ -96,9 +111,8 @@ class RESTAmazonBucketS3CompatibleFromClient:
                 return data
             return cast(None | str | Unset, data)
 
-        trusted_server_certificate_thumbprint = _parse_trusted_server_certificate_thumbprint(
-            d.pop("trustedServerCertificateThumbprint", UNSET)
-        )
+        trusted_server_certificate_thumbprint = _parse_trusted_server_certificate_thumbprint(d.pop("trustedServerCertificateThumbprint", UNSET))
+
 
         def _parse_trust_server_certificate(data: object) -> bool | None | Unset:
             if data is None:
@@ -109,12 +123,16 @@ class RESTAmazonBucketS3CompatibleFromClient:
 
         trust_server_certificate = _parse_trust_server_certificate(d.pop("trustServerCertificate", UNSET))
 
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_amazon_bucket_s3_compatible_from_client = cls(
             service_point=service_point,
@@ -124,6 +142,7 @@ class RESTAmazonBucketS3CompatibleFromClient:
             trust_server_certificate=trust_server_certificate,
             field_links=field_links,
         )
+
 
         rest_amazon_bucket_s3_compatible_from_client.additional_properties = d
         return rest_amazon_bucket_s3_compatible_from_client

@@ -1,38 +1,46 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from uuid import UUID
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTLicensingReportOrganization")
+
 
 
 @_attrs_define
 class RESTLicensingReportOrganization:
-    """
-    Attributes:
-        organization_id (UUID | Unset): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
-        backed_up_organization_id (str | Unset): ID of the backed-up Microsoft organization in the backup.
-        organization_name (str | Unset): Name of the Microsoft organization whose license usage statistics is included
-            in the report.
-        initial_count (int | Unset): Number of objects that consume the license within the time period covered by the
-            report.
-        initial_points (float | Unset): Number of licensing points that consume the license within the time period
-            covered by the report.
-        reported_count (int | Unset): Number of objects consuming the license that you report to Veeam.
-        reported_points (float | Unset): Number of licensing points consuming the license that you report to Veeam.
-        new_count (int | Unset): Number of objects that were activated within the time period covered by the report.
-        new_points (float | Unset): Number of licensing points that were activated within the time period covered by the
-            report.
-        removed_count (int | Unset): Number of objects removed from the report.
-        removed_points (float | Unset): Number of licensing points removed from the report.
-        removal_reason (str | Unset): Reason for removal of objects from the report.
-    """
+    """ 
+        Attributes:
+            organization_id (UUID | Unset): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
+            backed_up_organization_id (str | Unset): ID of the backed-up Microsoft organization in the backup.
+            organization_name (str | Unset): Name of the Microsoft organization whose license usage statistics is included
+                in the report.
+            initial_count (int | Unset): Number of objects that consume the license within the time period covered by the
+                report.
+            initial_points (float | Unset): Number of licensing points that consume the license within the time period
+                covered by the report.
+            reported_count (int | Unset): Number of objects consuming the license that you report to Veeam.
+            reported_points (float | Unset): Number of licensing points consuming the license that you report to Veeam.
+            new_count (int | Unset): Number of objects that were activated within the time period covered by the report.
+            new_points (float | Unset): Number of licensing points that were activated within the time period covered by the
+                report.
+            removed_count (int | Unset): Number of objects removed from the report.
+            removed_points (float | Unset): Number of licensing points removed from the report.
+            removal_reason (str | Unset): Reason for removal of objects from the report.
+     """
 
     organization_id: UUID | Unset = UNSET
     backed_up_organization_id: str | Unset = UNSET
@@ -47,6 +55,10 @@ class RESTLicensingReportOrganization:
     removed_points: float | Unset = UNSET
     removal_reason: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         organization_id: str | Unset = UNSET
@@ -75,9 +87,11 @@ class RESTLicensingReportOrganization:
 
         removal_reason = self.removal_reason
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if organization_id is not UNSET:
             field_dict["organizationId"] = organization_id
         if backed_up_organization_id is not UNSET:
@@ -105,15 +119,20 @@ class RESTLicensingReportOrganization:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _organization_id = d.pop("organizationId", UNSET)
         organization_id: UUID | Unset
-        if isinstance(_organization_id, Unset):
+        if isinstance(_organization_id,  Unset):
             organization_id = UNSET
         else:
             organization_id = UUID(_organization_id)
+
+
+
 
         backed_up_organization_id = d.pop("backedUpOrganizationId", UNSET)
 
@@ -151,6 +170,7 @@ class RESTLicensingReportOrganization:
             removed_points=removed_points,
             removal_reason=removal_reason,
         )
+
 
         rest_licensing_report_organization.additional_properties = d
         return rest_licensing_report_organization

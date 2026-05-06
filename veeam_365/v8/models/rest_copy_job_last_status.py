@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTCopyJobLastStatus(str, Enum):
     DISCONNECTED = "Disconnected"
     FAILED = "Failed"

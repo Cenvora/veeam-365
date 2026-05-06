@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
 
 from ..models.rest_backup_repository_daily_type import RESTBackupRepositoryDailyType
 from ..models.rest_backup_repository_monthly_daynumber import RESTBackupRepositoryMonthlyDaynumber
@@ -15,69 +16,75 @@ from ..models.rest_backup_repository_retention_period_type import RESTBackupRepo
 from ..models.rest_backup_repository_retention_type import RESTBackupRepositoryRetentionType
 from ..models.rest_backup_repository_yearly_retention_period import RESTBackupRepositoryYearlyRetentionPeriod
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
 
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-    from ..models.rest_object_storage_composed import RESTObjectStorageComposed
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_object_storage_composed import RESTObjectStorageComposed
+
+
+
 
 
 T = TypeVar("T", bound="RESTBackupRepository")
 
 
+
 @_attrs_define
 class RESTBackupRepository:
-    """
-    Attributes:
-        object_storage_encryption_enabled (bool | None | Unset): Defines whether the object storage encryption is
-            enabled.
-        encryption_key_id (None | Unset | UUID): Encryption key ID. Example: 00000000-0000-0000-0000-000000000000.
-        capacity_bytes (int | None | Unset): Size of the JET-based backup repository in *Bytes*.
-        free_space_bytes (int | None | Unset): Available space on the JET-based backup repository in *Bytes*.
-        id (None | Unset | UUID): Backup repository ID. Example: 00000000-0000-0000-0000-000000000000.
-        name (str | Unset): Name of the backup repository.
-        description (str | Unset): Description of the backup repository.
-        path (str | Unset): Path to the directory where backups are stored.
-        retention_type (RESTBackupRepositoryRetentionType | Unset): Type of the retention policy.
-        retention_period_type (RESTBackupRepositoryRetentionPeriodType | Unset): Type of the retention period.
-        daily_retention_period (int | None | Unset): Retention period in days. This property is valid if
-            `retentionPeriodType` is set to *Daily*.
-        monthly_retention_period (int | None | Unset): Retention period in months. This property is valid if
-            `retentionPeriodType` is set to *Monthly*.
-        yearly_retention_period (RESTBackupRepositoryYearlyRetentionPeriod | Unset): Retention period in years. This
-            property is valid if `retentionPeriodType` is set to *Yearly*. If set to *Keep*, the backup job will back up all
-            selected items and will never remove them.
-        retention_frequency_type (RESTBackupRepositoryRetentionFrequencyType | Unset): Type of the clean-up schedule.
-            The following types are available: <ul> <li>*Daily*. Veeam Backup for Microsoft 365 checks and removes the
-            outdated backups once a day. Use the `dailyTime` property to set the time of the day for performing clean-up.
-            Use the `dailyType` property to set the days for performing clean-up.</li> <li>*Monthly*. Veeam Backup for
-            Microsoft 365 checks and removes the outdated backups once a month. Use the `monthlyTime` property to set the
-            time of the day for performing clean-up. Use the `monthlyDaynumber` and `monthlyDayofweek` properties to set the
-            day for performing clean-up.</li> </ul>
-        daily_time (str | Unset): Time of the day when clean-up must be performed.
-        daily_type (RESTBackupRepositoryDailyType | Unset): Days when clean-up must be performed.
-        monthly_time (str | Unset): Time of the day when clean-up must be performed.
-        monthly_daynumber (RESTBackupRepositoryMonthlyDaynumber | Unset): Order number for the day of the week when
-            clean-up must be performed.
-        monthly_dayofweek (RESTBackupRepositoryMonthlyDayofweek | Unset): Day of the week when clean-up must be
-            performed.
-        proxy_id (None | Unset | UUID): Backup proxy server ID. Example: 00000000-0000-0000-0000-000000000000.
-        proxy_pool_id (None | Unset | UUID): Backup proxy pool ID. Example: 00000000-0000-0000-0000-000000000000.
-        organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
-        is_long_term (bool | None | Unset): Defines whether object storage repository is one of the following: Azure
-            Blob Storage Archive access tier, Amazon S3 Glacier Instant Retrieval, Amazon S3 Glacier Flexible Retrieval or
-            Amazon S3 Glacier Deep Archive storage classes.
-        is_outdated (bool | Unset): Defines whether a backup repository has the *Out of Date* state and must be
-            upgraded.
-        is_out_of_sync (bool | Unset): Defines whether object storage repository has the *Out of Sync* state.
-            Synchronization of cache between object storage repository and the *PersistentCache* is required.
-        is_indexed (bool | Unset): Defines whether a backup repository was indexed.
-        is_migration_locked (bool | Unset): Defines whether a backup repository is locked after a migration was
-            performed.
-        is_out_of_order (bool | Unset): Defines whether a backup repository has the *Invalid* state.
-        out_of_order_reason (None | str | Unset): Reason why a backup repository has the *Invalid* state.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-        object_storage (RESTObjectStorageComposed | Unset):
-    """
+    """ 
+        Attributes:
+            object_storage_encryption_enabled (bool | None | Unset): Defines whether the object storage encryption is
+                enabled.
+            encryption_key_id (None | Unset | UUID): Encryption key ID. Example: 00000000-0000-0000-0000-000000000000.
+            capacity_bytes (int | None | Unset): Size of the JET-based backup repository in *Bytes*.
+            free_space_bytes (int | None | Unset): Available space on the JET-based backup repository in *Bytes*.
+            id (None | Unset | UUID): Backup repository ID. Example: 00000000-0000-0000-0000-000000000000.
+            name (str | Unset): Name of the backup repository.
+            description (str | Unset): Description of the backup repository.
+            path (str | Unset): Path to the directory where backups are stored.
+            retention_type (RESTBackupRepositoryRetentionType | Unset): Type of the retention policy.
+            retention_period_type (RESTBackupRepositoryRetentionPeriodType | Unset): Type of the retention period.
+            daily_retention_period (int | None | Unset): Retention period in days. This property is valid if
+                `retentionPeriodType` is set to *Daily*.
+            monthly_retention_period (int | None | Unset): Retention period in months. This property is valid if
+                `retentionPeriodType` is set to *Monthly*.
+            yearly_retention_period (RESTBackupRepositoryYearlyRetentionPeriod | Unset): Retention period in years. This
+                property is valid if `retentionPeriodType` is set to *Yearly*. If set to *Keep*, the backup job will back up all
+                selected items and will never remove them.
+            retention_frequency_type (RESTBackupRepositoryRetentionFrequencyType | Unset): Type of the clean-up schedule.
+                The following types are available: <ul> <li>*Daily*. Veeam Backup for Microsoft 365 checks and removes the
+                outdated backups once a day. Use the `dailyTime` property to set the time of the day for performing clean-up.
+                Use the `dailyType` property to set the days for performing clean-up.</li> <li>*Monthly*. Veeam Backup for
+                Microsoft 365 checks and removes the outdated backups once a month. Use the `monthlyTime` property to set the
+                time of the day for performing clean-up. Use the `monthlyDaynumber` and `monthlyDayofweek` properties to set the
+                day for performing clean-up.</li> </ul>
+            daily_time (str | Unset): Time of the day when clean-up must be performed.
+            daily_type (RESTBackupRepositoryDailyType | Unset): Days when clean-up must be performed.
+            monthly_time (str | Unset): Time of the day when clean-up must be performed.
+            monthly_daynumber (RESTBackupRepositoryMonthlyDaynumber | Unset): Order number for the day of the week when
+                clean-up must be performed.
+            monthly_dayofweek (RESTBackupRepositoryMonthlyDayofweek | Unset): Day of the week when clean-up must be
+                performed.
+            proxy_id (None | Unset | UUID): Backup proxy server ID. Example: 00000000-0000-0000-0000-000000000000.
+            proxy_pool_id (None | Unset | UUID): Backup proxy pool ID. Example: 00000000-0000-0000-0000-000000000000.
+            organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
+            is_long_term (bool | None | Unset): Defines whether object storage repository is one of the following: Azure
+                Blob Storage Archive access tier, Amazon S3 Glacier Instant Retrieval, Amazon S3 Glacier Flexible Retrieval or
+                Amazon S3 Glacier Deep Archive storage classes.
+            is_outdated (bool | Unset): Defines whether a backup repository has the *Out of Date* state and must be
+                upgraded.
+            is_out_of_sync (bool | Unset): Defines whether object storage repository has the *Out of Sync* state.
+                Synchronization of cache between object storage repository and the *PersistentCache* is required.
+            is_indexed (bool | Unset): Defines whether a backup repository was indexed.
+            is_migration_locked (bool | Unset): Defines whether a backup repository is locked after a migration was
+                performed.
+            is_out_of_order (bool | Unset): Defines whether a backup repository has the *Invalid* state.
+            out_of_order_reason (None | str | Unset): Reason why a backup repository has the *Invalid* state.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+            object_storage (RESTObjectStorageComposed | Unset):
+     """
 
     object_storage_encryption_enabled: bool | None | Unset = UNSET
     encryption_key_id: None | Unset | UUID = UNSET
@@ -112,7 +119,13 @@ class RESTBackupRepository:
     object_storage: RESTObjectStorageComposed | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+        from ..models.rest_object_storage_composed import RESTObjectStorageComposed
         object_storage_encryption_enabled: bool | None | Unset
         if isinstance(self.object_storage_encryption_enabled, Unset):
             object_storage_encryption_enabled = UNSET
@@ -157,9 +170,11 @@ class RESTBackupRepository:
         if not isinstance(self.retention_type, Unset):
             retention_type = self.retention_type.value
 
+
         retention_period_type: str | Unset = UNSET
         if not isinstance(self.retention_period_type, Unset):
             retention_period_type = self.retention_period_type.value
+
 
         daily_retention_period: int | None | Unset
         if isinstance(self.daily_retention_period, Unset):
@@ -177,9 +192,11 @@ class RESTBackupRepository:
         if not isinstance(self.yearly_retention_period, Unset):
             yearly_retention_period = self.yearly_retention_period.value
 
+
         retention_frequency_type: str | Unset = UNSET
         if not isinstance(self.retention_frequency_type, Unset):
             retention_frequency_type = self.retention_frequency_type.value
+
 
         daily_time = self.daily_time
 
@@ -187,15 +204,18 @@ class RESTBackupRepository:
         if not isinstance(self.daily_type, Unset):
             daily_type = self.daily_type.value
 
+
         monthly_time = self.monthly_time
 
         monthly_daynumber: str | Unset = UNSET
         if not isinstance(self.monthly_daynumber, Unset):
             monthly_daynumber = self.monthly_daynumber.value
 
+
         monthly_dayofweek: str | Unset = UNSET
         if not isinstance(self.monthly_dayofweek, Unset):
             monthly_dayofweek = self.monthly_dayofweek.value
+
 
         proxy_id: None | str | Unset
         if isinstance(self.proxy_id, Unset):
@@ -251,9 +271,11 @@ class RESTBackupRepository:
         if not isinstance(self.object_storage, Unset):
             object_storage = self.object_storage.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if object_storage_encryption_enabled is not UNSET:
             field_dict["objectStorageEncryptionEnabled"] = object_storage_encryption_enabled
         if encryption_key_id is not UNSET:
@@ -319,13 +341,13 @@ class RESTBackupRepository:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         from ..models.rest_object_storage_composed import RESTObjectStorageComposed
-
         d = dict(src_dict)
-
         def _parse_object_storage_encryption_enabled(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -333,9 +355,8 @@ class RESTBackupRepository:
                 return data
             return cast(bool | None | Unset, data)
 
-        object_storage_encryption_enabled = _parse_object_storage_encryption_enabled(
-            d.pop("objectStorageEncryptionEnabled", UNSET)
-        )
+        object_storage_encryption_enabled = _parse_object_storage_encryption_enabled(d.pop("objectStorageEncryptionEnabled", UNSET))
+
 
         def _parse_encryption_key_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -347,12 +368,15 @@ class RESTBackupRepository:
                     raise TypeError()
                 encryption_key_id_type_0 = UUID(data)
 
+
+
                 return encryption_key_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         encryption_key_id = _parse_encryption_key_id(d.pop("encryptionKeyId", UNSET))
+
 
         def _parse_capacity_bytes(data: object) -> int | None | Unset:
             if data is None:
@@ -363,6 +387,7 @@ class RESTBackupRepository:
 
         capacity_bytes = _parse_capacity_bytes(d.pop("capacityBytes", UNSET))
 
+
         def _parse_free_space_bytes(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -371,6 +396,7 @@ class RESTBackupRepository:
             return cast(int | None | Unset, data)
 
         free_space_bytes = _parse_free_space_bytes(d.pop("freeSpaceBytes", UNSET))
+
 
         def _parse_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -382,12 +408,15 @@ class RESTBackupRepository:
                     raise TypeError()
                 id_type_0 = UUID(data)
 
+
+
                 return id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         id = _parse_id(d.pop("id", UNSET))
+
 
         name = d.pop("name", UNSET)
 
@@ -397,17 +426,23 @@ class RESTBackupRepository:
 
         _retention_type = d.pop("retentionType", UNSET)
         retention_type: RESTBackupRepositoryRetentionType | Unset
-        if isinstance(_retention_type, Unset):
+        if isinstance(_retention_type,  Unset):
             retention_type = UNSET
         else:
             retention_type = RESTBackupRepositoryRetentionType(_retention_type)
 
+
+
+
         _retention_period_type = d.pop("retentionPeriodType", UNSET)
         retention_period_type: RESTBackupRepositoryRetentionPeriodType | Unset
-        if isinstance(_retention_period_type, Unset):
+        if isinstance(_retention_period_type,  Unset):
             retention_period_type = UNSET
         else:
             retention_period_type = RESTBackupRepositoryRetentionPeriodType(_retention_period_type)
+
+
+
 
         def _parse_daily_retention_period(data: object) -> int | None | Unset:
             if data is None:
@@ -418,6 +453,7 @@ class RESTBackupRepository:
 
         daily_retention_period = _parse_daily_retention_period(d.pop("dailyRetentionPeriod", UNSET))
 
+
         def _parse_monthly_retention_period(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -427,44 +463,60 @@ class RESTBackupRepository:
 
         monthly_retention_period = _parse_monthly_retention_period(d.pop("monthlyRetentionPeriod", UNSET))
 
+
         _yearly_retention_period = d.pop("yearlyRetentionPeriod", UNSET)
         yearly_retention_period: RESTBackupRepositoryYearlyRetentionPeriod | Unset
-        if isinstance(_yearly_retention_period, Unset):
+        if isinstance(_yearly_retention_period,  Unset):
             yearly_retention_period = UNSET
         else:
             yearly_retention_period = RESTBackupRepositoryYearlyRetentionPeriod(_yearly_retention_period)
 
+
+
+
         _retention_frequency_type = d.pop("retentionFrequencyType", UNSET)
         retention_frequency_type: RESTBackupRepositoryRetentionFrequencyType | Unset
-        if isinstance(_retention_frequency_type, Unset):
+        if isinstance(_retention_frequency_type,  Unset):
             retention_frequency_type = UNSET
         else:
             retention_frequency_type = RESTBackupRepositoryRetentionFrequencyType(_retention_frequency_type)
+
+
+
 
         daily_time = d.pop("dailyTime", UNSET)
 
         _daily_type = d.pop("dailyType", UNSET)
         daily_type: RESTBackupRepositoryDailyType | Unset
-        if isinstance(_daily_type, Unset):
+        if isinstance(_daily_type,  Unset):
             daily_type = UNSET
         else:
             daily_type = RESTBackupRepositoryDailyType(_daily_type)
+
+
+
 
         monthly_time = d.pop("monthlyTime", UNSET)
 
         _monthly_daynumber = d.pop("monthlyDaynumber", UNSET)
         monthly_daynumber: RESTBackupRepositoryMonthlyDaynumber | Unset
-        if isinstance(_monthly_daynumber, Unset):
+        if isinstance(_monthly_daynumber,  Unset):
             monthly_daynumber = UNSET
         else:
             monthly_daynumber = RESTBackupRepositoryMonthlyDaynumber(_monthly_daynumber)
 
+
+
+
         _monthly_dayofweek = d.pop("monthlyDayofweek", UNSET)
         monthly_dayofweek: RESTBackupRepositoryMonthlyDayofweek | Unset
-        if isinstance(_monthly_dayofweek, Unset):
+        if isinstance(_monthly_dayofweek,  Unset):
             monthly_dayofweek = UNSET
         else:
             monthly_dayofweek = RESTBackupRepositoryMonthlyDayofweek(_monthly_dayofweek)
+
+
+
 
         def _parse_proxy_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -476,12 +528,15 @@ class RESTBackupRepository:
                     raise TypeError()
                 proxy_id_type_0 = UUID(data)
 
+
+
                 return proxy_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         proxy_id = _parse_proxy_id(d.pop("proxyId", UNSET))
+
 
         def _parse_proxy_pool_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -493,12 +548,15 @@ class RESTBackupRepository:
                     raise TypeError()
                 proxy_pool_id_type_0 = UUID(data)
 
+
+
                 return proxy_pool_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         proxy_pool_id = _parse_proxy_pool_id(d.pop("proxyPoolId", UNSET))
+
 
         def _parse_organization_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -510,12 +568,15 @@ class RESTBackupRepository:
                     raise TypeError()
                 organization_id_type_0 = UUID(data)
 
+
+
                 return organization_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         organization_id = _parse_organization_id(d.pop("organizationId", UNSET))
+
 
         def _parse_is_long_term(data: object) -> bool | None | Unset:
             if data is None:
@@ -525,6 +586,7 @@ class RESTBackupRepository:
             return cast(bool | None | Unset, data)
 
         is_long_term = _parse_is_long_term(d.pop("isLongTerm", UNSET))
+
 
         is_outdated = d.pop("isOutdated", UNSET)
 
@@ -545,19 +607,26 @@ class RESTBackupRepository:
 
         out_of_order_reason = _parse_out_of_order_reason(d.pop("outOfOrderReason", UNSET))
 
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
 
+
+
+
         _object_storage = d.pop("objectStorage", UNSET)
         object_storage: RESTObjectStorageComposed | Unset
-        if isinstance(_object_storage, Unset):
+        if isinstance(_object_storage,  Unset):
             object_storage = UNSET
         else:
             object_storage = RESTObjectStorageComposed.from_dict(_object_storage)
+
+
+
 
         rest_backup_repository = cls(
             object_storage_encryption_enabled=object_storage_encryption_enabled,
@@ -592,6 +661,7 @@ class RESTBackupRepository:
             field_links=field_links,
             object_storage=object_storage,
         )
+
 
         rest_backup_repository.additional_properties = d
         return rest_backup_repository

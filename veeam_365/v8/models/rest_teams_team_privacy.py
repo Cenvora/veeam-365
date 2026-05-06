@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTTeamsTeamPrivacy(str, Enum):
     HIDDENMEMBERSHIP = "HiddenMembership"
     PRIVATE = "Private"

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTDataRetrievalSessionStatus(str, Enum):
     FAILED = "Failed"
     NOTCONFIGURED = "NotConfigured"

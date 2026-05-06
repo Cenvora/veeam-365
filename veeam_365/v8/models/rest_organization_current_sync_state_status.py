@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTOrganizationCurrentSyncStateStatus(str, Enum):
     QUEUED = "Queued"
     RUNNING = "Running"

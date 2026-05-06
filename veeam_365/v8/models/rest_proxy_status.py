@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTProxyStatus(str, Enum):
     OFFLINE = "Offline"
     ONLINE = "Online"

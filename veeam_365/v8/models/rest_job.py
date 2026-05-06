@@ -1,48 +1,53 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_job_backup_type import RESTJobBackupType
 from ..models.rest_job_last_status import RESTJobLastStatus
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_job_links import RESTJobLinks
-    from ..models.rest_job_schedule_policy import RESTJobSchedulePolicy
+  from ..models.rest_job_links import RESTJobLinks
+  from ..models.rest_job_schedule_policy import RESTJobSchedulePolicy
+
+
+
 
 
 T = TypeVar("T", bound="RESTJob")
 
 
+
 @_attrs_define
 class RESTJob:
-    """
-    Attributes:
-        description (str | Unset): Description of the backup job.
-        backup_type (RESTJobBackupType | Unset): Type of the backup job.
-        schedule_policy (RESTJobSchedulePolicy | Unset):
-        id (None | Unset | UUID): Backup job ID. Example: 00000000-0000-0000-0000-000000000000.
-        organization_id (None | Unset | UUID): ID of the Microsoft 365 organization. Example:
-            00000000-0000-0000-0000-000000000000.
-        repository_id (None | Unset | UUID): Backup repository ID. Example: 00000000-0000-0000-0000-000000000000.
-        name (str | Unset): Name of the backup job.
-        last_run (datetime.datetime | None | Unset): Date and time of the last run of the backup job.
-        next_run (datetime.datetime | None | Unset): Date and time of the next run of the backup job per schedule.
-        last_backup (datetime.datetime | None | Unset): Date and time of the last successful run of the backup job.
-        is_enabled (bool | None | Unset): Defines whether the backup job is enabled.
-        last_status (RESTJobLastStatus | Unset): Latest status of the backup job.
-        total_objects (int | None | Unset): Total number of objects processed during the job session.
-        processed_objects (int | None | Unset): Number of objects successfully processed during the job session.
-        e_tag (int | Unset): Version number that Veeam Backup for Microsoft 365 assigns if the backup job was modified.
-        field_links (RESTJobLinks | Unset):
-    """
+    """ 
+        Attributes:
+            description (str | Unset): Description of the backup job.
+            backup_type (RESTJobBackupType | Unset): Type of the backup job.
+            schedule_policy (RESTJobSchedulePolicy | Unset):
+            id (None | Unset | UUID): Backup job ID. Example: 00000000-0000-0000-0000-000000000000.
+            organization_id (None | Unset | UUID): ID of the Microsoft 365 organization. Example:
+                00000000-0000-0000-0000-000000000000.
+            repository_id (None | Unset | UUID): Backup repository ID. Example: 00000000-0000-0000-0000-000000000000.
+            name (str | Unset): Name of the backup job.
+            last_run (datetime.datetime | None | Unset): Date and time of the last run of the backup job.
+            next_run (datetime.datetime | None | Unset): Date and time of the next run of the backup job per schedule.
+            last_backup (datetime.datetime | None | Unset): Date and time of the last successful run of the backup job.
+            is_enabled (bool | None | Unset): Defines whether the backup job is enabled.
+            last_status (RESTJobLastStatus | Unset): Latest status of the backup job.
+            e_tag (int | Unset): Version number that Veeam Backup for Microsoft 365 assigns if the backup job was modified.
+            field_links (RESTJobLinks | Unset):
+     """
 
     description: str | Unset = UNSET
     backup_type: RESTJobBackupType | Unset = UNSET
@@ -56,18 +61,23 @@ class RESTJob:
     last_backup: datetime.datetime | None | Unset = UNSET
     is_enabled: bool | None | Unset = UNSET
     last_status: RESTJobLastStatus | Unset = UNSET
-    total_objects: int | None | Unset = UNSET
-    processed_objects: int | None | Unset = UNSET
     e_tag: int | Unset = UNSET
     field_links: RESTJobLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_job_links import RESTJobLinks
+        from ..models.rest_job_schedule_policy import RESTJobSchedulePolicy
         description = self.description
 
         backup_type: str | Unset = UNSET
         if not isinstance(self.backup_type, Unset):
             backup_type = self.backup_type.value
+
 
         schedule_policy: dict[str, Any] | Unset = UNSET
         if not isinstance(self.schedule_policy, Unset):
@@ -133,17 +143,6 @@ class RESTJob:
         if not isinstance(self.last_status, Unset):
             last_status = self.last_status.value
 
-        total_objects: int | None | Unset
-        if isinstance(self.total_objects, Unset):
-            total_objects = UNSET
-        else:
-            total_objects = self.total_objects
-
-        processed_objects: int | None | Unset
-        if isinstance(self.processed_objects, Unset):
-            processed_objects = UNSET
-        else:
-            processed_objects = self.processed_objects
 
         e_tag = self.e_tag
 
@@ -151,9 +150,11 @@ class RESTJob:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if description is not UNSET:
             field_dict["description"] = description
         if backup_type is not UNSET:
@@ -178,10 +179,6 @@ class RESTJob:
             field_dict["isEnabled"] = is_enabled
         if last_status is not UNSET:
             field_dict["lastStatus"] = last_status
-        if total_objects is not UNSET:
-            field_dict["totalObjects"] = total_objects
-        if processed_objects is not UNSET:
-            field_dict["processedObjects"] = processed_objects
         if e_tag is not UNSET:
             field_dict["eTag"] = e_tag
         if field_links is not UNSET:
@@ -189,27 +186,34 @@ class RESTJob:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_job_links import RESTJobLinks
         from ..models.rest_job_schedule_policy import RESTJobSchedulePolicy
-
         d = dict(src_dict)
         description = d.pop("description", UNSET)
 
         _backup_type = d.pop("backupType", UNSET)
         backup_type: RESTJobBackupType | Unset
-        if isinstance(_backup_type, Unset):
+        if isinstance(_backup_type,  Unset):
             backup_type = UNSET
         else:
             backup_type = RESTJobBackupType(_backup_type)
 
+
+
+
         _schedule_policy = d.pop("schedulePolicy", UNSET)
         schedule_policy: RESTJobSchedulePolicy | Unset
-        if isinstance(_schedule_policy, Unset):
+        if isinstance(_schedule_policy,  Unset):
             schedule_policy = UNSET
         else:
             schedule_policy = RESTJobSchedulePolicy.from_dict(_schedule_policy)
+
+
+
 
         def _parse_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -221,12 +225,15 @@ class RESTJob:
                     raise TypeError()
                 id_type_0 = UUID(data)
 
+
+
                 return id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         id = _parse_id(d.pop("id", UNSET))
+
 
         def _parse_organization_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -238,12 +245,15 @@ class RESTJob:
                     raise TypeError()
                 organization_id_type_0 = UUID(data)
 
+
+
                 return organization_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         organization_id = _parse_organization_id(d.pop("organizationId", UNSET))
+
 
         def _parse_repository_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -255,12 +265,15 @@ class RESTJob:
                     raise TypeError()
                 repository_id_type_0 = UUID(data)
 
+
+
                 return repository_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         repository_id = _parse_repository_id(d.pop("repositoryId", UNSET))
+
 
         name = d.pop("name", UNSET)
 
@@ -274,12 +287,15 @@ class RESTJob:
                     raise TypeError()
                 last_run_type_0 = isoparse(data)
 
+
+
                 return last_run_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         last_run = _parse_last_run(d.pop("lastRun", UNSET))
+
 
         def _parse_next_run(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -291,12 +307,15 @@ class RESTJob:
                     raise TypeError()
                 next_run_type_0 = isoparse(data)
 
+
+
                 return next_run_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         next_run = _parse_next_run(d.pop("nextRun", UNSET))
+
 
         def _parse_last_backup(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -308,12 +327,15 @@ class RESTJob:
                     raise TypeError()
                 last_backup_type_0 = isoparse(data)
 
+
+
                 return last_backup_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         last_backup = _parse_last_backup(d.pop("lastBackup", UNSET))
+
 
         def _parse_is_enabled(data: object) -> bool | None | Unset:
             if data is None:
@@ -324,39 +346,28 @@ class RESTJob:
 
         is_enabled = _parse_is_enabled(d.pop("isEnabled", UNSET))
 
+
         _last_status = d.pop("lastStatus", UNSET)
         last_status: RESTJobLastStatus | Unset
-        if isinstance(_last_status, Unset):
+        if isinstance(_last_status,  Unset):
             last_status = UNSET
         else:
             last_status = RESTJobLastStatus(_last_status)
 
-        def _parse_total_objects(data: object) -> int | None | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(int | None | Unset, data)
 
-        total_objects = _parse_total_objects(d.pop("totalObjects", UNSET))
 
-        def _parse_processed_objects(data: object) -> int | None | Unset:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            return cast(int | None | Unset, data)
-
-        processed_objects = _parse_processed_objects(d.pop("processedObjects", UNSET))
 
         e_tag = d.pop("eTag", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTJobLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTJobLinks.from_dict(_field_links)
+
+
+
 
         rest_job = cls(
             description=description,
@@ -371,11 +382,10 @@ class RESTJob:
             last_backup=last_backup,
             is_enabled=is_enabled,
             last_status=last_status,
-            total_objects=total_objects,
-            processed_objects=processed_objects,
             e_tag=e_tag,
             field_links=field_links,
         )
+
 
         rest_job.additional_properties = d
         return rest_job

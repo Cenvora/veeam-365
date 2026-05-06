@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTTeamsFileFileType(str, Enum):
     FILE = "File"
     FOLDER = "Folder"

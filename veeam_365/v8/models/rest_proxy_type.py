@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTProxyType(str, Enum):
     DOMAIN = "Domain"
     LOCAL = "Local"

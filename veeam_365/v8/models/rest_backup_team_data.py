@@ -1,39 +1,46 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_backup_item_type import RESTBackupItemType
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTBackupTeamData")
 
 
+
 @_attrs_define
 class RESTBackupTeamData:
-    """
-    Attributes:
-        id (str): Team ID.
-        item_type (RESTBackupItemType): Type of the backup item.
-        repository_id (UUID): Backup repository ID.
-        backed_up_organization_id (str): ID of the backed-up organization in the backup.
-        display_name (str | Unset): Display name of the backed-up or archived team.
-        backed_up_time (datetime.datetime | None | Unset): Date and time when the team was backed up.
-        organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
-        msid (None | Unset | UUID): ID of the organization assigned by Microsoft. Example:
-            00000000-0000-0000-0000-000000000000.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            id (str): Team ID.
+            item_type (RESTBackupItemType): Type of the backup item.
+            repository_id (UUID): Backup repository ID.
+            backed_up_organization_id (str): ID of the backed-up organization in the backup.
+            display_name (str | Unset): Display name of the backed-up or archived team.
+            backed_up_time (datetime.datetime | None | Unset): Date and time when the team was backed up.
+            organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
+            msid (None | Unset | UUID): ID of the organization assigned by Microsoft. Example:
+                00000000-0000-0000-0000-000000000000.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     id: str
     item_type: RESTBackupItemType
@@ -46,7 +53,12 @@ class RESTBackupTeamData:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         id = self.id
 
         item_type = self.item_type.value
@@ -85,16 +97,15 @@ class RESTBackupTeamData:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "itemType": item_type,
-                "repositoryId": repository_id,
-                "backedUpOrganizationId": backed_up_organization_id,
-            }
-        )
+        field_dict.update({
+            "id": id,
+            "itemType": item_type,
+            "repositoryId": repository_id,
+            "backedUpOrganizationId": backed_up_organization_id,
+        })
         if display_name is not UNSET:
             field_dict["displayName"] = display_name
         if backed_up_time is not UNSET:
@@ -108,16 +119,23 @@ class RESTBackupTeamData:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         id = d.pop("id")
 
         item_type = RESTBackupItemType(d.pop("itemType"))
 
+
+
+
         repository_id = UUID(d.pop("repositoryId"))
+
+
+
 
         backed_up_organization_id = d.pop("backedUpOrganizationId")
 
@@ -133,12 +151,15 @@ class RESTBackupTeamData:
                     raise TypeError()
                 backed_up_time_type_0 = isoparse(data)
 
+
+
                 return backed_up_time_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         backed_up_time = _parse_backed_up_time(d.pop("backedUpTime", UNSET))
+
 
         def _parse_organization_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -150,12 +171,15 @@ class RESTBackupTeamData:
                     raise TypeError()
                 organization_id_type_0 = UUID(data)
 
+
+
                 return organization_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         organization_id = _parse_organization_id(d.pop("organizationId", UNSET))
+
 
         def _parse_msid(data: object) -> None | Unset | UUID:
             if data is None:
@@ -167,6 +191,8 @@ class RESTBackupTeamData:
                     raise TypeError()
                 msid_type_0 = UUID(data)
 
+
+
                 return msid_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -174,12 +200,16 @@ class RESTBackupTeamData:
 
         msid = _parse_msid(d.pop("msid", UNSET))
 
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_backup_team_data = cls(
             id=id,
@@ -192,6 +222,7 @@ class RESTBackupTeamData:
             msid=msid,
             field_links=field_links,
         )
+
 
         rest_backup_team_data.additional_properties = d
         return rest_backup_team_data

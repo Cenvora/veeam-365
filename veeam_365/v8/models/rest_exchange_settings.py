@@ -1,37 +1,46 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTExchangeSettings")
+
 
 
 @_attrs_define
 class RESTExchangeSettings:
-    """
-    Attributes:
-        server_name (str | Unset): Specifies URL of the Microsoft Exchange server.
-        username (str | Unset): Specifies a user name of the account used for authentication to the on-premises
-            Microsoft Exchange organization.
-        password (str | Unset): Specifies a password.
-        use_ssl (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 uses a secure connection to
-            Microsoft Exchange organization server.
-        skip_c_averification (bool | None | Unset): Defines whether the certificate authority verification will be
-            skipped.
-        skip_commonnameverification (bool | None | Unset): Defines whether the common name verification will be skipped.
-        skip_revocationcheck (bool | None | Unset): Defines whether the check of certificate expiration against the
-            certificate revocation list will be skipped.
-        grant_impersonation (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 processes all
-            mailboxes within Exchange organization using backup jobs.
-        configure_throttlingpolicy (bool | None | Unset): Defines whether *VeeamArchiverThrottlingPolicy* will be
-            configured for connecting to Microsoft Exchange organization server. *VeeamArchiverThrottlingPolicy* overrides
-            existing Exchange throttling policies and provides unlimited network bandwidth.
-    """
+    """ 
+        Attributes:
+            server_name (str | Unset): Specifies URL of the Microsoft Exchange server.
+            username (str | Unset): Specifies a user name of the account used for authentication to the on-premises
+                Microsoft Exchange organization.
+            password (str | Unset): Specifies a password.
+            use_ssl (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 uses a secure connection to
+                Microsoft Exchange organization server.
+            skip_c_averification (bool | None | Unset): Defines whether the certificate authority verification will be
+                skipped.
+            skip_commonnameverification (bool | None | Unset): Defines whether the common name verification will be skipped.
+            skip_revocationcheck (bool | None | Unset): Defines whether the check of certificate expiration against the
+                certificate revocation list will be skipped.
+            grant_impersonation (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 processes all
+                mailboxes within Exchange organization using backup jobs.
+            configure_throttlingpolicy (bool | None | Unset): Defines whether *VeeamArchiverThrottlingPolicy* will be
+                configured for connecting to Microsoft Exchange organization server. *VeeamArchiverThrottlingPolicy* overrides
+                existing Exchange throttling policies and provides unlimited network bandwidth.
+     """
 
     server_name: str | Unset = UNSET
     username: str | Unset = UNSET
@@ -43,6 +52,10 @@ class RESTExchangeSettings:
     grant_impersonation: bool | None | Unset = UNSET
     configure_throttlingpolicy: bool | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         server_name = self.server_name
@@ -87,9 +100,11 @@ class RESTExchangeSettings:
         else:
             configure_throttlingpolicy = self.configure_throttlingpolicy
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if server_name is not UNSET:
             field_dict["serverName"] = server_name
         if username is not UNSET:
@@ -111,6 +126,8 @@ class RESTExchangeSettings:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -129,6 +146,7 @@ class RESTExchangeSettings:
 
         use_ssl = _parse_use_ssl(d.pop("useSSL", UNSET))
 
+
         def _parse_skip_c_averification(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -137,6 +155,7 @@ class RESTExchangeSettings:
             return cast(bool | None | Unset, data)
 
         skip_c_averification = _parse_skip_c_averification(d.pop("skipCAverification", UNSET))
+
 
         def _parse_skip_commonnameverification(data: object) -> bool | None | Unset:
             if data is None:
@@ -147,6 +166,7 @@ class RESTExchangeSettings:
 
         skip_commonnameverification = _parse_skip_commonnameverification(d.pop("skipCommonnameverification", UNSET))
 
+
         def _parse_skip_revocationcheck(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -155,6 +175,7 @@ class RESTExchangeSettings:
             return cast(bool | None | Unset, data)
 
         skip_revocationcheck = _parse_skip_revocationcheck(d.pop("skipRevocationcheck", UNSET))
+
 
         def _parse_grant_impersonation(data: object) -> bool | None | Unset:
             if data is None:
@@ -165,6 +186,7 @@ class RESTExchangeSettings:
 
         grant_impersonation = _parse_grant_impersonation(d.pop("grantImpersonation", UNSET))
 
+
         def _parse_configure_throttlingpolicy(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -173,6 +195,7 @@ class RESTExchangeSettings:
             return cast(bool | None | Unset, data)
 
         configure_throttlingpolicy = _parse_configure_throttlingpolicy(d.pop("configureThrottlingpolicy", UNSET))
+
 
         rest_exchange_settings = cls(
             server_name=server_name,
@@ -185,6 +208,7 @@ class RESTExchangeSettings:
             grant_impersonation=grant_impersonation,
             configure_throttlingpolicy=configure_throttlingpolicy,
         )
+
 
         rest_exchange_settings.additional_properties = d
         return rest_exchange_settings

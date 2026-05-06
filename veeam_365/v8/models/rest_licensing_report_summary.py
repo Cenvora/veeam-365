@@ -1,30 +1,38 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTLicensingReportSummary")
+
 
 
 @_attrs_define
 class RESTLicensingReportSummary:
-    """
-    Attributes:
-        initial_count (int | Unset): Number of objects that consume the license within the time period covered by the
-            report.
-        initial_points (float | Unset): Number of licensing points that consume the license within the time period
-            covered by the report.
-        reported_count (int | Unset): Number of objects consuming the license that you report to Veeam.
-        reported_points (float | Unset): Number of licensing points consuming the license that you report to Veeam.
-        new_count (int | Unset): Number of objects that were activated within the time period covered by the report.
-        new_points (float | Unset): Number of licensing points that were activated within the time period covered by the
-            report.
-    """
+    """ 
+        Attributes:
+            initial_count (int | Unset): Number of objects that consume the license within the time period covered by the
+                report.
+            initial_points (float | Unset): Number of licensing points that consume the license within the time period
+                covered by the report.
+            reported_count (int | Unset): Number of objects consuming the license that you report to Veeam.
+            reported_points (float | Unset): Number of licensing points consuming the license that you report to Veeam.
+            new_count (int | Unset): Number of objects that were activated within the time period covered by the report.
+            new_points (float | Unset): Number of licensing points that were activated within the time period covered by the
+                report.
+     """
 
     initial_count: int | Unset = UNSET
     initial_points: float | Unset = UNSET
@@ -33,6 +41,10 @@ class RESTLicensingReportSummary:
     new_count: int | Unset = UNSET
     new_points: float | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         initial_count = self.initial_count
@@ -47,9 +59,11 @@ class RESTLicensingReportSummary:
 
         new_points = self.new_points
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if initial_count is not UNSET:
             field_dict["initialCount"] = initial_count
         if initial_points is not UNSET:
@@ -64,6 +78,8 @@ class RESTLicensingReportSummary:
             field_dict["newPoints"] = new_points
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -88,6 +104,7 @@ class RESTLicensingReportSummary:
             new_count=new_count,
             new_points=new_points,
         )
+
 
         rest_licensing_report_summary.additional_properties = d
         return rest_licensing_report_summary

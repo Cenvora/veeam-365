@@ -1,38 +1,45 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_logged_in_organization_type import RESTLoggedInOrganizationType
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_logged_in_organization_actions import RESTLoggedInOrganizationActions
+  from ..models.rest_logged_in_organization_actions import RESTLoggedInOrganizationActions
+
+
+
 
 
 T = TypeVar("T", bound="RESTLoggedInOrganization")
 
 
+
 @_attrs_define
 class RESTLoggedInOrganization:
-    """
-    Attributes:
-        id (str | Unset): ID of the organization added to Veeam Backup for Microsoft 365.
-        name (str | Unset): Name of the Microsoft organization.
-        description (None | str | Unset): Description of the Microsoft organization.
-        type_ (RESTLoggedInOrganizationType | Unset): Type of the Microsoft organization.
-        is_backedup (bool | Unset): Defines whether the organizations was backed up.
-        first_backuptime (datetime.datetime | None | Unset): Date and time when the first backup was created for the
-            organization.
-        last_backuptime (datetime.datetime | None | Unset): Date and time when the last backup was created for the
-            organization.
-        field_actions (RESTLoggedInOrganizationActions | Unset):
-    """
+    """ 
+        Attributes:
+            id (str | Unset): ID of the organization added to Veeam Backup for Microsoft 365.
+            name (str | Unset): Name of the Microsoft organization.
+            description (None | str | Unset): Description of the Microsoft organization.
+            type_ (RESTLoggedInOrganizationType | Unset): Type of the Microsoft organization.
+            is_backedup (bool | Unset): Defines whether the organizations was backed up.
+            first_backuptime (datetime.datetime | None | Unset): Date and time when the first backup was created for the
+                organization.
+            last_backuptime (datetime.datetime | None | Unset): Date and time when the last backup was created for the
+                organization.
+            field_actions (RESTLoggedInOrganizationActions | Unset):
+     """
 
     id: str | Unset = UNSET
     name: str | Unset = UNSET
@@ -44,7 +51,12 @@ class RESTLoggedInOrganization:
     field_actions: RESTLoggedInOrganizationActions | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_logged_in_organization_actions import RESTLoggedInOrganizationActions
         id = self.id
 
         name = self.name
@@ -58,6 +70,7 @@ class RESTLoggedInOrganization:
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
+
 
         is_backedup = self.is_backedup
 
@@ -81,9 +94,11 @@ class RESTLoggedInOrganization:
         if not isinstance(self.field_actions, Unset):
             field_actions = self.field_actions.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if name is not UNSET:
@@ -103,10 +118,11 @@ class RESTLoggedInOrganization:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_logged_in_organization_actions import RESTLoggedInOrganizationActions
-
         d = dict(src_dict)
         id = d.pop("id", UNSET)
 
@@ -121,12 +137,16 @@ class RESTLoggedInOrganization:
 
         description = _parse_description(d.pop("description", UNSET))
 
+
         _type_ = d.pop("type", UNSET)
         type_: RESTLoggedInOrganizationType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTLoggedInOrganizationType(_type_)
+
+
+
 
         is_backedup = d.pop("isBackedup", UNSET)
 
@@ -140,12 +160,15 @@ class RESTLoggedInOrganization:
                     raise TypeError()
                 first_backuptime_type_0 = isoparse(data)
 
+
+
                 return first_backuptime_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         first_backuptime = _parse_first_backuptime(d.pop("firstBackuptime", UNSET))
+
 
         def _parse_last_backuptime(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -157,6 +180,8 @@ class RESTLoggedInOrganization:
                     raise TypeError()
                 last_backuptime_type_0 = isoparse(data)
 
+
+
                 return last_backuptime_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -164,12 +189,16 @@ class RESTLoggedInOrganization:
 
         last_backuptime = _parse_last_backuptime(d.pop("lastBackuptime", UNSET))
 
+
         _field_actions = d.pop("_actions", UNSET)
         field_actions: RESTLoggedInOrganizationActions | Unset
-        if isinstance(_field_actions, Unset):
+        if isinstance(_field_actions,  Unset):
             field_actions = UNSET
         else:
             field_actions = RESTLoggedInOrganizationActions.from_dict(_field_actions)
+
+
+
 
         rest_logged_in_organization = cls(
             id=id,
@@ -181,6 +210,7 @@ class RESTLoggedInOrganization:
             last_backuptime=last_backuptime,
             field_actions=field_actions,
         )
+
 
         rest_logged_in_organization.additional_properties = d
         return rest_logged_in_organization

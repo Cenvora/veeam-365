@@ -1,38 +1,45 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_operator_explore_options_type import RESTOperatorExploreOptionsType
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_rbac_item_composed import RESTRbacItemComposed
+  from ..models.rest_rbac_item_composed import RESTRbacItemComposed
+
+
+
 
 
 T = TypeVar("T", bound="RESTOperatorExploreOptions")
 
 
+
 @_attrs_define
 class RESTOperatorExploreOptions:
-    """
-    Attributes:
-        date_time (datetime.datetime | None | Unset): Specifies the date and time.
-        type_ (RESTOperatorExploreOptionsType | Unset): Specifies a type of the restore session to start.
-        show_deleted (bool | None | Unset): Defines whether the restore session will show items that have been removed
-            by the user before the specified date.
-        show_all_versions (bool | None | Unset): Defines whether the restore session will show all versions of items
-            that have been modified by the user before the specified date.
-        scope (RESTRbacItemComposed | Unset):
-        repository_id (None | Unset | UUID): Specifies the backup repository ID.
-        reason (str | Unset): Specifies a reason for the restore operation.
-    """
+    """ 
+        Attributes:
+            date_time (datetime.datetime | None | Unset): Specifies the date and time.
+            type_ (RESTOperatorExploreOptionsType | Unset): Specifies a type of the restore session to start.
+            show_deleted (bool | None | Unset): Defines whether the restore session will show items that have been removed
+                by the user before the specified date.
+            show_all_versions (bool | None | Unset): Defines whether the restore session will show all versions of items
+                that have been modified by the user before the specified date.
+            scope (RESTRbacItemComposed | Unset):
+            repository_id (None | Unset | UUID): Specifies the backup repository ID.
+            reason (str | Unset): Specifies a reason for the restore operation.
+     """
 
     date_time: datetime.datetime | None | Unset = UNSET
     type_: RESTOperatorExploreOptionsType | Unset = UNSET
@@ -43,7 +50,12 @@ class RESTOperatorExploreOptions:
     reason: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_rbac_item_composed import RESTRbacItemComposed
         date_time: None | str | Unset
         if isinstance(self.date_time, Unset):
             date_time = UNSET
@@ -55,6 +67,7 @@ class RESTOperatorExploreOptions:
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
+
 
         show_deleted: bool | None | Unset
         if isinstance(self.show_deleted, Unset):
@@ -82,9 +95,11 @@ class RESTOperatorExploreOptions:
 
         reason = self.reason
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if date_time is not UNSET:
             field_dict["dateTime"] = date_time
         if type_ is not UNSET:
@@ -102,12 +117,12 @@ class RESTOperatorExploreOptions:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_rbac_item_composed import RESTRbacItemComposed
-
         d = dict(src_dict)
-
         def _parse_date_time(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
@@ -118,6 +133,8 @@ class RESTOperatorExploreOptions:
                     raise TypeError()
                 date_time_type_0 = isoparse(data)
 
+
+
                 return date_time_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -125,12 +142,16 @@ class RESTOperatorExploreOptions:
 
         date_time = _parse_date_time(d.pop("dateTime", UNSET))
 
+
         _type_ = d.pop("type", UNSET)
         type_: RESTOperatorExploreOptionsType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTOperatorExploreOptionsType(_type_)
+
+
+
 
         def _parse_show_deleted(data: object) -> bool | None | Unset:
             if data is None:
@@ -141,6 +162,7 @@ class RESTOperatorExploreOptions:
 
         show_deleted = _parse_show_deleted(d.pop("showDeleted", UNSET))
 
+
         def _parse_show_all_versions(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -150,12 +172,16 @@ class RESTOperatorExploreOptions:
 
         show_all_versions = _parse_show_all_versions(d.pop("showAllVersions", UNSET))
 
+
         _scope = d.pop("scope", UNSET)
         scope: RESTRbacItemComposed | Unset
-        if isinstance(_scope, Unset):
+        if isinstance(_scope,  Unset):
             scope = UNSET
         else:
             scope = RESTRbacItemComposed.from_dict(_scope)
+
+
+
 
         def _parse_repository_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -167,12 +193,15 @@ class RESTOperatorExploreOptions:
                     raise TypeError()
                 repository_id_type_0 = UUID(data)
 
+
+
                 return repository_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         repository_id = _parse_repository_id(d.pop("repositoryId", UNSET))
+
 
         reason = d.pop("reason", UNSET)
 
@@ -185,6 +214,7 @@ class RESTOperatorExploreOptions:
             repository_id=repository_id,
             reason=reason,
         )
+
 
         rest_operator_explore_options.additional_properties = d
         return rest_operator_explore_options

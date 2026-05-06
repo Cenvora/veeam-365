@@ -1,48 +1,57 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.rest_authentication_type import RESTAuthenticationType
 from ..types import UNSET, Unset
+from typing import cast
+
+
+
+
+
 
 T = TypeVar("T", bound="RESTAuditEmailSettingsRequest")
 
 
+
 @_attrs_define
 class RESTAuditEmailSettingsRequest:
-    """
-    Attributes:
-        user_password (str | Unset): Specifies a password.
-        enable_notification (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will send audit
-            notifications by email.
-        smtp_server (str | Unset): Specifies the full DNS name or IP address of the SMTP server for sending audit email
-            notifications.
-        port (int | None | Unset): Specifies the port used for connection to the SMTP server.
-        use_authentication (bool | None | Unset): Defines whether the SMTP server requires authentication.
-        username (str | Unset): Specifies the user name of the account used for authentication to the SMTP server.
-        use_ssl (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will use a secure connection to
-            transmit audit email notifications.
-        from_ (str | Unset): Specifies email address of the notification sender.
-        to (str | Unset): Specifies email address of the notification recipient. For listing multiple recipients, use
-            semicolon as a separator.
-        subject (str | Unset): Specifies the subject for audit email notifications. The subject of an email notification
-            displays information according to the following variables: <ul> <li>*%OrganizationName%* - organization whose
-            data was processed by a backup or backup copy job.</li> <li>*%DisplayName%* - display name of the backed-up item
-            for which a user performed an operation.</li> <li>*%Action%* - name of the operation performed with the backed-
-            up data.</li> <li>*%InitiatedByUserName%* - user name of the account used to perform an operation with the
-            backed-up data.</li> <li>*%StartTime%* - date and time when a user performed an operation with the backed-up
-            data.</li> </ul>
-        authentication_type (RESTAuthenticationType | Unset): Specifies authentication method that Veeam Backup for
-            Microsoft 365 and Veeam Explorers use to send emails.
-        user_id (str | Unset): Specifies an authenticated user account ID. Veeam Backup for Microsoft 365 will send
-            audit email notifications on behalf of this user.
-        mail_api_url (None | str | Unset): Specifies the Microsoft Graph endpoint for sending emails.
-        request_id (None | str | Unset): Specifies an authentication request ID.
-    """
+    """ 
+        Attributes:
+            user_password (str | Unset): Specifies a password.
+            enable_notification (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will send audit
+                notifications by email.
+            smtp_server (str | Unset): Specifies the full DNS name or IP address of the SMTP server for sending audit email
+                notifications.
+            port (int | None | Unset): Specifies the port used for connection to the SMTP server.
+            use_authentication (bool | None | Unset): Defines whether the SMTP server requires authentication.
+            username (str | Unset): Specifies the user name of the account used for authentication to the SMTP server.
+            use_ssl (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will use a secure connection to
+                transmit audit email notifications.
+            from_ (str | Unset): Specifies email address of the notification sender.
+            to (str | Unset): Specifies email address of the notification recipient. For listing multiple recipients, use
+                semicolon as a separator.
+            subject (str | Unset): Specifies the subject for audit email notifications. The subject of an email notification
+                displays information according to the following variables: <ul> <li>*%OrganizationName%* - organization whose
+                data was processed by a backup or backup copy job.</li> <li>*%DisplayName%* - display name of the backed-up item
+                for which a user performed an operation.</li> <li>*%Action%* - name of the operation performed with the backed-
+                up data.</li> <li>*%InitiatedByUserName%* - user name of the account used to perform an operation with the
+                backed-up data.</li> <li>*%StartTime%* - date and time when a user performed an operation with the backed-up
+                data.</li> </ul>
+            authentication_type (RESTAuthenticationType | Unset): Specifies authentication method that Veeam Backup for
+                Microsoft 365 and Veeam Explorers use to send emails.
+            user_id (str | Unset): Specifies an authenticated user account ID. Veeam Backup for Microsoft 365 will send
+                audit email notifications on behalf of this user.
+            mail_api_url (None | str | Unset): Specifies the Microsoft Graph endpoint for sending emails.
+            request_id (None | str | Unset): Specifies an authentication request ID.
+     """
 
     user_password: str | Unset = UNSET
     enable_notification: bool | None | Unset = UNSET
@@ -59,6 +68,10 @@ class RESTAuditEmailSettingsRequest:
     mail_api_url: None | str | Unset = UNSET
     request_id: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         user_password = self.user_password
@@ -101,6 +114,7 @@ class RESTAuditEmailSettingsRequest:
         if not isinstance(self.authentication_type, Unset):
             authentication_type = self.authentication_type.value
 
+
         user_id = self.user_id
 
         mail_api_url: None | str | Unset
@@ -115,9 +129,11 @@ class RESTAuditEmailSettingsRequest:
         else:
             request_id = self.request_id
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if user_password is not UNSET:
             field_dict["userPassword"] = user_password
         if enable_notification is not UNSET:
@@ -149,6 +165,8 @@ class RESTAuditEmailSettingsRequest:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -163,6 +181,7 @@ class RESTAuditEmailSettingsRequest:
 
         enable_notification = _parse_enable_notification(d.pop("enableNotification", UNSET))
 
+
         smtp_server = d.pop("smtpServer", UNSET)
 
         def _parse_port(data: object) -> int | None | Unset:
@@ -174,6 +193,7 @@ class RESTAuditEmailSettingsRequest:
 
         port = _parse_port(d.pop("port", UNSET))
 
+
         def _parse_use_authentication(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -182,6 +202,7 @@ class RESTAuditEmailSettingsRequest:
             return cast(bool | None | Unset, data)
 
         use_authentication = _parse_use_authentication(d.pop("useAuthentication", UNSET))
+
 
         username = d.pop("username", UNSET)
 
@@ -194,6 +215,7 @@ class RESTAuditEmailSettingsRequest:
 
         use_ssl = _parse_use_ssl(d.pop("useSSL", UNSET))
 
+
         from_ = d.pop("from", UNSET)
 
         to = d.pop("to", UNSET)
@@ -202,10 +224,13 @@ class RESTAuditEmailSettingsRequest:
 
         _authentication_type = d.pop("authenticationType", UNSET)
         authentication_type: RESTAuthenticationType | Unset
-        if isinstance(_authentication_type, Unset):
+        if isinstance(_authentication_type,  Unset):
             authentication_type = UNSET
         else:
             authentication_type = RESTAuthenticationType(_authentication_type)
+
+
+
 
         user_id = d.pop("userId", UNSET)
 
@@ -218,6 +243,7 @@ class RESTAuditEmailSettingsRequest:
 
         mail_api_url = _parse_mail_api_url(d.pop("mailApiUrl", UNSET))
 
+
         def _parse_request_id(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -226,6 +252,7 @@ class RESTAuditEmailSettingsRequest:
             return cast(None | str | Unset, data)
 
         request_id = _parse_request_id(d.pop("requestId", UNSET))
+
 
         rest_audit_email_settings_request = cls(
             user_password=user_password,
@@ -243,6 +270,7 @@ class RESTAuditEmailSettingsRequest:
             mail_api_url=mail_api_url,
             request_id=request_id,
         )
+
 
         rest_audit_email_settings_request.additional_properties = d
         return rest_audit_email_settings_request

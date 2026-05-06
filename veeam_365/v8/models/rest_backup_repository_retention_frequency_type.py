@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTBackupRepositoryRetentionFrequencyType(str, Enum):
     DAILY = "Daily"
     MONTHLY = "Monthly"

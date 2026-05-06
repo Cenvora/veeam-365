@@ -1,14 +1,20 @@
 from http import HTTPStatus
-from typing import Any
-from uuid import UUID
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.account_get_accounts_account_type import AccountGetAccountsAccountType
 from ...models.rest_account import RESTAccount
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -16,7 +22,12 @@ def _get_kwargs(
     name: str | Unset = UNSET,
     account_type: AccountGetAccountsAccountType | Unset = UNSET,
     organization_id: UUID | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     params["name"] = name
@@ -32,7 +43,9 @@ def _get_kwargs(
         json_organization_id = str(organization_id)
     params["organizationId"] = json_organization_id
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -40,17 +53,19 @@ def _get_kwargs(
         "params": params,
     }
 
+
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTExceptionInfo | list[RESTAccount]:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | list[RESTAccount]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
-        for response_200_item_data in _response_200:
+        for response_200_item_data in (_response_200):
             response_200_item = RESTAccount.from_dict(response_200_item_data)
+
+
 
             response_200.append(response_200_item)
 
@@ -58,12 +73,13 @@ def _parse_response(
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTExceptionInfo | list[RESTAccount]]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | list[RESTAccount]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -78,8 +94,9 @@ def sync_detailed(
     name: str | Unset = UNSET,
     account_type: AccountGetAccountsAccountType | Unset = UNSET,
     organization_id: UUID | Unset = UNSET,
+
 ) -> Response[RESTExceptionInfo | list[RESTAccount]]:
-    """Get Accounts
+    """ Get Accounts
 
      Returns a list of existing cloud credentials.
 
@@ -94,12 +111,14 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | list[RESTAccount]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         name=name,
-        account_type=account_type,
-        organization_id=organization_id,
+account_type=account_type,
+organization_id=organization_id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -108,15 +127,15 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     *,
     client: AuthenticatedClient | Client,
     name: str | Unset = UNSET,
     account_type: AccountGetAccountsAccountType | Unset = UNSET,
     organization_id: UUID | Unset = UNSET,
+
 ) -> RESTExceptionInfo | list[RESTAccount] | None:
-    """Get Accounts
+    """ Get Accounts
 
      Returns a list of existing cloud credentials.
 
@@ -131,15 +150,16 @@ def sync(
 
     Returns:
         RESTExceptionInfo | list[RESTAccount]
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        name=name,
-        account_type=account_type,
-        organization_id=organization_id,
-    ).parsed
+name=name,
+account_type=account_type,
+organization_id=organization_id,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
@@ -147,8 +167,9 @@ async def asyncio_detailed(
     name: str | Unset = UNSET,
     account_type: AccountGetAccountsAccountType | Unset = UNSET,
     organization_id: UUID | Unset = UNSET,
+
 ) -> Response[RESTExceptionInfo | list[RESTAccount]]:
-    """Get Accounts
+    """ Get Accounts
 
      Returns a list of existing cloud credentials.
 
@@ -163,18 +184,21 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | list[RESTAccount]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         name=name,
-        account_type=account_type,
-        organization_id=organization_id,
+account_type=account_type,
+organization_id=organization_id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
@@ -182,8 +206,9 @@ async def asyncio(
     name: str | Unset = UNSET,
     account_type: AccountGetAccountsAccountType | Unset = UNSET,
     organization_id: UUID | Unset = UNSET,
+
 ) -> RESTExceptionInfo | list[RESTAccount] | None:
-    """Get Accounts
+    """ Get Accounts
 
      Returns a list of existing cloud credentials.
 
@@ -198,13 +223,13 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | list[RESTAccount]
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            name=name,
-            account_type=account_type,
-            organization_id=organization_id,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+name=name,
+account_type=account_type,
+organization_id=organization_id,
+
+    )).parsed

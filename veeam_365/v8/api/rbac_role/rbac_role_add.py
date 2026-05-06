@@ -1,32 +1,41 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_rbac_role import RESTRbacRole
 from ...models.rest_rbac_role_create_model import RESTRbacRoleCreateModel
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
     organization_id: UUID,
     *,
     body: RESTRbacRoleCreateModel,
+
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v8/Organizations/{organization_id}/RbacRoles".format(
-            organization_id=quote(str(organization_id), safe=""),
-        ),
+        "url": "/v8/Organizations/{organization_id}/RbacRoles".format(organization_id=quote(str(organization_id), safe=""),),
     }
 
     _kwargs["json"] = body.to_dict()
+
 
     headers["Content-Type"] = "application/json"
 
@@ -34,22 +43,24 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTExceptionInfo | RESTRbacRole:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | RESTRbacRole:
     if response.status_code == 201:
         response_201 = RESTRbacRole.from_dict(response.json())
+
+
 
         return response_201
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTExceptionInfo | RESTRbacRole]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | RESTRbacRole]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -63,8 +74,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTRbacRoleCreateModel,
+
 ) -> Response[RESTExceptionInfo | RESTRbacRole]:
-    """Add Restore Operator Role
+    """ Add Restore Operator Role
 
      Adds a restore operator role to an organization with the specified ID.
 
@@ -78,11 +90,13 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTRbacRole]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-        body=body,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -91,14 +105,14 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTRbacRoleCreateModel,
+
 ) -> RESTExceptionInfo | RESTRbacRole | None:
-    """Add Restore Operator Role
+    """ Add Restore Operator Role
 
      Adds a restore operator role to an organization with the specified ID.
 
@@ -112,22 +126,24 @@ def sync(
 
     Returns:
         RESTExceptionInfo | RESTRbacRole
-    """
+     """
+
 
     return sync_detailed(
         organization_id=organization_id,
-        client=client,
-        body=body,
-    ).parsed
+client=client,
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTRbacRoleCreateModel,
+
 ) -> Response[RESTExceptionInfo | RESTRbacRole]:
-    """Add Restore Operator Role
+    """ Add Restore Operator Role
 
      Adds a restore operator role to an organization with the specified ID.
 
@@ -141,25 +157,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTRbacRole]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-        body=body,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTRbacRoleCreateModel,
+
 ) -> RESTExceptionInfo | RESTRbacRole | None:
-    """Add Restore Operator Role
+    """ Add Restore Operator Role
 
      Adds a restore operator role to an organization with the specified ID.
 
@@ -173,12 +193,12 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | RESTRbacRole
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            organization_id=organization_id,
-            client=client,
-            body=body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        organization_id=organization_id,
+client=client,
+body=body,
+
+    )).parsed

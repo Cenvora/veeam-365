@@ -1,45 +1,52 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_share_point_folder_type import RESTSharePointFolderType
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_item_composed_links import RESTItemComposedLinks
+  from ..models.rest_item_composed_links import RESTItemComposedLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTItemComposed")
 
 
+
 @_attrs_define
 class RESTItemComposed:
-    """
-    Attributes:
-        id (str): ID of the backed-up OneDrive document.
-        name (str): Name of the backed-up OneDrive document.
-        created_by (str): User who created the document.
-        creation_time (datetime.datetime): Date and time when the document was created.
-        modified_by (str): User who performed the last modification to the document.
-        modification_time (datetime.datetime): Date and time when the document was modified.
-        one_drive_id (str | Unset): OneDrive ID.
-        size_bytes (int | Unset): Size of the backed-up OneDrive document.
-        inherited_permissions (bool | Unset): Defines whether the permission settings of an element will be passed on to
-            the subordinates of that element.
-        version (str | Unset): Version of the OneDrive document.
-        version_id (int | None | Unset): ID of the OneDrive document version.
-        is_folder (bool | Unset): Defines whether the item is a folder.
-        field_links (RESTItemComposedLinks | Unset):
-        site_id (str | Unset): ID of the SharePoint site.
-        type_ (RESTSharePointFolderType | Unset): Type of the backed-up SharePoint folder.
-        title (str | Unset): Title of the backed-up SharePoint item.
-    """
+    """ 
+        Attributes:
+            id (str): ID of the backed-up OneDrive document.
+            name (str): Name of the backed-up OneDrive document.
+            created_by (str): User who created the document.
+            creation_time (datetime.datetime): Date and time when the document was created.
+            modified_by (str): User who performed the last modification to the document.
+            modification_time (datetime.datetime): Date and time when the document was modified.
+            one_drive_id (str | Unset): OneDrive ID.
+            size_bytes (int | Unset): Size of the backed-up OneDrive document.
+            inherited_permissions (bool | Unset): Defines whether the permission settings of an element will be passed on to
+                the subordinates of that element.
+            version (str | Unset): Version of the OneDrive document.
+            version_id (int | None | Unset): ID of the OneDrive document version.
+            is_folder (bool | Unset): Defines whether the item is a folder.
+            field_links (RESTItemComposedLinks | Unset):
+            site_id (str | Unset): ID of the SharePoint site.
+            type_ (RESTSharePointFolderType | Unset): Type of the backed-up SharePoint folder.
+            title (str | Unset): Title of the backed-up SharePoint item.
+     """
 
     id: str
     name: str
@@ -59,7 +66,12 @@ class RESTItemComposed:
     title: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_item_composed_links import RESTItemComposedLinks
         id = self.id
 
         name = self.name
@@ -98,20 +110,20 @@ class RESTItemComposed:
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
+
         title = self.title
+
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "name": name,
-                "createdBy": created_by,
-                "creationTime": creation_time,
-                "modifiedBy": modified_by,
-                "modificationTime": modification_time,
-            }
-        )
+        field_dict.update({
+            "id": id,
+            "name": name,
+            "createdBy": created_by,
+            "creationTime": creation_time,
+            "modifiedBy": modified_by,
+            "modificationTime": modification_time,
+        })
         if one_drive_id is not UNSET:
             field_dict["oneDriveId"] = one_drive_id
         if size_bytes is not UNSET:
@@ -135,10 +147,11 @@ class RESTItemComposed:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_item_composed_links import RESTItemComposedLinks
-
         d = dict(src_dict)
         id = d.pop("id")
 
@@ -148,9 +161,15 @@ class RESTItemComposed:
 
         creation_time = isoparse(d.pop("creationTime"))
 
+
+
+
         modified_by = d.pop("modifiedBy")
 
         modification_time = isoparse(d.pop("modificationTime"))
+
+
+
 
         one_drive_id = d.pop("oneDriveId", UNSET)
 
@@ -169,23 +188,30 @@ class RESTItemComposed:
 
         version_id = _parse_version_id(d.pop("versionId", UNSET))
 
+
         is_folder = d.pop("isFolder", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTItemComposedLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTItemComposedLinks.from_dict(_field_links)
+
+
+
 
         site_id = d.pop("siteId", UNSET)
 
         _type_ = d.pop("type", UNSET)
         type_: RESTSharePointFolderType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTSharePointFolderType(_type_)
+
+
+
 
         title = d.pop("title", UNSET)
 
@@ -207,6 +233,7 @@ class RESTItemComposed:
             type_=type_,
             title=title,
         )
+
 
         rest_item_composed.additional_properties = d
         return rest_item_composed

@@ -5,31 +5,41 @@ from urllib.parse import quote
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_licensing_approve_report_options import RESTLicensingApproveReportOptions
-from ...types import Response
+from typing import cast
+
 
 
 def _get_kwargs(
     report_id: int,
     *,
     body: RESTLicensingApproveReportOptions,
+
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v8/licensing/statistic/reports/{report_id}/approve".format(
-            report_id=quote(str(report_id), safe=""),
-        ),
+        "url": "/v8/licensing/statistic/reports/{report_id}/approve".format(report_id=quote(str(report_id), safe=""),),
     }
 
     _kwargs["json"] = body.to_dict()
+
 
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
+
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | RESTExceptionInfo:
@@ -39,12 +49,13 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Any | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Any | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -58,8 +69,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTLicensingApproveReportOptions,
+
 ) -> Response[Any | RESTExceptionInfo]:
-    """Submit License Usage Report
+    """ Submit License Usage Report
 
      Allows you to submit a license usage report. This report includes statistic information on Veeam
     Backup for Microsoft 365 licensing.
@@ -74,11 +86,13 @@ def sync_detailed(
 
     Returns:
         Response[Any | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         report_id=report_id,
-        body=body,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -87,14 +101,14 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     report_id: int,
     *,
     client: AuthenticatedClient | Client,
     body: RESTLicensingApproveReportOptions,
+
 ) -> Any | RESTExceptionInfo | None:
-    """Submit License Usage Report
+    """ Submit License Usage Report
 
      Allows you to submit a license usage report. This report includes statistic information on Veeam
     Backup for Microsoft 365 licensing.
@@ -109,22 +123,24 @@ def sync(
 
     Returns:
         Any | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         report_id=report_id,
-        client=client,
-        body=body,
-    ).parsed
+client=client,
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     report_id: int,
     *,
     client: AuthenticatedClient | Client,
     body: RESTLicensingApproveReportOptions,
+
 ) -> Response[Any | RESTExceptionInfo]:
-    """Submit License Usage Report
+    """ Submit License Usage Report
 
      Allows you to submit a license usage report. This report includes statistic information on Veeam
     Backup for Microsoft 365 licensing.
@@ -139,25 +155,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         report_id=report_id,
-        body=body,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     report_id: int,
     *,
     client: AuthenticatedClient | Client,
     body: RESTLicensingApproveReportOptions,
+
 ) -> Any | RESTExceptionInfo | None:
-    """Submit License Usage Report
+    """ Submit License Usage Report
 
      Allows you to submit a license usage report. This report includes statistic information on Veeam
     Backup for Microsoft 365 licensing.
@@ -172,12 +192,12 @@ async def asyncio(
 
     Returns:
         Any | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            report_id=report_id,
-            client=client,
-            body=body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        report_id=report_id,
+client=client,
+body=body,
+
+    )).parsed

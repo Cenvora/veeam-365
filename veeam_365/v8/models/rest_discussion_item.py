@@ -1,41 +1,48 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_exchange_item_importance import RESTExchangeItemImportance
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_attachment import RESTAttachment
-    from ..models.rest_discussion_item_actions import RESTDiscussionItemActions
-    from ..models.rest_discussion_item_links import RESTDiscussionItemLinks
+  from ..models.rest_attachment import RESTAttachment
+  from ..models.rest_discussion_item_actions import RESTDiscussionItemActions
+  from ..models.rest_discussion_item_links import RESTDiscussionItemLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTDiscussionItem")
 
 
+
 @_attrs_define
 class RESTDiscussionItem:
-    """
-    Attributes:
-        mailbox_id (UUID | Unset): ID of the organization mailbox.
-        from_ (str | Unset): Name of the discussion author.
-        subject (str | Unset): Discussion subject.
-        posted_on (datetime.datetime | Unset): Date and time when the discussion was started.
-        item_class (str | Unset): Exchange item class.
-        attachments (list[RESTAttachment] | Unset): Array of attachment items for the discussion.
-        importance (RESTExchangeItemImportance | Unset): Message importance.
-        field_links (RESTDiscussionItemLinks | Unset):
-        field_actions (RESTDiscussionItemActions | Unset):
-        id (str | Unset): Exchange item ID.
-    """
+    """ 
+        Attributes:
+            mailbox_id (UUID | Unset): ID of the organization mailbox.
+            from_ (str | Unset): Name of the discussion author.
+            subject (str | Unset): Discussion subject.
+            posted_on (datetime.datetime | Unset): Date and time when the discussion was started.
+            item_class (str | Unset): Exchange item class.
+            attachments (list[RESTAttachment] | Unset): Array of attachment items for the discussion.
+            importance (RESTExchangeItemImportance | Unset): Message importance.
+            field_links (RESTDiscussionItemLinks | Unset):
+            field_actions (RESTDiscussionItemActions | Unset):
+            id (str | Unset): Exchange item ID.
+     """
 
     mailbox_id: UUID | Unset = UNSET
     from_: str | Unset = UNSET
@@ -49,7 +56,14 @@ class RESTDiscussionItem:
     id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_attachment import RESTAttachment
+        from ..models.rest_discussion_item_actions import RESTDiscussionItemActions
+        from ..models.rest_discussion_item_links import RESTDiscussionItemLinks
         mailbox_id: str | Unset = UNSET
         if not isinstance(self.mailbox_id, Unset):
             mailbox_id = str(self.mailbox_id)
@@ -71,9 +85,12 @@ class RESTDiscussionItem:
                 attachments_item = attachments_item_data.to_dict()
                 attachments.append(attachments_item)
 
+
+
         importance: str | Unset = UNSET
         if not isinstance(self.importance, Unset):
             importance = self.importance.value
+
 
         field_links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.field_links, Unset):
@@ -85,9 +102,11 @@ class RESTDiscussionItem:
 
         id = self.id
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if mailbox_id is not UNSET:
             field_dict["mailboxId"] = mailbox_id
         if from_ is not UNSET:
@@ -111,19 +130,23 @@ class RESTDiscussionItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_attachment import RESTAttachment
         from ..models.rest_discussion_item_actions import RESTDiscussionItemActions
         from ..models.rest_discussion_item_links import RESTDiscussionItemLinks
-
         d = dict(src_dict)
         _mailbox_id = d.pop("mailboxId", UNSET)
         mailbox_id: UUID | Unset
-        if isinstance(_mailbox_id, Unset):
+        if isinstance(_mailbox_id,  Unset):
             mailbox_id = UNSET
         else:
             mailbox_id = UUID(_mailbox_id)
+
+
+
 
         from_ = d.pop("from", UNSET)
 
@@ -131,10 +154,13 @@ class RESTDiscussionItem:
 
         _posted_on = d.pop("postedOn", UNSET)
         posted_on: datetime.datetime | Unset
-        if isinstance(_posted_on, Unset):
+        if isinstance(_posted_on,  Unset):
             posted_on = UNSET
         else:
             posted_on = isoparse(_posted_on)
+
+
+
 
         item_class = d.pop("itemClass", UNSET)
 
@@ -145,28 +171,40 @@ class RESTDiscussionItem:
             for attachments_item_data in _attachments:
                 attachments_item = RESTAttachment.from_dict(attachments_item_data)
 
+
+
                 attachments.append(attachments_item)
+
 
         _importance = d.pop("importance", UNSET)
         importance: RESTExchangeItemImportance | Unset
-        if isinstance(_importance, Unset):
+        if isinstance(_importance,  Unset):
             importance = UNSET
         else:
             importance = RESTExchangeItemImportance(_importance)
 
+
+
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTDiscussionItemLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTDiscussionItemLinks.from_dict(_field_links)
 
+
+
+
         _field_actions = d.pop("_actions", UNSET)
         field_actions: RESTDiscussionItemActions | Unset
-        if isinstance(_field_actions, Unset):
+        if isinstance(_field_actions,  Unset):
             field_actions = UNSET
         else:
             field_actions = RESTDiscussionItemActions.from_dict(_field_actions)
+
+
+
 
         id = d.pop("id", UNSET)
 
@@ -182,6 +220,7 @@ class RESTDiscussionItem:
             field_actions=field_actions,
             id=id,
         )
+
 
         rest_discussion_item.additional_properties = d
         return rest_discussion_item

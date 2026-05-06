@@ -1,39 +1,46 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_job_backup_item_type import RESTJobBackupItemType
 from ..types import UNSET, Unset
 
+from ..models.rest_job_backup_item_type import RESTJobBackupItemType
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_job_user_item_links_type_0 import RESTJobUserItemLinksType0
-    from ..models.rest_user import RESTUser
+  from ..models.rest_job_user_item_links_type_0 import RESTJobUserItemLinksType0
+  from ..models.rest_user import RESTUser
+
+
+
 
 
 T = TypeVar("T", bound="RESTJobUserItem")
 
 
+
 @_attrs_define
 class RESTJobUserItem:
-    """
-    Attributes:
-        type_ (RESTJobBackupItemType | Unset): Type of the backup item.
-        user (RESTUser | Unset):
-        mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Mail* processing
-            option.
-        one_drive (bool | None | Unset): Defines whether this backup job will include/exclude the *OneDrive* processing
-            option.
-        archive_mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Archive*
-            processing option.
-        personal_site (bool | None | Unset): Defines whether this backup job will include/exclude the *Site* processing
-            option.
-        id (None | str | Unset): Backup item ID.
-        field_links (None | RESTJobUserItemLinksType0 | Unset):
-    """
+    """ 
+        Attributes:
+            type_ (RESTJobBackupItemType | Unset): Type of the backup item.
+            user (RESTUser | Unset):
+            mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Mail* processing
+                option.
+            one_drive (bool | None | Unset): Defines whether this backup job will include/exclude the *OneDrive* processing
+                option.
+            archive_mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Archive*
+                processing option.
+            personal_site (bool | None | Unset): Defines whether this backup job will include/exclude the *Site* processing
+                option.
+            id (None | str | Unset): Backup item ID.
+            field_links (None | RESTJobUserItemLinksType0 | Unset):
+     """
 
     type_: RESTJobBackupItemType | Unset = UNSET
     user: RESTUser | Unset = UNSET
@@ -45,12 +52,17 @@ class RESTJobUserItem:
     field_links: None | RESTJobUserItemLinksType0 | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
         from ..models.rest_job_user_item_links_type_0 import RESTJobUserItemLinksType0
-
+        from ..models.rest_user import RESTUser
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
+
 
         user: dict[str, Any] | Unset = UNSET
         if not isinstance(self.user, Unset):
@@ -94,9 +106,11 @@ class RESTJobUserItem:
         else:
             field_links = self.field_links
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if type_ is not UNSET:
             field_dict["type"] = type_
         if user is not UNSET:
@@ -116,25 +130,32 @@ class RESTJobUserItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_job_user_item_links_type_0 import RESTJobUserItemLinksType0
         from ..models.rest_user import RESTUser
-
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
         type_: RESTJobBackupItemType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTJobBackupItemType(_type_)
 
+
+
+
         _user = d.pop("user", UNSET)
         user: RESTUser | Unset
-        if isinstance(_user, Unset):
+        if isinstance(_user,  Unset):
             user = UNSET
         else:
             user = RESTUser.from_dict(_user)
+
+
+
 
         def _parse_mailbox(data: object) -> bool | None | Unset:
             if data is None:
@@ -145,6 +166,7 @@ class RESTJobUserItem:
 
         mailbox = _parse_mailbox(d.pop("mailbox", UNSET))
 
+
         def _parse_one_drive(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -153,6 +175,7 @@ class RESTJobUserItem:
             return cast(bool | None | Unset, data)
 
         one_drive = _parse_one_drive(d.pop("oneDrive", UNSET))
+
 
         def _parse_archive_mailbox(data: object) -> bool | None | Unset:
             if data is None:
@@ -163,6 +186,7 @@ class RESTJobUserItem:
 
         archive_mailbox = _parse_archive_mailbox(d.pop("archiveMailbox", UNSET))
 
+
         def _parse_personal_site(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -172,6 +196,7 @@ class RESTJobUserItem:
 
         personal_site = _parse_personal_site(d.pop("personalSite", UNSET))
 
+
         def _parse_id(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -180,6 +205,7 @@ class RESTJobUserItem:
             return cast(None | str | Unset, data)
 
         id = _parse_id(d.pop("id", UNSET))
+
 
         def _parse_field_links(data: object) -> None | RESTJobUserItemLinksType0 | Unset:
             if data is None:
@@ -191,12 +217,15 @@ class RESTJobUserItem:
                     raise TypeError()
                 field_links_type_0 = RESTJobUserItemLinksType0.from_dict(data)
 
+
+
                 return field_links_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | RESTJobUserItemLinksType0 | Unset, data)
 
         field_links = _parse_field_links(d.pop("_links", UNSET))
+
 
         rest_job_user_item = cls(
             type_=type_,
@@ -208,6 +237,7 @@ class RESTJobUserItem:
             id=id,
             field_links=field_links,
         )
+
 
         rest_job_user_item.additional_properties = d
         return rest_job_user_item

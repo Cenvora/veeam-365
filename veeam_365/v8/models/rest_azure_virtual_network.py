@@ -1,26 +1,35 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTAzureVirtualNetwork")
+
 
 
 @_attrs_define
 class RESTAzureVirtualNetwork:
-    """
-    Attributes:
-        id (str | Unset): Virtual network ID.
-        name (str | Unset): Name of the virtual network.
-        type_ (str | Unset): Virtual network type.
-        location (str | Unset): Name of the Microsoft Entra region.
-        address_spaces (list[str] | Unset): Array of public IPv4 addresses.
-    """
+    """ 
+        Attributes:
+            id (str | Unset): Virtual network ID.
+            name (str | Unset): Name of the virtual network.
+            type_ (str | Unset): Virtual network type.
+            location (str | Unset): Name of the Microsoft Entra region.
+            address_spaces (list[str] | Unset): Array of public IPv4 addresses.
+     """
 
     id: str | Unset = UNSET
     name: str | Unset = UNSET
@@ -28,6 +37,10 @@ class RESTAzureVirtualNetwork:
     location: str | Unset = UNSET
     address_spaces: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
@@ -42,9 +55,13 @@ class RESTAzureVirtualNetwork:
         if not isinstance(self.address_spaces, Unset):
             address_spaces = self.address_spaces
 
+
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if name is not UNSET:
@@ -57,6 +74,8 @@ class RESTAzureVirtualNetwork:
             field_dict["addressSpaces"] = address_spaces
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -71,6 +90,7 @@ class RESTAzureVirtualNetwork:
 
         address_spaces = cast(list[str], d.pop("addressSpaces", UNSET))
 
+
         rest_azure_virtual_network = cls(
             id=id,
             name=name,
@@ -78,6 +98,7 @@ class RESTAzureVirtualNetwork:
             location=location,
             address_spaces=address_spaces,
         )
+
 
         rest_azure_virtual_network.additional_properties = d
         return rest_azure_virtual_network

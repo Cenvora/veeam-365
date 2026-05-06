@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTEventType(str, Enum):
     JOBDELETE = "JobDelete"
     JOBEXCLUDEDITEMSCHANGE = "JobExcludedItemsChange"

@@ -1,29 +1,42 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTExportToPstOptions")
+
 
 
 @_attrs_define
 class RESTExportToPstOptions:
-    """
-    Attributes:
-        enable_pst_size_limit (bool | None | Unset): Defines whether to set the size limit for the exported PST file. If
-            set to true, indicates that you must specify the `pstSizeLimitBytes` property.
-        pst_size_limit_bytes (int | None | Unset): Specifies the limit of the exported PST file in *Bytes*. You can
-            specify the limit range from 1 GB to 49 GB.
-    """
+    """ 
+        Attributes:
+            enable_pst_size_limit (bool | None | Unset): Defines whether to set the size limit for the exported PST file. If
+                set to true, indicates that you must specify the `pstSizeLimitBytes` property.
+            pst_size_limit_bytes (int | None | Unset): Specifies the limit of the exported PST file in *Bytes*. You can
+                specify the limit range from 1 GB to 49 GB.
+     """
 
     enable_pst_size_limit: bool | None | Unset = UNSET
     pst_size_limit_bytes: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         enable_pst_size_limit: bool | None | Unset
@@ -38,9 +51,11 @@ class RESTExportToPstOptions:
         else:
             pst_size_limit_bytes = self.pst_size_limit_bytes
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if enable_pst_size_limit is not UNSET:
             field_dict["enablePstSizeLimit"] = enable_pst_size_limit
         if pst_size_limit_bytes is not UNSET:
@@ -48,10 +63,11 @@ class RESTExportToPstOptions:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-
         def _parse_enable_pst_size_limit(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -60,6 +76,7 @@ class RESTExportToPstOptions:
             return cast(bool | None | Unset, data)
 
         enable_pst_size_limit = _parse_enable_pst_size_limit(d.pop("enablePstSizeLimit", UNSET))
+
 
         def _parse_pst_size_limit_bytes(data: object) -> int | None | Unset:
             if data is None:
@@ -70,10 +87,12 @@ class RESTExportToPstOptions:
 
         pst_size_limit_bytes = _parse_pst_size_limit_bytes(d.pop("pstSizeLimitBytes", UNSET))
 
+
         rest_export_to_pst_options = cls(
             enable_pst_size_limit=enable_pst_size_limit,
             pst_size_limit_bytes=pst_size_limit_bytes,
         )
+
 
         rest_export_to_pst_options.additional_properties = d
         return rest_export_to_pst_options

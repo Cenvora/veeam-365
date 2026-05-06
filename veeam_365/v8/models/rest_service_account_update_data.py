@@ -1,30 +1,39 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTServiceAccountUpdateData")
+
 
 
 @_attrs_define
 class RESTServiceAccountUpdateData:
-    """
-    Attributes:
-        description (str | Unset): Specifies a new description of Microsoft Azure service account.
-        application_certificate (str | Unset): Specifies the Base64 string of an SSL certificate that you want to use to
-            access the Microsoft Entra application.
-        application_certificate_password (str | Unset): Specifies a password.
-        application_secret (str | Unset): Specifies an application secret for connecting to Microsoft Entra.
-        user_code (str | Unset): Specifies the code that you must copy and then specify on Microsoft Identity platform.
-        subscription_ids (list[str] | Unset): Specifies an array of subscriptions associated with a user account that
-            was used to sign in to Microsoft Entra. For more information on how to get these parameters, see [Get
-            Subscriptions](AzureServiceAccounts#operation/AzureServiceAccounts_GetSubscriptions).
-    """
+    """ 
+        Attributes:
+            description (str | Unset): Specifies a new description of Microsoft Azure service account.
+            application_certificate (str | Unset): Specifies the Base64 string of a TLS certificate that you want to use to
+                access the Microsoft Entra application.
+            application_certificate_password (str | Unset): Specifies a password.
+            application_secret (str | Unset): Specifies an application secret for connecting to Microsoft Entra.
+            user_code (str | Unset): Specifies the code that you must copy and then specify on Microsoft Identity platform.
+            subscription_ids (list[str] | Unset): Specifies an array of subscriptions associated with a user account that
+                was used to sign in to Microsoft Entra. For more information on how to get these parameters, see [Get
+                Subscriptions](#/AzureServiceAccounts/AzureServiceAccounts_GetSubscriptions).
+     """
 
     description: str | Unset = UNSET
     application_certificate: str | Unset = UNSET
@@ -33,6 +42,10 @@ class RESTServiceAccountUpdateData:
     user_code: str | Unset = UNSET
     subscription_ids: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         description = self.description
@@ -49,9 +62,13 @@ class RESTServiceAccountUpdateData:
         if not isinstance(self.subscription_ids, Unset):
             subscription_ids = self.subscription_ids
 
+
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if description is not UNSET:
             field_dict["description"] = description
         if application_certificate is not UNSET:
@@ -66,6 +83,8 @@ class RESTServiceAccountUpdateData:
             field_dict["subscriptionIds"] = subscription_ids
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -82,6 +101,7 @@ class RESTServiceAccountUpdateData:
 
         subscription_ids = cast(list[str], d.pop("subscriptionIds", UNSET))
 
+
         rest_service_account_update_data = cls(
             description=description,
             application_certificate=application_certificate,
@@ -90,6 +110,7 @@ class RESTServiceAccountUpdateData:
             user_code=user_code,
             subscription_ids=subscription_ids,
         )
+
 
         rest_service_account_update_data.additional_properties = d
         return rest_service_account_update_data

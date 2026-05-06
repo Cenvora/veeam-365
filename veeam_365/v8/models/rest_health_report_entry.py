@@ -1,33 +1,47 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.rest_health_status import RESTHealthStatus
 from ..types import UNSET, Unset
+from typing import cast
+
+
+
+
+
 
 T = TypeVar("T", bound="RESTHealthReportEntry")
 
 
+
 @_attrs_define
 class RESTHealthReportEntry:
-    """
-    Attributes:
-        status (RESTHealthStatus | Unset): Status that Veeam Backup for Microsoft assigns as a result of a health check.
-        description (None | str | Unset): Description of the assigned status.
-    """
+    """ 
+        Attributes:
+            status (RESTHealthStatus | Unset): Status that Veeam Backup for Microsoft assigns as a result of a health check.
+            description (None | str | Unset): Description of the assigned status.
+     """
 
     status: RESTHealthStatus | Unset = UNSET
     description: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
+
 
         description: None | str | Unset
         if isinstance(self.description, Unset):
@@ -35,9 +49,11 @@ class RESTHealthReportEntry:
         else:
             description = self.description
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if status is not UNSET:
             field_dict["status"] = status
         if description is not UNSET:
@@ -45,15 +61,20 @@ class RESTHealthReportEntry:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _status = d.pop("status", UNSET)
         status: RESTHealthStatus | Unset
-        if isinstance(_status, Unset):
+        if isinstance(_status,  Unset):
             status = UNSET
         else:
             status = RESTHealthStatus(_status)
+
+
+
 
         def _parse_description(data: object) -> None | str | Unset:
             if data is None:
@@ -64,10 +85,12 @@ class RESTHealthReportEntry:
 
         description = _parse_description(d.pop("description", UNSET))
 
+
         rest_health_report_entry = cls(
             status=status,
             description=description,
         )
+
 
         rest_health_report_entry.additional_properties = d
         return rest_health_report_entry

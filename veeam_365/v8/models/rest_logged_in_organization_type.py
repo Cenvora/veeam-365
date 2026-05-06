@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTLoggedInOrganizationType(str, Enum):
     HYBRID = "Hybrid"
     OFFICE365 = "Office365"

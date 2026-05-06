@@ -1,32 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTOrganizationLicenseUsage")
+
 
 
 @_attrs_define
 class RESTOrganizationLicenseUsage:
-    """
-    Attributes:
-        organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
-        backed_up_organization_id (str | Unset): ID of the backed-up Microsoft organization in the backup.
-        organization_name (str | Unset): Name of the Microsoft organization whose license usage statistics is included
-            in the report.
-        used_objects_count (int | Unset): Number of objects that have licenses assigned.
-        used_points (float | Unset): Number of licensing points that have licenses assigned.
-        new_objects_count (int | Unset): Number of objects that were activated within the time period covered by the
-            report.
-        new_points (float | Unset): Number of licensing points that were activated within the time period covered by the
-            report.
-    """
+    """ 
+        Attributes:
+            organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
+            backed_up_organization_id (str | Unset): ID of the backed-up Microsoft organization in the backup.
+            organization_name (str | Unset): Name of the Microsoft organization whose license usage statistics is included
+                in the report.
+            used_objects_count (int | Unset): Number of objects that have licenses assigned.
+            used_points (float | Unset): Number of licensing points that have licenses assigned.
+            new_objects_count (int | Unset): Number of objects that were activated within the time period covered by the
+                report.
+            new_points (float | Unset): Number of licensing points that were activated within the time period covered by the
+                report.
+     """
 
     organization_id: None | Unset | UUID = UNSET
     backed_up_organization_id: str | Unset = UNSET
@@ -36,6 +45,10 @@ class RESTOrganizationLicenseUsage:
     new_objects_count: int | Unset = UNSET
     new_points: float | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         organization_id: None | str | Unset
@@ -58,9 +71,11 @@ class RESTOrganizationLicenseUsage:
 
         new_points = self.new_points
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if organization_id is not UNSET:
             field_dict["organizationId"] = organization_id
         if backed_up_organization_id is not UNSET:
@@ -78,10 +93,11 @@ class RESTOrganizationLicenseUsage:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-
         def _parse_organization_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
@@ -92,12 +108,15 @@ class RESTOrganizationLicenseUsage:
                     raise TypeError()
                 organization_id_type_0 = UUID(data)
 
+
+
                 return organization_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         organization_id = _parse_organization_id(d.pop("organizationId", UNSET))
+
 
         backed_up_organization_id = d.pop("backedUpOrganizationId", UNSET)
 
@@ -120,6 +139,7 @@ class RESTOrganizationLicenseUsage:
             new_objects_count=new_objects_count,
             new_points=new_points,
         )
+
 
         rest_organization_license_usage.additional_properties = d
         return rest_organization_license_usage

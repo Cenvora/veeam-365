@@ -1,29 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from uuid import UUID
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTServiceInstance")
+
 
 
 @_attrs_define
 class RESTServiceInstance:
-    """
-    Attributes:
-        installation_id (UUID | Unset): ID of the Veeam Backup for Microsoft 365 installation. Example:
-            00000000-0000-0000-0000-000000000000.
-        version (str | Unset): Veeam Backup for Microsoft 365 build number.
-    """
+    """ 
+        Attributes:
+            installation_id (UUID | Unset): ID of the Veeam Backup for Microsoft 365 installation. Example:
+                00000000-0000-0000-0000-000000000000.
+            version (str | Unset): Veeam Backup for Microsoft 365 build number.
+     """
 
     installation_id: UUID | Unset = UNSET
     version: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         installation_id: str | Unset = UNSET
@@ -32,9 +44,11 @@ class RESTServiceInstance:
 
         version = self.version
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if installation_id is not UNSET:
             field_dict["installationId"] = installation_id
         if version is not UNSET:
@@ -42,15 +56,20 @@ class RESTServiceInstance:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _installation_id = d.pop("installationId", UNSET)
         installation_id: UUID | Unset
-        if isinstance(_installation_id, Unset):
+        if isinstance(_installation_id,  Unset):
             installation_id = UNSET
         else:
             installation_id = UUID(_installation_id)
+
+
+
 
         version = d.pop("version", UNSET)
 
@@ -58,6 +77,7 @@ class RESTServiceInstance:
             installation_id=installation_id,
             version=version,
         )
+
 
         rest_service_instance.additional_properties = d
         return rest_service_instance

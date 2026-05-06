@@ -1,40 +1,46 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_teams_file import RESTTeamsFile
+  from ..models.rest_teams_file import RESTTeamsFile
+
+
+
 
 
 T = TypeVar("T", bound="RESTFilesSendOptions")
 
 
+
 @_attrs_define
 class RESTFilesSendOptions:
-    """
-    Attributes:
-        channel_id (str | Unset): Specifies the ID of the channel whose files you want to send. Veeam Explorer for
-            Microsoft Teams will send all files of this channel. For more information on how to get this parameter, see [Get
-            Team Channels](TeamsChannel#operation/TeamsChannel_Get).
+    """ 
+        Attributes:
+            channel_id (str | Unset): Specifies the ID of the channel whose files you want to send. Veeam Explorer for
+                Microsoft Teams will send all files of this channel. For more information on how to get this parameter, see [Get
+                Team Channels](#/TeamsChannel/TeamsChannel_Get).
 
-            **Note**: You do not need to use this property if you use the `files` property to specify what files to send.
-        files (list[RESTTeamsFile] | Unset): Specifies IDs of the files that you want to send. The files must reside in
-            the same channel. For more information on how to get such IDs, see [Get
-            Files](TeamsFile#operation/TeamsFile_GetPage).
+                **Note**: You do not need to use this property if you use the `files` property to specify what files to send.
+            files (list[RESTTeamsFile] | Unset): Specifies IDs of the files that you want to send. The files must reside in
+                the same channel. For more information on how to get such IDs, see [Get Files](#/TeamsFile/TeamsFile_GetPage).
 
-            **Note**: You do not need to use this property if you use the `channelId` property to specify a channel whose
-            files to send.
-        from_ (str | Unset): Specifies the email address from which the attachments will be sent.
-        to (str | Unset): Specifies the email address to which the attachments will be sent.
-        subject (str | Unset): Specifies the subject of the email message used for sending the attachments.
-        text (str | Unset): Specifies the body of the email message used for sending the attachments.
-    """
+                **Note**: You do not need to use this property if you use the `channelId` property to specify a channel whose
+                files to send.
+            from_ (str | Unset): Specifies the email address from which the attachments will be sent.
+            to (str | Unset): Specifies the email address to which the attachments will be sent.
+            subject (str | Unset): Specifies the subject of the email message used for sending the attachments.
+            text (str | Unset): Specifies the body of the email message used for sending the attachments.
+     """
 
     channel_id: str | Unset = UNSET
     files: list[RESTTeamsFile] | Unset = UNSET
@@ -44,7 +50,12 @@ class RESTFilesSendOptions:
     text: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_teams_file import RESTTeamsFile
         channel_id = self.channel_id
 
         files: list[dict[str, Any]] | Unset = UNSET
@@ -54,6 +65,8 @@ class RESTFilesSendOptions:
                 files_item = files_item_data.to_dict()
                 files.append(files_item)
 
+
+
         from_ = self.from_
 
         to = self.to
@@ -62,9 +75,11 @@ class RESTFilesSendOptions:
 
         text = self.text
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if channel_id is not UNSET:
             field_dict["channelId"] = channel_id
         if files is not UNSET:
@@ -80,10 +95,11 @@ class RESTFilesSendOptions:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_teams_file import RESTTeamsFile
-
         d = dict(src_dict)
         channel_id = d.pop("channelId", UNSET)
 
@@ -94,7 +110,10 @@ class RESTFilesSendOptions:
             for files_item_data in _files:
                 files_item = RESTTeamsFile.from_dict(files_item_data)
 
+
+
                 files.append(files_item)
+
 
         from_ = d.pop("from", UNSET)
 
@@ -112,6 +131,7 @@ class RESTFilesSendOptions:
             subject=subject,
             text=text,
         )
+
 
         rest_files_send_options.additional_properties = d
         return rest_files_send_options

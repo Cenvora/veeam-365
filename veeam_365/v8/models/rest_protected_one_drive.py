@@ -1,29 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTProtectedOneDrive")
+
 
 
 @_attrs_define
 class RESTProtectedOneDrive:
-    """
-    Attributes:
-        id (str | Unset): OneDrive ID.
-        display_name (str | Unset): Display name of the OneDrive.
-        url (str | Unset): OneDrive path.
-    """
+    """ 
+        Attributes:
+            id (str | Unset): OneDrive ID.
+            display_name (str | Unset): Display name of the OneDrive.
+            url (str | Unset): OneDrive path.
+     """
 
     id: str | Unset = UNSET
     display_name: str | Unset = UNSET
     url: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
@@ -32,9 +44,11 @@ class RESTProtectedOneDrive:
 
         url = self.url
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if display_name is not UNSET:
@@ -43,6 +57,8 @@ class RESTProtectedOneDrive:
             field_dict["url"] = url
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -58,6 +74,7 @@ class RESTProtectedOneDrive:
             display_name=display_name,
             url=url,
         )
+
 
         rest_protected_one_drive.additional_properties = d
         return rest_protected_one_drive

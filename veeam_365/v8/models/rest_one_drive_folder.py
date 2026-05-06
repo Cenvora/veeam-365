@@ -1,38 +1,45 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+import datetime
+
 if TYPE_CHECKING:
-    from ..models.rest_one_drive_folder_links import RESTOneDriveFolderLinks
+  from ..models.rest_one_drive_folder_links import RESTOneDriveFolderLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTOneDriveFolder")
 
 
+
 @_attrs_define
 class RESTOneDriveFolder:
-    """
-    Attributes:
-        id (str): ID of the backed-up OneDrive folder.
-        name (str): Name of the backed-up OneDrive folder.
-        created_by (str): User who created the folder.
-        creation_time (datetime.datetime): Date and time when the folder was created.
-        modified_by (str): User who performed the last modification to the folder.
-        modification_time (datetime.datetime): Date and time when the folder was modified.
-        one_drive_id (str | Unset): OneDrive ID.
-        version (str | Unset): Version of the OneDrive folder.
-        version_id (int | None | Unset): ID of the OneDrive folder version.
-        is_folder (bool | Unset): Defines whether the item is a folder.
-        field_links (RESTOneDriveFolderLinks | Unset):
-    """
+    """ 
+        Attributes:
+            id (str): ID of the backed-up OneDrive folder.
+            name (str): Name of the backed-up OneDrive folder.
+            created_by (str): User who created the folder.
+            creation_time (datetime.datetime): Date and time when the folder was created.
+            modified_by (str): User who performed the last modification to the folder.
+            modification_time (datetime.datetime): Date and time when the folder was modified.
+            one_drive_id (str | Unset): OneDrive ID.
+            version (str | Unset): Version of the OneDrive folder.
+            version_id (int | None | Unset): ID of the OneDrive folder version.
+            is_folder (bool | Unset): Defines whether the item is a folder.
+            field_links (RESTOneDriveFolderLinks | Unset):
+     """
 
     id: str
     name: str
@@ -47,7 +54,12 @@ class RESTOneDriveFolder:
     field_links: RESTOneDriveFolderLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_one_drive_folder_links import RESTOneDriveFolderLinks
         id = self.id
 
         name = self.name
@@ -76,18 +88,17 @@ class RESTOneDriveFolder:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "name": name,
-                "createdBy": created_by,
-                "creationTime": creation_time,
-                "modifiedBy": modified_by,
-                "modificationTime": modification_time,
-            }
-        )
+        field_dict.update({
+            "id": id,
+            "name": name,
+            "createdBy": created_by,
+            "creationTime": creation_time,
+            "modifiedBy": modified_by,
+            "modificationTime": modification_time,
+        })
         if one_drive_id is not UNSET:
             field_dict["oneDriveId"] = one_drive_id
         if version is not UNSET:
@@ -101,10 +112,11 @@ class RESTOneDriveFolder:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_one_drive_folder_links import RESTOneDriveFolderLinks
-
         d = dict(src_dict)
         id = d.pop("id")
 
@@ -114,9 +126,15 @@ class RESTOneDriveFolder:
 
         creation_time = isoparse(d.pop("creationTime"))
 
+
+
+
         modified_by = d.pop("modifiedBy")
 
         modification_time = isoparse(d.pop("modificationTime"))
+
+
+
 
         one_drive_id = d.pop("oneDriveId", UNSET)
 
@@ -131,14 +149,18 @@ class RESTOneDriveFolder:
 
         version_id = _parse_version_id(d.pop("versionId", UNSET))
 
+
         is_folder = d.pop("isFolder", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTOneDriveFolderLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTOneDriveFolderLinks.from_dict(_field_links)
+
+
+
 
         rest_one_drive_folder = cls(
             id=id,
@@ -153,6 +175,7 @@ class RESTOneDriveFolder:
             is_folder=is_folder,
             field_links=field_links,
         )
+
 
         rest_one_drive_folder.additional_properties = d
         return rest_one_drive_folder

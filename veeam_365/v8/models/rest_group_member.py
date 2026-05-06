@@ -1,42 +1,56 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_group_member_type import RESTGroupMemberType
 from ..types import UNSET, Unset
 
+from ..models.rest_group_member_type import RESTGroupMemberType
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTGroupMember")
 
 
+
 @_attrs_define
 class RESTGroupMember:
-    """
-    Attributes:
-        group_id (str | Unset): ID of the group to which the account belongs.
-        name (str | Unset): Name of the account.
-        login (str | Unset): Account login.
-        type_ (RESTGroupMemberType | Unset): Type of the account.
-        is_cloud (bool | Unset): Defines whether the account belongs to the Microsoft Online group, not on-premises.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            group_id (str | Unset): ID of the group to which the account belongs.
+            name (str | Unset): Name of the account.
+            login (str | Unset): Account login.
+            type_ (RESTGroupMemberType | Unset): Type of the account.
+            is_cloud (bool | Unset): Defines whether the account belongs to the Microsoft Online group, not on-premises.
+            data_location (None | str | Unset): Data location of the organization group member.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     group_id: str | Unset = UNSET
     name: str | Unset = UNSET
     login: str | Unset = UNSET
     type_: RESTGroupMemberType | Unset = UNSET
     is_cloud: bool | Unset = UNSET
+    data_location: None | str | Unset = UNSET
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         group_id = self.group_id
 
         name = self.name
@@ -47,15 +61,24 @@ class RESTGroupMember:
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
+
         is_cloud = self.is_cloud
+
+        data_location: None | str | Unset
+        if isinstance(self.data_location, Unset):
+            data_location = UNSET
+        else:
+            data_location = self.data_location
 
         field_links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if group_id is not UNSET:
             field_dict["groupId"] = group_id
         if name is not UNSET:
@@ -66,15 +89,18 @@ class RESTGroupMember:
             field_dict["type"] = type_
         if is_cloud is not UNSET:
             field_dict["isCloud"] = is_cloud
+        if data_location is not UNSET:
+            field_dict["dataLocation"] = data_location
         if field_links is not UNSET:
             field_dict["_links"] = field_links
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         group_id = d.pop("groupId", UNSET)
 
@@ -84,19 +110,35 @@ class RESTGroupMember:
 
         _type_ = d.pop("type", UNSET)
         type_: RESTGroupMemberType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTGroupMemberType(_type_)
 
+
+
+
         is_cloud = d.pop("isCloud", UNSET)
+
+        def _parse_data_location(data: object) -> None | str | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(None | str | Unset, data)
+
+        data_location = _parse_data_location(d.pop("dataLocation", UNSET))
+
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_group_member = cls(
             group_id=group_id,
@@ -104,8 +146,10 @@ class RESTGroupMember:
             login=login,
             type_=type_,
             is_cloud=is_cloud,
+            data_location=data_location,
             field_links=field_links,
         )
+
 
         rest_group_member.additional_properties = d
         return rest_group_member

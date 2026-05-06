@@ -1,50 +1,59 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTOffice365ConnectionSettingsType0")
+
 
 
 @_attrs_define
 class RESTOffice365ConnectionSettingsType0:
-    """
-    Attributes:
-        use_application_only_auth (bool | None | Unset): Defines whether to use Microsoft Entra application
-            authentication.
+    """ 
+        Attributes:
+            use_application_only_auth (bool | None | Unset): Defines whether to use Microsoft Entra application
+                authentication.
 
-            **Note**: If set to *false*, enables basic authentication. Since [Microsoft deprecated basic authentication and
-            legacy authentication protocols](https://techcommunity.microsoft.com/t5/exchange-team-blog/basic-authentication-
-            deprecation-in-exchange-online-september/ba-p/3609437), adding Microsoft organizations using these
-            authentication methods will be deprecated in future versions of Veeam Backup for Microsoft 365. Use the *modern
-            app-only* authentication method instead.
-        office_organization_name (str | Unset): Specifies the name of a SharePoint Online organization.
-        share_point_save_all_web_parts (bool | None | Unset): Defines whether to change export mode for SharePoint Web
-            Parts to back up a customized content of SharePoint Online sites. For more information, see the [Adding
-            Organizations with Modern App-Only
-            Authentication](https://helpcenter.veeam.com/docs/vbo365/guide/adding_o365_organizations_sd.html?ver=80) section
-            of the Veeam Backup for Microsoft 365 User Guide.
-        account (str | Unset): Specifies the account name of an Exchange Online organization.
-        password (str | Unset): Specifies a password.
-        grant_admin_access (bool | None | Unset): Defines whether to grant administrative permissions.
-        use_mfa (bool | None | Unset): Defines whether to use multi-factor authentication (MFA).
-        use_custom_veeam_aad_application (bool | None | Unset): Defines whether to use a custom Microsoft Entra
-            application that is automatically configured by Veeam Backup for Microsoft 365.
-        application_id (None | Unset | UUID): Specifies the identification number of the Microsoft Entra application.
-            Example: 00000000-0000-0000-0000-000000000000.
-        application_secret (str | Unset): Specifies a password.
-        application_certificate (str | Unset): Specifies the Base64 string of an SSL certificate that you want to use to
-            access the Microsoft Entra application.
-        application_certificate_password (str | Unset): Specifies a password.
-        application_certificate_thumbprint (str | Unset): Specifies an application certificate thumbprint for connecting
-            to Microsoft Entra.
-    """
+                **Note**: If set to *false*, enables basic authentication. Since [Microsoft deprecated basic authentication and
+                legacy authentication protocols](https://techcommunity.microsoft.com/t5/exchange-team-blog/basic-authentication-
+                deprecation-in-exchange-online-september/ba-p/3609437), adding Microsoft organizations using these
+                authentication methods will be deprecated in future versions of Veeam Backup for Microsoft 365. Use the *modern
+                app-only* authentication method instead.
+            office_organization_name (str | Unset): Specifies the name of a SharePoint Online organization.
+            share_point_save_all_web_parts (bool | None | Unset): Defines whether to change export mode for SharePoint Web
+                Parts to back up a customized content of SharePoint Online sites. For more information, see the [Adding
+                Organizations with Modern App-Only
+                Authentication](https://helpcenter.veeam.com/docs/vbo365/guide/adding_o365_organizations_sd.html?ver=80) section
+                of the Veeam Backup for Microsoft 365 User Guide.
+            account (str | Unset): Specifies the account name of an Exchange Online organization.
+            password (str | Unset): Specifies a password.
+            grant_admin_access (bool | None | Unset): Defines whether to grant administrative permissions.
+            use_mfa (bool | None | Unset): Defines whether to use multi-factor authentication (MFA).
+            use_custom_veeam_aad_application (bool | None | Unset): Defines whether to use a custom Microsoft Entra
+                application that is automatically configured by Veeam Backup for Microsoft 365.
+            application_id (None | Unset | UUID): Specifies the identification number of the Microsoft Entra application.
+                Example: 00000000-0000-0000-0000-000000000000.
+            application_secret (str | Unset): Specifies a password.
+            application_certificate (str | Unset): Specifies the Base64 string of a TLS certificate that you want to use to
+                access the Microsoft Entra application.
+            application_certificate_password (str | Unset): Specifies a password.
+            application_certificate_thumbprint (str | Unset): Specifies an application certificate thumbprint for connecting
+                to Microsoft Entra.
+     """
 
     use_application_only_auth: bool | None | Unset = UNSET
     office_organization_name: str | Unset = UNSET
@@ -60,6 +69,10 @@ class RESTOffice365ConnectionSettingsType0:
     application_certificate_password: str | Unset = UNSET
     application_certificate_thumbprint: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         use_application_only_auth: bool | None | Unset
@@ -114,9 +127,11 @@ class RESTOffice365ConnectionSettingsType0:
 
         application_certificate_thumbprint = self.application_certificate_thumbprint
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if use_application_only_auth is not UNSET:
             field_dict["useApplicationOnlyAuth"] = use_application_only_auth
         if office_organization_name is not UNSET:
@@ -146,10 +161,11 @@ class RESTOffice365ConnectionSettingsType0:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-
         def _parse_use_application_only_auth(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -158,6 +174,7 @@ class RESTOffice365ConnectionSettingsType0:
             return cast(bool | None | Unset, data)
 
         use_application_only_auth = _parse_use_application_only_auth(d.pop("useApplicationOnlyAuth", UNSET))
+
 
         office_organization_name = d.pop("officeOrganizationName", UNSET)
 
@@ -168,9 +185,8 @@ class RESTOffice365ConnectionSettingsType0:
                 return data
             return cast(bool | None | Unset, data)
 
-        share_point_save_all_web_parts = _parse_share_point_save_all_web_parts(
-            d.pop("sharePointSaveAllWebParts", UNSET)
-        )
+        share_point_save_all_web_parts = _parse_share_point_save_all_web_parts(d.pop("sharePointSaveAllWebParts", UNSET))
+
 
         account = d.pop("account", UNSET)
 
@@ -185,6 +201,7 @@ class RESTOffice365ConnectionSettingsType0:
 
         grant_admin_access = _parse_grant_admin_access(d.pop("grantAdminAccess", UNSET))
 
+
         def _parse_use_mfa(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -194,6 +211,7 @@ class RESTOffice365ConnectionSettingsType0:
 
         use_mfa = _parse_use_mfa(d.pop("useMfa", UNSET))
 
+
         def _parse_use_custom_veeam_aad_application(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -201,9 +219,8 @@ class RESTOffice365ConnectionSettingsType0:
                 return data
             return cast(bool | None | Unset, data)
 
-        use_custom_veeam_aad_application = _parse_use_custom_veeam_aad_application(
-            d.pop("useCustomVeeamAADApplication", UNSET)
-        )
+        use_custom_veeam_aad_application = _parse_use_custom_veeam_aad_application(d.pop("useCustomVeeamAADApplication", UNSET))
+
 
         def _parse_application_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -215,12 +232,15 @@ class RESTOffice365ConnectionSettingsType0:
                     raise TypeError()
                 application_id_type_0 = UUID(data)
 
+
+
                 return application_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         application_id = _parse_application_id(d.pop("applicationId", UNSET))
+
 
         application_secret = d.pop("applicationSecret", UNSET)
 
@@ -245,6 +265,7 @@ class RESTOffice365ConnectionSettingsType0:
             application_certificate_password=application_certificate_password,
             application_certificate_thumbprint=application_certificate_thumbprint,
         )
+
 
         rest_office_365_connection_settings_type_0.additional_properties = d
         return rest_office_365_connection_settings_type_0

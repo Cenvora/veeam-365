@@ -1,39 +1,55 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTSearchOptions")
+
 
 
 @_attrs_define
 class RESTSearchOptions:
-    """
-    Attributes:
-        query (str | Unset): Specifies query parameters used to search for items. For the complete list of supported
-            query parameters, see the [Appendix A. Item Search
-            Parameters](https://helpcenter.veeam.com/docs/vbo365/guide/appendix_search.html?ver=80) section of the Veeam
-            Backup for Microsoft 365 User Guide.
-    """
+    """ 
+        Attributes:
+            query (str | Unset): Specifies query parameters used to search for items. For the complete list of supported
+                query parameters, see the [Appendix A. Item Search
+                Parameters](https://helpcenter.veeam.com/docs/vbo365/guide/appendix_search.html?ver=80) section of the Veeam
+                Backup for Microsoft 365 User Guide.
+     """
 
     query: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
         query = self.query
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if query is not UNSET:
             field_dict["query"] = query
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -43,6 +59,7 @@ class RESTSearchOptions:
         rest_search_options = cls(
             query=query,
         )
+
 
         rest_search_options.additional_properties = d
         return rest_search_options

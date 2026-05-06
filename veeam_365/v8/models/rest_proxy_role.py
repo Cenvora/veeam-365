@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTProxyRole(str, Enum):
     APPLIANCEPROCESSOR = "ApplianceProcessor"
     ORCHESTRATOR = "Orchestrator"

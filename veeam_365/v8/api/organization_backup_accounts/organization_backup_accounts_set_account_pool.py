@@ -1,29 +1,37 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_account_pool import RESTAccountPool
 from ...models.rest_backup_account import RESTBackupAccount
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
     organization_id: UUID,
     *,
     body: list[RESTBackupAccount],
+
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "put",
-        "url": "/v8/Organizations/{organization_id}/BackupAccounts".format(
-            organization_id=quote(str(organization_id), safe=""),
-        ),
+        "url": "/v8/Organizations/{organization_id}/BackupAccounts".format(organization_id=quote(str(organization_id), safe=""),),
     }
 
     _kwargs["json"] = []
@@ -31,28 +39,33 @@ def _get_kwargs(
         body_item = body_item_data.to_dict()
         _kwargs["json"].append(body_item)
 
+
+
+
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTAccountPool | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTAccountPool | RESTExceptionInfo:
     if response.status_code == 201:
         response_201 = RESTAccountPool.from_dict(response.json())
+
+
 
         return response_201
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTAccountPool | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTAccountPool | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -66,8 +79,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: list[RESTBackupAccount],
+
 ) -> Response[RESTAccountPool | RESTExceptionInfo]:
-    """Add Backup Accounts
+    """ Add Backup Accounts
 
      Adds Microsoft 365 backup accounts to the backup configuration to minimize throttling when backing
     up Microsoft SharePoint and OneDrive for Business items.
@@ -82,11 +96,13 @@ def sync_detailed(
 
     Returns:
         Response[RESTAccountPool | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-        body=body,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -95,14 +111,14 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: list[RESTBackupAccount],
+
 ) -> RESTAccountPool | RESTExceptionInfo | None:
-    """Add Backup Accounts
+    """ Add Backup Accounts
 
      Adds Microsoft 365 backup accounts to the backup configuration to minimize throttling when backing
     up Microsoft SharePoint and OneDrive for Business items.
@@ -117,22 +133,24 @@ def sync(
 
     Returns:
         RESTAccountPool | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         organization_id=organization_id,
-        client=client,
-        body=body,
-    ).parsed
+client=client,
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: list[RESTBackupAccount],
+
 ) -> Response[RESTAccountPool | RESTExceptionInfo]:
-    """Add Backup Accounts
+    """ Add Backup Accounts
 
      Adds Microsoft 365 backup accounts to the backup configuration to minimize throttling when backing
     up Microsoft SharePoint and OneDrive for Business items.
@@ -147,25 +165,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTAccountPool | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-        body=body,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: list[RESTBackupAccount],
+
 ) -> RESTAccountPool | RESTExceptionInfo | None:
-    """Add Backup Accounts
+    """ Add Backup Accounts
 
      Adds Microsoft 365 backup accounts to the backup configuration to minimize throttling when backing
     up Microsoft SharePoint and OneDrive for Business items.
@@ -180,12 +202,12 @@ async def asyncio(
 
     Returns:
         RESTAccountPool | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            organization_id=organization_id,
-            client=client,
-            body=body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        organization_id=organization_id,
+client=client,
+body=body,
+
+    )).parsed

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTBackupRepositoryRetentionType(str, Enum):
     ITEMLEVEL = "ItemLevel"
     SNAPSHOTBASED = "SnapshotBased"

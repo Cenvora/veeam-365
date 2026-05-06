@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTLogItemType(str, Enum):
     ERROR = "Error"
     RUNNING = "Running"

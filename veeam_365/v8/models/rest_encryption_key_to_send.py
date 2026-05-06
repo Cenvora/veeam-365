@@ -1,34 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTEncryptionKeyToSend")
 
 
+
 @_attrs_define
 class RESTEncryptionKeyToSend:
-    """
-    Attributes:
-        password (str | Unset): Specifies a password.
-        new_password (str | Unset): Specifies a password.
-        old_password (str | Unset): Specifies a password.
-        id (None | Unset | UUID): Specifies the encryption password ID. Example: 00000000-0000-0000-0000-000000000000.
-        organization_id (None | Unset | UUID): Specifies the organization ID. Example:
-            00000000-0000-0000-0000-000000000000.
-        description (str | Unset): Specifies the hint of the encryption password.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            password (str | Unset): Specifies a password.
+            new_password (str | Unset): Specifies a password.
+            old_password (str | Unset): Specifies a password.
+            id (None | Unset | UUID): Specifies the encryption password ID. Example: 00000000-0000-0000-0000-000000000000.
+            organization_id (None | Unset | UUID): Specifies the organization ID. Example:
+                00000000-0000-0000-0000-000000000000.
+            description (str | Unset): Specifies the hint of the encryption password.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     password: str | Unset = UNSET
     new_password: str | Unset = UNSET
@@ -39,7 +46,12 @@ class RESTEncryptionKeyToSend:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         password = self.password
 
         new_password = self.new_password
@@ -68,9 +80,11 @@ class RESTEncryptionKeyToSend:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if password is not UNSET:
             field_dict["password"] = password
         if new_password is not UNSET:
@@ -88,10 +102,11 @@ class RESTEncryptionKeyToSend:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         password = d.pop("password", UNSET)
 
@@ -109,12 +124,15 @@ class RESTEncryptionKeyToSend:
                     raise TypeError()
                 id_type_0 = UUID(data)
 
+
+
                 return id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         id = _parse_id(d.pop("id", UNSET))
+
 
         def _parse_organization_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -126,6 +144,8 @@ class RESTEncryptionKeyToSend:
                     raise TypeError()
                 organization_id_type_0 = UUID(data)
 
+
+
                 return organization_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -133,14 +153,18 @@ class RESTEncryptionKeyToSend:
 
         organization_id = _parse_organization_id(d.pop("organizationId", UNSET))
 
+
         description = d.pop("description", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_encryption_key_to_send = cls(
             password=password,
@@ -151,6 +175,7 @@ class RESTEncryptionKeyToSend:
             description=description,
             field_links=field_links,
         )
+
 
         rest_encryption_key_to_send.additional_properties = d
         return rest_encryption_key_to_send

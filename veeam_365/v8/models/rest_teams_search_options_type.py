@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTTeamsSearchOptionsType(str, Enum):
     FILES = "Files"
     POSTS = "Posts"

@@ -1,31 +1,43 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTDeviceCodeResponse")
+
 
 
 @_attrs_define
 class RESTDeviceCodeResponse:
-    """
-    Attributes:
-        user_code (str | Unset): Code that you must copy and then specify on Microsoft Identity platform.
-        verification_url (str | Unset): Verification URL that you must open to sign in to Microsoft Identity platform.
-        expires_in (int | Unset): Lifespan of the code in *seconds*.
-        message (str | Unset): Help message.
-    """
+    """ 
+        Attributes:
+            user_code (str | Unset): Code that you must copy and then specify on Microsoft Identity platform.
+            verification_url (str | Unset): Verification URL that you must open to sign in to Microsoft Identity platform.
+            expires_in (int | Unset): Lifespan of the code in *seconds*.
+            message (str | Unset): Help message.
+     """
 
     user_code: str | Unset = UNSET
     verification_url: str | Unset = UNSET
     expires_in: int | Unset = UNSET
     message: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         user_code = self.user_code
@@ -36,9 +48,11 @@ class RESTDeviceCodeResponse:
 
         message = self.message
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if user_code is not UNSET:
             field_dict["userCode"] = user_code
         if verification_url is not UNSET:
@@ -49,6 +63,8 @@ class RESTDeviceCodeResponse:
             field_dict["message"] = message
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -67,6 +83,7 @@ class RESTDeviceCodeResponse:
             expires_in=expires_in,
             message=message,
         )
+
 
         rest_device_code_response.additional_properties = d
         return rest_device_code_response

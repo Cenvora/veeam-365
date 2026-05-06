@@ -1,14 +1,18 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_one_drive_document import RESTOneDriveDocument
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -16,36 +20,41 @@ def _get_kwargs(
     one_drive_id: str,
     document_id: UUID,
     version_id: int,
+
 ) -> dict[str, Any]:
+    
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/RestoreSessions/{restore_session_id}/Organization/OneDrives/{one_drive_id}/Documents/{document_id}/Versions/{version_id}".format(
-            restore_session_id=quote(str(restore_session_id), safe=""),
-            one_drive_id=quote(str(one_drive_id), safe=""),
-            document_id=quote(str(document_id), safe=""),
-            version_id=quote(str(version_id), safe=""),
-        ),
+        "url": "/v8/RestoreSessions/{restore_session_id}/Organization/OneDrives/{one_drive_id}/Documents/{document_id}/Versions/{version_id}".format(restore_session_id=quote(str(restore_session_id), safe=""),one_drive_id=quote(str(one_drive_id), safe=""),document_id=quote(str(document_id), safe=""),version_id=quote(str(version_id), safe=""),),
     }
+
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTExceptionInfo | RESTOneDriveDocument:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | RESTOneDriveDocument:
     if response.status_code == 200:
         response_200 = RESTOneDriveDocument.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTExceptionInfo | RESTOneDriveDocument]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | RESTOneDriveDocument]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -61,8 +70,9 @@ def sync_detailed(
     version_id: int,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[RESTExceptionInfo | RESTOneDriveDocument]:
-    """Get Specific Version of OneDrive Document
+    """ Get Specific Version of OneDrive Document
 
      Returns a resource representation of a specific version of a backed-up OneDrive document with the
     specified ID.
@@ -79,13 +89,15 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTOneDriveDocument]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        one_drive_id=one_drive_id,
-        document_id=document_id,
-        version_id=version_id,
+one_drive_id=one_drive_id,
+document_id=document_id,
+version_id=version_id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -94,7 +106,6 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     restore_session_id: UUID,
     one_drive_id: str,
@@ -102,8 +113,9 @@ def sync(
     version_id: int,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> RESTExceptionInfo | RESTOneDriveDocument | None:
-    """Get Specific Version of OneDrive Document
+    """ Get Specific Version of OneDrive Document
 
      Returns a resource representation of a specific version of a backed-up OneDrive document with the
     specified ID.
@@ -120,16 +132,17 @@ def sync(
 
     Returns:
         RESTExceptionInfo | RESTOneDriveDocument
-    """
+     """
+
 
     return sync_detailed(
         restore_session_id=restore_session_id,
-        one_drive_id=one_drive_id,
-        document_id=document_id,
-        version_id=version_id,
-        client=client,
-    ).parsed
+one_drive_id=one_drive_id,
+document_id=document_id,
+version_id=version_id,
+client=client,
 
+    ).parsed
 
 async def asyncio_detailed(
     restore_session_id: UUID,
@@ -138,8 +151,9 @@ async def asyncio_detailed(
     version_id: int,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[RESTExceptionInfo | RESTOneDriveDocument]:
-    """Get Specific Version of OneDrive Document
+    """ Get Specific Version of OneDrive Document
 
      Returns a resource representation of a specific version of a backed-up OneDrive document with the
     specified ID.
@@ -156,19 +170,22 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTOneDriveDocument]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        one_drive_id=one_drive_id,
-        document_id=document_id,
-        version_id=version_id,
+one_drive_id=one_drive_id,
+document_id=document_id,
+version_id=version_id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     restore_session_id: UUID,
@@ -177,8 +194,9 @@ async def asyncio(
     version_id: int,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> RESTExceptionInfo | RESTOneDriveDocument | None:
-    """Get Specific Version of OneDrive Document
+    """ Get Specific Version of OneDrive Document
 
      Returns a resource representation of a specific version of a backed-up OneDrive document with the
     specified ID.
@@ -195,14 +213,14 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | RESTOneDriveDocument
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            restore_session_id=restore_session_id,
-            one_drive_id=one_drive_id,
-            document_id=document_id,
-            version_id=version_id,
-            client=client,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        restore_session_id=restore_session_id,
+one_drive_id=one_drive_id,
+document_id=document_id,
+version_id=version_id,
+client=client,
+
+    )).parsed

@@ -1,31 +1,38 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_data_retrieval_one_drive_links import RESTDataRetrievalOneDriveLinks
+  from ..models.rest_data_retrieval_one_drive_links import RESTDataRetrievalOneDriveLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTDataRetrievalOneDrive")
 
 
+
 @_attrs_define
 class RESTDataRetrievalOneDrive:
-    """
-    Attributes:
-        site_id (UUID | Unset): Site collection ID Example: 00000000-0000-0000-0000-000000000000.
-        web_id (UUID | Unset): OneDrive ID. Example: 00000000-0000-0000-0000-000000000000.
-        title (str | Unset): OneDrive title.
-        url (str | Unset): OneDrive path.
-        field_links (RESTDataRetrievalOneDriveLinks | Unset):
-    """
+    """ 
+        Attributes:
+            site_id (UUID | Unset): Site collection ID Example: 00000000-0000-0000-0000-000000000000.
+            web_id (UUID | Unset): OneDrive ID. Example: 00000000-0000-0000-0000-000000000000.
+            title (str | Unset): OneDrive title.
+            url (str | Unset): OneDrive path.
+            field_links (RESTDataRetrievalOneDriveLinks | Unset):
+     """
 
     site_id: UUID | Unset = UNSET
     web_id: UUID | Unset = UNSET
@@ -34,7 +41,12 @@ class RESTDataRetrievalOneDrive:
     field_links: RESTDataRetrievalOneDriveLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_data_retrieval_one_drive_links import RESTDataRetrievalOneDriveLinks
         site_id: str | Unset = UNSET
         if not isinstance(self.site_id, Unset):
             site_id = str(self.site_id)
@@ -51,9 +63,11 @@ class RESTDataRetrievalOneDrive:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if site_id is not UNSET:
             field_dict["SiteId"] = site_id
         if web_id is not UNSET:
@@ -67,24 +81,31 @@ class RESTDataRetrievalOneDrive:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_data_retrieval_one_drive_links import RESTDataRetrievalOneDriveLinks
-
         d = dict(src_dict)
         _site_id = d.pop("SiteId", UNSET)
         site_id: UUID | Unset
-        if isinstance(_site_id, Unset):
+        if isinstance(_site_id,  Unset):
             site_id = UNSET
         else:
             site_id = UUID(_site_id)
 
+
+
+
         _web_id = d.pop("WebId", UNSET)
         web_id: UUID | Unset
-        if isinstance(_web_id, Unset):
+        if isinstance(_web_id,  Unset):
             web_id = UNSET
         else:
             web_id = UUID(_web_id)
+
+
+
 
         title = d.pop("Title", UNSET)
 
@@ -92,10 +113,13 @@ class RESTDataRetrievalOneDrive:
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTDataRetrievalOneDriveLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTDataRetrievalOneDriveLinks.from_dict(_field_links)
+
+
+
 
         rest_data_retrieval_one_drive = cls(
             site_id=site_id,
@@ -104,6 +128,7 @@ class RESTDataRetrievalOneDrive:
             url=url,
             field_links=field_links,
         )
+
 
         rest_data_retrieval_one_drive.additional_properties = d
         return rest_data_retrieval_one_drive

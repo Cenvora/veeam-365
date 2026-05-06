@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTRestoreToOriginalDocumentsDocumentAction(str, Enum):
     KEEP = "Keep"
     OVERWRITE = "Overwrite"

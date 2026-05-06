@@ -1,48 +1,69 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTRemoveAuditItemsOptions")
+
 
 
 @_attrs_define
 class RESTRemoveAuditItemsOptions:
-    """
-    Attributes:
-        item_ids (list[str] | Unset): Specifies IDs of the audit items that you want to remove. For more information on
-            how to get such IDs, see [Get Audit Items](OrganizationAudit#operation/OrganizationAudit_Get).
-    """
+    """ 
+        Attributes:
+            item_ids (list[str] | Unset): Specifies IDs of the audit items that you want to remove. For more information on
+                how to get such IDs, see [Get Audit Items](#/OrganizationAudit/OrganizationAudit_Get).
+     """
 
     item_ids: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         item_ids: list[str] | Unset = UNSET
         if not isinstance(self.item_ids, Unset):
             item_ids = self.item_ids
 
+
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if item_ids is not UNSET:
             field_dict["itemIds"] = item_ids
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         item_ids = cast(list[str], d.pop("itemIds", UNSET))
 
+
         rest_remove_audit_items_options = cls(
             item_ids=item_ids,
         )
+
 
         rest_remove_audit_items_options.additional_properties = d
         return rest_remove_audit_items_options

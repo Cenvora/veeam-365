@@ -1,37 +1,44 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_teams_team_privacy import RESTTeamsTeamPrivacy
 from ..types import UNSET, Unset
 
+from ..models.rest_teams_team_privacy import RESTTeamsTeamPrivacy
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_teams_team_links import RESTTeamsTeamLinks
-    from ..models.rest_teams_team_settings import RESTTeamsTeamSettings
+  from ..models.rest_teams_team_links import RESTTeamsTeamLinks
+  from ..models.rest_teams_team_settings import RESTTeamsTeamSettings
+
+
+
 
 
 T = TypeVar("T", bound="RESTTeamsTeam")
 
 
+
 @_attrs_define
 class RESTTeamsTeam:
-    """
-    Attributes:
-        id (UUID): ID of the backed-up team. Example: 00000000-0000-0000-0000-000000000000.
-        display_name (str | Unset): Display name of the backed-up team.
-        description (str | Unset): Description of the backed-up team.
-        group_email (str | Unset): Email address of the backed-up team.
-        alias (str | Unset): Alias of the backed-up team.
-        privacy (RESTTeamsTeamPrivacy | Unset): Type of the backed-up team.
-        settings (RESTTeamsTeamSettings | Unset):
-        is_archived (bool | Unset): Defines whether the team is archived.
-        field_links (RESTTeamsTeamLinks | Unset):
-    """
+    """ 
+        Attributes:
+            id (UUID): ID of the backed-up team. Example: 00000000-0000-0000-0000-000000000000.
+            display_name (str | Unset): Display name of the backed-up team.
+            description (str | Unset): Description of the backed-up team.
+            group_email (str | Unset): Email address of the backed-up team.
+            alias (str | Unset): Alias of the backed-up team.
+            privacy (RESTTeamsTeamPrivacy | Unset): Type of the backed-up team.
+            settings (RESTTeamsTeamSettings | Unset):
+            is_archived (bool | Unset): Defines whether the team is archived.
+            field_links (RESTTeamsTeamLinks | Unset):
+     """
 
     id: UUID
     display_name: str | Unset = UNSET
@@ -44,7 +51,13 @@ class RESTTeamsTeam:
     field_links: RESTTeamsTeamLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_teams_team_links import RESTTeamsTeamLinks
+        from ..models.rest_teams_team_settings import RESTTeamsTeamSettings
         id = str(self.id)
 
         display_name = self.display_name
@@ -59,6 +72,7 @@ class RESTTeamsTeam:
         if not isinstance(self.privacy, Unset):
             privacy = self.privacy.value
 
+
         settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.settings, Unset):
             settings = self.settings.to_dict()
@@ -69,13 +83,12 @@ class RESTTeamsTeam:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-            }
-        )
+        field_dict.update({
+            "id": id,
+        })
         if display_name is not UNSET:
             field_dict["displayName"] = display_name
         if description is not UNSET:
@@ -95,13 +108,17 @@ class RESTTeamsTeam:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_teams_team_links import RESTTeamsTeamLinks
         from ..models.rest_teams_team_settings import RESTTeamsTeamSettings
-
         d = dict(src_dict)
         id = UUID(d.pop("id"))
+
+
+
 
         display_name = d.pop("displayName", UNSET)
 
@@ -113,26 +130,35 @@ class RESTTeamsTeam:
 
         _privacy = d.pop("privacy", UNSET)
         privacy: RESTTeamsTeamPrivacy | Unset
-        if isinstance(_privacy, Unset):
+        if isinstance(_privacy,  Unset):
             privacy = UNSET
         else:
             privacy = RESTTeamsTeamPrivacy(_privacy)
 
+
+
+
         _settings = d.pop("settings", UNSET)
         settings: RESTTeamsTeamSettings | Unset
-        if isinstance(_settings, Unset):
+        if isinstance(_settings,  Unset):
             settings = UNSET
         else:
             settings = RESTTeamsTeamSettings.from_dict(_settings)
+
+
+
 
         is_archived = d.pop("isArchived", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTTeamsTeamLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTTeamsTeamLinks.from_dict(_field_links)
+
+
+
 
         rest_teams_team = cls(
             id=id,
@@ -145,6 +171,7 @@ class RESTTeamsTeam:
             is_archived=is_archived,
             field_links=field_links,
         )
+
 
         rest_teams_team.additional_properties = d
         return rest_teams_team

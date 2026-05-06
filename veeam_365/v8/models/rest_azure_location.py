@@ -1,42 +1,58 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTAzureLocation")
+
 
 
 @_attrs_define
 class RESTAzureLocation:
-    """
-    Attributes:
-        name (str | Unset): Name of the Microsoft Entra region.
-        display_name (str | Unset): Display name of the Microsoft Entra region.
-    """
+    """ 
+        Attributes:
+            name (str | Unset): Name of the Microsoft Entra region.
+            display_name (str | Unset): Display name of the Microsoft Entra region.
+     """
 
     name: str | Unset = UNSET
     display_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         name = self.name
 
         display_name = self.display_name
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if name is not UNSET:
             field_dict["name"] = name
         if display_name is not UNSET:
             field_dict["displayName"] = display_name
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -49,6 +65,7 @@ class RESTAzureLocation:
             name=name,
             display_name=display_name,
         )
+
 
         rest_azure_location.additional_properties = d
         return rest_azure_location

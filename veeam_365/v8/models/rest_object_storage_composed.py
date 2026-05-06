@@ -1,73 +1,80 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_object_storage_type import RESTObjectStorageType
 from ..types import UNSET, Unset
 
+from ..models.rest_object_storage_type import RESTObjectStorageType
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_amazon_archiver_appliance import RESTAmazonArchiverAppliance
-    from ..models.rest_amazon_bucket_s3_aws import RESTAmazonBucketS3Aws
-    from ..models.rest_amazon_bucket_s3_compatible_from_client import RESTAmazonBucketS3CompatibleFromClient
-    from ..models.rest_azure_archiver_appliance import RESTAzureArchiverAppliance
-    from ..models.rest_azure_container import RESTAzureContainer
-    from ..models.rest_azure_subscription import RESTAzureSubscription
-    from ..models.rest_object_storage_composed_links import RESTObjectStorageComposedLinks
-    from ..models.rest_service_account_info import RESTServiceAccountInfo
+  from ..models.rest_amazon_archiver_appliance import RESTAmazonArchiverAppliance
+  from ..models.rest_amazon_bucket_s3_aws import RESTAmazonBucketS3Aws
+  from ..models.rest_amazon_bucket_s3_compatible_from_client import RESTAmazonBucketS3CompatibleFromClient
+  from ..models.rest_azure_archiver_appliance import RESTAzureArchiverAppliance
+  from ..models.rest_azure_container import RESTAzureContainer
+  from ..models.rest_azure_subscription import RESTAzureSubscription
+  from ..models.rest_object_storage_composed_links import RESTObjectStorageComposedLinks
+  from ..models.rest_service_account_info import RESTServiceAccountInfo
+
+
+
 
 
 T = TypeVar("T", bound="RESTObjectStorageComposed")
 
 
+
 @_attrs_define
 class RESTObjectStorageComposed:
-    """
-    Attributes:
-        amazon_bucket_s3_compatible (RESTAmazonBucketS3CompatibleFromClient | Unset):
-        s_3_folder (str | Unset): Specifies storage folder where backups will reside.
-        id (UUID | Unset): Specifies the object storage repository ID. Example: 00000000-0000-0000-0000-000000000000.
-        account_id (None | Unset | UUID): Specifies the ID of the account under which the object storage repository is
-            being added. For more information on how to get this parameter, see [Get
-            Accounts](Account#operation/Account_GetAccounts). Example: 00000000-0000-0000-0000-000000000000.
-        size_limit_enabled (bool | None | Unset): Defines whether the size limit is set.
-        size_limit_gb (int | None | Unset): Specifies size limit in *GB*.
-        used_space_bytes (int | None | Unset): Specifies used space in *Bytes*.
-        free_space_bytes (int | None | Unset): Specifies free space in *Bytes*. This property is displayed only if the
-            size limit is set.
-        enable_immutability (bool | None | Unset): Defines whether immutability is enabled to prohibit deletion of data
-            from the object storage repository by making that data temporarily immutable and to protect data against malware
-            activity.
-        enable_immutability_governance_mode (bool | None | Unset): Defines whether the `Governance` mode is enabled.
-        immutability_period_days (int | None | Unset): Specifies the number of days when your data will be blocked for
-            deletion or modification. If you set the *null* or *0* value, data will be blocked for deletion or modification
-            for the same period as the retention period.
-        type_ (RESTObjectStorageType | Unset): Specifies the object storage repository type.
-        field_links (RESTObjectStorageComposedLinks | Unset):
-        glacier_deep_archive_enabled (bool | None | Unset): Defines whether the Amazon S3 Glacier Deep Archive storage
-            class will be enabled.
-        glacier_instant_retrieval_enabled (bool | None | Unset): Defines whether the Amazon S3 Glacier Instant Retrieval
-            storage class will be enabled.
-        amazon_bucket_s3_aws (RESTAmazonBucketS3Aws | Unset):
-        standard_ia_storage_class_enabled (bool | None | Unset): Defines whether the Amazon S3 Standard-Infrequent
-            Access storage class will be enabled.
-        one_zone_ia_storage_class_enabled (bool | None | Unset): Defines whether the Amazon S3 One Zone-Infrequent
-            Access storage class will be enabled.
-        use_archiver_appliance (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will use the Amazon
-            archiver appliance when transferring backed-up data between different instances of Amazon S3 Standard, Amazon S3
-            Standard-IA, and Amazon S3 One Zone-IA storage classes, or to any of Amazon S3 Glacier storage classes during
-            backup copy jobs.
-        amazon_archiver_appliance (RESTAmazonArchiverAppliance | Unset):
-        azure_container (RESTAzureContainer | Unset):
-        azure_folder (str | Unset): Specifies storage folder where backups will reside.
-        azure_service_account (RESTServiceAccountInfo | Unset):
-        azure_subscription (RESTAzureSubscription | Unset):
-        azure_archiver_appliance (RESTAzureArchiverAppliance | Unset):
-    """
+    """ 
+        Attributes:
+            amazon_bucket_s3_compatible (RESTAmazonBucketS3CompatibleFromClient | Unset):
+            s_3_folder (str | Unset): Specifies storage folder where backups will reside.
+            id (UUID | Unset): Specifies the object storage repository ID. Example: 00000000-0000-0000-0000-000000000000.
+            account_id (None | Unset | UUID): Specifies the ID of the account under which the object storage repository is
+                being added. For more information on how to get this parameter, see [Get
+                Accounts](#/Account/Account_GetAccounts). Example: 00000000-0000-0000-0000-000000000000.
+            size_limit_enabled (bool | None | Unset): Defines whether the size limit is set.
+            size_limit_gb (int | None | Unset): Specifies size limit in *GB*.
+            used_space_bytes (int | None | Unset): Specifies used space in *Bytes*.
+            free_space_bytes (int | None | Unset): Specifies free space in *Bytes*. This property is displayed only if the
+                size limit is set.
+            enable_immutability (bool | None | Unset): Defines whether immutability is enabled to prohibit deletion of data
+                from the object storage repository by making that data temporarily immutable and to protect data against malware
+                activity.
+            enable_immutability_governance_mode (bool | None | Unset): Defines whether the `Governance` mode is enabled.
+            immutability_period_days (int | None | Unset): Specifies the number of days when your data will be blocked for
+                deletion or modification. If you set the *null* or *0* value, data will be blocked for deletion or modification
+                for the same period as the retention period.
+            type_ (RESTObjectStorageType | Unset): Specifies the object storage repository type.
+            field_links (RESTObjectStorageComposedLinks | Unset):
+            glacier_deep_archive_enabled (bool | None | Unset): Defines whether the Amazon S3 Glacier Deep Archive storage
+                class will be enabled.
+            glacier_instant_retrieval_enabled (bool | None | Unset): Defines whether the Amazon S3 Glacier Instant Retrieval
+                storage class will be enabled.
+            amazon_bucket_s3_aws (RESTAmazonBucketS3Aws | Unset):
+            standard_ia_storage_class_enabled (bool | None | Unset): Defines whether the Amazon S3 Standard-Infrequent
+                Access storage class will be enabled.
+            one_zone_ia_storage_class_enabled (bool | None | Unset): Defines whether the Amazon S3 One Zone-Infrequent
+                Access storage class will be enabled.
+            use_archiver_appliance (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will use the Amazon
+                archiver appliance when transferring backed-up data between different instances of Amazon S3 Standard, Amazon S3
+                Standard-IA, and Amazon S3 One Zone-IA storage classes, or to any of Amazon S3 Glacier storage classes during
+                backup copy jobs.
+            amazon_archiver_appliance (RESTAmazonArchiverAppliance | Unset):
+            azure_container (RESTAzureContainer | Unset):
+            azure_folder (str | Unset): Specifies storage folder where backups will reside.
+            azure_service_account (RESTServiceAccountInfo | Unset):
+            azure_subscription (RESTAzureSubscription | Unset):
+            azure_archiver_appliance (RESTAzureArchiverAppliance | Unset):
+     """
 
     amazon_bucket_s3_compatible: RESTAmazonBucketS3CompatibleFromClient | Unset = UNSET
     s_3_folder: str | Unset = UNSET
@@ -96,7 +103,19 @@ class RESTObjectStorageComposed:
     azure_archiver_appliance: RESTAzureArchiverAppliance | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_amazon_archiver_appliance import RESTAmazonArchiverAppliance
+        from ..models.rest_amazon_bucket_s3_aws import RESTAmazonBucketS3Aws
+        from ..models.rest_amazon_bucket_s3_compatible_from_client import RESTAmazonBucketS3CompatibleFromClient
+        from ..models.rest_azure_archiver_appliance import RESTAzureArchiverAppliance
+        from ..models.rest_azure_container import RESTAzureContainer
+        from ..models.rest_azure_subscription import RESTAzureSubscription
+        from ..models.rest_object_storage_composed_links import RESTObjectStorageComposedLinks
+        from ..models.rest_service_account_info import RESTServiceAccountInfo
         amazon_bucket_s3_compatible: dict[str, Any] | Unset = UNSET
         if not isinstance(self.amazon_bucket_s3_compatible, Unset):
             amazon_bucket_s3_compatible = self.amazon_bucket_s3_compatible.to_dict()
@@ -161,6 +180,7 @@ class RESTObjectStorageComposed:
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
+
         field_links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
@@ -221,9 +241,11 @@ class RESTObjectStorageComposed:
         if not isinstance(self.azure_archiver_appliance, Unset):
             azure_archiver_appliance = self.azure_archiver_appliance.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if amazon_bucket_s3_compatible is not UNSET:
             field_dict["amazonBucketS3Compatible"] = amazon_bucket_s3_compatible
         if s_3_folder is not UNSET:
@@ -277,6 +299,8 @@ class RESTObjectStorageComposed:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_amazon_archiver_appliance import RESTAmazonArchiverAppliance
@@ -287,23 +311,28 @@ class RESTObjectStorageComposed:
         from ..models.rest_azure_subscription import RESTAzureSubscription
         from ..models.rest_object_storage_composed_links import RESTObjectStorageComposedLinks
         from ..models.rest_service_account_info import RESTServiceAccountInfo
-
         d = dict(src_dict)
         _amazon_bucket_s3_compatible = d.pop("amazonBucketS3Compatible", UNSET)
         amazon_bucket_s3_compatible: RESTAmazonBucketS3CompatibleFromClient | Unset
-        if isinstance(_amazon_bucket_s3_compatible, Unset):
+        if isinstance(_amazon_bucket_s3_compatible,  Unset):
             amazon_bucket_s3_compatible = UNSET
         else:
             amazon_bucket_s3_compatible = RESTAmazonBucketS3CompatibleFromClient.from_dict(_amazon_bucket_s3_compatible)
+
+
+
 
         s_3_folder = d.pop("s3Folder", UNSET)
 
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
+
+
+
 
         def _parse_account_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -315,12 +344,15 @@ class RESTObjectStorageComposed:
                     raise TypeError()
                 account_id_type_0 = UUID(data)
 
+
+
                 return account_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         account_id = _parse_account_id(d.pop("accountId", UNSET))
+
 
         def _parse_size_limit_enabled(data: object) -> bool | None | Unset:
             if data is None:
@@ -331,6 +363,7 @@ class RESTObjectStorageComposed:
 
         size_limit_enabled = _parse_size_limit_enabled(d.pop("sizeLimitEnabled", UNSET))
 
+
         def _parse_size_limit_gb(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -339,6 +372,7 @@ class RESTObjectStorageComposed:
             return cast(int | None | Unset, data)
 
         size_limit_gb = _parse_size_limit_gb(d.pop("sizeLimitGB", UNSET))
+
 
         def _parse_used_space_bytes(data: object) -> int | None | Unset:
             if data is None:
@@ -349,6 +383,7 @@ class RESTObjectStorageComposed:
 
         used_space_bytes = _parse_used_space_bytes(d.pop("usedSpaceBytes", UNSET))
 
+
         def _parse_free_space_bytes(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -357,6 +392,7 @@ class RESTObjectStorageComposed:
             return cast(int | None | Unset, data)
 
         free_space_bytes = _parse_free_space_bytes(d.pop("freeSpaceBytes", UNSET))
+
 
         def _parse_enable_immutability(data: object) -> bool | None | Unset:
             if data is None:
@@ -367,6 +403,7 @@ class RESTObjectStorageComposed:
 
         enable_immutability = _parse_enable_immutability(d.pop("enableImmutability", UNSET))
 
+
         def _parse_enable_immutability_governance_mode(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -374,9 +411,8 @@ class RESTObjectStorageComposed:
                 return data
             return cast(bool | None | Unset, data)
 
-        enable_immutability_governance_mode = _parse_enable_immutability_governance_mode(
-            d.pop("enableImmutabilityGovernanceMode", UNSET)
-        )
+        enable_immutability_governance_mode = _parse_enable_immutability_governance_mode(d.pop("enableImmutabilityGovernanceMode", UNSET))
+
 
         def _parse_immutability_period_days(data: object) -> int | None | Unset:
             if data is None:
@@ -387,19 +423,26 @@ class RESTObjectStorageComposed:
 
         immutability_period_days = _parse_immutability_period_days(d.pop("immutabilityPeriodDays", UNSET))
 
+
         _type_ = d.pop("type", UNSET)
         type_: RESTObjectStorageType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTObjectStorageType(_type_)
 
+
+
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTObjectStorageComposedLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTObjectStorageComposedLinks.from_dict(_field_links)
+
+
+
 
         def _parse_glacier_deep_archive_enabled(data: object) -> bool | None | Unset:
             if data is None:
@@ -410,6 +453,7 @@ class RESTObjectStorageComposed:
 
         glacier_deep_archive_enabled = _parse_glacier_deep_archive_enabled(d.pop("glacierDeepArchiveEnabled", UNSET))
 
+
         def _parse_glacier_instant_retrieval_enabled(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -417,16 +461,18 @@ class RESTObjectStorageComposed:
                 return data
             return cast(bool | None | Unset, data)
 
-        glacier_instant_retrieval_enabled = _parse_glacier_instant_retrieval_enabled(
-            d.pop("glacierInstantRetrievalEnabled", UNSET)
-        )
+        glacier_instant_retrieval_enabled = _parse_glacier_instant_retrieval_enabled(d.pop("glacierInstantRetrievalEnabled", UNSET))
+
 
         _amazon_bucket_s3_aws = d.pop("amazonBucketS3Aws", UNSET)
         amazon_bucket_s3_aws: RESTAmazonBucketS3Aws | Unset
-        if isinstance(_amazon_bucket_s3_aws, Unset):
+        if isinstance(_amazon_bucket_s3_aws,  Unset):
             amazon_bucket_s3_aws = UNSET
         else:
             amazon_bucket_s3_aws = RESTAmazonBucketS3Aws.from_dict(_amazon_bucket_s3_aws)
+
+
+
 
         def _parse_standard_ia_storage_class_enabled(data: object) -> bool | None | Unset:
             if data is None:
@@ -435,9 +481,8 @@ class RESTObjectStorageComposed:
                 return data
             return cast(bool | None | Unset, data)
 
-        standard_ia_storage_class_enabled = _parse_standard_ia_storage_class_enabled(
-            d.pop("standardIaStorageClassEnabled", UNSET)
-        )
+        standard_ia_storage_class_enabled = _parse_standard_ia_storage_class_enabled(d.pop("standardIaStorageClassEnabled", UNSET))
+
 
         def _parse_one_zone_ia_storage_class_enabled(data: object) -> bool | None | Unset:
             if data is None:
@@ -446,9 +491,8 @@ class RESTObjectStorageComposed:
                 return data
             return cast(bool | None | Unset, data)
 
-        one_zone_ia_storage_class_enabled = _parse_one_zone_ia_storage_class_enabled(
-            d.pop("oneZoneIaStorageClassEnabled", UNSET)
-        )
+        one_zone_ia_storage_class_enabled = _parse_one_zone_ia_storage_class_enabled(d.pop("oneZoneIaStorageClassEnabled", UNSET))
+
 
         def _parse_use_archiver_appliance(data: object) -> bool | None | Unset:
             if data is None:
@@ -459,42 +503,58 @@ class RESTObjectStorageComposed:
 
         use_archiver_appliance = _parse_use_archiver_appliance(d.pop("useArchiverAppliance", UNSET))
 
+
         _amazon_archiver_appliance = d.pop("amazonArchiverAppliance", UNSET)
         amazon_archiver_appliance: RESTAmazonArchiverAppliance | Unset
-        if isinstance(_amazon_archiver_appliance, Unset):
+        if isinstance(_amazon_archiver_appliance,  Unset):
             amazon_archiver_appliance = UNSET
         else:
             amazon_archiver_appliance = RESTAmazonArchiverAppliance.from_dict(_amazon_archiver_appliance)
 
+
+
+
         _azure_container = d.pop("azureContainer", UNSET)
         azure_container: RESTAzureContainer | Unset
-        if isinstance(_azure_container, Unset):
+        if isinstance(_azure_container,  Unset):
             azure_container = UNSET
         else:
             azure_container = RESTAzureContainer.from_dict(_azure_container)
+
+
+
 
         azure_folder = d.pop("azureFolder", UNSET)
 
         _azure_service_account = d.pop("azureServiceAccount", UNSET)
         azure_service_account: RESTServiceAccountInfo | Unset
-        if isinstance(_azure_service_account, Unset):
+        if isinstance(_azure_service_account,  Unset):
             azure_service_account = UNSET
         else:
             azure_service_account = RESTServiceAccountInfo.from_dict(_azure_service_account)
 
+
+
+
         _azure_subscription = d.pop("azureSubscription", UNSET)
         azure_subscription: RESTAzureSubscription | Unset
-        if isinstance(_azure_subscription, Unset):
+        if isinstance(_azure_subscription,  Unset):
             azure_subscription = UNSET
         else:
             azure_subscription = RESTAzureSubscription.from_dict(_azure_subscription)
 
+
+
+
         _azure_archiver_appliance = d.pop("azureArchiverAppliance", UNSET)
         azure_archiver_appliance: RESTAzureArchiverAppliance | Unset
-        if isinstance(_azure_archiver_appliance, Unset):
+        if isinstance(_azure_archiver_appliance,  Unset):
             azure_archiver_appliance = UNSET
         else:
             azure_archiver_appliance = RESTAzureArchiverAppliance.from_dict(_azure_archiver_appliance)
+
+
+
 
         rest_object_storage_composed = cls(
             amazon_bucket_s3_compatible=amazon_bucket_s3_compatible,
@@ -523,6 +583,7 @@ class RESTObjectStorageComposed:
             azure_subscription=azure_subscription,
             azure_archiver_appliance=azure_archiver_appliance,
         )
+
 
         rest_object_storage_composed.additional_properties = d
         return rest_object_storage_composed

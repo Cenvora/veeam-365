@@ -1,31 +1,38 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.amazon_s3_aws_region_type import AmazonS3AwsRegionType
 from ..types import UNSET, Unset
 
+from ..models.amazon_s3_aws_region_type import AmazonS3AwsRegionType
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTAmazonBucketS3Aws")
 
 
+
 @_attrs_define
 class RESTAmazonBucketS3Aws:
-    """
-    Attributes:
-        region_type (AmazonS3AwsRegionType | Unset): Region type.
-        region_name (str | Unset): Region name.
-        region_id (str | Unset): Region ID.
-        name (str | Unset): Bucket name.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            region_type (AmazonS3AwsRegionType | Unset): Region type.
+            region_name (str | Unset): Region name.
+            region_id (str | Unset): Region ID.
+            name (str | Unset): Bucket name.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     region_type: AmazonS3AwsRegionType | Unset = UNSET
     region_name: str | Unset = UNSET
@@ -34,10 +41,16 @@ class RESTAmazonBucketS3Aws:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         region_type: str | Unset = UNSET
         if not isinstance(self.region_type, Unset):
             region_type = self.region_type.value
+
 
         region_name = self.region_name
 
@@ -49,9 +62,11 @@ class RESTAmazonBucketS3Aws:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if region_type is not UNSET:
             field_dict["regionType"] = region_type
         if region_name is not UNSET:
@@ -65,17 +80,21 @@ class RESTAmazonBucketS3Aws:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         _region_type = d.pop("regionType", UNSET)
         region_type: AmazonS3AwsRegionType | Unset
-        if isinstance(_region_type, Unset):
+        if isinstance(_region_type,  Unset):
             region_type = UNSET
         else:
             region_type = AmazonS3AwsRegionType(_region_type)
+
+
+
 
         region_name = d.pop("regionName", UNSET)
 
@@ -85,10 +104,13 @@ class RESTAmazonBucketS3Aws:
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_amazon_bucket_s3_aws = cls(
             region_type=region_type,
@@ -97,6 +119,7 @@ class RESTAmazonBucketS3Aws:
             name=name,
             field_links=field_links,
         )
+
 
         rest_amazon_bucket_s3_aws.additional_properties = d
         return rest_amazon_bucket_s3_aws

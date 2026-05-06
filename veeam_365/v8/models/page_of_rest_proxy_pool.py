@@ -1,35 +1,42 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-    from ..models.rest_proxy_pool import RESTProxyPool
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_proxy_pool import RESTProxyPool
+
+
+
 
 
 T = TypeVar("T", bound="PageOfRESTProxyPool")
 
 
+
 @_attrs_define
 class PageOfRESTProxyPool:
-    """
-    Attributes:
-        offset (int): Excludes from a response page the first N items of a collection resource. The default value is
-            *0*.
-        limit (int): Limits the maximum number of items that the server will return on a page. The maximum supported
-            number of items per page is *10,000*. The default value is *30*.
-        results (list[RESTProxyPool]): Array of objects.
-        set_id (UUID | Unset): ID of this request stored in cache. Using the ID in subsequent requests, you decrease the
-            number of requests to the cloud.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            offset (int): Excludes from a response page the first N items of a collection resource. The default value is
+                *0*.
+            limit (int): Limits the maximum number of items that the server will return on a page. The maximum supported
+                number of items per page is *10,000*. The default value is *30*.
+            results (list[RESTProxyPool]): Array of objects.
+            set_id (UUID | Unset): ID of this request stored in cache. Using the ID in subsequent requests, you decrease the
+                number of requests to the cloud.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     offset: int
     limit: int
@@ -38,7 +45,13 @@ class PageOfRESTProxyPool:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+        from ..models.rest_proxy_pool import RESTProxyPool
         offset = self.offset
 
         limit = self.limit
@@ -48,6 +61,8 @@ class PageOfRESTProxyPool:
             results_item = results_item_data.to_dict()
             results.append(results_item)
 
+
+
         set_id: str | Unset = UNSET
         if not isinstance(self.set_id, Unset):
             set_id = str(self.set_id)
@@ -56,15 +71,14 @@ class PageOfRESTProxyPool:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "offset": offset,
-                "limit": limit,
-                "results": results,
-            }
-        )
+        field_dict.update({
+            "offset": offset,
+            "limit": limit,
+            "results": results,
+        })
         if set_id is not UNSET:
             field_dict["setId"] = set_id
         if field_links is not UNSET:
@@ -72,11 +86,12 @@ class PageOfRESTProxyPool:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         from ..models.rest_proxy_pool import RESTProxyPool
-
         d = dict(src_dict)
         offset = d.pop("offset")
 
@@ -84,24 +99,33 @@ class PageOfRESTProxyPool:
 
         results = []
         _results = d.pop("results")
-        for results_item_data in _results:
+        for results_item_data in (_results):
             results_item = RESTProxyPool.from_dict(results_item_data)
+
+
 
             results.append(results_item)
 
+
         _set_id = d.pop("setId", UNSET)
         set_id: UUID | Unset
-        if isinstance(_set_id, Unset):
+        if isinstance(_set_id,  Unset):
             set_id = UNSET
         else:
             set_id = UUID(_set_id)
 
+
+
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         page_of_rest_proxy_pool = cls(
             offset=offset,
@@ -110,6 +134,7 @@ class PageOfRESTProxyPool:
             set_id=set_id,
             field_links=field_links,
         )
+
 
         page_of_rest_proxy_pool.additional_properties = d
         return page_of_rest_proxy_pool

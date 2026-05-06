@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class AmazonS3AwsRegionType(str, Enum):
     CHINA = "China"
     GLOBAL = "Global"

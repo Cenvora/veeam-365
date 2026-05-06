@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RestOrganizationType(str, Enum):
     HYBRID = "Hybrid"
     OFFICE365 = "Office365"

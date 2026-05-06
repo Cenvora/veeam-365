@@ -1,41 +1,48 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_task_item_status import RESTTaskItemStatus
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_task_item_actions import RESTTaskItemActions
-    from ..models.rest_task_item_links import RESTTaskItemLinks
+  from ..models.rest_task_item_actions import RESTTaskItemActions
+  from ..models.rest_task_item_links import RESTTaskItemLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTTaskItem")
 
 
+
 @_attrs_define
 class RESTTaskItem:
-    """
-    Attributes:
-        mailbox_id (UUID | Unset): ID of the organization mailbox.
-        status (RESTTaskItemStatus | Unset): Task status.
-        percent_complete (float | Unset): Task progress.
-        start_date (datetime.datetime | Unset): Date and time when the task was started.
-        due_date (datetime.datetime | Unset): Date and time when the task must be completed.
-        owner (str | Unset): Task owner.
-        subject (str | Unset): Task subject.
-        item_class (str | Unset): Exchange item class.
-        field_links (RESTTaskItemLinks | Unset):
-        field_actions (RESTTaskItemActions | Unset):
-        id (str | Unset): Exchange item ID.
-    """
+    """ 
+        Attributes:
+            mailbox_id (UUID | Unset): ID of the organization mailbox.
+            status (RESTTaskItemStatus | Unset): Task status.
+            percent_complete (float | Unset): Task progress.
+            start_date (datetime.datetime | Unset): Date and time when the task was started.
+            due_date (datetime.datetime | Unset): Date and time when the task must be completed.
+            owner (str | Unset): Task owner.
+            subject (str | Unset): Task subject.
+            item_class (str | Unset): Exchange item class.
+            field_links (RESTTaskItemLinks | Unset):
+            field_actions (RESTTaskItemActions | Unset):
+            id (str | Unset): Exchange item ID.
+     """
 
     mailbox_id: UUID | Unset = UNSET
     status: RESTTaskItemStatus | Unset = UNSET
@@ -50,7 +57,13 @@ class RESTTaskItem:
     id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_task_item_actions import RESTTaskItemActions
+        from ..models.rest_task_item_links import RESTTaskItemLinks
         mailbox_id: str | Unset = UNSET
         if not isinstance(self.mailbox_id, Unset):
             mailbox_id = str(self.mailbox_id)
@@ -58,6 +71,7 @@ class RESTTaskItem:
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
+
 
         percent_complete = self.percent_complete
 
@@ -85,9 +99,11 @@ class RESTTaskItem:
 
         id = self.id
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if mailbox_id is not UNSET:
             field_dict["mailboxId"] = mailbox_id
         if status is not UNSET:
@@ -113,41 +129,54 @@ class RESTTaskItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_task_item_actions import RESTTaskItemActions
         from ..models.rest_task_item_links import RESTTaskItemLinks
-
         d = dict(src_dict)
         _mailbox_id = d.pop("mailboxId", UNSET)
         mailbox_id: UUID | Unset
-        if isinstance(_mailbox_id, Unset):
+        if isinstance(_mailbox_id,  Unset):
             mailbox_id = UNSET
         else:
             mailbox_id = UUID(_mailbox_id)
 
+
+
+
         _status = d.pop("status", UNSET)
         status: RESTTaskItemStatus | Unset
-        if isinstance(_status, Unset):
+        if isinstance(_status,  Unset):
             status = UNSET
         else:
             status = RESTTaskItemStatus(_status)
+
+
+
 
         percent_complete = d.pop("percentComplete", UNSET)
 
         _start_date = d.pop("startDate", UNSET)
         start_date: datetime.datetime | Unset
-        if isinstance(_start_date, Unset):
+        if isinstance(_start_date,  Unset):
             start_date = UNSET
         else:
             start_date = isoparse(_start_date)
 
+
+
+
         _due_date = d.pop("dueDate", UNSET)
         due_date: datetime.datetime | Unset
-        if isinstance(_due_date, Unset):
+        if isinstance(_due_date,  Unset):
             due_date = UNSET
         else:
             due_date = isoparse(_due_date)
+
+
+
 
         owner = d.pop("owner", UNSET)
 
@@ -157,17 +186,23 @@ class RESTTaskItem:
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTTaskItemLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTTaskItemLinks.from_dict(_field_links)
 
+
+
+
         _field_actions = d.pop("_actions", UNSET)
         field_actions: RESTTaskItemActions | Unset
-        if isinstance(_field_actions, Unset):
+        if isinstance(_field_actions,  Unset):
             field_actions = UNSET
         else:
             field_actions = RESTTaskItemActions.from_dict(_field_actions)
+
+
+
 
         id = d.pop("id", UNSET)
 
@@ -184,6 +219,7 @@ class RESTTaskItem:
             field_actions=field_actions,
             id=id,
         )
+
 
         rest_task_item.additional_properties = d
         return rest_task_item

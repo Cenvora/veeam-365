@@ -1,39 +1,46 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+import datetime
+
 if TYPE_CHECKING:
-    from ..models.rest_share_point_document_links import RESTSharePointDocumentLinks
+  from ..models.rest_share_point_document_links import RESTSharePointDocumentLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTSharePointDocument")
 
 
+
 @_attrs_define
 class RESTSharePointDocument:
-    """
-    Attributes:
-        id (str): ID of the backed-up SharePoint document.
-        name (str): Name of the backed-up SharePoint document.
-        created_by (str): User who created the document.
-        creation_time (datetime.datetime): Date and time when the document was created.
-        modified_by (str): User who performed the last modification to the document.
-        modification_time (datetime.datetime): Date and time when the document was modified.
-        site_id (str | Unset): ID of the SharePoint site.
-        size_bytes (int | Unset): Size of the backed-up SharePoint document.
-        version (str | Unset): Version of the SharePoint document.
-        version_id (int | None | Unset): ID of the SharePoint document version.
-        is_folder (bool | Unset): Defines whether the item is a folder.
-        field_links (RESTSharePointDocumentLinks | Unset):
-    """
+    """ 
+        Attributes:
+            id (str): ID of the backed-up SharePoint document.
+            name (str): Name of the backed-up SharePoint document.
+            created_by (str): User who created the document.
+            creation_time (datetime.datetime): Date and time when the document was created.
+            modified_by (str): User who performed the last modification to the document.
+            modification_time (datetime.datetime): Date and time when the document was modified.
+            site_id (str | Unset): ID of the SharePoint site.
+            size_bytes (int | Unset): Size of the backed-up SharePoint document.
+            version (str | Unset): Version of the SharePoint document.
+            version_id (int | None | Unset): ID of the SharePoint document version.
+            is_folder (bool | Unset): Defines whether the item is a folder.
+            field_links (RESTSharePointDocumentLinks | Unset):
+     """
 
     id: str
     name: str
@@ -49,7 +56,12 @@ class RESTSharePointDocument:
     field_links: RESTSharePointDocumentLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_share_point_document_links import RESTSharePointDocumentLinks
         id = self.id
 
         name = self.name
@@ -80,18 +92,17 @@ class RESTSharePointDocument:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "name": name,
-                "createdBy": created_by,
-                "creationTime": creation_time,
-                "modifiedBy": modified_by,
-                "modificationTime": modification_time,
-            }
-        )
+        field_dict.update({
+            "id": id,
+            "name": name,
+            "createdBy": created_by,
+            "creationTime": creation_time,
+            "modifiedBy": modified_by,
+            "modificationTime": modification_time,
+        })
         if site_id is not UNSET:
             field_dict["siteId"] = site_id
         if size_bytes is not UNSET:
@@ -107,10 +118,11 @@ class RESTSharePointDocument:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_share_point_document_links import RESTSharePointDocumentLinks
-
         d = dict(src_dict)
         id = d.pop("id")
 
@@ -120,9 +132,15 @@ class RESTSharePointDocument:
 
         creation_time = isoparse(d.pop("creationTime"))
 
+
+
+
         modified_by = d.pop("modifiedBy")
 
         modification_time = isoparse(d.pop("modificationTime"))
+
+
+
 
         site_id = d.pop("siteId", UNSET)
 
@@ -139,14 +157,18 @@ class RESTSharePointDocument:
 
         version_id = _parse_version_id(d.pop("versionId", UNSET))
 
+
         is_folder = d.pop("isFolder", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTSharePointDocumentLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTSharePointDocumentLinks.from_dict(_field_links)
+
+
+
 
         rest_share_point_document = cls(
             id=id,
@@ -162,6 +184,7 @@ class RESTSharePointDocument:
             is_folder=is_folder,
             field_links=field_links,
         )
+
 
         rest_share_point_document.additional_properties = d
         return rest_share_point_document

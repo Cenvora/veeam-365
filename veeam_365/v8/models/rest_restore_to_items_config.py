@@ -1,55 +1,59 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_restore_to_items_config_document_last_version_action import (
-    RESTRestoreToItemsConfigDocumentLastVersionAction,
-)
+from ..types import UNSET, Unset
+
+from ..models.rest_restore_to_items_config_document_last_version_action import RESTRestoreToItemsConfigDocumentLastVersionAction
 from ..models.rest_restore_to_items_config_document_version import RESTRestoreToItemsConfigDocumentVersion
 from ..models.rest_restore_to_items_config_office_region import RESTRestoreToItemsConfigOfficeRegion
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
 
 if TYPE_CHECKING:
-    from ..models.rest_share_point_item import RESTSharePointItem
+  from ..models.rest_share_point_item import RESTSharePointItem
+
+
+
 
 
 T = TypeVar("T", bound="RESTRestoreToItemsConfig")
 
 
+
 @_attrs_define
 class RESTRestoreToItemsConfig:
-    """
-    Attributes:
-        items (list[RESTSharePointItem] | Unset): Specifies IDs of the SharePoint items that you want to restore. For
-            more information on how to get such IDs, see [Get SharePoint
-            Items](SharePointItem#operation/SharePointItem_Get).
-        list_ (str | Unset): Specifies the target SharePoint list.
-        send_shared_links_notification (bool | None | Unset): Defines whether the shared links notifications will be
-            sent.
-        document_version (RESTRestoreToItemsConfigDocumentVersion | Unset): Specifies what version of the SharePoint
-            documents will be restored.
-        document_last_version_action (RESTRestoreToItemsConfigDocumentLastVersionAction | Unset): Specifies the action
-            that will be performed with the last version of the restored SharePoint document on the destination server.
-        site_url (str | Unset): Specifies the URL of the target SharePoint site.
-        user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
-            see [Get Device Code](RestoreSession#operation/RestoreSession_DeviceCodeAction).
-            This property is required if you want to use a device code for data restore.
-        application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
-            for restore. Example: 00000000-0000-0000-0000-000000000000.
-        application_certificate_password (str | Unset): Specifies a password.
-        application_certificate (str | Unset): Specifies the SSL certificate configured for the Microsoft Entra
-            application that you want to use for data restore. You must provide the certificate as a Base64 string.
-        user_name (str | Unset): Specifies the user name that you want to use for authenticating to the organization.
-        user_password (str | Unset): Specifies a password.
-        office_region (RESTRestoreToItemsConfigOfficeRegion | Unset): Specifies the region of the target Microsoft 365
-            organization.
-        organization_name (str | Unset): Specifies the name of the target Microsoft 365 organization.
-    """
+    """ 
+        Attributes:
+            items (list[RESTSharePointItem] | Unset): Specifies IDs of the SharePoint items that you want to restore. For
+                more information on how to get such IDs, see [Get SharePoint Items](#/SharePointItem/SharePointItem_Get).
+            list_ (str | Unset): Specifies the target SharePoint list.
+            send_shared_links_notification (bool | None | Unset): Defines whether the shared links notifications will be
+                sent.
+            document_version (RESTRestoreToItemsConfigDocumentVersion | Unset): Specifies what version of the SharePoint
+                documents will be restored.
+            document_last_version_action (RESTRestoreToItemsConfigDocumentLastVersionAction | Unset): Specifies the action
+                that will be performed with the last version of the restored SharePoint document on the destination server.
+            site_url (str | Unset): Specifies the URL of the target SharePoint site.
+            user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
+                see [Get Device Code](#/RestoreSession/RestoreSession_DeviceCodeAction).
+                This property is required if you want to use a device code for data restore.
+            application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
+                for restore. Example: 00000000-0000-0000-0000-000000000000.
+            application_certificate_password (str | Unset): Specifies a password.
+            application_certificate (str | Unset): Specifies the TLS certificate configured for the Microsoft Entra
+                application that you want to use for data restore. You must provide the certificate as a Base64 string.
+            user_name (str | Unset): Specifies the user name that you want to use for authenticating to the organization.
+            user_password (str | Unset): Specifies a password.
+            office_region (RESTRestoreToItemsConfigOfficeRegion | Unset): Specifies the region of the target Microsoft 365
+                organization.
+            organization_name (str | Unset): Specifies the name of the target Microsoft 365 organization.
+     """
 
     items: list[RESTSharePointItem] | Unset = UNSET
     list_: str | Unset = UNSET
@@ -67,13 +71,20 @@ class RESTRestoreToItemsConfig:
     organization_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_share_point_item import RESTSharePointItem
         items: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.items, Unset):
             items = []
             for items_item_data in self.items:
                 items_item = items_item_data.to_dict()
                 items.append(items_item)
+
+
 
         list_ = self.list_
 
@@ -87,9 +98,11 @@ class RESTRestoreToItemsConfig:
         if not isinstance(self.document_version, Unset):
             document_version = self.document_version.value
 
+
         document_last_version_action: str | Unset = UNSET
         if not isinstance(self.document_last_version_action, Unset):
             document_last_version_action = self.document_last_version_action.value
+
 
         site_url = self.site_url
 
@@ -115,11 +128,14 @@ class RESTRestoreToItemsConfig:
         if not isinstance(self.office_region, Unset):
             office_region = self.office_region.value
 
+
         organization_name = self.organization_name
+
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if items is not UNSET:
             field_dict["items"] = items
         if list_ is not UNSET:
@@ -151,10 +167,11 @@ class RESTRestoreToItemsConfig:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_share_point_item import RESTSharePointItem
-
         d = dict(src_dict)
         _items = d.pop("items", UNSET)
         items: list[RESTSharePointItem] | Unset = UNSET
@@ -163,7 +180,10 @@ class RESTRestoreToItemsConfig:
             for items_item_data in _items:
                 items_item = RESTSharePointItem.from_dict(items_item_data)
 
+
+
                 items.append(items_item)
+
 
         list_ = d.pop("list", UNSET)
 
@@ -174,25 +194,28 @@ class RESTRestoreToItemsConfig:
                 return data
             return cast(bool | None | Unset, data)
 
-        send_shared_links_notification = _parse_send_shared_links_notification(
-            d.pop("sendSharedLinksNotification", UNSET)
-        )
+        send_shared_links_notification = _parse_send_shared_links_notification(d.pop("sendSharedLinksNotification", UNSET))
+
 
         _document_version = d.pop("documentVersion", UNSET)
         document_version: RESTRestoreToItemsConfigDocumentVersion | Unset
-        if isinstance(_document_version, Unset):
+        if isinstance(_document_version,  Unset):
             document_version = UNSET
         else:
             document_version = RESTRestoreToItemsConfigDocumentVersion(_document_version)
 
+
+
+
         _document_last_version_action = d.pop("documentLastVersionAction", UNSET)
         document_last_version_action: RESTRestoreToItemsConfigDocumentLastVersionAction | Unset
-        if isinstance(_document_last_version_action, Unset):
+        if isinstance(_document_last_version_action,  Unset):
             document_last_version_action = UNSET
         else:
-            document_last_version_action = RESTRestoreToItemsConfigDocumentLastVersionAction(
-                _document_last_version_action
-            )
+            document_last_version_action = RESTRestoreToItemsConfigDocumentLastVersionAction(_document_last_version_action)
+
+
+
 
         site_url = d.pop("siteURL", UNSET)
 
@@ -208,12 +231,15 @@ class RESTRestoreToItemsConfig:
                     raise TypeError()
                 application_id_type_0 = UUID(data)
 
+
+
                 return application_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         application_id = _parse_application_id(d.pop("applicationId", UNSET))
+
 
         application_certificate_password = d.pop("applicationCertificatePassword", UNSET)
 
@@ -225,10 +251,13 @@ class RESTRestoreToItemsConfig:
 
         _office_region = d.pop("officeRegion", UNSET)
         office_region: RESTRestoreToItemsConfigOfficeRegion | Unset
-        if isinstance(_office_region, Unset):
+        if isinstance(_office_region,  Unset):
             office_region = UNSET
         else:
             office_region = RESTRestoreToItemsConfigOfficeRegion(_office_region)
+
+
+
 
         organization_name = d.pop("organizationName", UNSET)
 
@@ -248,6 +277,7 @@ class RESTRestoreToItemsConfig:
             office_region=office_region,
             organization_name=organization_name,
         )
+
 
         rest_restore_to_items_config.additional_properties = d
         return rest_restore_to_items_config

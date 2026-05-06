@@ -1,36 +1,48 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_ssh_settings_from_client import RESTSshSettingsFromClient
+  from ..models.rest_ssh_settings_from_client import RESTSshSettingsFromClient
+
+
+
 
 
 T = TypeVar("T", bound="RESTProxyCredentialsFromClient")
 
 
+
 @_attrs_define
 class RESTProxyCredentialsFromClient:
-    """
-    Attributes:
-        ssh_settings (RESTSshSettingsFromClient | Unset): Specifies credentials to access the Linux-based backup proxy
-            server.
-        username (str | Unset): Specifies a user name to access the Windows-based backup proxy server.
-        password (str | Unset): Specifies a password.
-    """
+    """ 
+        Attributes:
+            ssh_settings (RESTSshSettingsFromClient | Unset): Specifies credentials to access the Linux-based backup proxy
+                server.
+            username (str | Unset): Specifies a user name to access the Windows-based backup proxy server.
+            password (str | Unset): Specifies a password.
+     """
 
     ssh_settings: RESTSshSettingsFromClient | Unset = UNSET
     username: str | Unset = UNSET
     password: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_ssh_settings_from_client import RESTSshSettingsFromClient
         ssh_settings: dict[str, Any] | Unset = UNSET
         if not isinstance(self.ssh_settings, Unset):
             ssh_settings = self.ssh_settings.to_dict()
@@ -39,9 +51,11 @@ class RESTProxyCredentialsFromClient:
 
         password = self.password
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if ssh_settings is not UNSET:
             field_dict["sshSettings"] = ssh_settings
         if username is not UNSET:
@@ -51,17 +65,21 @@ class RESTProxyCredentialsFromClient:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_ssh_settings_from_client import RESTSshSettingsFromClient
-
         d = dict(src_dict)
         _ssh_settings = d.pop("sshSettings", UNSET)
         ssh_settings: RESTSshSettingsFromClient | Unset
-        if isinstance(_ssh_settings, Unset):
+        if isinstance(_ssh_settings,  Unset):
             ssh_settings = UNSET
         else:
             ssh_settings = RESTSshSettingsFromClient.from_dict(_ssh_settings)
+
+
+
 
         username = d.pop("username", UNSET)
 
@@ -72,6 +90,7 @@ class RESTProxyCredentialsFromClient:
             username=username,
             password=password,
         )
+
 
         rest_proxy_credentials_from_client.additional_properties = d
         return rest_proxy_credentials_from_client

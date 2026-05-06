@@ -1,55 +1,62 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_channel_entity_file_type import RESTChannelEntityFileType
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_attach_info import RESTAttachInfo
-    from ..models.rest_channel_entity_links import RESTChannelEntityLinks
+  from ..models.rest_attach_info import RESTAttachInfo
+  from ..models.rest_channel_entity_links import RESTChannelEntityLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTChannelEntity")
 
 
+
 @_attrs_define
 class RESTChannelEntity:
-    """
-    Attributes:
-        id (UUID | Unset): File ID. Example: 00000000-0000-0000-0000-000000000000.
-        name (str | Unset): Name of the file.
-        size_bytes (int | Unset): File size.
-        version (int | Unset): Version of the file in the backup.
-        ui_version (str | Unset): Version of the file.
-        modified (datetime.datetime | Unset): Date and time of the last modification of the file.
-        modified_by (str | Unset): Name of the user who performed the last modification of the file.
-        channel_id (str | Unset): Channel ID.
-        team_id (UUID | Unset): Team ID.
-        file_type (RESTChannelEntityFileType | Unset): Type of the Microsoft Teams item.
-        field_links (RESTChannelEntityLinks | Unset):
-        post_id (int | Unset): Post ID.
-        change_key (str | Unset): Change key.
-        is_important (bool | Unset): Defines whether the post is marked as important.
-        author (str | Unset): User name of the author of the post.
-        subject (str | Unset): Post subject.
-        created_time (datetime.datetime | Unset): Date and time when the post was created.
-        last_modified_time (datetime.datetime | Unset): Date and time of the last modification of the post.
-        is_deleted (bool | Unset): Defines whether the post is marked as deleted or soft deleted.
-        parent_id (int | None | Unset): Parent post ID.
-        parent_change_key (str | Unset): Parent change key.
-        attachments (list[RESTAttachInfo] | Unset): Array of attachment items for the post.
-        display_name (str | Unset): Display name of the tab.
-        content_url (str | Unset): Path to the object published on the tab.
-        type_ (str | Unset): Type of the tab.
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset): File ID. Example: 00000000-0000-0000-0000-000000000000.
+            name (str | Unset): Name of the file.
+            size_bytes (int | Unset): File size.
+            version (int | Unset): Version of the file in the backup.
+            ui_version (str | Unset): Version of the file.
+            modified (datetime.datetime | Unset): Date and time of the last modification of the file.
+            modified_by (str | Unset): Name of the user who performed the last modification of the file.
+            channel_id (str | Unset): Channel ID.
+            team_id (UUID | Unset): Team ID.
+            file_type (RESTChannelEntityFileType | Unset): Type of the Microsoft Teams item.
+            field_links (RESTChannelEntityLinks | Unset):
+            post_id (int | Unset): Post ID.
+            change_key (str | Unset): Change key.
+            is_important (bool | Unset): Defines whether the post is marked as important.
+            author (str | Unset): User name of the author of the post.
+            subject (str | Unset): Post subject.
+            created_time (datetime.datetime | Unset): Date and time when the post was created.
+            last_modified_time (datetime.datetime | Unset): Date and time of the last modification of the post.
+            is_deleted (bool | Unset): Defines whether the post is marked as deleted or soft deleted.
+            parent_id (int | None | Unset): Parent post ID.
+            parent_change_key (str | Unset): Parent change key.
+            attachments (list[RESTAttachInfo] | Unset): Array of attachment items for the post.
+            display_name (str | Unset): Display name of the tab.
+            content_url (str | Unset): Path to the object published on the tab.
+            type_ (str | Unset): Type of the tab.
+     """
 
     id: UUID | Unset = UNSET
     name: str | Unset = UNSET
@@ -78,7 +85,13 @@ class RESTChannelEntity:
     type_: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_attach_info import RESTAttachInfo
+        from ..models.rest_channel_entity_links import RESTChannelEntityLinks
         id: str | Unset = UNSET
         if not isinstance(self.id, Unset):
             id = str(self.id)
@@ -106,6 +119,7 @@ class RESTChannelEntity:
         file_type: str | Unset = UNSET
         if not isinstance(self.file_type, Unset):
             file_type = self.file_type.value
+
 
         field_links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.field_links, Unset):
@@ -146,15 +160,19 @@ class RESTChannelEntity:
                 attachments_item = attachments_item_data.to_dict()
                 attachments.append(attachments_item)
 
+
+
         display_name = self.display_name
 
         content_url = self.content_url
 
         type_ = self.type_
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if name is not UNSET:
@@ -208,18 +226,22 @@ class RESTChannelEntity:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_attach_info import RESTAttachInfo
         from ..models.rest_channel_entity_links import RESTChannelEntityLinks
-
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
+
+
+
 
         name = d.pop("name", UNSET)
 
@@ -231,10 +253,13 @@ class RESTChannelEntity:
 
         _modified = d.pop("modified", UNSET)
         modified: datetime.datetime | Unset
-        if isinstance(_modified, Unset):
+        if isinstance(_modified,  Unset):
             modified = UNSET
         else:
             modified = isoparse(_modified)
+
+
+
 
         modified_by = d.pop("modifiedBy", UNSET)
 
@@ -242,24 +267,33 @@ class RESTChannelEntity:
 
         _team_id = d.pop("teamId", UNSET)
         team_id: UUID | Unset
-        if isinstance(_team_id, Unset):
+        if isinstance(_team_id,  Unset):
             team_id = UNSET
         else:
             team_id = UUID(_team_id)
 
+
+
+
         _file_type = d.pop("fileType", UNSET)
         file_type: RESTChannelEntityFileType | Unset
-        if isinstance(_file_type, Unset):
+        if isinstance(_file_type,  Unset):
             file_type = UNSET
         else:
             file_type = RESTChannelEntityFileType(_file_type)
 
+
+
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTChannelEntityLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTChannelEntityLinks.from_dict(_field_links)
+
+
+
 
         post_id = d.pop("postId", UNSET)
 
@@ -273,17 +307,23 @@ class RESTChannelEntity:
 
         _created_time = d.pop("createdTime", UNSET)
         created_time: datetime.datetime | Unset
-        if isinstance(_created_time, Unset):
+        if isinstance(_created_time,  Unset):
             created_time = UNSET
         else:
             created_time = isoparse(_created_time)
 
+
+
+
         _last_modified_time = d.pop("lastModifiedTime", UNSET)
         last_modified_time: datetime.datetime | Unset
-        if isinstance(_last_modified_time, Unset):
+        if isinstance(_last_modified_time,  Unset):
             last_modified_time = UNSET
         else:
             last_modified_time = isoparse(_last_modified_time)
+
+
+
 
         is_deleted = d.pop("isDeleted", UNSET)
 
@@ -296,6 +336,7 @@ class RESTChannelEntity:
 
         parent_id = _parse_parent_id(d.pop("parentId", UNSET))
 
+
         parent_change_key = d.pop("parentChangeKey", UNSET)
 
         _attachments = d.pop("attachments", UNSET)
@@ -305,7 +346,10 @@ class RESTChannelEntity:
             for attachments_item_data in _attachments:
                 attachments_item = RESTAttachInfo.from_dict(attachments_item_data)
 
+
+
                 attachments.append(attachments_item)
+
 
         display_name = d.pop("displayName", UNSET)
 
@@ -340,6 +384,7 @@ class RESTChannelEntity:
             content_url=content_url,
             type_=type_,
         )
+
 
         rest_channel_entity.additional_properties = d
         return rest_channel_entity

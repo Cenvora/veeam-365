@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTRbacItemType(str, Enum):
     GROUP = "Group"
     SITE = "Site"

@@ -1,30 +1,42 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.rest_event_type import RESTEventType
+
+
+
+
+
 
 T = TypeVar("T", bound="RESTM365BackupStoragePolicyUpdateEvent")
 
 
+
 @_attrs_define
 class RESTM365BackupStoragePolicyUpdateEvent:
-    """
-    Attributes:
-        event_type (RESTEventType): Type of the event.
-        id (str): Microsoft 365 Backup Storage policy ID.
-        e_tag (int): Version number that Veeam Backup for Microsoft 365 assigns if the Microsoft 365 Backup Storage
-            policy was modified.
-    """
+    """ 
+        Attributes:
+            event_type (RESTEventType): Type of the event.
+            id (str): Microsoft 365 Backup Storage policy ID.
+            e_tag (int): Version number that Veeam Backup for Microsoft 365 assigns if the Microsoft 365 Backup Storage
+                policy was modified.
+     """
 
     event_type: RESTEventType
     id: str
     e_tag: int
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         event_type = self.event_type.value
@@ -33,22 +45,26 @@ class RESTM365BackupStoragePolicyUpdateEvent:
 
         e_tag = self.e_tag
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "eventType": event_type,
-                "id": id,
-                "eTag": e_tag,
-            }
-        )
+        field_dict.update({
+            "eventType": event_type,
+            "id": id,
+            "eTag": e_tag,
+        })
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         event_type = RESTEventType(d.pop("eventType"))
+
+
+
 
         id = d.pop("id")
 
@@ -59,6 +75,7 @@ class RESTM365BackupStoragePolicyUpdateEvent:
             id=id,
             e_tag=e_tag,
         )
+
 
         restm365_backup_storage_policy_update_event.additional_properties = d
         return restm365_backup_storage_policy_update_event

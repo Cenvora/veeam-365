@@ -1,13 +1,19 @@
 from http import HTTPStatus
-from typing import Any
-from uuid import UUID
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.page_of_rest_protected_team import PageOfRESTProtectedTeam
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -18,7 +24,12 @@ def _get_kwargs(
     restore_point_id: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     json_organization_id: str | Unset = UNSET
@@ -39,7 +50,9 @@ def _get_kwargs(
 
     params["limit"] = limit
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -47,25 +60,28 @@ def _get_kwargs(
         "params": params,
     }
 
+
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> PageOfRESTProtectedTeam | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTProtectedTeam | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTProtectedTeam.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[PageOfRESTProtectedTeam | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTProtectedTeam | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -83,8 +99,9 @@ def sync_detailed(
     restore_point_id: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> Response[PageOfRESTProtectedTeam | RESTExceptionInfo]:
-    """Get Protected Teams
+    """ Get Protected Teams
 
      Returns a collection of protected teams.
 
@@ -102,15 +119,17 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTProtectedTeam | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-        backed_up_organization_id=backed_up_organization_id,
-        repository_id=repository_id,
-        restore_point_id=restore_point_id,
-        offset=offset,
-        limit=limit,
+backed_up_organization_id=backed_up_organization_id,
+repository_id=repository_id,
+restore_point_id=restore_point_id,
+offset=offset,
+limit=limit,
+
     )
 
     response = client.get_httpx_client().request(
@@ -118,7 +137,6 @@ def sync_detailed(
     )
 
     return _build_response(client=client, response=response)
-
 
 def sync(
     *,
@@ -129,8 +147,9 @@ def sync(
     restore_point_id: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> PageOfRESTProtectedTeam | RESTExceptionInfo | None:
-    """Get Protected Teams
+    """ Get Protected Teams
 
      Returns a collection of protected teams.
 
@@ -148,18 +167,19 @@ def sync(
 
     Returns:
         PageOfRESTProtectedTeam | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        organization_id=organization_id,
-        backed_up_organization_id=backed_up_organization_id,
-        repository_id=repository_id,
-        restore_point_id=restore_point_id,
-        offset=offset,
-        limit=limit,
-    ).parsed
+organization_id=organization_id,
+backed_up_organization_id=backed_up_organization_id,
+repository_id=repository_id,
+restore_point_id=restore_point_id,
+offset=offset,
+limit=limit,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
@@ -170,8 +190,9 @@ async def asyncio_detailed(
     restore_point_id: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> Response[PageOfRESTProtectedTeam | RESTExceptionInfo]:
-    """Get Protected Teams
+    """ Get Protected Teams
 
      Returns a collection of protected teams.
 
@@ -189,21 +210,24 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTProtectedTeam | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-        backed_up_organization_id=backed_up_organization_id,
-        repository_id=repository_id,
-        restore_point_id=restore_point_id,
-        offset=offset,
-        limit=limit,
+backed_up_organization_id=backed_up_organization_id,
+repository_id=repository_id,
+restore_point_id=restore_point_id,
+offset=offset,
+limit=limit,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
@@ -214,8 +238,9 @@ async def asyncio(
     restore_point_id: str | Unset = UNSET,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> PageOfRESTProtectedTeam | RESTExceptionInfo | None:
-    """Get Protected Teams
+    """ Get Protected Teams
 
      Returns a collection of protected teams.
 
@@ -233,16 +258,16 @@ async def asyncio(
 
     Returns:
         PageOfRESTProtectedTeam | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            organization_id=organization_id,
-            backed_up_organization_id=backed_up_organization_id,
-            repository_id=repository_id,
-            restore_point_id=restore_point_id,
-            offset=offset,
-            limit=limit,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+organization_id=organization_id,
+backed_up_organization_id=backed_up_organization_id,
+repository_id=repository_id,
+restore_point_id=restore_point_id,
+offset=offset,
+limit=limit,
+
+    )).parsed

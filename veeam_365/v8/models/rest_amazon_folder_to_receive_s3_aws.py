@@ -1,35 +1,47 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTAmazonFolderToReceiveS3Aws")
 
 
+
 @_attrs_define
 class RESTAmazonFolderToReceiveS3Aws:
-    """
-    Attributes:
-        path (str | Unset): Folder path.
-        name (str | Unset): Folder name.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            path (str | Unset): Folder path.
+            name (str | Unset): Folder name.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     path: str | Unset = UNSET
     name: str | Unset = UNSET
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         path = self.path
 
         name = self.name
@@ -38,9 +50,11 @@ class RESTAmazonFolderToReceiveS3Aws:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if path is not UNSET:
             field_dict["path"] = path
         if name is not UNSET:
@@ -50,10 +64,11 @@ class RESTAmazonFolderToReceiveS3Aws:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         path = d.pop("path", UNSET)
 
@@ -61,16 +76,20 @@ class RESTAmazonFolderToReceiveS3Aws:
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_amazon_folder_to_receive_s3_aws = cls(
             path=path,
             name=name,
             field_links=field_links,
         )
+
 
         rest_amazon_folder_to_receive_s3_aws.additional_properties = d
         return rest_amazon_folder_to_receive_s3_aws

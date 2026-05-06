@@ -1,29 +1,36 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTAmazonBucketS3Compatible")
 
 
+
 @_attrs_define
 class RESTAmazonBucketS3Compatible:
-    """
-    Attributes:
-        service_point (str | Unset): Endpoint address.
-        custom_region_id (str | Unset): Region ID.
-        name (str | Unset): Bucket name.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            service_point (str | Unset): Endpoint address.
+            custom_region_id (str | Unset): Region ID.
+            name (str | Unset): Bucket name.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     service_point: str | Unset = UNSET
     custom_region_id: str | Unset = UNSET
@@ -31,7 +38,12 @@ class RESTAmazonBucketS3Compatible:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         service_point = self.service_point
 
         custom_region_id = self.custom_region_id
@@ -42,9 +54,11 @@ class RESTAmazonBucketS3Compatible:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if service_point is not UNSET:
             field_dict["servicePoint"] = service_point
         if custom_region_id is not UNSET:
@@ -56,10 +70,11 @@ class RESTAmazonBucketS3Compatible:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         service_point = d.pop("servicePoint", UNSET)
 
@@ -69,10 +84,13 @@ class RESTAmazonBucketS3Compatible:
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_amazon_bucket_s3_compatible = cls(
             service_point=service_point,
@@ -80,6 +98,7 @@ class RESTAmazonBucketS3Compatible:
             name=name,
             field_links=field_links,
         )
+
 
         rest_amazon_bucket_s3_compatible.additional_properties = d
         return rest_amazon_bucket_s3_compatible

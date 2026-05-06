@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTOrganizationSyncOptionsType(str, Enum):
     FULL = "Full"
     INCREMENTAL = "Incremental"

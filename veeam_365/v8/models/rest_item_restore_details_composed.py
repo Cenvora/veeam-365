@@ -1,48 +1,57 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+
+from ..types import UNSET, Unset
 
 from ..models.rest_item_restore_details_type import RESTItemRestoreDetailsType
 from ..models.rest_restore_item_type import RESTRestoreItemType
 from ..models.rest_restore_status import RESTRestoreStatus
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
+
+
+
+
 
 T = TypeVar("T", bound="RESTItemRestoreDetailsComposed")
 
 
+
 @_attrs_define
 class RESTItemRestoreDetailsComposed:
-    r"""
-    Attributes:
-        item_restore_details_type (RESTItemRestoreDetailsType): Type of the restore operation performed with the object.
-        id (str | Unset): ID of the object.
-        title (str | Unset): Title of the restored item.
-        error (str | Unset): Error that occurred during the item restore.
-        name (str | Unset): Name of the restored item.
-        item_type (RESTRestoreItemType | Unset): Type of the restored item.
-        status (RESTRestoreStatus | Unset): Status of the restored item.
-        path (str | Unset): Path to the restored item.
-        warnings (list[str] | Unset): Array of warnings appeared during the restore operation.
-        mailbox_email (str | Unset): Email address of the organization mailbox.
-        mailbox_is_archive (bool | Unset): Defines whether the mailbox is of the *Archive* type.
-        mailbox_is_public (bool | Unset): Defines whether the mailbox is public.
-        created_mailbox_items_count (int | Unset): Number of missed items restored from the backup.
-        merged_mailbox_items_count (int | Unset): Number of changed items restored from the backup.
-        failed_mailbox_items_count (int | Unset): Number of items for which the restore operation failed.
-        skipped_mailbox_items_count (int | Unset): Number of items that were not changed or missed in the original
-            location. Such items are skipped during the restore operation.
-        cannot_continue_mailbox_error (str | Unset): Error that occurred during the restore operation.
-        child_items (list[RESTItemRestoreDetailsComposed] | Unset): \[If available\] Statistics for child items
-            processed during the restore operation.
-        one_drive_web_id (UUID | Unset): OneDrive ID. Example: 00000000-0000-0000-0000-000000000000.
-        one_drive_site_id (UUID | Unset): Site collection ID. Example: 00000000-0000-0000-0000-000000000000.
-        one_drive_url (str | Unset): OneDrive path.
-    """
+    r""" 
+        Attributes:
+            item_restore_details_type (RESTItemRestoreDetailsType): Type of the restore operation performed with the object.
+            id (str | Unset): ID of the object.
+            title (str | Unset): Title of the restored item.
+            error (str | Unset): Error that occurred during the item restore.
+            name (str | Unset): Name of the restored item.
+            item_type (RESTRestoreItemType | Unset): Type of the restored item.
+            status (RESTRestoreStatus | Unset): Status of the restored item.
+            path (str | Unset): Path to the restored item.
+            warnings (list[str] | Unset): Array of warnings appeared during the restore operation.
+            mailbox_email (str | Unset): Email address of the organization mailbox.
+            mailbox_is_archive (bool | Unset): Defines whether the mailbox is of the *Archive* type.
+            mailbox_is_public (bool | Unset): Defines whether the mailbox is public.
+            created_mailbox_items_count (int | Unset): Number of missed items restored from the backup.
+            merged_mailbox_items_count (int | Unset): Number of changed items restored from the backup.
+            failed_mailbox_items_count (int | Unset): Number of items for which the restore operation failed.
+            skipped_mailbox_items_count (int | Unset): Number of items that were not changed or missed in the original
+                location. Such items are skipped during the restore operation.
+            cannot_continue_mailbox_error (str | Unset): Error that occurred during the restore operation.
+            child_items (list[RESTItemRestoreDetailsComposed] | Unset): \[If available\] Statistics for child items
+                processed during the restore operation.
+            one_drive_web_id (UUID | Unset): OneDrive ID. Example: 00000000-0000-0000-0000-000000000000.
+            one_drive_site_id (UUID | Unset): Site collection ID. Example: 00000000-0000-0000-0000-000000000000.
+            one_drive_url (str | Unset): OneDrive path.
+     """
 
     item_restore_details_type: RESTItemRestoreDetailsType
     id: str | Unset = UNSET
@@ -67,6 +76,10 @@ class RESTItemRestoreDetailsComposed:
     one_drive_url: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
         item_restore_details_type = self.item_restore_details_type.value
 
@@ -82,15 +95,19 @@ class RESTItemRestoreDetailsComposed:
         if not isinstance(self.item_type, Unset):
             item_type = self.item_type.value
 
+
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
+
 
         path = self.path
 
         warnings: list[str] | Unset = UNSET
         if not isinstance(self.warnings, Unset):
             warnings = self.warnings
+
+
 
         mailbox_email = self.mailbox_email
 
@@ -115,6 +132,8 @@ class RESTItemRestoreDetailsComposed:
                 child_items_item = child_items_item_data.to_dict()
                 child_items.append(child_items_item)
 
+
+
         one_drive_web_id: str | Unset = UNSET
         if not isinstance(self.one_drive_web_id, Unset):
             one_drive_web_id = str(self.one_drive_web_id)
@@ -125,13 +144,12 @@ class RESTItemRestoreDetailsComposed:
 
         one_drive_url = self.one_drive_url
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "itemRestoreDetailsType": item_restore_details_type,
-            }
-        )
+        field_dict.update({
+            "itemRestoreDetailsType": item_restore_details_type,
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if title is not UNSET:
@@ -175,10 +193,15 @@ class RESTItemRestoreDetailsComposed:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         item_restore_details_type = RESTItemRestoreDetailsType(d.pop("itemRestoreDetailsType"))
+
+
+
 
         id = d.pop("id", UNSET)
 
@@ -190,21 +213,28 @@ class RESTItemRestoreDetailsComposed:
 
         _item_type = d.pop("itemType", UNSET)
         item_type: RESTRestoreItemType | Unset
-        if isinstance(_item_type, Unset):
+        if isinstance(_item_type,  Unset):
             item_type = UNSET
         else:
             item_type = RESTRestoreItemType(_item_type)
 
+
+
+
         _status = d.pop("status", UNSET)
         status: RESTRestoreStatus | Unset
-        if isinstance(_status, Unset):
+        if isinstance(_status,  Unset):
             status = UNSET
         else:
             status = RESTRestoreStatus(_status)
 
+
+
+
         path = d.pop("path", UNSET)
 
         warnings = cast(list[str], d.pop("warnings", UNSET))
+
 
         mailbox_email = d.pop("mailboxEmail", UNSET)
 
@@ -229,21 +259,30 @@ class RESTItemRestoreDetailsComposed:
             for child_items_item_data in _child_items:
                 child_items_item = RESTItemRestoreDetailsComposed.from_dict(child_items_item_data)
 
+
+
                 child_items.append(child_items_item)
+
 
         _one_drive_web_id = d.pop("oneDriveWebId", UNSET)
         one_drive_web_id: UUID | Unset
-        if isinstance(_one_drive_web_id, Unset):
+        if isinstance(_one_drive_web_id,  Unset):
             one_drive_web_id = UNSET
         else:
             one_drive_web_id = UUID(_one_drive_web_id)
 
+
+
+
         _one_drive_site_id = d.pop("oneDriveSiteId", UNSET)
         one_drive_site_id: UUID | Unset
-        if isinstance(_one_drive_site_id, Unset):
+        if isinstance(_one_drive_site_id,  Unset):
             one_drive_site_id = UNSET
         else:
             one_drive_site_id = UUID(_one_drive_site_id)
+
+
+
 
         one_drive_url = d.pop("oneDriveUrl", UNSET)
 
@@ -270,6 +309,7 @@ class RESTItemRestoreDetailsComposed:
             one_drive_site_id=one_drive_site_id,
             one_drive_url=one_drive_url,
         )
+
 
         rest_item_restore_details_composed.additional_properties = d
         return rest_item_restore_details_composed

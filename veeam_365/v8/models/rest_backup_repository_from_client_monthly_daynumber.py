@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTBackupRepositoryFromClientMonthlyDaynumber(str, Enum):
     FIRST = "First"
     FOURTH = "Fourth"

@@ -1,63 +1,70 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_restore_to_site_config_document_last_version_action import (
-    RESTRestoreToSiteConfigDocumentLastVersionAction,
-)
+from ..types import UNSET, Unset
+
+from ..models.rest_restore_to_site_config_document_last_version_action import RESTRestoreToSiteConfigDocumentLastVersionAction
 from ..models.rest_restore_to_site_config_document_version import RESTRestoreToSiteConfigDocumentVersion
 from ..models.rest_restore_to_site_config_office_region import RESTRestoreToSiteConfigOfficeRegion
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
+
+
+
+
 
 T = TypeVar("T", bound="RESTRestoreToSiteConfig")
 
 
+
 @_attrs_define
 class RESTRestoreToSiteConfig:
-    """
-    Attributes:
-        impersonation_account_name (str | Unset): Specifies a user name of the account that will be used as a SharePoint
-            site owner account to restore a SharePoint site.
+    """ 
+        Attributes:
+            impersonation_account_name (str | Unset): Specifies a user name of the account that will be used as a SharePoint
+                site owner account to restore a SharePoint site.
 
-            **Note**: This property is required if you want to use an application certificate for data restore. Use this
-            property only with the `applicationCertificate` property.
-        alias (str | Unset): Specifies an alias for the target SharePoint site. If you omit this property, the
-            SharePoint site items will be restored to the original location.
-        restore_list_views (bool | None | Unset): Defines whether the SharePoint lists will be restored with all list
-            views.
-        changed_items (bool | None | Unset): Defines whether the SharePoint site will be restored with all modified
-            items.
-        deleted_items (bool | None | Unset): Defines whether the SharePoint site will be restored with all deleted
-            items.
-        restore_subsites (bool | None | Unset): Defines whether the SharePoint site will be restored with all subsites.
-        restore_master_pages (bool | None | Unset): Defines whether the SharePoint site will be restored with all master
-            pages.
-        send_shared_links_notification (bool | None | Unset): Defines whether the shared links notifications will be
-            sent.
-        document_version (RESTRestoreToSiteConfigDocumentVersion | Unset): Specifies what version of the SharePoint
-            documents will be restored.
-        document_last_version_action (RESTRestoreToSiteConfigDocumentLastVersionAction | Unset): Specifies the action
-            that will be performed with the last version of the restored SharePoint document on the destination server.
-        site_url (str | Unset): Specifies the URL of the target SharePoint site.
-        user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
-            see [Get Device Code](RestoreSession#operation/RestoreSession_DeviceCodeAction).
-            This property is required if you want to use a device code for data restore.
-        application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
-            for restore. Example: 00000000-0000-0000-0000-000000000000.
-        application_certificate_password (str | Unset): Specifies a password.
-        application_certificate (str | Unset): Specifies the SSL certificate configured for the Microsoft Entra
-            application that you want to use for data restore. You must provide the certificate as a Base64 string.
-        user_name (str | Unset): Specifies the user name that you want to use for authenticating to the organization.
-        user_password (str | Unset): Specifies a password.
-        office_region (RESTRestoreToSiteConfigOfficeRegion | Unset): Specifies the region of the target Microsoft 365
-            organization.
-        organization_name (str | Unset): Specifies the name of the target Microsoft 365 organization.
-    """
+                **Note**: This property is required if you want to use an application certificate for data restore. Use this
+                property only with the `applicationCertificate` property.
+            alias (str | Unset): Specifies an alias for the target SharePoint site. If you omit this property, the
+                SharePoint site items will be restored to the original location.
+            restore_list_views (bool | None | Unset): Defines whether the SharePoint lists will be restored with all list
+                views.
+            changed_items (bool | None | Unset): Defines whether the SharePoint site will be restored with all modified
+                items.
+            deleted_items (bool | None | Unset): Defines whether the SharePoint site will be restored with all deleted
+                items.
+            restore_subsites (bool | None | Unset): Defines whether the SharePoint site will be restored with all subsites.
+            restore_master_pages (bool | None | Unset): Defines whether the SharePoint site will be restored with all master
+                pages.
+            send_shared_links_notification (bool | None | Unset): Defines whether the shared links notifications will be
+                sent.
+            document_version (RESTRestoreToSiteConfigDocumentVersion | Unset): Specifies what version of the SharePoint
+                documents will be restored.
+            document_last_version_action (RESTRestoreToSiteConfigDocumentLastVersionAction | Unset): Specifies the action
+                that will be performed with the last version of the restored SharePoint document on the destination server.
+            site_url (str | Unset): Specifies the URL of the target SharePoint site.
+            user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
+                see [Get Device Code](#/RestoreSession/RestoreSession_DeviceCodeAction).
+                This property is required if you want to use a device code for data restore.
+            application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
+                for restore. Example: 00000000-0000-0000-0000-000000000000.
+            application_certificate_password (str | Unset): Specifies a password.
+            application_certificate (str | Unset): Specifies the TLS certificate configured for the Microsoft Entra
+                application that you want to use for data restore. You must provide the certificate as a Base64 string.
+            user_name (str | Unset): Specifies the user name that you want to use for authenticating to the organization.
+            user_password (str | Unset): Specifies a password.
+            office_region (RESTRestoreToSiteConfigOfficeRegion | Unset): Specifies the region of the target Microsoft 365
+                organization.
+            organization_name (str | Unset): Specifies the name of the target Microsoft 365 organization.
+     """
 
     impersonation_account_name: str | Unset = UNSET
     alias: str | Unset = UNSET
@@ -79,6 +86,10 @@ class RESTRestoreToSiteConfig:
     office_region: RESTRestoreToSiteConfigOfficeRegion | Unset = UNSET
     organization_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         impersonation_account_name = self.impersonation_account_name
@@ -125,9 +136,11 @@ class RESTRestoreToSiteConfig:
         if not isinstance(self.document_version, Unset):
             document_version = self.document_version.value
 
+
         document_last_version_action: str | Unset = UNSET
         if not isinstance(self.document_last_version_action, Unset):
             document_last_version_action = self.document_last_version_action.value
+
 
         site_url = self.site_url
 
@@ -153,11 +166,14 @@ class RESTRestoreToSiteConfig:
         if not isinstance(self.office_region, Unset):
             office_region = self.office_region.value
 
+
         organization_name = self.organization_name
+
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if impersonation_account_name is not UNSET:
             field_dict["impersonationAccountName"] = impersonation_account_name
         if alias is not UNSET:
@@ -199,6 +215,8 @@ class RESTRestoreToSiteConfig:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -215,6 +233,7 @@ class RESTRestoreToSiteConfig:
 
         restore_list_views = _parse_restore_list_views(d.pop("restoreListViews", UNSET))
 
+
         def _parse_changed_items(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -223,6 +242,7 @@ class RESTRestoreToSiteConfig:
             return cast(bool | None | Unset, data)
 
         changed_items = _parse_changed_items(d.pop("changedItems", UNSET))
+
 
         def _parse_deleted_items(data: object) -> bool | None | Unset:
             if data is None:
@@ -233,6 +253,7 @@ class RESTRestoreToSiteConfig:
 
         deleted_items = _parse_deleted_items(d.pop("deletedItems", UNSET))
 
+
         def _parse_restore_subsites(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -241,6 +262,7 @@ class RESTRestoreToSiteConfig:
             return cast(bool | None | Unset, data)
 
         restore_subsites = _parse_restore_subsites(d.pop("restoreSubsites", UNSET))
+
 
         def _parse_restore_master_pages(data: object) -> bool | None | Unset:
             if data is None:
@@ -251,6 +273,7 @@ class RESTRestoreToSiteConfig:
 
         restore_master_pages = _parse_restore_master_pages(d.pop("restoreMasterPages", UNSET))
 
+
         def _parse_send_shared_links_notification(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -258,25 +281,28 @@ class RESTRestoreToSiteConfig:
                 return data
             return cast(bool | None | Unset, data)
 
-        send_shared_links_notification = _parse_send_shared_links_notification(
-            d.pop("sendSharedLinksNotification", UNSET)
-        )
+        send_shared_links_notification = _parse_send_shared_links_notification(d.pop("sendSharedLinksNotification", UNSET))
+
 
         _document_version = d.pop("documentVersion", UNSET)
         document_version: RESTRestoreToSiteConfigDocumentVersion | Unset
-        if isinstance(_document_version, Unset):
+        if isinstance(_document_version,  Unset):
             document_version = UNSET
         else:
             document_version = RESTRestoreToSiteConfigDocumentVersion(_document_version)
 
+
+
+
         _document_last_version_action = d.pop("documentLastVersionAction", UNSET)
         document_last_version_action: RESTRestoreToSiteConfigDocumentLastVersionAction | Unset
-        if isinstance(_document_last_version_action, Unset):
+        if isinstance(_document_last_version_action,  Unset):
             document_last_version_action = UNSET
         else:
-            document_last_version_action = RESTRestoreToSiteConfigDocumentLastVersionAction(
-                _document_last_version_action
-            )
+            document_last_version_action = RESTRestoreToSiteConfigDocumentLastVersionAction(_document_last_version_action)
+
+
+
 
         site_url = d.pop("siteURL", UNSET)
 
@@ -292,12 +318,15 @@ class RESTRestoreToSiteConfig:
                     raise TypeError()
                 application_id_type_0 = UUID(data)
 
+
+
                 return application_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         application_id = _parse_application_id(d.pop("applicationId", UNSET))
+
 
         application_certificate_password = d.pop("applicationCertificatePassword", UNSET)
 
@@ -309,10 +338,13 @@ class RESTRestoreToSiteConfig:
 
         _office_region = d.pop("officeRegion", UNSET)
         office_region: RESTRestoreToSiteConfigOfficeRegion | Unset
-        if isinstance(_office_region, Unset):
+        if isinstance(_office_region,  Unset):
             office_region = UNSET
         else:
             office_region = RESTRestoreToSiteConfigOfficeRegion(_office_region)
+
+
+
 
         organization_name = d.pop("organizationName", UNSET)
 
@@ -337,6 +369,7 @@ class RESTRestoreToSiteConfig:
             office_region=office_region,
             organization_name=organization_name,
         )
+
 
         rest_restore_to_site_config.additional_properties = d
         return rest_restore_to_site_config

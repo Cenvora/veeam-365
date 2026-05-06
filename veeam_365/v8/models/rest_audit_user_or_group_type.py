@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTAuditUserOrGroupType(str, Enum):
     GROUP = "Group"
     USER = "User"

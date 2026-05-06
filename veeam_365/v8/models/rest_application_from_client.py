@@ -1,32 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTApplicationFromClient")
+
 
 
 @_attrs_define
 class RESTApplicationFromClient:
-    """
-    Attributes:
-        display_name (str | Unset): Specifies the Microsoft Entra application name.
-            If you create more than one application, all created applications will have the same name. Each application will
-            have a unique identification number.
-        user_code (str | Unset): Specifies the device code. For more information on how to get a device code, see [Get
-            Device Code](OrganizationBackupApplications#operation/OrganizationBackupApplications_OrganizationDeviceCode).
+    """ 
+        Attributes:
+            display_name (str | Unset): Specifies the Microsoft Entra application name.
+                If you create more than one application, all created applications will have the same name. Each application will
+                have a unique identification number.
+            user_code (str | Unset): Specifies the device code. For more information on how to get a device code, see [Get
+                Device Code](#/OrganizationBackupApplications/OrganizationBackupApplications_OrganizationDeviceCode).
 
-            **Note**: To sign in, open Microsoft Identity platform and specify this device code.
-        count (int | None | Unset): Defines the number of applications to create.
-        application_certificate_password (str | Unset): Specifies a password.
-        application_certificate (str | Unset): Specifies the Base64 string of an SSL certificate that you want to use to
-            access the Microsoft Entra application.
-    """
+                **Note**: To sign in, open Microsoft Identity platform and specify this device code.
+            count (int | None | Unset): Defines the number of applications to create.
+            application_certificate_password (str | Unset): Specifies a password.
+            application_certificate (str | Unset): Specifies the Base64 string of a TLS certificate that you want to use to
+                access the Microsoft Entra application.
+     """
 
     display_name: str | Unset = UNSET
     user_code: str | Unset = UNSET
@@ -34,6 +43,10 @@ class RESTApplicationFromClient:
     application_certificate_password: str | Unset = UNSET
     application_certificate: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         display_name = self.display_name
@@ -50,9 +63,11 @@ class RESTApplicationFromClient:
 
         application_certificate = self.application_certificate
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if display_name is not UNSET:
             field_dict["displayName"] = display_name
         if user_code is not UNSET:
@@ -65,6 +80,8 @@ class RESTApplicationFromClient:
             field_dict["applicationCertificate"] = application_certificate
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -82,6 +99,7 @@ class RESTApplicationFromClient:
 
         count = _parse_count(d.pop("count", UNSET))
 
+
         application_certificate_password = d.pop("applicationCertificatePassword", UNSET)
 
         application_certificate = d.pop("applicationCertificate", UNSET)
@@ -93,6 +111,7 @@ class RESTApplicationFromClient:
             application_certificate_password=application_certificate_password,
             application_certificate=application_certificate,
         )
+
 
         rest_application_from_client.additional_properties = d
         return rest_application_from_client

@@ -1,14 +1,18 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_azure_virtual_network import RESTAzureVirtualNetwork
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -16,36 +20,41 @@ def _get_kwargs(
     subscription_id: str,
     resource_group_name: str,
     virtual_network_name: str,
+
 ) -> dict[str, Any]:
+    
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/AzureServiceAccounts/{service_account_id}/Subscriptions/{subscription_id}/ResourceGroups/{resource_group_name}/VirtualNetworks/{virtual_network_name}".format(
-            service_account_id=quote(str(service_account_id), safe=""),
-            subscription_id=quote(str(subscription_id), safe=""),
-            resource_group_name=quote(str(resource_group_name), safe=""),
-            virtual_network_name=quote(str(virtual_network_name), safe=""),
-        ),
+        "url": "/v8/AzureServiceAccounts/{service_account_id}/Subscriptions/{subscription_id}/ResourceGroups/{resource_group_name}/VirtualNetworks/{virtual_network_name}".format(service_account_id=quote(str(service_account_id), safe=""),subscription_id=quote(str(subscription_id), safe=""),resource_group_name=quote(str(resource_group_name), safe=""),virtual_network_name=quote(str(virtual_network_name), safe=""),),
     }
+
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTAzureVirtualNetwork | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTAzureVirtualNetwork | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = RESTAzureVirtualNetwork.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTAzureVirtualNetwork | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTAzureVirtualNetwork | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -61,8 +70,9 @@ def sync_detailed(
     virtual_network_name: str,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[RESTAzureVirtualNetwork | RESTExceptionInfo]:
-    """Get Virtual Network by Name
+    """ Get Virtual Network by Name
 
      Returns information about a virtual network with the specified name.
 
@@ -78,13 +88,15 @@ def sync_detailed(
 
     Returns:
         Response[RESTAzureVirtualNetwork | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         service_account_id=service_account_id,
-        subscription_id=subscription_id,
-        resource_group_name=resource_group_name,
-        virtual_network_name=virtual_network_name,
+subscription_id=subscription_id,
+resource_group_name=resource_group_name,
+virtual_network_name=virtual_network_name,
+
     )
 
     response = client.get_httpx_client().request(
@@ -93,7 +105,6 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     service_account_id: UUID,
     subscription_id: str,
@@ -101,8 +112,9 @@ def sync(
     virtual_network_name: str,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> RESTAzureVirtualNetwork | RESTExceptionInfo | None:
-    """Get Virtual Network by Name
+    """ Get Virtual Network by Name
 
      Returns information about a virtual network with the specified name.
 
@@ -118,16 +130,17 @@ def sync(
 
     Returns:
         RESTAzureVirtualNetwork | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         service_account_id=service_account_id,
-        subscription_id=subscription_id,
-        resource_group_name=resource_group_name,
-        virtual_network_name=virtual_network_name,
-        client=client,
-    ).parsed
+subscription_id=subscription_id,
+resource_group_name=resource_group_name,
+virtual_network_name=virtual_network_name,
+client=client,
 
+    ).parsed
 
 async def asyncio_detailed(
     service_account_id: UUID,
@@ -136,8 +149,9 @@ async def asyncio_detailed(
     virtual_network_name: str,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[RESTAzureVirtualNetwork | RESTExceptionInfo]:
-    """Get Virtual Network by Name
+    """ Get Virtual Network by Name
 
      Returns information about a virtual network with the specified name.
 
@@ -153,19 +167,22 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTAzureVirtualNetwork | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         service_account_id=service_account_id,
-        subscription_id=subscription_id,
-        resource_group_name=resource_group_name,
-        virtual_network_name=virtual_network_name,
+subscription_id=subscription_id,
+resource_group_name=resource_group_name,
+virtual_network_name=virtual_network_name,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     service_account_id: UUID,
@@ -174,8 +191,9 @@ async def asyncio(
     virtual_network_name: str,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> RESTAzureVirtualNetwork | RESTExceptionInfo | None:
-    """Get Virtual Network by Name
+    """ Get Virtual Network by Name
 
      Returns information about a virtual network with the specified name.
 
@@ -191,14 +209,14 @@ async def asyncio(
 
     Returns:
         RESTAzureVirtualNetwork | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            service_account_id=service_account_id,
-            subscription_id=subscription_id,
-            resource_group_name=resource_group_name,
-            virtual_network_name=virtual_network_name,
-            client=client,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        service_account_id=service_account_id,
+subscription_id=subscription_id,
+resource_group_name=resource_group_name,
+virtual_network_name=virtual_network_name,
+client=client,
+
+    )).parsed

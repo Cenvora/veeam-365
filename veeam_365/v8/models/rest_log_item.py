@@ -1,37 +1,44 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_log_item_type import RESTLogItemType
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTLogItem")
 
 
+
 @_attrs_define
 class RESTLogItem:
-    """
-    Attributes:
-        id (UUID | Unset): ID of the operation performed during the backup/backup copy/retrieval job. Example:
-            00000000-0000-0000-0000-000000000000.
-        usn (int | Unset): Order number of the operation performed during the backup/backup copy/retrieval job.
-        type_ (RESTLogItemType | Unset): Type of the operation performed during the backup/backup copy/retrieval job.
-        message (str | Unset): Message of the operation performed during the backup/backup copy/retrieval job.
-        creation_time (datetime.datetime | Unset): Date and time when the operation was started.
-        end_time (datetime.datetime | Unset): Date and time when the operation ended.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset): ID of the operation performed during the backup/backup copy/retrieval job. Example:
+                00000000-0000-0000-0000-000000000000.
+            usn (int | Unset): Order number of the operation performed during the backup/backup copy/retrieval job.
+            type_ (RESTLogItemType | Unset): Type of the operation performed during the backup/backup copy/retrieval job.
+            message (str | Unset): Message of the operation performed during the backup/backup copy/retrieval job.
+            creation_time (datetime.datetime | Unset): Date and time when the operation was started.
+            end_time (datetime.datetime | Unset): Date and time when the operation ended.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     id: UUID | Unset = UNSET
     usn: int | Unset = UNSET
@@ -42,7 +49,12 @@ class RESTLogItem:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         id: str | Unset = UNSET
         if not isinstance(self.id, Unset):
             id = str(self.id)
@@ -52,6 +64,7 @@ class RESTLogItem:
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
+
 
         message = self.message
 
@@ -67,9 +80,11 @@ class RESTLogItem:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if usn is not UNSET:
@@ -87,49 +102,65 @@ class RESTLogItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
+
+
+
 
         usn = d.pop("usn", UNSET)
 
         _type_ = d.pop("type", UNSET)
         type_: RESTLogItemType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTLogItemType(_type_)
+
+
+
 
         message = d.pop("message", UNSET)
 
         _creation_time = d.pop("creationTime", UNSET)
         creation_time: datetime.datetime | Unset
-        if isinstance(_creation_time, Unset):
+        if isinstance(_creation_time,  Unset):
             creation_time = UNSET
         else:
             creation_time = isoparse(_creation_time)
 
+
+
+
         _end_time = d.pop("endTime", UNSET)
         end_time: datetime.datetime | Unset
-        if isinstance(_end_time, Unset):
+        if isinstance(_end_time,  Unset):
             end_time = UNSET
         else:
             end_time = isoparse(_end_time)
 
+
+
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_log_item = cls(
             id=id,
@@ -140,6 +171,7 @@ class RESTLogItem:
             end_time=end_time,
             field_links=field_links,
         )
+
 
         rest_log_item.additional_properties = d
         return rest_log_item

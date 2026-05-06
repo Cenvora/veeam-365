@@ -1,29 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTAmazonInstanceType")
+
 
 
 @_attrs_define
 class RESTAmazonInstanceType:
-    """
-    Attributes:
-        type_ (str | Unset): Instance type.
-        cores (int | Unset): Number of processor cores.
-        memory (int | Unset): Instance memory in *Bytes*.
-    """
+    """ 
+        Attributes:
+            type_ (str | Unset): Instance type.
+            cores (int | Unset): Number of processor cores.
+            memory (int | Unset): Instance memory in *Bytes*.
+     """
 
     type_: str | Unset = UNSET
     cores: int | Unset = UNSET
     memory: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         type_ = self.type_
@@ -32,9 +44,11 @@ class RESTAmazonInstanceType:
 
         memory = self.memory
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if type_ is not UNSET:
             field_dict["type"] = type_
         if cores is not UNSET:
@@ -43,6 +57,8 @@ class RESTAmazonInstanceType:
             field_dict["memory"] = memory
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -58,6 +74,7 @@ class RESTAmazonInstanceType:
             cores=cores,
             memory=memory,
         )
+
 
         rest_amazon_instance_type.additional_properties = d
         return rest_amazon_instance_type

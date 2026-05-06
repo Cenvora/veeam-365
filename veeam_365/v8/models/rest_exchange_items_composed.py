@@ -1,77 +1,84 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_exchange_item_importance import RESTExchangeItemImportance
 from ..models.rest_task_item_status import RESTTaskItemStatus
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_attachment import RESTAttachment
-    from ..models.rest_exchange_items_composed_actions import RESTExchangeItemsComposedActions
-    from ..models.rest_exchange_items_composed_links import RESTExchangeItemsComposedLinks
+  from ..models.rest_attachment import RESTAttachment
+  from ..models.rest_exchange_items_composed_actions import RESTExchangeItemsComposedActions
+  from ..models.rest_exchange_items_composed_links import RESTExchangeItemsComposedLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTExchangeItemsComposed")
 
 
+
 @_attrs_define
 class RESTExchangeItemsComposed:
-    """
-    Attributes:
-        mailbox_id (UUID | Unset): ID of the organization mailbox.
-        attachments (list[RESTAttachment] | Unset): Array of attachment items for the appointment.
-        organizer (str | Unset): Appointment organizer.
-        attendees (str | Unset): Appointment attendees.
-        start_time (datetime.datetime | Unset): Date and time when the appointment starts.
-        end_time (datetime.datetime | Unset): Date and time when the appointment finishes.
-        location (str | Unset): Location where the appointment is held.
-        subject (str | Unset): Appointment subject.
-        recurrence_pattern_format (str | Unset): Recurrence format.
-        recurring (bool | Unset): Defines whether the appointment is recurring.
-        item_class (str | Unset): Exchange item class.
-        field_links (RESTExchangeItemsComposedLinks | Unset):
-        field_actions (RESTExchangeItemsComposedActions | Unset):
-        id (str | Unset): Exchange item ID.
-        name (str | Unset): Name of the contact group.
-        address (str | Unset): Contact address.
-        business_phone (str | Unset): Business phone number of the contact.
-        company (str | Unset): Company of the contact.
-        display_as (str | Unset): Contact alias.
-        email (str | Unset): Contact email.
-        fax (str | Unset): Fax number of the contact.
-        file_as (str | Unset): Name of the file.
-        full_name (str | Unset): Contact full name.
-        home_phone (str | Unset): Home phone number of the contact.
-        im_address (str | Unset): Instant messenger address.
-        job_title (str | Unset): Contact job title.
-        mobile (str | Unset): Contact mobile.
-        web_page (str | Unset): Contact webpage.
-        from_ (str | Unset): Name of the discussion author.
-        posted_on (datetime.datetime | Unset): Date and time when the discussion was started.
-        importance (RESTExchangeItemImportance | Unset): Message importance.
-        cc (str | Unset): Recipient email address in carbon copy.
-        bcc (str | Unset): Recipient address in blind carbon copy.
-        to (str | Unset): Recipient email address.
-        sent (datetime.datetime | Unset): Date and time when the message was sent.
-        received (datetime.datetime | Unset): Date and time when the message was received.
-        reminder (bool | Unset): Defines whether the message was sent with the reminder.
-        duration (int | Unset): Duration of the journal entry in hours.
-        entry_type (str | Unset): Type of the journal entry.
-        date (datetime.datetime | Unset): Date when the note was created.
-        status (RESTTaskItemStatus | Unset): Task status.
-        percent_complete (float | Unset): Task progress.
-        start_date (datetime.datetime | Unset): Date and time when the task was started.
-        due_date (datetime.datetime | Unset): Date and time when the task must be completed.
-        owner (str | Unset): Task owner.
-    """
+    """ 
+        Attributes:
+            mailbox_id (UUID | Unset): ID of the organization mailbox.
+            attachments (list[RESTAttachment] | Unset): Array of attachment items for the appointment.
+            organizer (str | Unset): Appointment organizer.
+            attendees (str | Unset): Appointment attendees.
+            start_time (datetime.datetime | Unset): Date and time when the appointment starts.
+            end_time (datetime.datetime | Unset): Date and time when the appointment finishes.
+            location (str | Unset): Location where the appointment is held.
+            subject (str | Unset): Appointment subject.
+            recurrence_pattern_format (str | Unset): Recurrence format.
+            recurring (bool | Unset): Defines whether the appointment is recurring.
+            item_class (str | Unset): Exchange item class.
+            field_links (RESTExchangeItemsComposedLinks | Unset):
+            field_actions (RESTExchangeItemsComposedActions | Unset):
+            id (str | Unset): Exchange item ID.
+            name (str | Unset): Name of the contact group.
+            address (str | Unset): Contact address.
+            business_phone (str | Unset): Business phone number of the contact.
+            company (str | Unset): Company of the contact.
+            display_as (str | Unset): Contact alias.
+            email (str | Unset): Contact email.
+            fax (str | Unset): Fax number of the contact.
+            file_as (str | Unset): Name of the file.
+            full_name (str | Unset): Contact full name.
+            home_phone (str | Unset): Home phone number of the contact.
+            im_address (str | Unset): Instant messenger address.
+            job_title (str | Unset): Contact job title.
+            mobile (str | Unset): Contact mobile.
+            web_page (str | Unset): Contact webpage.
+            from_ (str | Unset): Name of the discussion author.
+            posted_on (datetime.datetime | Unset): Date and time when the discussion was started.
+            importance (RESTExchangeItemImportance | Unset): Message importance.
+            cc (str | Unset): Recipient email address in carbon copy.
+            bcc (str | Unset): Recipient address in blind carbon copy.
+            to (str | Unset): Recipient email address.
+            sent (datetime.datetime | Unset): Date and time when the message was sent.
+            received (datetime.datetime | Unset): Date and time when the message was received.
+            reminder (bool | Unset): Defines whether the message was sent with the reminder.
+            duration (int | Unset): Duration of the journal entry in hours.
+            entry_type (str | Unset): Type of the journal entry.
+            date (datetime.datetime | Unset): Date when the note was created.
+            status (RESTTaskItemStatus | Unset): Task status.
+            percent_complete (float | Unset): Task progress.
+            start_date (datetime.datetime | Unset): Date and time when the task was started.
+            due_date (datetime.datetime | Unset): Date and time when the task must be completed.
+            owner (str | Unset): Task owner.
+     """
 
     mailbox_id: UUID | Unset = UNSET
     attachments: list[RESTAttachment] | Unset = UNSET
@@ -120,7 +127,14 @@ class RESTExchangeItemsComposed:
     owner: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_attachment import RESTAttachment
+        from ..models.rest_exchange_items_composed_actions import RESTExchangeItemsComposedActions
+        from ..models.rest_exchange_items_composed_links import RESTExchangeItemsComposedLinks
         mailbox_id: str | Unset = UNSET
         if not isinstance(self.mailbox_id, Unset):
             mailbox_id = str(self.mailbox_id)
@@ -131,6 +145,8 @@ class RESTExchangeItemsComposed:
             for attachments_item_data in self.attachments:
                 attachments_item = attachments_item_data.to_dict()
                 attachments.append(attachments_item)
+
+
 
         organizer = self.organizer
 
@@ -202,6 +218,7 @@ class RESTExchangeItemsComposed:
         if not isinstance(self.importance, Unset):
             importance = self.importance.value
 
+
         cc = self.cc
 
         bcc = self.bcc
@@ -230,6 +247,7 @@ class RESTExchangeItemsComposed:
         if not isinstance(self.status, Unset):
             status = self.status.value
 
+
         percent_complete = self.percent_complete
 
         start_date: str | Unset = UNSET
@@ -242,9 +260,11 @@ class RESTExchangeItemsComposed:
 
         owner = self.owner
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if mailbox_id is not UNSET:
             field_dict["mailboxId"] = mailbox_id
         if attachments is not UNSET:
@@ -338,19 +358,23 @@ class RESTExchangeItemsComposed:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_attachment import RESTAttachment
         from ..models.rest_exchange_items_composed_actions import RESTExchangeItemsComposedActions
         from ..models.rest_exchange_items_composed_links import RESTExchangeItemsComposedLinks
-
         d = dict(src_dict)
         _mailbox_id = d.pop("mailboxId", UNSET)
         mailbox_id: UUID | Unset
-        if isinstance(_mailbox_id, Unset):
+        if isinstance(_mailbox_id,  Unset):
             mailbox_id = UNSET
         else:
             mailbox_id = UUID(_mailbox_id)
+
+
+
 
         _attachments = d.pop("attachments", UNSET)
         attachments: list[RESTAttachment] | Unset = UNSET
@@ -359,7 +383,10 @@ class RESTExchangeItemsComposed:
             for attachments_item_data in _attachments:
                 attachments_item = RESTAttachment.from_dict(attachments_item_data)
 
+
+
                 attachments.append(attachments_item)
+
 
         organizer = d.pop("organizer", UNSET)
 
@@ -367,17 +394,23 @@ class RESTExchangeItemsComposed:
 
         _start_time = d.pop("startTime", UNSET)
         start_time: datetime.datetime | Unset
-        if isinstance(_start_time, Unset):
+        if isinstance(_start_time,  Unset):
             start_time = UNSET
         else:
             start_time = isoparse(_start_time)
 
+
+
+
         _end_time = d.pop("endTime", UNSET)
         end_time: datetime.datetime | Unset
-        if isinstance(_end_time, Unset):
+        if isinstance(_end_time,  Unset):
             end_time = UNSET
         else:
             end_time = isoparse(_end_time)
+
+
+
 
         location = d.pop("location", UNSET)
 
@@ -391,17 +424,23 @@ class RESTExchangeItemsComposed:
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTExchangeItemsComposedLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTExchangeItemsComposedLinks.from_dict(_field_links)
 
+
+
+
         _field_actions = d.pop("_actions", UNSET)
         field_actions: RESTExchangeItemsComposedActions | Unset
-        if isinstance(_field_actions, Unset):
+        if isinstance(_field_actions,  Unset):
             field_actions = UNSET
         else:
             field_actions = RESTExchangeItemsComposedActions.from_dict(_field_actions)
+
+
+
 
         id = d.pop("id", UNSET)
 
@@ -437,17 +476,23 @@ class RESTExchangeItemsComposed:
 
         _posted_on = d.pop("postedOn", UNSET)
         posted_on: datetime.datetime | Unset
-        if isinstance(_posted_on, Unset):
+        if isinstance(_posted_on,  Unset):
             posted_on = UNSET
         else:
             posted_on = isoparse(_posted_on)
 
+
+
+
         _importance = d.pop("importance", UNSET)
         importance: RESTExchangeItemImportance | Unset
-        if isinstance(_importance, Unset):
+        if isinstance(_importance,  Unset):
             importance = UNSET
         else:
             importance = RESTExchangeItemImportance(_importance)
+
+
+
 
         cc = d.pop("cc", UNSET)
 
@@ -457,17 +502,23 @@ class RESTExchangeItemsComposed:
 
         _sent = d.pop("sent", UNSET)
         sent: datetime.datetime | Unset
-        if isinstance(_sent, Unset):
+        if isinstance(_sent,  Unset):
             sent = UNSET
         else:
             sent = isoparse(_sent)
 
+
+
+
         _received = d.pop("received", UNSET)
         received: datetime.datetime | Unset
-        if isinstance(_received, Unset):
+        if isinstance(_received,  Unset):
             received = UNSET
         else:
             received = isoparse(_received)
+
+
+
 
         reminder = d.pop("reminder", UNSET)
 
@@ -477,33 +528,45 @@ class RESTExchangeItemsComposed:
 
         _date = d.pop("date", UNSET)
         date: datetime.datetime | Unset
-        if isinstance(_date, Unset):
+        if isinstance(_date,  Unset):
             date = UNSET
         else:
             date = isoparse(_date)
 
+
+
+
         _status = d.pop("status", UNSET)
         status: RESTTaskItemStatus | Unset
-        if isinstance(_status, Unset):
+        if isinstance(_status,  Unset):
             status = UNSET
         else:
             status = RESTTaskItemStatus(_status)
+
+
+
 
         percent_complete = d.pop("percentComplete", UNSET)
 
         _start_date = d.pop("startDate", UNSET)
         start_date: datetime.datetime | Unset
-        if isinstance(_start_date, Unset):
+        if isinstance(_start_date,  Unset):
             start_date = UNSET
         else:
             start_date = isoparse(_start_date)
 
+
+
+
         _due_date = d.pop("dueDate", UNSET)
         due_date: datetime.datetime | Unset
-        if isinstance(_due_date, Unset):
+        if isinstance(_due_date,  Unset):
             due_date = UNSET
         else:
             due_date = isoparse(_due_date)
+
+
+
 
         owner = d.pop("owner", UNSET)
 
@@ -554,6 +617,7 @@ class RESTExchangeItemsComposed:
             due_date=due_date,
             owner=owner,
         )
+
 
         rest_exchange_items_composed.additional_properties = d
         return rest_exchange_items_composed

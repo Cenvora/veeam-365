@@ -1,44 +1,51 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_exchange_item_string_id import RESTExchangeItemStringId
+  from ..models.rest_exchange_item_string_id import RESTExchangeItemStringId
+
+
+
 
 
 T = TypeVar("T", bound="RESTRestoreToOriginalLocationSelectedItems")
 
 
+
 @_attrs_define
 class RESTRestoreToOriginalLocationSelectedItems:
-    """
-    Attributes:
-        user_name (str | Unset): Specifies the user name that you want to use for authenticating to the Exchange
-            organization.
-        user_password (str | Unset): Specifies a password.
-        user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
-            see [Get Device Code](RestoreSession#operation/RestoreSession_DeviceCodeAction).
-            This property is required if you want to use a device code for data restore.
-        application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
-            for restore. Example: 00000000-0000-0000-0000-000000000000.
-        application_certificate_password (str | Unset): Specifies a password.
-        application_certificate (str | Unset): Specifies the SSL certificate configured for the Microsoft Entra
-            application that you want to use for data restore. You must provide the certificate as a Base64 string.
-        impersonation_account_name (str | Unset): Specifies a user name of the account that will be used as a Microsoft
-            Exchange account to restore backed-up mailbox items.
+    """ 
+        Attributes:
+            user_name (str | Unset): Specifies the user name that you want to use for authenticating to the Exchange
+                organization.
+            user_password (str | Unset): Specifies a password.
+            user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
+                see [Get Device Code](#/RestoreSession/RestoreSession_DeviceCodeAction).
+                This property is required if you want to use a device code for data restore.
+            application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
+                for restore. Example: 00000000-0000-0000-0000-000000000000.
+            application_certificate_password (str | Unset): Specifies a password.
+            application_certificate (str | Unset): Specifies the TLS certificate configured for the Microsoft Entra
+                application that you want to use for data restore. You must provide the certificate as a Base64 string.
+            impersonation_account_name (str | Unset): Specifies a user name of the account that will be used as a Microsoft
+                Exchange account to restore backed-up mailbox items.
 
-            **Note**: This property is required if you want to use an application certificate for data restore. Use this
-            property only with the `applicationCertificate` property.
-        items (list[RESTExchangeItemStringId] | Unset): Specifies IDs of the mailbox items that you want to restore. For
-            more information on how to get such IDs, see [Get Mailbox Items](ExchangeItem#operation/ExchangeItem_Get).
-    """
+                **Note**: This property is required if you want to use an application certificate for data restore. Use this
+                property only with the `applicationCertificate` property.
+            items (list[RESTExchangeItemStringId] | Unset): Specifies IDs of the mailbox items that you want to restore. For
+                more information on how to get such IDs, see [Get Mailbox Items](#/ExchangeItem/ExchangeItem_Get).
+     """
 
     user_name: str | Unset = UNSET
     user_password: str | Unset = UNSET
@@ -50,7 +57,12 @@ class RESTRestoreToOriginalLocationSelectedItems:
     items: list[RESTExchangeItemStringId] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_exchange_item_string_id import RESTExchangeItemStringId
         user_name = self.user_name
 
         user_password = self.user_password
@@ -78,9 +90,13 @@ class RESTRestoreToOriginalLocationSelectedItems:
                 items_item = items_item_data.to_dict()
                 items.append(items_item)
 
+
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if user_name is not UNSET:
             field_dict["userName"] = user_name
         if user_password is not UNSET:
@@ -100,10 +116,11 @@ class RESTRestoreToOriginalLocationSelectedItems:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_exchange_item_string_id import RESTExchangeItemStringId
-
         d = dict(src_dict)
         user_name = d.pop("userName", UNSET)
 
@@ -121,12 +138,15 @@ class RESTRestoreToOriginalLocationSelectedItems:
                     raise TypeError()
                 application_id_type_0 = UUID(data)
 
+
+
                 return application_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         application_id = _parse_application_id(d.pop("applicationId", UNSET))
+
 
         application_certificate_password = d.pop("applicationCertificatePassword", UNSET)
 
@@ -141,7 +161,10 @@ class RESTRestoreToOriginalLocationSelectedItems:
             for items_item_data in _items:
                 items_item = RESTExchangeItemStringId.from_dict(items_item_data)
 
+
+
                 items.append(items_item)
+
 
         rest_restore_to_original_location_selected_items = cls(
             user_name=user_name,
@@ -153,6 +176,7 @@ class RESTRestoreToOriginalLocationSelectedItems:
             impersonation_account_name=impersonation_account_name,
             items=items,
         )
+
 
         rest_restore_to_original_location_selected_items.additional_properties = d
         return rest_restore_to_original_location_selected_items

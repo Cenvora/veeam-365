@@ -1,33 +1,40 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_contact_group_item_actions import RESTContactGroupItemActions
-    from ..models.rest_contact_group_item_links import RESTContactGroupItemLinks
+  from ..models.rest_contact_group_item_actions import RESTContactGroupItemActions
+  from ..models.rest_contact_group_item_links import RESTContactGroupItemLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTContactGroupItem")
 
 
+
 @_attrs_define
 class RESTContactGroupItem:
-    """
-    Attributes:
-        mailbox_id (UUID | Unset): ID of the organization mailbox.
-        name (str | Unset): Name of the contact group.
-        item_class (str | Unset): Exchange item class.
-        field_links (RESTContactGroupItemLinks | Unset):
-        field_actions (RESTContactGroupItemActions | Unset):
-        id (str | Unset): Exchange item ID.
-    """
+    """ 
+        Attributes:
+            mailbox_id (UUID | Unset): ID of the organization mailbox.
+            name (str | Unset): Name of the contact group.
+            item_class (str | Unset): Exchange item class.
+            field_links (RESTContactGroupItemLinks | Unset):
+            field_actions (RESTContactGroupItemActions | Unset):
+            id (str | Unset): Exchange item ID.
+     """
 
     mailbox_id: UUID | Unset = UNSET
     name: str | Unset = UNSET
@@ -37,7 +44,13 @@ class RESTContactGroupItem:
     id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_contact_group_item_actions import RESTContactGroupItemActions
+        from ..models.rest_contact_group_item_links import RESTContactGroupItemLinks
         mailbox_id: str | Unset = UNSET
         if not isinstance(self.mailbox_id, Unset):
             mailbox_id = str(self.mailbox_id)
@@ -56,9 +69,11 @@ class RESTContactGroupItem:
 
         id = self.id
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if mailbox_id is not UNSET:
             field_dict["mailboxId"] = mailbox_id
         if name is not UNSET:
@@ -74,18 +89,22 @@ class RESTContactGroupItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_contact_group_item_actions import RESTContactGroupItemActions
         from ..models.rest_contact_group_item_links import RESTContactGroupItemLinks
-
         d = dict(src_dict)
         _mailbox_id = d.pop("mailboxId", UNSET)
         mailbox_id: UUID | Unset
-        if isinstance(_mailbox_id, Unset):
+        if isinstance(_mailbox_id,  Unset):
             mailbox_id = UNSET
         else:
             mailbox_id = UUID(_mailbox_id)
+
+
+
 
         name = d.pop("name", UNSET)
 
@@ -93,17 +112,23 @@ class RESTContactGroupItem:
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTContactGroupItemLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTContactGroupItemLinks.from_dict(_field_links)
 
+
+
+
         _field_actions = d.pop("_actions", UNSET)
         field_actions: RESTContactGroupItemActions | Unset
-        if isinstance(_field_actions, Unset):
+        if isinstance(_field_actions,  Unset):
             field_actions = UNSET
         else:
             field_actions = RESTContactGroupItemActions.from_dict(_field_actions)
+
+
+
 
         id = d.pop("id", UNSET)
 
@@ -115,6 +140,7 @@ class RESTContactGroupItem:
             field_actions=field_actions,
             id=id,
         )
+
 
         rest_contact_group_item.additional_properties = d
         return rest_contact_group_item

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTRestoreItemType(str, Enum):
     EXCHANGEMAILBOX = "ExchangeMailbox"
     ONEDRIVEITEM = "OneDriveItem"

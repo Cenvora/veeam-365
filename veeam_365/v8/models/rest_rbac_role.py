@@ -1,36 +1,43 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_rbac_role_role_type import RESTRbacRoleRoleType
 from ..types import UNSET, Unset
 
+from ..models.rest_rbac_role_role_type import RESTRbacRoleRoleType
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_rbac_role_links import RESTRbacRoleLinks
+  from ..models.rest_rbac_role_links import RESTRbacRoleLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTRbacRole")
 
 
+
 @_attrs_define
 class RESTRbacRole:
-    """
-    Attributes:
-        id (None | Unset | UUID): ID of the restore operator role.
-        organization_id (UUID | Unset): Backed-up organization ID.
-        name (str | Unset): Name of the restore operator role.
-        description (str | Unset): Description of the restore operator role.
-        role_type (RESTRbacRoleRoleType | Unset): Type of the restore operator role. <ul> <li>*EntireOrganization*.
-            Restore operators are allowed to explore and restore backed-up data of all objects within the specified
-            Microsoft 365 organization.</li> <li>*SpecificObjects*. Restore operators are allowed to explore and restore
-            backed-up data of the specified objects.</li> </ul>
-        field_links (RESTRbacRoleLinks | Unset):
-    """
+    """ 
+        Attributes:
+            id (None | Unset | UUID): ID of the restore operator role.
+            organization_id (UUID | Unset): Backed-up organization ID.
+            name (str | Unset): Name of the restore operator role.
+            description (str | Unset): Description of the restore operator role.
+            role_type (RESTRbacRoleRoleType | Unset): Type of the restore operator role. <ul> <li>*EntireOrganization*.
+                Restore operators are allowed to explore and restore backed-up data of all objects within the specified
+                Microsoft 365 organization.</li> <li>*SpecificObjects*. Restore operators are allowed to explore and restore
+                backed-up data of the specified objects.</li> </ul>
+            field_links (RESTRbacRoleLinks | Unset):
+     """
 
     id: None | Unset | UUID = UNSET
     organization_id: UUID | Unset = UNSET
@@ -40,7 +47,12 @@ class RESTRbacRole:
     field_links: RESTRbacRoleLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_rbac_role_links import RESTRbacRoleLinks
         id: None | str | Unset
         if isinstance(self.id, Unset):
             id = UNSET
@@ -61,13 +73,16 @@ class RESTRbacRole:
         if not isinstance(self.role_type, Unset):
             role_type = self.role_type.value
 
+
         field_links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if organization_id is not UNSET:
@@ -83,12 +98,12 @@ class RESTRbacRole:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_rbac_role_links import RESTRbacRoleLinks
-
         d = dict(src_dict)
-
         def _parse_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
@@ -99,6 +114,8 @@ class RESTRbacRole:
                     raise TypeError()
                 id_type_0 = UUID(data)
 
+
+
                 return id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -106,12 +123,16 @@ class RESTRbacRole:
 
         id = _parse_id(d.pop("id", UNSET))
 
+
         _organization_id = d.pop("organizationId", UNSET)
         organization_id: UUID | Unset
-        if isinstance(_organization_id, Unset):
+        if isinstance(_organization_id,  Unset):
             organization_id = UNSET
         else:
             organization_id = UUID(_organization_id)
+
+
+
 
         name = d.pop("name", UNSET)
 
@@ -119,17 +140,23 @@ class RESTRbacRole:
 
         _role_type = d.pop("roleType", UNSET)
         role_type: RESTRbacRoleRoleType | Unset
-        if isinstance(_role_type, Unset):
+        if isinstance(_role_type,  Unset):
             role_type = UNSET
         else:
             role_type = RESTRbacRoleRoleType(_role_type)
 
+
+
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTRbacRoleLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTRbacRoleLinks.from_dict(_field_links)
+
+
+
 
         rest_rbac_role = cls(
             id=id,
@@ -139,6 +166,7 @@ class RESTRbacRole:
             role_type=role_type,
             field_links=field_links,
         )
+
 
         rest_rbac_role.additional_properties = d
         return rest_rbac_role

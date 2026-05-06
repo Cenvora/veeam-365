@@ -1,43 +1,50 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+import datetime
+
 if TYPE_CHECKING:
-    from ..models.rest_teams_post import RESTTeamsPost
+  from ..models.rest_teams_post import RESTTeamsPost
+
+
+
 
 
 T = TypeVar("T", bound="RESTExportOptions")
 
 
+
 @_attrs_define
 class RESTExportOptions:
-    """
-    Attributes:
-        posts (list[RESTTeamsPost] | Unset): Specifies IDs of the posts that you want to export. The posts must reside
-            in the same channel. For more information on how to get such IDs, see [Get
-            Posts](TeamsPost#operation/TeamsPost_GetPage).
+    """ 
+        Attributes:
+            posts (list[RESTTeamsPost] | Unset): Specifies IDs of the posts that you want to export. The posts must reside
+                in the same channel. For more information on how to get such IDs, see [Get
+                Posts](#/TeamsPost/TeamsPost_GetPage).
 
-            **Note**: You do not need to use this property if you use the `channelId` property to specify a channel whose
-            posts to export.
-        channel_id (str | Unset): Specifies the ID of the channel whose posts you want to export. For more information
-            on how to get this parameter, see [Get Team Channels](TeamsChannel#operation/TeamsChannel_Get).
+                **Note**: You do not need to use this property if you use the `channelId` property to specify a channel whose
+                posts to export.
+            channel_id (str | Unset): Specifies the ID of the channel whose posts you want to export. For more information
+                on how to get this parameter, see [Get Team Channels](#/TeamsChannel/TeamsChannel_Get).
 
-            **Note**: If you specify this property, you can use the `from` and `to` properties to specify a time period for
-            which you want to export posts. You do not need to use this property if you use the `posts` property to specify
-            what posts to export.
-        from_ (datetime.datetime | None | Unset): Specifies the point in time that defines the start of the period for
-            which you want to export posts.
-        to (datetime.datetime | None | Unset): Specifies the point in time that defines the end of the period for which
-            you want to export posts.
-    """
+                **Note**: If you specify this property, you can use the `from` and `to` properties to specify a time period for
+                which you want to export posts. You do not need to use this property if you use the `posts` property to specify
+                what posts to export.
+            from_ (datetime.datetime | None | Unset): Specifies the point in time that defines the start of the period for
+                which you want to export posts.
+            to (datetime.datetime | None | Unset): Specifies the point in time that defines the end of the period for which
+                you want to export posts.
+     """
 
     posts: list[RESTTeamsPost] | Unset = UNSET
     channel_id: str | Unset = UNSET
@@ -45,13 +52,20 @@ class RESTExportOptions:
     to: datetime.datetime | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_teams_post import RESTTeamsPost
         posts: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.posts, Unset):
             posts = []
             for posts_item_data in self.posts:
                 posts_item = posts_item_data.to_dict()
                 posts.append(posts_item)
+
+
 
         channel_id = self.channel_id
 
@@ -71,9 +85,11 @@ class RESTExportOptions:
         else:
             to = self.to
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if posts is not UNSET:
             field_dict["posts"] = posts
         if channel_id is not UNSET:
@@ -85,10 +101,11 @@ class RESTExportOptions:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_teams_post import RESTTeamsPost
-
         d = dict(src_dict)
         _posts = d.pop("posts", UNSET)
         posts: list[RESTTeamsPost] | Unset = UNSET
@@ -97,7 +114,10 @@ class RESTExportOptions:
             for posts_item_data in _posts:
                 posts_item = RESTTeamsPost.from_dict(posts_item_data)
 
+
+
                 posts.append(posts_item)
+
 
         channel_id = d.pop("channelId", UNSET)
 
@@ -111,12 +131,15 @@ class RESTExportOptions:
                     raise TypeError()
                 from_type_0 = isoparse(data)
 
+
+
                 return from_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         from_ = _parse_from_(d.pop("from", UNSET))
+
 
         def _parse_to(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -128,6 +151,8 @@ class RESTExportOptions:
                     raise TypeError()
                 to_type_0 = isoparse(data)
 
+
+
                 return to_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -135,12 +160,14 @@ class RESTExportOptions:
 
         to = _parse_to(d.pop("to", UNSET))
 
+
         rest_export_options = cls(
             posts=posts,
             channel_id=channel_id,
             from_=from_,
             to=to,
         )
+
 
         rest_export_options.additional_properties = d
         return rest_export_options

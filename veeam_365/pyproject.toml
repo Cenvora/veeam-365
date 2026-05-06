@@ -1,13 +1,13 @@
 [tool.poetry]
-name = "api-v-6-client"
-version = "v6"
-description = "A client library for accessing API v6"
+name = "veeam-backup-for-microsoft-365-rest-api-client"
+version = "v8"
+description = "A client library for accessing Veeam Backup for Microsoft 365 REST API"
 authors = []
 readme = "README.md"
 packages = [
-    { include = "api_v_6_client" },
+    { include = "veeam_backup_for_microsoft_365_rest_api_client" },
 ]
-include = ["api_v_6_client/py.typed"]
+include = ["veeam_backup_for_microsoft_365_rest_api_client/py.typed"]
 
 [tool.poetry.dependencies]
 python = "^3.10"

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTEditBackupJobBackupType(str, Enum):
     ENTIREORGANIZATION = "EntireOrganization"
     SELECTEDITEMS = "SelectedItems"

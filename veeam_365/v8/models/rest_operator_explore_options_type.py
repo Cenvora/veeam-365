@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTOperatorExploreOptionsType(str, Enum):
     VEOD = "Veod"
     VESP = "Vesp"

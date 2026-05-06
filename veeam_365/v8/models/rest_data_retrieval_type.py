@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTDataRetrievalType(str, Enum):
     EXCHANGE = "Exchange"
     ONEDRIVE = "OneDrive"

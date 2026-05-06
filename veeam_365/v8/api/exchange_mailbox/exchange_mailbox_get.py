@@ -1,14 +1,19 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.page_of_rest_exchange_mailbox import PageOfRESTExchangeMailbox
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -16,42 +21,50 @@ def _get_kwargs(
     *,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     params["offset"] = offset
 
     params["limit"] = limit
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/RestoreSessions/{restore_session_id}/organization/mailboxes".format(
-            restore_session_id=quote(str(restore_session_id), safe=""),
-        ),
+        "url": "/v8/RestoreSessions/{restore_session_id}/organization/mailboxes".format(restore_session_id=quote(str(restore_session_id), safe=""),),
         "params": params,
     }
+
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> PageOfRESTExchangeMailbox | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTExchangeMailbox | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTExchangeMailbox.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[PageOfRESTExchangeMailbox | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTExchangeMailbox | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -66,8 +79,9 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> Response[PageOfRESTExchangeMailbox | RESTExceptionInfo]:
-    """Get Mailboxes
+    """ Get Mailboxes
 
      Returns a collection of organization mailboxes to explore and restore data.
 
@@ -82,12 +96,14 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTExchangeMailbox | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        offset=offset,
-        limit=limit,
+offset=offset,
+limit=limit,
+
     )
 
     response = client.get_httpx_client().request(
@@ -96,15 +112,15 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     restore_session_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> PageOfRESTExchangeMailbox | RESTExceptionInfo | None:
-    """Get Mailboxes
+    """ Get Mailboxes
 
      Returns a collection of organization mailboxes to explore and restore data.
 
@@ -119,15 +135,16 @@ def sync(
 
     Returns:
         PageOfRESTExchangeMailbox | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         restore_session_id=restore_session_id,
-        client=client,
-        offset=offset,
-        limit=limit,
-    ).parsed
+client=client,
+offset=offset,
+limit=limit,
 
+    ).parsed
 
 async def asyncio_detailed(
     restore_session_id: UUID,
@@ -135,8 +152,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> Response[PageOfRESTExchangeMailbox | RESTExceptionInfo]:
-    """Get Mailboxes
+    """ Get Mailboxes
 
      Returns a collection of organization mailboxes to explore and restore data.
 
@@ -151,18 +169,21 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTExchangeMailbox | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        offset=offset,
-        limit=limit,
+offset=offset,
+limit=limit,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     restore_session_id: UUID,
@@ -170,8 +191,9 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
+
 ) -> PageOfRESTExchangeMailbox | RESTExceptionInfo | None:
-    """Get Mailboxes
+    """ Get Mailboxes
 
      Returns a collection of organization mailboxes to explore and restore data.
 
@@ -186,13 +208,13 @@ async def asyncio(
 
     Returns:
         PageOfRESTExchangeMailbox | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            restore_session_id=restore_session_id,
-            client=client,
-            offset=offset,
-            limit=limit,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        restore_session_id=restore_session_id,
+client=client,
+offset=offset,
+limit=limit,
+
+    )).parsed

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTItemRestoreDetailsType(str, Enum):
     BULKMAILBOX = "BulkMailbox"
     BULKONEDRIVE = "BulkOneDrive"

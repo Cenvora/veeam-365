@@ -1,43 +1,52 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTSshSettingsFromClient")
+
 
 
 @_attrs_define
 class RESTSshSettingsFromClient:
-    """Specifies credentials to access the Linux-based backup proxy server.
+    """ Specifies credentials to access the Linux-based backup proxy server.
 
-    Attributes:
-        account (str | Unset): Specifies a name of the SSH user account.
-        account_password (str | Unset): Specifies a password.
-        port (int | None | Unset): Specifies a port number which is used to connect to the specified backup proxy server
-            through SSH. The default value is *22*.
-        connection_timeout (int | None | Unset): Specifies the SSH connection timeout in *milliseconds*. This timeout is
-            used to wait for connection to the specified backup proxy server through SSH. The default value is *30000*.
-        private_key_base_64 (None | str | Unset): Specifies the content of the private key file provided as a Base64
-            string.
-        private_key_passphrase (str | Unset): Specifies a password.
-        elevate_account_to_root (bool | None | Unset): Defines whether the SSH user account privileges will be elevated
-            in case of insufficient privileges.
-        add_to_sudoers (bool | None | Unset): Defines whether the SSH user account will be added to the *Sudoers* group.
-        use_su_if_sudo_unavailable (bool | None | Unset): Defines whether it is allowed to use `SU` if `sudo` is
-            unavailable.
-        root_password (str | Unset): Specifies a password.
-        fingerprint (None | str | Unset): Specifies the SSH fingerprint.
-        public_base_64_key (None | str | Unset): Specifies the content of the public key file provided as a Base64
-            string.
+        Attributes:
+            account (str | Unset): Specifies a name of the SSH user account.
+            account_password (str | Unset): Specifies a password.
+            port (int | None | Unset): Specifies the port number which is used to connect to the specified backup proxy
+                server through SSH. The default value is *22*.
+            connection_timeout (int | None | Unset): Specifies the SSH connection timeout in *milliseconds*. This timeout is
+                used to wait for connection to the specified backup proxy server through SSH. The default value is *30000*.
+            private_key_base_64 (None | str | Unset): Specifies the content of the private key file provided as a Base64
+                string.
+            private_key_passphrase (str | Unset): Specifies a password.
+            elevate_account_to_root (bool | None | Unset): Defines whether the SSH user account privileges will be elevated
+                in case of insufficient privileges.
+            add_to_sudoers (bool | None | Unset): Defines whether the SSH user account will be added to the *Sudoers* group.
+            use_su_if_sudo_unavailable (bool | None | Unset): Defines whether it is allowed to use `SU` if `sudo` is
+                unavailable.
+            root_password (str | Unset): Specifies a password.
+            fingerprint (None | str | Unset): Specifies the SSH fingerprint.
+            public_base_64_key (None | str | Unset): Specifies the content of the public key file provided as a Base64
+                string.
 
-            **Note**: This property is required to verify connection.
-        ignore_fingerprint_check (bool | None | Unset): Defines whether to skip verification of the SSH fingerprint.
-    """
+                **Note**: This property is required to verify connection.
+            ignore_fingerprint_check (bool | None | Unset): Defines whether to skip verification of the SSH fingerprint.
+     """
 
     account: str | Unset = UNSET
     account_password: str | Unset = UNSET
@@ -53,6 +62,10 @@ class RESTSshSettingsFromClient:
     public_base_64_key: None | str | Unset = UNSET
     ignore_fingerprint_check: bool | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         account = self.account
@@ -117,9 +130,11 @@ class RESTSshSettingsFromClient:
         else:
             ignore_fingerprint_check = self.ignore_fingerprint_check
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if account is not UNSET:
             field_dict["account"] = account
         if account_password is not UNSET:
@@ -149,6 +164,8 @@ class RESTSshSettingsFromClient:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -165,6 +182,7 @@ class RESTSshSettingsFromClient:
 
         port = _parse_port(d.pop("port", UNSET))
 
+
         def _parse_connection_timeout(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -174,6 +192,7 @@ class RESTSshSettingsFromClient:
 
         connection_timeout = _parse_connection_timeout(d.pop("connectionTimeout", UNSET))
 
+
         def _parse_private_key_base_64(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -182,6 +201,7 @@ class RESTSshSettingsFromClient:
             return cast(None | str | Unset, data)
 
         private_key_base_64 = _parse_private_key_base_64(d.pop("privateKeyBase64", UNSET))
+
 
         private_key_passphrase = d.pop("privateKeyPassphrase", UNSET)
 
@@ -194,6 +214,7 @@ class RESTSshSettingsFromClient:
 
         elevate_account_to_root = _parse_elevate_account_to_root(d.pop("elevateAccountToRoot", UNSET))
 
+
         def _parse_add_to_sudoers(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -203,6 +224,7 @@ class RESTSshSettingsFromClient:
 
         add_to_sudoers = _parse_add_to_sudoers(d.pop("addToSudoers", UNSET))
 
+
         def _parse_use_su_if_sudo_unavailable(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -211,6 +233,7 @@ class RESTSshSettingsFromClient:
             return cast(bool | None | Unset, data)
 
         use_su_if_sudo_unavailable = _parse_use_su_if_sudo_unavailable(d.pop("UseSuIfSudoUnavailable", UNSET))
+
 
         root_password = d.pop("rootPassword", UNSET)
 
@@ -223,6 +246,7 @@ class RESTSshSettingsFromClient:
 
         fingerprint = _parse_fingerprint(d.pop("fingerprint", UNSET))
 
+
         def _parse_public_base_64_key(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -232,6 +256,7 @@ class RESTSshSettingsFromClient:
 
         public_base_64_key = _parse_public_base_64_key(d.pop("publicBase64Key", UNSET))
 
+
         def _parse_ignore_fingerprint_check(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -240,6 +265,7 @@ class RESTSshSettingsFromClient:
             return cast(bool | None | Unset, data)
 
         ignore_fingerprint_check = _parse_ignore_fingerprint_check(d.pop("ignoreFingerprintCheck", UNSET))
+
 
         rest_ssh_settings_from_client = cls(
             account=account,
@@ -256,6 +282,7 @@ class RESTSshSettingsFromClient:
             public_base_64_key=public_base_64_key,
             ignore_fingerprint_check=ignore_fingerprint_check,
         )
+
 
         rest_ssh_settings_from_client.additional_properties = d
         return rest_ssh_settings_from_client

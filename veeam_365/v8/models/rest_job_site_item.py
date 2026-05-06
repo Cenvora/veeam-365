@@ -1,31 +1,38 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_job_backup_item_type import RESTJobBackupItemType
 from ..types import UNSET, Unset
 
+from ..models.rest_job_backup_item_type import RESTJobBackupItemType
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_job_site import RESTJobSite
-    from ..models.rest_job_site_item_links_type_0 import RESTJobSiteItemLinksType0
+  from ..models.rest_job_site import RESTJobSite
+  from ..models.rest_job_site_item_links_type_0 import RESTJobSiteItemLinksType0
+
+
+
 
 
 T = TypeVar("T", bound="RESTJobSiteItem")
 
 
+
 @_attrs_define
 class RESTJobSiteItem:
-    """
-    Attributes:
-        type_ (RESTJobBackupItemType | Unset): Type of the backup item.
-        site (RESTJobSite | Unset):
-        id (None | str | Unset): Backup item ID.
-        field_links (None | RESTJobSiteItemLinksType0 | Unset):
-    """
+    """ 
+        Attributes:
+            type_ (RESTJobBackupItemType | Unset): Type of the backup item.
+            site (RESTJobSite | Unset):
+            id (None | str | Unset): Backup item ID.
+            field_links (None | RESTJobSiteItemLinksType0 | Unset):
+     """
 
     type_: RESTJobBackupItemType | Unset = UNSET
     site: RESTJobSite | Unset = UNSET
@@ -33,12 +40,17 @@ class RESTJobSiteItem:
     field_links: None | RESTJobSiteItemLinksType0 | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> dict[str, Any]:
-        from ..models.rest_job_site_item_links_type_0 import RESTJobSiteItemLinksType0
 
+
+
+
+    def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_job_site import RESTJobSite
+        from ..models.rest_job_site_item_links_type_0 import RESTJobSiteItemLinksType0
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
+
 
         site: dict[str, Any] | Unset = UNSET
         if not isinstance(self.site, Unset):
@@ -58,9 +70,11 @@ class RESTJobSiteItem:
         else:
             field_links = self.field_links
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if type_ is not UNSET:
             field_dict["type"] = type_
         if site is not UNSET:
@@ -72,25 +86,32 @@ class RESTJobSiteItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_job_site import RESTJobSite
         from ..models.rest_job_site_item_links_type_0 import RESTJobSiteItemLinksType0
-
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
         type_: RESTJobBackupItemType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTJobBackupItemType(_type_)
 
+
+
+
         _site = d.pop("site", UNSET)
         site: RESTJobSite | Unset
-        if isinstance(_site, Unset):
+        if isinstance(_site,  Unset):
             site = UNSET
         else:
             site = RESTJobSite.from_dict(_site)
+
+
+
 
         def _parse_id(data: object) -> None | str | Unset:
             if data is None:
@@ -100,6 +121,7 @@ class RESTJobSiteItem:
             return cast(None | str | Unset, data)
 
         id = _parse_id(d.pop("id", UNSET))
+
 
         def _parse_field_links(data: object) -> None | RESTJobSiteItemLinksType0 | Unset:
             if data is None:
@@ -111,6 +133,8 @@ class RESTJobSiteItem:
                     raise TypeError()
                 field_links_type_0 = RESTJobSiteItemLinksType0.from_dict(data)
 
+
+
                 return field_links_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -118,12 +142,14 @@ class RESTJobSiteItem:
 
         field_links = _parse_field_links(d.pop("_links", UNSET))
 
+
         rest_job_site_item = cls(
             type_=type_,
             site=site,
             id=id,
             field_links=field_links,
         )
+
 
         rest_job_site_item.additional_properties = d
         return rest_job_site_item

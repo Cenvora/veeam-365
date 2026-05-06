@@ -1,43 +1,50 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
+
 if TYPE_CHECKING:
-    from ..models.rest_attach_info import RESTAttachInfo
-    from ..models.rest_teams_post_links import RESTTeamsPostLinks
+  from ..models.rest_attach_info import RESTAttachInfo
+  from ..models.rest_teams_post_links import RESTTeamsPostLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTTeamsPost")
 
 
+
 @_attrs_define
 class RESTTeamsPost:
-    """
-    Attributes:
-        post_id (int | Unset): Post ID.
-        change_key (str | Unset): Change key.
-        is_important (bool | Unset): Defines whether the post is marked as important.
-        author (str | Unset): User name of the author of the post.
-        subject (str | Unset): Post subject.
-        created_time (datetime.datetime | Unset): Date and time when the post was created.
-        last_modified_time (datetime.datetime | Unset): Date and time of the last modification of the post.
-        is_deleted (bool | Unset): Defines whether the post is marked as deleted or soft deleted.
-        channel_id (str | Unset): Channel ID.
-        team_id (UUID | Unset): Team ID.
-        parent_id (int | None | Unset): Parent post ID.
-        parent_change_key (str | Unset): Parent change key.
-        attachments (list[RESTAttachInfo] | Unset): Array of attachment items for the post.
-        field_links (RESTTeamsPostLinks | Unset):
-    """
+    """ 
+        Attributes:
+            post_id (int | Unset): Post ID.
+            change_key (str | Unset): Change key.
+            is_important (bool | Unset): Defines whether the post is marked as important.
+            author (str | Unset): User name of the author of the post.
+            subject (str | Unset): Post subject.
+            created_time (datetime.datetime | Unset): Date and time when the post was created.
+            last_modified_time (datetime.datetime | Unset): Date and time of the last modification of the post.
+            is_deleted (bool | Unset): Defines whether the post is marked as deleted or soft deleted.
+            channel_id (str | Unset): Channel ID.
+            team_id (UUID | Unset): Team ID.
+            parent_id (int | None | Unset): Parent post ID.
+            parent_change_key (str | Unset): Parent change key.
+            attachments (list[RESTAttachInfo] | Unset): Array of attachment items for the post.
+            field_links (RESTTeamsPostLinks | Unset):
+     """
 
     post_id: int | Unset = UNSET
     change_key: str | Unset = UNSET
@@ -55,7 +62,13 @@ class RESTTeamsPost:
     field_links: RESTTeamsPostLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_attach_info import RESTAttachInfo
+        from ..models.rest_teams_post_links import RESTTeamsPostLinks
         post_id = self.post_id
 
         change_key = self.change_key
@@ -97,13 +110,17 @@ class RESTTeamsPost:
                 attachments_item = attachments_item_data.to_dict()
                 attachments.append(attachments_item)
 
+
+
         field_links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if post_id is not UNSET:
             field_dict["postId"] = post_id
         if change_key is not UNSET:
@@ -135,11 +152,12 @@ class RESTTeamsPost:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_attach_info import RESTAttachInfo
         from ..models.rest_teams_post_links import RESTTeamsPostLinks
-
         d = dict(src_dict)
         post_id = d.pop("postId", UNSET)
 
@@ -153,17 +171,23 @@ class RESTTeamsPost:
 
         _created_time = d.pop("createdTime", UNSET)
         created_time: datetime.datetime | Unset
-        if isinstance(_created_time, Unset):
+        if isinstance(_created_time,  Unset):
             created_time = UNSET
         else:
             created_time = isoparse(_created_time)
 
+
+
+
         _last_modified_time = d.pop("lastModifiedTime", UNSET)
         last_modified_time: datetime.datetime | Unset
-        if isinstance(_last_modified_time, Unset):
+        if isinstance(_last_modified_time,  Unset):
             last_modified_time = UNSET
         else:
             last_modified_time = isoparse(_last_modified_time)
+
+
+
 
         is_deleted = d.pop("isDeleted", UNSET)
 
@@ -171,10 +195,13 @@ class RESTTeamsPost:
 
         _team_id = d.pop("teamId", UNSET)
         team_id: UUID | Unset
-        if isinstance(_team_id, Unset):
+        if isinstance(_team_id,  Unset):
             team_id = UNSET
         else:
             team_id = UUID(_team_id)
+
+
+
 
         def _parse_parent_id(data: object) -> int | None | Unset:
             if data is None:
@@ -185,6 +212,7 @@ class RESTTeamsPost:
 
         parent_id = _parse_parent_id(d.pop("parentId", UNSET))
 
+
         parent_change_key = d.pop("parentChangeKey", UNSET)
 
         _attachments = d.pop("attachments", UNSET)
@@ -194,14 +222,20 @@ class RESTTeamsPost:
             for attachments_item_data in _attachments:
                 attachments_item = RESTAttachInfo.from_dict(attachments_item_data)
 
+
+
                 attachments.append(attachments_item)
+
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTTeamsPostLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTTeamsPostLinks.from_dict(_field_links)
+
+
+
 
         rest_teams_post = cls(
             post_id=post_id,
@@ -219,6 +253,7 @@ class RESTTeamsPost:
             attachments=attachments,
             field_links=field_links,
         )
+
 
         rest_teams_post.additional_properties = d
         return rest_teams_post

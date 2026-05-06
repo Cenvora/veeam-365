@@ -1,43 +1,50 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_data_retrieval_session_status import RESTDataRetrievalSessionStatus
 from ..models.rest_data_retrieval_session_type import RESTDataRetrievalSessionType
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTDataRetrievalSession")
 
 
+
 @_attrs_define
 class RESTDataRetrievalSession:
-    """
-    Attributes:
-        id (UUID | Unset): Data retrieval session ID. Example: 00000000-0000-0000-0000-000000000000.
-        name (str | Unset): Name of the data retrieval session.
-        retrieval_id (UUID | Unset): Retrieval job ID. Example: 00000000-0000-0000-0000-000000000000.
-        repository_id (UUID | Unset): Backup repository ID. Example: 00000000-0000-0000-0000-000000000000.
-        creation_time (datetime.datetime | Unset): Date and time when the data retrieval session was created.
-        end_time (datetime.datetime | Unset): Date and time when the latest data retrieval session ended.
-        progress (int | Unset): Number of processed objects during the data retrieval session.
-        processed_objects (int | Unset): Number of items processed by the retrieval job.
-        type_ (RESTDataRetrievalSessionType | Unset): Type of the data retrieval session.
-        status (RESTDataRetrievalSessionStatus | Unset): Latest status of the retrieval job.
-        proxy_id (None | Unset | UUID): Backup proxy server ID. Example: 00000000-0000-0000-0000-000000000000.
-        proxy_pool_id (None | Unset | UUID): Backup proxy pool ID. Example: 00000000-0000-0000-0000-000000000000.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            id (UUID | Unset): Data retrieval session ID. Example: 00000000-0000-0000-0000-000000000000.
+            name (str | Unset): Name of the data retrieval session.
+            retrieval_id (UUID | Unset): Retrieval job ID. Example: 00000000-0000-0000-0000-000000000000.
+            repository_id (UUID | Unset): Backup repository ID. Example: 00000000-0000-0000-0000-000000000000.
+            creation_time (datetime.datetime | Unset): Date and time when the data retrieval session was created.
+            end_time (datetime.datetime | Unset): Date and time when the latest data retrieval session ended.
+            progress (int | Unset): Number of processed objects during the data retrieval session.
+            processed_objects (int | Unset): Number of items processed by the retrieval job.
+            type_ (RESTDataRetrievalSessionType | Unset): Type of the data retrieval session.
+            status (RESTDataRetrievalSessionStatus | Unset): Latest status of the retrieval job.
+            proxy_id (None | Unset | UUID): Backup proxy server ID. Example: 00000000-0000-0000-0000-000000000000.
+            proxy_pool_id (None | Unset | UUID): Backup proxy pool ID. Example: 00000000-0000-0000-0000-000000000000.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     id: UUID | Unset = UNSET
     name: str | Unset = UNSET
@@ -54,7 +61,12 @@ class RESTDataRetrievalSession:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         id: str | Unset = UNSET
         if not isinstance(self.id, Unset):
             id = str(self.id)
@@ -85,9 +97,11 @@ class RESTDataRetrievalSession:
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
+
         status: str | Unset = UNSET
         if not isinstance(self.status, Unset):
             status = self.status.value
+
 
         proxy_id: None | str | Unset
         if isinstance(self.proxy_id, Unset):
@@ -109,9 +123,11 @@ class RESTDataRetrievalSession:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if name is not UNSET:
@@ -141,47 +157,63 @@ class RESTDataRetrievalSession:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
+
+
+
 
         name = d.pop("name", UNSET)
 
         _retrieval_id = d.pop("retrievalId", UNSET)
         retrieval_id: UUID | Unset
-        if isinstance(_retrieval_id, Unset):
+        if isinstance(_retrieval_id,  Unset):
             retrieval_id = UNSET
         else:
             retrieval_id = UUID(_retrieval_id)
 
+
+
+
         _repository_id = d.pop("repositoryId", UNSET)
         repository_id: UUID | Unset
-        if isinstance(_repository_id, Unset):
+        if isinstance(_repository_id,  Unset):
             repository_id = UNSET
         else:
             repository_id = UUID(_repository_id)
 
+
+
+
         _creation_time = d.pop("creationTime", UNSET)
         creation_time: datetime.datetime | Unset
-        if isinstance(_creation_time, Unset):
+        if isinstance(_creation_time,  Unset):
             creation_time = UNSET
         else:
             creation_time = isoparse(_creation_time)
 
+
+
+
         _end_time = d.pop("endTime", UNSET)
         end_time: datetime.datetime | Unset
-        if isinstance(_end_time, Unset):
+        if isinstance(_end_time,  Unset):
             end_time = UNSET
         else:
             end_time = isoparse(_end_time)
+
+
+
 
         progress = d.pop("progress", UNSET)
 
@@ -189,17 +221,23 @@ class RESTDataRetrievalSession:
 
         _type_ = d.pop("type", UNSET)
         type_: RESTDataRetrievalSessionType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTDataRetrievalSessionType(_type_)
 
+
+
+
         _status = d.pop("status", UNSET)
         status: RESTDataRetrievalSessionStatus | Unset
-        if isinstance(_status, Unset):
+        if isinstance(_status,  Unset):
             status = UNSET
         else:
             status = RESTDataRetrievalSessionStatus(_status)
+
+
+
 
         def _parse_proxy_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -211,12 +249,15 @@ class RESTDataRetrievalSession:
                     raise TypeError()
                 proxy_id_type_0 = UUID(data)
 
+
+
                 return proxy_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         proxy_id = _parse_proxy_id(d.pop("proxyId", UNSET))
+
 
         def _parse_proxy_pool_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -228,6 +269,8 @@ class RESTDataRetrievalSession:
                     raise TypeError()
                 proxy_pool_id_type_0 = UUID(data)
 
+
+
                 return proxy_pool_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -235,12 +278,16 @@ class RESTDataRetrievalSession:
 
         proxy_pool_id = _parse_proxy_pool_id(d.pop("proxyPoolId", UNSET))
 
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_data_retrieval_session = cls(
             id=id,
@@ -257,6 +304,7 @@ class RESTDataRetrievalSession:
             proxy_pool_id=proxy_pool_id,
             field_links=field_links,
         )
+
 
         rest_data_retrieval_session.additional_properties = d
         return rest_data_retrieval_session

@@ -1,13 +1,19 @@
 from http import HTTPStatus
-from typing import Any
-from uuid import UUID
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_license_usage import RESTLicenseUsage
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -15,7 +21,12 @@ def _get_kwargs(
     platform_id: UUID | Unset = UNSET,
     organization_id: str | Unset = UNSET,
     backed_up_organization_id: str | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     json_platform_id: str | Unset = UNSET
@@ -27,7 +38,9 @@ def _get_kwargs(
 
     params["backedUpOrganizationId"] = backed_up_organization_id
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -35,25 +48,28 @@ def _get_kwargs(
         "params": params,
     }
 
+
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTExceptionInfo | RESTLicenseUsage:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | RESTLicenseUsage:
     if response.status_code == 200:
         response_200 = RESTLicenseUsage.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTExceptionInfo | RESTLicenseUsage]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | RESTLicenseUsage]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -68,8 +84,9 @@ def sync_detailed(
     platform_id: UUID | Unset = UNSET,
     organization_id: str | Unset = UNSET,
     backed_up_organization_id: str | Unset = UNSET,
+
 ) -> Response[RESTExceptionInfo | RESTLicenseUsage]:
-    """Get License Usage by Organization ID
+    """ Get License Usage by Organization ID
 
      Returns a resource representation of the license usage for a Microsoft organization with the
     specified ID.
@@ -85,12 +102,14 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTLicenseUsage]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         platform_id=platform_id,
-        organization_id=organization_id,
-        backed_up_organization_id=backed_up_organization_id,
+organization_id=organization_id,
+backed_up_organization_id=backed_up_organization_id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -99,15 +118,15 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     *,
     client: AuthenticatedClient | Client,
     platform_id: UUID | Unset = UNSET,
     organization_id: str | Unset = UNSET,
     backed_up_organization_id: str | Unset = UNSET,
+
 ) -> RESTExceptionInfo | RESTLicenseUsage | None:
-    """Get License Usage by Organization ID
+    """ Get License Usage by Organization ID
 
      Returns a resource representation of the license usage for a Microsoft organization with the
     specified ID.
@@ -123,15 +142,16 @@ def sync(
 
     Returns:
         RESTExceptionInfo | RESTLicenseUsage
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        platform_id=platform_id,
-        organization_id=organization_id,
-        backed_up_organization_id=backed_up_organization_id,
-    ).parsed
+platform_id=platform_id,
+organization_id=organization_id,
+backed_up_organization_id=backed_up_organization_id,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
@@ -139,8 +159,9 @@ async def asyncio_detailed(
     platform_id: UUID | Unset = UNSET,
     organization_id: str | Unset = UNSET,
     backed_up_organization_id: str | Unset = UNSET,
+
 ) -> Response[RESTExceptionInfo | RESTLicenseUsage]:
-    """Get License Usage by Organization ID
+    """ Get License Usage by Organization ID
 
      Returns a resource representation of the license usage for a Microsoft organization with the
     specified ID.
@@ -156,18 +177,21 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTLicenseUsage]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         platform_id=platform_id,
-        organization_id=organization_id,
-        backed_up_organization_id=backed_up_organization_id,
+organization_id=organization_id,
+backed_up_organization_id=backed_up_organization_id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
@@ -175,8 +199,9 @@ async def asyncio(
     platform_id: UUID | Unset = UNSET,
     organization_id: str | Unset = UNSET,
     backed_up_organization_id: str | Unset = UNSET,
+
 ) -> RESTExceptionInfo | RESTLicenseUsage | None:
-    """Get License Usage by Organization ID
+    """ Get License Usage by Organization ID
 
      Returns a resource representation of the license usage for a Microsoft organization with the
     specified ID.
@@ -192,13 +217,13 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | RESTLicenseUsage
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            platform_id=platform_id,
-            organization_id=organization_id,
-            backed_up_organization_id=backed_up_organization_id,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+platform_id=platform_id,
+organization_id=organization_id,
+backed_up_organization_id=backed_up_organization_id,
+
+    )).parsed

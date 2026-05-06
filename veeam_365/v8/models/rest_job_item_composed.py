@@ -1,73 +1,80 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_job_backup_item_type import RESTJobBackupItemType
 from ..types import UNSET, Unset
 
+from ..models.rest_job_backup_item_type import RESTJobBackupItemType
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_group import RESTGroup
-    from ..models.rest_job_item_composed_links_type_0 import RESTJobItemComposedLinksType0
-    from ..models.rest_job_site import RESTJobSite
-    from ..models.rest_team import RESTTeam
-    from ..models.rest_user import RESTUser
+  from ..models.rest_group import RESTGroup
+  from ..models.rest_job_item_composed_links_type_0 import RESTJobItemComposedLinksType0
+  from ..models.rest_job_site import RESTJobSite
+  from ..models.rest_team import RESTTeam
+  from ..models.rest_user import RESTUser
+
+
+
 
 
 T = TypeVar("T", bound="RESTJobItemComposed")
 
 
+
 @_attrs_define
 class RESTJobItemComposed:
-    """
-    Attributes:
-        type_ (RESTJobBackupItemType | Unset): Type of the backup item.
-        folders (list[str] | Unset): Array of OneDrive folders included in/excluded from the backup job.
+    """ 
+        Attributes:
+            type_ (RESTJobBackupItemType | Unset): Type of the backup item.
+            folders (list[str] | Unset): Array of OneDrive folders included in/excluded from the backup job.
 
-            **Note**: This property applies to all OneDrives in an organization. Only specified folders will be processed
-            for each OneDrive.
-        id (None | str | Unset): Backup item ID.
+                **Note**: This property applies to all OneDrives in an organization. Only specified folders will be processed
+                for each OneDrive.
+            id (None | str | Unset): Backup item ID.
 
-            **Note**: This complex ID comprises the combination of the unchangeable identificator of an object type in Veeam
-            Backup for Microsoft 365 and ID of a particular object. Unchangeable identificators have different values
-            depending on an object type. You can use the following values to recognize objects of a particular type in the
-            response: <ul> <li>*2b38d840-8098-4614-b369-ebce33f9b2c7* - for organization users.</li>
-            <li>*9592732d-22d8-426a-8167-d9635158e945* - for organization groups.</li>
-            <li>*e1fa728c-4150-4724-ab3b-5deda33db0cf* - for organization sites.</li>
-            <li>*c37da450-6c4b-48c4-87e2-cc557ef5d897* - for organizations.</li> <li>*9a01bcb3-d2de-4271-96bb-95611ddc70b3*
-            - for personal sites.</li> <li>*7f07820e-9e77-4beb-92a3-b31f30bc192c* - for OneDrive folders.</li>
-            <li>*7B985334-BC0E-4791-B30C-D03A1FECC840* - for teams.</li> </ul>
-        field_links (None | RESTJobItemComposedLinksType0 | Unset):
-        mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Mail* processing
-            option.
-        one_drive (bool | None | Unset): Defines whether this backup job will include/exclude the *OneDrive* processing
-            option.
-        archive_mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Archive*
-            processing option.
-        sites (bool | None | Unset): Defines whether this backup job will include/exclude the *Sites* processing option.
-        teams (bool | None | Unset): Defines whether this backup job will include/exclude the *Teams* processing option.
-        teams_chats (bool | None | Unset): Defines whether this job will back up team chats.
-        site (RESTJobSite | Unset):
-        team (RESTTeam | Unset):
-        user (RESTUser | Unset):
-        personal_site (bool | None | Unset): Defines whether this backup job will include/exclude the *Site* processing
-            option.
-        group (RESTGroup | Unset):
-        members (bool | None | Unset): Defines whether this backup job will include/exclude the *Members* processing
-            option.
-        member_mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Mail* processing
-            option.
-        member_archive_mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Archive*
-            processing option.
-        member_onedrive (bool | None | Unset): Defines whether this backup job will include/exclude the *OneDrive*
-            processing option.
-        member_site (bool | None | Unset): Defines whether this backup job will include/exclude the *Site* processing
-            option.
-        group_site (bool | None | Unset): Defines whether this job will back up a group site.
-    """
+                **Note**: This complex ID comprises the combination of the unchangeable identificator of an object type in Veeam
+                Backup for Microsoft 365 and ID of a particular object. Unchangeable identificators have different values
+                depending on an object type. You can use the following values to recognize objects of a particular type in the
+                response: <ul> <li>*2b38d840-8098-4614-b369-ebce33f9b2c7* - for organization users.</li>
+                <li>*9592732d-22d8-426a-8167-d9635158e945* - for organization groups.</li>
+                <li>*e1fa728c-4150-4724-ab3b-5deda33db0cf* - for organization sites.</li>
+                <li>*c37da450-6c4b-48c4-87e2-cc557ef5d897* - for organizations.</li> <li>*9a01bcb3-d2de-4271-96bb-95611ddc70b3*
+                - for personal sites.</li> <li>*7f07820e-9e77-4beb-92a3-b31f30bc192c* - for OneDrive folders.</li>
+                <li>*7B985334-BC0E-4791-B30C-D03A1FECC840* - for teams.</li> </ul>
+            field_links (None | RESTJobItemComposedLinksType0 | Unset):
+            mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Mail* processing
+                option.
+            one_drive (bool | None | Unset): Defines whether this backup job will include/exclude the *OneDrive* processing
+                option.
+            archive_mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Archive*
+                processing option.
+            sites (bool | None | Unset): Defines whether this backup job will include/exclude the *Sites* processing option.
+            teams (bool | None | Unset): Defines whether this backup job will include/exclude the *Teams* processing option.
+            teams_chats (bool | None | Unset): Defines whether this job will back up team chats.
+            site (RESTJobSite | Unset):
+            team (RESTTeam | Unset):
+            user (RESTUser | Unset):
+            personal_site (bool | None | Unset): Defines whether this backup job will include/exclude the *Site* processing
+                option.
+            group (RESTGroup | Unset):
+            members (bool | None | Unset): Defines whether this backup job will include/exclude the *Members* processing
+                option.
+            member_mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Mail* processing
+                option.
+            member_archive_mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Archive*
+                processing option.
+            member_onedrive (bool | None | Unset): Defines whether this backup job will include/exclude the *OneDrive*
+                processing option.
+            member_site (bool | None | Unset): Defines whether this backup job will include/exclude the *Site* processing
+                option.
+            group_site (bool | None | Unset): Defines whether this job will back up a group site.
+     """
 
     type_: RESTJobBackupItemType | Unset = UNSET
     folders: list[str] | Unset = UNSET
@@ -92,16 +99,26 @@ class RESTJobItemComposed:
     group_site: bool | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> dict[str, Any]:
-        from ..models.rest_job_item_composed_links_type_0 import RESTJobItemComposedLinksType0
 
+
+
+
+    def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_group import RESTGroup
+        from ..models.rest_job_item_composed_links_type_0 import RESTJobItemComposedLinksType0
+        from ..models.rest_job_site import RESTJobSite
+        from ..models.rest_team import RESTTeam
+        from ..models.rest_user import RESTUser
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
+
         folders: list[str] | Unset = UNSET
         if not isinstance(self.folders, Unset):
             folders = self.folders
+
+
 
         id: None | str | Unset
         if isinstance(self.id, Unset):
@@ -211,9 +228,11 @@ class RESTJobItemComposed:
         else:
             group_site = self.group_site
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if type_ is not UNSET:
             field_dict["type"] = type_
         if folders is not UNSET:
@@ -259,6 +278,8 @@ class RESTJobItemComposed:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_group import RESTGroup
@@ -266,16 +287,19 @@ class RESTJobItemComposed:
         from ..models.rest_job_site import RESTJobSite
         from ..models.rest_team import RESTTeam
         from ..models.rest_user import RESTUser
-
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
         type_: RESTJobBackupItemType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTJobBackupItemType(_type_)
 
+
+
+
         folders = cast(list[str], d.pop("folders", UNSET))
+
 
         def _parse_id(data: object) -> None | str | Unset:
             if data is None:
@@ -285,6 +309,7 @@ class RESTJobItemComposed:
             return cast(None | str | Unset, data)
 
         id = _parse_id(d.pop("id", UNSET))
+
 
         def _parse_field_links(data: object) -> None | RESTJobItemComposedLinksType0 | Unset:
             if data is None:
@@ -296,12 +321,15 @@ class RESTJobItemComposed:
                     raise TypeError()
                 field_links_type_0 = RESTJobItemComposedLinksType0.from_dict(data)
 
+
+
                 return field_links_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | RESTJobItemComposedLinksType0 | Unset, data)
 
         field_links = _parse_field_links(d.pop("_links", UNSET))
+
 
         def _parse_mailbox(data: object) -> bool | None | Unset:
             if data is None:
@@ -312,6 +340,7 @@ class RESTJobItemComposed:
 
         mailbox = _parse_mailbox(d.pop("mailbox", UNSET))
 
+
         def _parse_one_drive(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -320,6 +349,7 @@ class RESTJobItemComposed:
             return cast(bool | None | Unset, data)
 
         one_drive = _parse_one_drive(d.pop("oneDrive", UNSET))
+
 
         def _parse_archive_mailbox(data: object) -> bool | None | Unset:
             if data is None:
@@ -330,6 +360,7 @@ class RESTJobItemComposed:
 
         archive_mailbox = _parse_archive_mailbox(d.pop("archiveMailbox", UNSET))
 
+
         def _parse_sites(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -338,6 +369,7 @@ class RESTJobItemComposed:
             return cast(bool | None | Unset, data)
 
         sites = _parse_sites(d.pop("sites", UNSET))
+
 
         def _parse_teams(data: object) -> bool | None | Unset:
             if data is None:
@@ -348,6 +380,7 @@ class RESTJobItemComposed:
 
         teams = _parse_teams(d.pop("teams", UNSET))
 
+
         def _parse_teams_chats(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -357,26 +390,36 @@ class RESTJobItemComposed:
 
         teams_chats = _parse_teams_chats(d.pop("teamsChats", UNSET))
 
+
         _site = d.pop("site", UNSET)
         site: RESTJobSite | Unset
-        if isinstance(_site, Unset):
+        if isinstance(_site,  Unset):
             site = UNSET
         else:
             site = RESTJobSite.from_dict(_site)
 
+
+
+
         _team = d.pop("team", UNSET)
         team: RESTTeam | Unset
-        if isinstance(_team, Unset):
+        if isinstance(_team,  Unset):
             team = UNSET
         else:
             team = RESTTeam.from_dict(_team)
 
+
+
+
         _user = d.pop("user", UNSET)
         user: RESTUser | Unset
-        if isinstance(_user, Unset):
+        if isinstance(_user,  Unset):
             user = UNSET
         else:
             user = RESTUser.from_dict(_user)
+
+
+
 
         def _parse_personal_site(data: object) -> bool | None | Unset:
             if data is None:
@@ -387,12 +430,16 @@ class RESTJobItemComposed:
 
         personal_site = _parse_personal_site(d.pop("personalSite", UNSET))
 
+
         _group = d.pop("group", UNSET)
         group: RESTGroup | Unset
-        if isinstance(_group, Unset):
+        if isinstance(_group,  Unset):
             group = UNSET
         else:
             group = RESTGroup.from_dict(_group)
+
+
+
 
         def _parse_members(data: object) -> bool | None | Unset:
             if data is None:
@@ -403,6 +450,7 @@ class RESTJobItemComposed:
 
         members = _parse_members(d.pop("members", UNSET))
 
+
         def _parse_member_mailbox(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -411,6 +459,7 @@ class RESTJobItemComposed:
             return cast(bool | None | Unset, data)
 
         member_mailbox = _parse_member_mailbox(d.pop("memberMailbox", UNSET))
+
 
         def _parse_member_archive_mailbox(data: object) -> bool | None | Unset:
             if data is None:
@@ -421,6 +470,7 @@ class RESTJobItemComposed:
 
         member_archive_mailbox = _parse_member_archive_mailbox(d.pop("memberArchiveMailbox", UNSET))
 
+
         def _parse_member_onedrive(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -429,6 +479,7 @@ class RESTJobItemComposed:
             return cast(bool | None | Unset, data)
 
         member_onedrive = _parse_member_onedrive(d.pop("memberOnedrive", UNSET))
+
 
         def _parse_member_site(data: object) -> bool | None | Unset:
             if data is None:
@@ -439,6 +490,7 @@ class RESTJobItemComposed:
 
         member_site = _parse_member_site(d.pop("memberSite", UNSET))
 
+
         def _parse_group_site(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -447,6 +499,7 @@ class RESTJobItemComposed:
             return cast(bool | None | Unset, data)
 
         group_site = _parse_group_site(d.pop("groupSite", UNSET))
+
 
         rest_job_item_composed = cls(
             type_=type_,
@@ -471,6 +524,7 @@ class RESTJobItemComposed:
             member_site=member_site,
             group_site=group_site,
         )
+
 
         rest_job_item_composed.additional_properties = d
         return rest_job_item_composed

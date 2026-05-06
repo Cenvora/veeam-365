@@ -1,35 +1,42 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_azure_resource_group import RESTAzureResourceGroup
-    from ..models.rest_azure_subnet import RESTAzureSubnet
-    from ..models.rest_azure_virtual_network import RESTAzureVirtualNetwork
+  from ..models.rest_azure_resource_group import RESTAzureResourceGroup
+  from ..models.rest_azure_subnet import RESTAzureSubnet
+  from ..models.rest_azure_virtual_network import RESTAzureVirtualNetwork
+
+
+
 
 
 T = TypeVar("T", bound="RESTAzureArchiverAppliance")
 
 
+
 @_attrs_define
 class RESTAzureArchiverAppliance:
-    """
-    Attributes:
-        virtual_machine_size_name (str | Unset): Name of the Azure archiver appliance.
-        resource_group (RESTAzureResourceGroup | Unset):
-        virtual_network (RESTAzureVirtualNetwork | Unset):
-        subnet (RESTAzureSubnet | Unset):
-        ip_ranges (None | str | Unset): Range of IPv4 addresses for the subnet. Example: 24.48.96.192/32,16.24.0.0/24.
-        region (str | Unset): Microsoft Entra region.
-        appliance_port (int | None | Unset): Port number to route requests between the Azure archiver appliance and
-            Veeam Backup for Microsoft 365 backup infrastructure components.
-    """
+    """ 
+        Attributes:
+            virtual_machine_size_name (str | Unset): Name of the Azure archiver appliance.
+            resource_group (RESTAzureResourceGroup | Unset):
+            virtual_network (RESTAzureVirtualNetwork | Unset):
+            subnet (RESTAzureSubnet | Unset):
+            ip_ranges (None | str | Unset): Range of IPv4 addresses for the subnet. Example: 24.48.96.192/32,16.24.0.0/24.
+            region (str | Unset): Microsoft Entra region.
+            appliance_port (int | None | Unset): Port number to route requests between the Azure archiver appliance and
+                Veeam Backup for Microsoft 365 backup infrastructure components.
+     """
 
     virtual_machine_size_name: str | Unset = UNSET
     resource_group: RESTAzureResourceGroup | Unset = UNSET
@@ -40,7 +47,14 @@ class RESTAzureArchiverAppliance:
     appliance_port: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_azure_resource_group import RESTAzureResourceGroup
+        from ..models.rest_azure_subnet import RESTAzureSubnet
+        from ..models.rest_azure_virtual_network import RESTAzureVirtualNetwork
         virtual_machine_size_name = self.virtual_machine_size_name
 
         resource_group: dict[str, Any] | Unset = UNSET
@@ -69,9 +83,11 @@ class RESTAzureArchiverAppliance:
         else:
             appliance_port = self.appliance_port
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if virtual_machine_size_name is not UNSET:
             field_dict["virtualMachineSizeName"] = virtual_machine_size_name
         if resource_group is not UNSET:
@@ -89,35 +105,45 @@ class RESTAzureArchiverAppliance:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_azure_resource_group import RESTAzureResourceGroup
         from ..models.rest_azure_subnet import RESTAzureSubnet
         from ..models.rest_azure_virtual_network import RESTAzureVirtualNetwork
-
         d = dict(src_dict)
         virtual_machine_size_name = d.pop("virtualMachineSizeName", UNSET)
 
         _resource_group = d.pop("resourceGroup", UNSET)
         resource_group: RESTAzureResourceGroup | Unset
-        if isinstance(_resource_group, Unset):
+        if isinstance(_resource_group,  Unset):
             resource_group = UNSET
         else:
             resource_group = RESTAzureResourceGroup.from_dict(_resource_group)
 
+
+
+
         _virtual_network = d.pop("virtualNetwork", UNSET)
         virtual_network: RESTAzureVirtualNetwork | Unset
-        if isinstance(_virtual_network, Unset):
+        if isinstance(_virtual_network,  Unset):
             virtual_network = UNSET
         else:
             virtual_network = RESTAzureVirtualNetwork.from_dict(_virtual_network)
 
+
+
+
         _subnet = d.pop("subnet", UNSET)
         subnet: RESTAzureSubnet | Unset
-        if isinstance(_subnet, Unset):
+        if isinstance(_subnet,  Unset):
             subnet = UNSET
         else:
             subnet = RESTAzureSubnet.from_dict(_subnet)
+
+
+
 
         def _parse_ip_ranges(data: object) -> None | str | Unset:
             if data is None:
@@ -127,6 +153,7 @@ class RESTAzureArchiverAppliance:
             return cast(None | str | Unset, data)
 
         ip_ranges = _parse_ip_ranges(d.pop("ipRanges", UNSET))
+
 
         region = d.pop("region", UNSET)
 
@@ -139,6 +166,7 @@ class RESTAzureArchiverAppliance:
 
         appliance_port = _parse_appliance_port(d.pop("appliancePort", UNSET))
 
+
         rest_azure_archiver_appliance = cls(
             virtual_machine_size_name=virtual_machine_size_name,
             resource_group=resource_group,
@@ -148,6 +176,7 @@ class RESTAzureArchiverAppliance:
             region=region,
             appliance_port=appliance_port,
         )
+
 
         rest_azure_archiver_appliance.additional_properties = d
         return rest_azure_archiver_appliance

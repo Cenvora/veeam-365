@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTGroupMemberType(str, Enum):
     GROUP = "Group"
     UNKNOWN = "Unknown"

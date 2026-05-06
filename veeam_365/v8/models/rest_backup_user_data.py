@@ -1,53 +1,60 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_backup_item_type import RESTBackupItemType
 from ..models.rest_backup_user_account_type import RESTBackupUserAccountType
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTBackupUserData")
 
 
+
 @_attrs_define
 class RESTBackupUserData:
-    """
-    Attributes:
-        item_type (RESTBackupItemType): Type of the backup item.
-        repository_id (UUID): Backup repository ID.
-        id (str): User ID.
-        backed_up_organization_id (str): ID of the backed-up organization in the backup.
-        mailbox_backed_up_time (datetime.datetime | None | Unset): Date and time when the user mailbox was backed up.
-        archive_backed_up_time (datetime.datetime | None | Unset): Date and time when the archived user mailbox was
-            backed up.
-        one_drive_backed_up_time (datetime.datetime | None | Unset): Date and time when the user OneDrive was backed up.
-        personal_site_backed_up_time (datetime.datetime | None | Unset): Date and time when the user personal site was
-            backed up.
-        is_mailbox_backed_up (bool | Unset): Defines whether the user mailbox was backed-up.
-        is_one_drive_backed_up (bool | Unset): Defines whether the user OneDrive was backed-up.
-        is_archive_backed_up (bool | Unset): Defines whether the archived user mailbox was backed-up.
-        is_personal_site_backed_up (bool | Unset): Defines whether the user personal site was backed-up.
-        account_type (RESTBackupUserAccountType | Unset): Specifies the user account type.
-        archive_name (str | Unset): Name of the user archive.
-        account_id (str | Unset): User account ID.
-        display_name (str | Unset): Display name of the backed-up user.
-        email (str | Unset): User email.
-        one_drive_url (list[str] | Unset): Array of URLs for the backed-up Microsoft OneDrive components.
-        personal_site_url (list[str] | Unset): Array of URLs for the backed-up personal sites.
-        organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            item_type (RESTBackupItemType): Type of the backup item.
+            repository_id (UUID): Backup repository ID.
+            id (str): User ID.
+            backed_up_organization_id (str): ID of the backed-up organization in the backup.
+            mailbox_backed_up_time (datetime.datetime | None | Unset): Date and time when the user mailbox was backed up.
+            archive_backed_up_time (datetime.datetime | None | Unset): Date and time when the archived user mailbox was
+                backed up.
+            one_drive_backed_up_time (datetime.datetime | None | Unset): Date and time when the user OneDrive was backed up.
+            personal_site_backed_up_time (datetime.datetime | None | Unset): Date and time when the user personal site was
+                backed up.
+            is_mailbox_backed_up (bool | Unset): Defines whether the user mailbox was backed-up.
+            is_one_drive_backed_up (bool | Unset): Defines whether the user OneDrive was backed-up.
+            is_archive_backed_up (bool | Unset): Defines whether the archived user mailbox was backed-up.
+            is_personal_site_backed_up (bool | Unset): Defines whether the user personal site was backed-up.
+            account_type (RESTBackupUserAccountType | Unset): Specifies the user account type.
+            archive_name (str | Unset): Name of the user archive.
+            account_id (str | Unset): User account ID.
+            display_name (str | Unset): Display name of the backed-up user.
+            email (str | Unset): User email.
+            one_drive_url (list[str] | Unset): Array of URLs for the backed-up Microsoft OneDrive components.
+            personal_site_url (list[str] | Unset): Array of URLs for the backed-up personal sites.
+            organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     item_type: RESTBackupItemType
     repository_id: UUID
@@ -72,7 +79,12 @@ class RESTBackupUserData:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         item_type = self.item_type.value
 
         repository_id = str(self.repository_id)
@@ -125,6 +137,7 @@ class RESTBackupUserData:
         if not isinstance(self.account_type, Unset):
             account_type = self.account_type.value
 
+
         archive_name = self.archive_name
 
         account_id = self.account_id
@@ -137,9 +150,13 @@ class RESTBackupUserData:
         if not isinstance(self.one_drive_url, Unset):
             one_drive_url = self.one_drive_url
 
+
+
         personal_site_url: list[str] | Unset = UNSET
         if not isinstance(self.personal_site_url, Unset):
             personal_site_url = self.personal_site_url
+
+
 
         organization_id: None | str | Unset
         if isinstance(self.organization_id, Unset):
@@ -153,16 +170,15 @@ class RESTBackupUserData:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "itemType": item_type,
-                "repositoryId": repository_id,
-                "id": id,
-                "backedUpOrganizationId": backed_up_organization_id,
-            }
-        )
+        field_dict.update({
+            "itemType": item_type,
+            "repositoryId": repository_id,
+            "id": id,
+            "backedUpOrganizationId": backed_up_organization_id,
+        })
         if mailbox_backed_up_time is not UNSET:
             field_dict["mailboxBackedUpTime"] = mailbox_backed_up_time
         if archive_backed_up_time is not UNSET:
@@ -200,14 +216,21 @@ class RESTBackupUserData:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         item_type = RESTBackupItemType(d.pop("itemType"))
 
+
+
+
         repository_id = UUID(d.pop("repositoryId"))
+
+
+
 
         id = d.pop("id")
 
@@ -223,12 +246,15 @@ class RESTBackupUserData:
                     raise TypeError()
                 mailbox_backed_up_time_type_0 = isoparse(data)
 
+
+
                 return mailbox_backed_up_time_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         mailbox_backed_up_time = _parse_mailbox_backed_up_time(d.pop("mailboxBackedUpTime", UNSET))
+
 
         def _parse_archive_backed_up_time(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -240,12 +266,15 @@ class RESTBackupUserData:
                     raise TypeError()
                 archive_backed_up_time_type_0 = isoparse(data)
 
+
+
                 return archive_backed_up_time_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         archive_backed_up_time = _parse_archive_backed_up_time(d.pop("archiveBackedUpTime", UNSET))
+
 
         def _parse_one_drive_backed_up_time(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -257,12 +286,15 @@ class RESTBackupUserData:
                     raise TypeError()
                 one_drive_backed_up_time_type_0 = isoparse(data)
 
+
+
                 return one_drive_backed_up_time_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         one_drive_backed_up_time = _parse_one_drive_backed_up_time(d.pop("oneDriveBackedUpTime", UNSET))
+
 
         def _parse_personal_site_backed_up_time(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -274,12 +306,15 @@ class RESTBackupUserData:
                     raise TypeError()
                 personal_site_backed_up_time_type_0 = isoparse(data)
 
+
+
                 return personal_site_backed_up_time_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         personal_site_backed_up_time = _parse_personal_site_backed_up_time(d.pop("personalSiteBackedUpTime", UNSET))
+
 
         is_mailbox_backed_up = d.pop("isMailboxBackedUp", UNSET)
 
@@ -291,10 +326,13 @@ class RESTBackupUserData:
 
         _account_type = d.pop("accountType", UNSET)
         account_type: RESTBackupUserAccountType | Unset
-        if isinstance(_account_type, Unset):
+        if isinstance(_account_type,  Unset):
             account_type = UNSET
         else:
             account_type = RESTBackupUserAccountType(_account_type)
+
+
+
 
         archive_name = d.pop("archiveName", UNSET)
 
@@ -306,7 +344,9 @@ class RESTBackupUserData:
 
         one_drive_url = cast(list[str], d.pop("oneDriveUrl", UNSET))
 
+
         personal_site_url = cast(list[str], d.pop("personalSiteUrl", UNSET))
+
 
         def _parse_organization_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -318,6 +358,8 @@ class RESTBackupUserData:
                     raise TypeError()
                 organization_id_type_0 = UUID(data)
 
+
+
                 return organization_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -325,12 +367,16 @@ class RESTBackupUserData:
 
         organization_id = _parse_organization_id(d.pop("organizationId", UNSET))
 
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_backup_user_data = cls(
             item_type=item_type,
@@ -355,6 +401,7 @@ class RESTBackupUserData:
             organization_id=organization_id,
             field_links=field_links,
         )
+
 
         rest_backup_user_data.additional_properties = d
         return rest_backup_user_data

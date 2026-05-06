@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTBulkRestoreConfigDocumentAction(str, Enum):
     KEEP = "Keep"
     OVERWRITE = "Overwrite"
