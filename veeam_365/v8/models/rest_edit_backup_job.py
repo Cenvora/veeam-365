@@ -1,38 +1,45 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_edit_backup_job_backup_type import RESTEditBackupJobBackupType
 from ..types import UNSET, Unset
 
+from ..models.rest_edit_backup_job_backup_type import RESTEditBackupJobBackupType
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_job_item_composed import RESTJobItemComposed
-    from ..models.rest_job_schedule_policy import RESTJobSchedulePolicy
+  from ..models.rest_job_item_composed import RESTJobItemComposed
+  from ..models.rest_job_schedule_policy import RESTJobSchedulePolicy
+
+
+
 
 
 T = TypeVar("T", bound="RESTEditBackupJob")
 
 
+
 @_attrs_define
 class RESTEditBackupJob:
-    """
-    Attributes:
-        description (None | str | Unset): Description of the backup job.
-        backup_type (RESTEditBackupJobBackupType | Unset): Type of the backup job.
-        run_now (bool | None | Unset): Defines whether the job will run right after it is created.
-        selected_items (list[RESTJobItemComposed] | None | Unset): Array of objects that you want to back up.
-        excluded_items (list[RESTJobItemComposed] | None | Unset): Array of objects that you want to exclude from a
-            backup job scope.
-        schedule_policy (RESTJobSchedulePolicy | Unset):
-        repository_id (None | Unset | UUID): Backup repository ID. Example: 00000000-0000-0000-0000-000000000000.
-        name (None | str | Unset): Name of the backup job.
-        is_enabled (bool | None | Unset): Defines whether the backup job is enabled.
-    """
+    """ 
+        Attributes:
+            description (None | str | Unset): Description of the backup job.
+            backup_type (RESTEditBackupJobBackupType | Unset): Type of the backup job.
+            run_now (bool | None | Unset): Defines whether the job will run right after it is created.
+            selected_items (list[RESTJobItemComposed] | None | Unset): Array of objects that you want to back up.
+            excluded_items (list[RESTJobItemComposed] | None | Unset): Array of objects that you want to exclude from a
+                backup job scope.
+            schedule_policy (RESTJobSchedulePolicy | Unset):
+            repository_id (None | Unset | UUID): Backup repository ID. Example: 00000000-0000-0000-0000-000000000000.
+            name (None | str | Unset): Name of the backup job.
+            is_enabled (bool | None | Unset): Defines whether the backup job is enabled.
+     """
 
     description: None | str | Unset = UNSET
     backup_type: RESTEditBackupJobBackupType | Unset = UNSET
@@ -45,7 +52,13 @@ class RESTEditBackupJob:
     is_enabled: bool | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_job_item_composed import RESTJobItemComposed
+        from ..models.rest_job_schedule_policy import RESTJobSchedulePolicy
         description: None | str | Unset
         if isinstance(self.description, Unset):
             description = UNSET
@@ -55,6 +68,7 @@ class RESTEditBackupJob:
         backup_type: str | Unset = UNSET
         if not isinstance(self.backup_type, Unset):
             backup_type = self.backup_type.value
+
 
         run_now: bool | None | Unset
         if isinstance(self.run_now, Unset):
@@ -71,6 +85,7 @@ class RESTEditBackupJob:
                 selected_items_type_0_item = selected_items_type_0_item_data.to_dict()
                 selected_items.append(selected_items_type_0_item)
 
+
         else:
             selected_items = self.selected_items
 
@@ -82,6 +97,7 @@ class RESTEditBackupJob:
             for excluded_items_type_0_item_data in self.excluded_items:
                 excluded_items_type_0_item = excluded_items_type_0_item_data.to_dict()
                 excluded_items.append(excluded_items_type_0_item)
+
 
         else:
             excluded_items = self.excluded_items
@@ -110,9 +126,11 @@ class RESTEditBackupJob:
         else:
             is_enabled = self.is_enabled
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if description is not UNSET:
             field_dict["description"] = description
         if backup_type is not UNSET:
@@ -134,13 +152,13 @@ class RESTEditBackupJob:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_job_item_composed import RESTJobItemComposed
         from ..models.rest_job_schedule_policy import RESTJobSchedulePolicy
-
         d = dict(src_dict)
-
         def _parse_description(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -150,12 +168,16 @@ class RESTEditBackupJob:
 
         description = _parse_description(d.pop("description", UNSET))
 
+
         _backup_type = d.pop("backupType", UNSET)
         backup_type: RESTEditBackupJobBackupType | Unset
-        if isinstance(_backup_type, Unset):
+        if isinstance(_backup_type,  Unset):
             backup_type = UNSET
         else:
             backup_type = RESTEditBackupJobBackupType(_backup_type)
+
+
+
 
         def _parse_run_now(data: object) -> bool | None | Unset:
             if data is None:
@@ -165,6 +187,7 @@ class RESTEditBackupJob:
             return cast(bool | None | Unset, data)
 
         run_now = _parse_run_now(d.pop("runNow", UNSET))
+
 
         def _parse_selected_items(data: object) -> list[RESTJobItemComposed] | None | Unset:
             if data is None:
@@ -176,8 +199,10 @@ class RESTEditBackupJob:
                     raise TypeError()
                 selected_items_type_0 = []
                 _selected_items_type_0 = data
-                for selected_items_type_0_item_data in _selected_items_type_0:
+                for selected_items_type_0_item_data in (_selected_items_type_0):
                     selected_items_type_0_item = RESTJobItemComposed.from_dict(selected_items_type_0_item_data)
+
+
 
                     selected_items_type_0.append(selected_items_type_0_item)
 
@@ -187,6 +212,7 @@ class RESTEditBackupJob:
             return cast(list[RESTJobItemComposed] | None | Unset, data)
 
         selected_items = _parse_selected_items(d.pop("selectedItems", UNSET))
+
 
         def _parse_excluded_items(data: object) -> list[RESTJobItemComposed] | None | Unset:
             if data is None:
@@ -198,8 +224,10 @@ class RESTEditBackupJob:
                     raise TypeError()
                 excluded_items_type_0 = []
                 _excluded_items_type_0 = data
-                for excluded_items_type_0_item_data in _excluded_items_type_0:
+                for excluded_items_type_0_item_data in (_excluded_items_type_0):
                     excluded_items_type_0_item = RESTJobItemComposed.from_dict(excluded_items_type_0_item_data)
+
+
 
                     excluded_items_type_0.append(excluded_items_type_0_item)
 
@@ -210,12 +238,16 @@ class RESTEditBackupJob:
 
         excluded_items = _parse_excluded_items(d.pop("excludedItems", UNSET))
 
+
         _schedule_policy = d.pop("schedulePolicy", UNSET)
         schedule_policy: RESTJobSchedulePolicy | Unset
-        if isinstance(_schedule_policy, Unset):
+        if isinstance(_schedule_policy,  Unset):
             schedule_policy = UNSET
         else:
             schedule_policy = RESTJobSchedulePolicy.from_dict(_schedule_policy)
+
+
+
 
         def _parse_repository_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -227,12 +259,15 @@ class RESTEditBackupJob:
                     raise TypeError()
                 repository_id_type_0 = UUID(data)
 
+
+
                 return repository_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         repository_id = _parse_repository_id(d.pop("repositoryId", UNSET))
+
 
         def _parse_name(data: object) -> None | str | Unset:
             if data is None:
@@ -243,6 +278,7 @@ class RESTEditBackupJob:
 
         name = _parse_name(d.pop("name", UNSET))
 
+
         def _parse_is_enabled(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -251,6 +287,7 @@ class RESTEditBackupJob:
             return cast(bool | None | Unset, data)
 
         is_enabled = _parse_is_enabled(d.pop("isEnabled", UNSET))
+
 
         rest_edit_backup_job = cls(
             description=description,
@@ -263,6 +300,7 @@ class RESTEditBackupJob:
             name=name,
             is_enabled=is_enabled,
         )
+
 
         rest_edit_backup_job.additional_properties = d
         return rest_edit_backup_job

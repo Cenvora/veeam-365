@@ -1,38 +1,45 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_job_backup_item_type import RESTJobBackupItemType
 from ..types import UNSET, Unset
 
+from ..models.rest_job_backup_item_type import RESTJobBackupItemType
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_job_organization_item_links_type_0 import RESTJobOrganizationItemLinksType0
+  from ..models.rest_job_organization_item_links_type_0 import RESTJobOrganizationItemLinksType0
+
+
+
 
 
 T = TypeVar("T", bound="RESTJobOrganizationItem")
 
 
+
 @_attrs_define
 class RESTJobOrganizationItem:
-    """
-    Attributes:
-        type_ (RESTJobBackupItemType | Unset): Type of the backup item.
-        mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Mail* processing
-            option.
-        one_drive (bool | None | Unset): Defines whether this backup job will include/exclude the *OneDrive* processing
-            option.
-        archive_mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Archive*
-            processing option.
-        sites (bool | None | Unset): Defines whether this backup job will include/exclude the *Sites* processing option.
-        teams (bool | None | Unset): Defines whether this backup job will include/exclude the *Teams* processing option.
-        teams_chats (bool | None | Unset): Defines whether this job will back up team chats.
-        id (None | str | Unset): Backup item ID.
-        field_links (None | RESTJobOrganizationItemLinksType0 | Unset):
-    """
+    """ 
+        Attributes:
+            type_ (RESTJobBackupItemType | Unset): Type of the backup item.
+            mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Mail* processing
+                option.
+            one_drive (bool | None | Unset): Defines whether this backup job will include/exclude the *OneDrive* processing
+                option.
+            archive_mailbox (bool | None | Unset): Defines whether this backup job will include/exclude the *Archive*
+                processing option.
+            sites (bool | None | Unset): Defines whether this backup job will include/exclude the *Sites* processing option.
+            teams (bool | None | Unset): Defines whether this backup job will include/exclude the *Teams* processing option.
+            teams_chats (bool | None | Unset): Defines whether this job will back up team chats.
+            id (None | str | Unset): Backup item ID.
+            field_links (None | RESTJobOrganizationItemLinksType0 | Unset):
+     """
 
     type_: RESTJobBackupItemType | Unset = UNSET
     mailbox: bool | None | Unset = UNSET
@@ -45,12 +52,16 @@ class RESTJobOrganizationItem:
     field_links: None | RESTJobOrganizationItemLinksType0 | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
         from ..models.rest_job_organization_item_links_type_0 import RESTJobOrganizationItemLinksType0
-
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
+
 
         mailbox: bool | None | Unset
         if isinstance(self.mailbox, Unset):
@@ -102,9 +113,11 @@ class RESTJobOrganizationItem:
         else:
             field_links = self.field_links
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if type_ is not UNSET:
             field_dict["type"] = type_
         if mailbox is not UNSET:
@@ -126,17 +139,21 @@ class RESTJobOrganizationItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_job_organization_item_links_type_0 import RESTJobOrganizationItemLinksType0
-
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
         type_: RESTJobBackupItemType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTJobBackupItemType(_type_)
+
+
+
 
         def _parse_mailbox(data: object) -> bool | None | Unset:
             if data is None:
@@ -147,6 +164,7 @@ class RESTJobOrganizationItem:
 
         mailbox = _parse_mailbox(d.pop("mailbox", UNSET))
 
+
         def _parse_one_drive(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -155,6 +173,7 @@ class RESTJobOrganizationItem:
             return cast(bool | None | Unset, data)
 
         one_drive = _parse_one_drive(d.pop("oneDrive", UNSET))
+
 
         def _parse_archive_mailbox(data: object) -> bool | None | Unset:
             if data is None:
@@ -165,6 +184,7 @@ class RESTJobOrganizationItem:
 
         archive_mailbox = _parse_archive_mailbox(d.pop("archiveMailbox", UNSET))
 
+
         def _parse_sites(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -173,6 +193,7 @@ class RESTJobOrganizationItem:
             return cast(bool | None | Unset, data)
 
         sites = _parse_sites(d.pop("sites", UNSET))
+
 
         def _parse_teams(data: object) -> bool | None | Unset:
             if data is None:
@@ -183,6 +204,7 @@ class RESTJobOrganizationItem:
 
         teams = _parse_teams(d.pop("teams", UNSET))
 
+
         def _parse_teams_chats(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -192,6 +214,7 @@ class RESTJobOrganizationItem:
 
         teams_chats = _parse_teams_chats(d.pop("teamsChats", UNSET))
 
+
         def _parse_id(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -200,6 +223,7 @@ class RESTJobOrganizationItem:
             return cast(None | str | Unset, data)
 
         id = _parse_id(d.pop("id", UNSET))
+
 
         def _parse_field_links(data: object) -> None | RESTJobOrganizationItemLinksType0 | Unset:
             if data is None:
@@ -211,12 +235,15 @@ class RESTJobOrganizationItem:
                     raise TypeError()
                 field_links_type_0 = RESTJobOrganizationItemLinksType0.from_dict(data)
 
+
+
                 return field_links_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | RESTJobOrganizationItemLinksType0 | Unset, data)
 
         field_links = _parse_field_links(d.pop("_links", UNSET))
+
 
         rest_job_organization_item = cls(
             type_=type_,
@@ -229,6 +256,7 @@ class RESTJobOrganizationItem:
             id=id,
             field_links=field_links,
         )
+
 
         rest_job_organization_item.additional_properties = d
         return rest_job_organization_item

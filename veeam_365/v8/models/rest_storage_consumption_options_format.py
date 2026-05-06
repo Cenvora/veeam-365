@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTStorageConsumptionOptionsFormat(str, Enum):
     CSV = "CSV"
     PDF = "PDF"

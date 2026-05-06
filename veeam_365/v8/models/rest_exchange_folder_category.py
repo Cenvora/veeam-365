@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTExchangeFolderCategory(str, Enum):
     CONFLICTS = "Conflicts"
     DELETED = "Deleted"

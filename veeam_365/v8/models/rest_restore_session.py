@@ -1,47 +1,54 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_restore_session_result import RESTRestoreSessionResult
 from ..models.rest_restore_session_state import RESTRestoreSessionState
 from ..models.rest_restore_session_type import RESTRestoreSessionType
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTRestoreSession")
 
 
+
 @_attrs_define
 class RESTRestoreSession:
-    """
-    Attributes:
-        id (UUID): Restore session ID. Example: 00000000-0000-0000-0000-000000000000.
-        type_ (RESTRestoreSessionType): Type of the restore session.
-        creation_time (datetime.datetime): Date and time when the restore session was started.
-        state (RESTRestoreSessionState): State of the restore session.
-        result (RESTRestoreSessionResult): Result of the restore session.
-        name (str | Unset): Name of the restore session.
-        organization (str | Unset): Name of the Microsoft 365 organization.
-        end_time (datetime.datetime | None | Unset): Date and time when the restore session ended.
-        initiated_by (str | Unset): Name of the user that initiated the restore session.
-        details (str | Unset): Restore session details.
-        scope_name (str | Unset): Scope of the restore session created using Restore Portal.
-        client_host (str | Unset): DNS name or IP address of the Veeam Backup for Microsoft 365 server.
-        reason (str | Unset): Reason to perform restore operation.
-        e_tag (int | Unset): Version number that Veeam Backup for Microsoft 365 assigns if the restore session was
-            modified.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            id (UUID): Restore session ID. Example: 00000000-0000-0000-0000-000000000000.
+            type_ (RESTRestoreSessionType): Type of the restore session.
+            creation_time (datetime.datetime): Date and time when the restore session was started.
+            state (RESTRestoreSessionState): State of the restore session.
+            result (RESTRestoreSessionResult): Result of the restore session.
+            name (str | Unset): Name of the restore session.
+            organization (str | Unset): Name of the Microsoft 365 organization.
+            end_time (datetime.datetime | None | Unset): Date and time when the restore session ended.
+            initiated_by (str | Unset): Name of the user that initiated the restore session.
+            details (str | Unset): Restore session details.
+            scope_name (str | Unset): Scope of the restore session created using Restore Portal.
+            client_host (str | Unset): DNS name or IP address of the Veeam Backup for Microsoft 365 server.
+            reason (str | Unset): Reason to perform restore operation.
+            e_tag (int | Unset): Version number that Veeam Backup for Microsoft 365 assigns if the restore session was
+                modified.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     id: UUID
     type_: RESTRestoreSessionType
@@ -60,7 +67,12 @@ class RESTRestoreSession:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         id = str(self.id)
 
         type_ = self.type_.value
@@ -99,17 +111,16 @@ class RESTRestoreSession:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "type": type_,
-                "creationTime": creation_time,
-                "state": state,
-                "result": result,
-            }
-        )
+        field_dict.update({
+            "id": id,
+            "type": type_,
+            "creationTime": creation_time,
+            "state": state,
+            "result": result,
+        })
         if name is not UNSET:
             field_dict["name"] = name
         if organization is not UNSET:
@@ -133,20 +144,36 @@ class RESTRestoreSession:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         id = UUID(d.pop("id"))
 
+
+
+
         type_ = RESTRestoreSessionType(d.pop("type"))
+
+
+
 
         creation_time = isoparse(d.pop("creationTime"))
 
+
+
+
         state = RESTRestoreSessionState(d.pop("state"))
 
+
+
+
         result = RESTRestoreSessionResult(d.pop("result"))
+
+
+
 
         name = d.pop("name", UNSET)
 
@@ -162,12 +189,15 @@ class RESTRestoreSession:
                     raise TypeError()
                 end_time_type_0 = isoparse(data)
 
+
+
                 return end_time_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         end_time = _parse_end_time(d.pop("endTime", UNSET))
+
 
         initiated_by = d.pop("initiatedBy", UNSET)
 
@@ -183,10 +213,13 @@ class RESTRestoreSession:
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_restore_session = cls(
             id=id,
@@ -205,6 +238,7 @@ class RESTRestoreSession:
             e_tag=e_tag,
             field_links=field_links,
         )
+
 
         rest_restore_session.additional_properties = d
         return rest_restore_session

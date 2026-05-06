@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTJobSessionUpdateEventStatus(str, Enum):
     FAILED = "Failed"
     NOTCONFIGURED = "NotConfigured"

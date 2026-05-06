@@ -1,37 +1,48 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_backup_account import RESTBackupAccount
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
     organization_id: UUID,
+
 ) -> dict[str, Any]:
+    
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/Organizations/{organization_id}/BackupAccounts".format(
-            organization_id=quote(str(organization_id), safe=""),
-        ),
+        "url": "/v8/Organizations/{organization_id}/BackupAccounts".format(organization_id=quote(str(organization_id), safe=""),),
     }
+
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTExceptionInfo | list[RESTBackupAccount]:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | list[RESTBackupAccount]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
-        for response_200_item_data in _response_200:
+        for response_200_item_data in (_response_200):
             response_200_item = RESTBackupAccount.from_dict(response_200_item_data)
+
+
 
             response_200.append(response_200_item)
 
@@ -39,12 +50,13 @@ def _parse_response(
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTExceptionInfo | list[RESTBackupAccount]]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | list[RESTBackupAccount]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -57,8 +69,9 @@ def sync_detailed(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[RESTExceptionInfo | list[RESTBackupAccount]]:
-    """Get Backup Accounts
+    """ Get Backup Accounts
 
      Returns a list of backup accounts configured for Microsoft 365 organizations to minimize throttling
     when backing up Microsoft SharePoint and OneDrive for Business items.
@@ -72,10 +85,12 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | list[RESTBackupAccount]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -84,13 +99,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> RESTExceptionInfo | list[RESTBackupAccount] | None:
-    """Get Backup Accounts
+    """ Get Backup Accounts
 
      Returns a list of backup accounts configured for Microsoft 365 organizations to minimize throttling
     when backing up Microsoft SharePoint and OneDrive for Business items.
@@ -104,20 +119,22 @@ def sync(
 
     Returns:
         RESTExceptionInfo | list[RESTBackupAccount]
-    """
+     """
+
 
     return sync_detailed(
         organization_id=organization_id,
-        client=client,
-    ).parsed
+client=client,
 
+    ).parsed
 
 async def asyncio_detailed(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[RESTExceptionInfo | list[RESTBackupAccount]]:
-    """Get Backup Accounts
+    """ Get Backup Accounts
 
      Returns a list of backup accounts configured for Microsoft 365 organizations to minimize throttling
     when backing up Microsoft SharePoint and OneDrive for Business items.
@@ -131,23 +148,27 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | list[RESTBackupAccount]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> RESTExceptionInfo | list[RESTBackupAccount] | None:
-    """Get Backup Accounts
+    """ Get Backup Accounts
 
      Returns a list of backup accounts configured for Microsoft 365 organizations to minimize throttling
     when backing up Microsoft SharePoint and OneDrive for Business items.
@@ -161,11 +182,11 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | list[RESTBackupAccount]
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            organization_id=organization_id,
-            client=client,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        organization_id=organization_id,
+client=client,
+
+    )).parsed

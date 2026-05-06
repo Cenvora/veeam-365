@@ -1,36 +1,45 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.token_data_body_grant_type import TokenDataBodyGrantType
 from ..types import UNSET, Unset
+from typing import cast
+
+
+
+
+
 
 T = TypeVar("T", bound="TokenDataBody")
 
 
+
 @_attrs_define
 class TokenDataBody:
-    r"""
-    Attributes:
-        grant_type (TokenDataBodyGrantType): Specifies a grant type that will be used to authenticate a user. Default:
-            TokenDataBodyGrantType.PASSWORD.
-        username (str | Unset): \[Required if the `grant_type` property value is *password*\] Specifies a user name.
-        password (str | Unset): \[Required if the `grant_type` property value is *password*\] Specifies a user password.
-        refresh_token (str | Unset): \[Required if the `grant_type` property value is *refresh_token*\] Specifies a
-            refresh token.
-        client_id (str | Unset): \[Required if the `grant_type` property value is *urn:ietf:params:oauth:grant-type:jwt-
-            bearer* or *operator*\] Specifies either an application ID or combination of a user ID and tenant ID in the
-            following format: *userId.tenantId*.
-        assertion (str | Unset): \[Required if the `grant_type` property value is *urn:ietf:params:oauth:grant-type:jwt-
-            bearer* or *operator*\] Specifies an assertion.
-        disable_antiforgery_token (bool | None | Unset): Defines whether an antiforgery token is not required for Veeam
-            Backup for Microsoft 365 REST API authorization process. The antiforgery token is stored in web browser cookies
-            and protects an access and refresh tokens during a web browser REST API session.
-    """
+    r""" 
+        Attributes:
+            grant_type (TokenDataBodyGrantType): Specifies a grant type that will be used to authenticate a user. Default:
+                TokenDataBodyGrantType.PASSWORD.
+            username (str | Unset): \[Required if the `grant_type` property value is *password*\] Specifies a user name.
+            password (str | Unset): \[Required if the `grant_type` property value is *password*\] Specifies a user password.
+            refresh_token (str | Unset): \[Required if the `grant_type` property value is *refresh_token*\] Specifies a
+                refresh token.
+            client_id (str | Unset): \[Required if the `grant_type` property value is *urn:ietf:params:oauth:grant-type:jwt-
+                bearer* or *operator*\] Specifies either an application ID or combination of a user ID and tenant ID in the
+                following format: *userId.tenantId*.
+            assertion (str | Unset): \[Required if the `grant_type` property value is *urn:ietf:params:oauth:grant-type:jwt-
+                bearer* or *operator*\] Specifies an assertion.
+            disable_antiforgery_token (bool | None | Unset): Defines whether an antiforgery token is not required for Veeam
+                Backup for Microsoft 365 REST API authorization process. The antiforgery token is stored in web browser cookies
+                and protects an access and refresh tokens during a web browser REST API session.
+     """
 
     grant_type: TokenDataBodyGrantType = TokenDataBodyGrantType.PASSWORD
     username: str | Unset = UNSET
@@ -40,6 +49,10 @@ class TokenDataBody:
     assertion: str | Unset = UNSET
     disable_antiforgery_token: bool | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         grant_type = self.grant_type.value
@@ -60,13 +73,12 @@ class TokenDataBody:
         else:
             disable_antiforgery_token = self.disable_antiforgery_token
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "grant_type": grant_type,
-            }
-        )
+        field_dict.update({
+            "grant_type": grant_type,
+        })
         if username is not UNSET:
             field_dict["username"] = username
         if password is not UNSET:
@@ -82,10 +94,15 @@ class TokenDataBody:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         grant_type = TokenDataBodyGrantType(d.pop("grant_type"))
+
+
+
 
         username = d.pop("username", UNSET)
 
@@ -106,6 +123,7 @@ class TokenDataBody:
 
         disable_antiforgery_token = _parse_disable_antiforgery_token(d.pop("disable_antiforgery_token", UNSET))
 
+
         token_data_body = cls(
             grant_type=grant_type,
             username=username,
@@ -115,6 +133,7 @@ class TokenDataBody:
             assertion=assertion,
             disable_antiforgery_token=disable_antiforgery_token,
         )
+
 
         token_data_body.additional_properties = d
         return token_data_body

@@ -1,36 +1,45 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTSharepointSettings")
+
 
 
 @_attrs_define
 class RESTSharepointSettings:
-    """
-    Attributes:
-        server_name (str | Unset): Specifies URL of the Microsoft SharePoint server.
-        username (str | Unset): Specifies a user name of the account used for authentication to the on-premises
-            Microsoft SharePoint organization.
-        password (str | Unset): Specifies a password.
-        use_ssl (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 uses a secure connection to
-            Microsoft SharePoint organization server.
-        skip_c_averification (bool | None | Unset): Defines whether the certificate authority verification will be
-            skipped.
-        skip_commonnameverification (bool | None | Unset): Defines whether the common name verification will be skipped.
-        skip_revocationcheck (bool | None | Unset): Defines whether the check of certificate expiration against the
-            certificate revocation list will be skipped.
-        server_port (int | None | Unset): Specifies a port for connection to the Microsoft SharePoint server. The
-            default port is *5985*.
-        grant_accesstositecollections (bool | None | Unset): Defines whether the user will obtain the *Site Collection
-            Admin* rights to access site collections and sites.
-    """
+    """ 
+        Attributes:
+            server_name (str | Unset): Specifies URL of the Microsoft SharePoint server.
+            username (str | Unset): Specifies a user name of the account used for authentication to the on-premises
+                Microsoft SharePoint organization.
+            password (str | Unset): Specifies a password.
+            use_ssl (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 uses a secure connection to
+                Microsoft SharePoint organization server.
+            skip_c_averification (bool | None | Unset): Defines whether the certificate authority verification will be
+                skipped.
+            skip_commonnameverification (bool | None | Unset): Defines whether the common name verification will be skipped.
+            skip_revocationcheck (bool | None | Unset): Defines whether the check of certificate expiration against the
+                certificate revocation list will be skipped.
+            server_port (int | None | Unset): Specifies the port number for connection to the Microsoft SharePoint server.
+                The default port is *5985*.
+            grant_accesstositecollections (bool | None | Unset): Defines whether the user will obtain the *Site Collection
+                Admin* rights to access site collections and sites.
+     """
 
     server_name: str | Unset = UNSET
     username: str | Unset = UNSET
@@ -42,6 +51,10 @@ class RESTSharepointSettings:
     server_port: int | None | Unset = UNSET
     grant_accesstositecollections: bool | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         server_name = self.server_name
@@ -86,9 +99,11 @@ class RESTSharepointSettings:
         else:
             grant_accesstositecollections = self.grant_accesstositecollections
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if server_name is not UNSET:
             field_dict["serverName"] = server_name
         if username is not UNSET:
@@ -110,6 +125,8 @@ class RESTSharepointSettings:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -128,6 +145,7 @@ class RESTSharepointSettings:
 
         use_ssl = _parse_use_ssl(d.pop("useSSL", UNSET))
 
+
         def _parse_skip_c_averification(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -136,6 +154,7 @@ class RESTSharepointSettings:
             return cast(bool | None | Unset, data)
 
         skip_c_averification = _parse_skip_c_averification(d.pop("skipCAverification", UNSET))
+
 
         def _parse_skip_commonnameverification(data: object) -> bool | None | Unset:
             if data is None:
@@ -146,6 +165,7 @@ class RESTSharepointSettings:
 
         skip_commonnameverification = _parse_skip_commonnameverification(d.pop("skipCommonnameverification", UNSET))
 
+
         def _parse_skip_revocationcheck(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -154,6 +174,7 @@ class RESTSharepointSettings:
             return cast(bool | None | Unset, data)
 
         skip_revocationcheck = _parse_skip_revocationcheck(d.pop("skipRevocationcheck", UNSET))
+
 
         def _parse_server_port(data: object) -> int | None | Unset:
             if data is None:
@@ -164,6 +185,7 @@ class RESTSharepointSettings:
 
         server_port = _parse_server_port(d.pop("serverPort", UNSET))
 
+
         def _parse_grant_accesstositecollections(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -171,9 +193,8 @@ class RESTSharepointSettings:
                 return data
             return cast(bool | None | Unset, data)
 
-        grant_accesstositecollections = _parse_grant_accesstositecollections(
-            d.pop("grantAccesstositecollections", UNSET)
-        )
+        grant_accesstositecollections = _parse_grant_accesstositecollections(d.pop("grantAccesstositecollections", UNSET))
+
 
         rest_sharepoint_settings = cls(
             server_name=server_name,
@@ -186,6 +207,7 @@ class RESTSharepointSettings:
             server_port=server_port,
             grant_accesstositecollections=grant_accesstositecollections,
         )
+
 
         rest_sharepoint_settings.additional_properties = d
         return rest_sharepoint_settings

@@ -1,40 +1,47 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_teams_file_file_type import RESTTeamsFileFileType
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_teams_file_links import RESTTeamsFileLinks
+  from ..models.rest_teams_file_links import RESTTeamsFileLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTTeamsFile")
 
 
+
 @_attrs_define
 class RESTTeamsFile:
-    """
-    Attributes:
-        id (UUID): File ID. Example: 00000000-0000-0000-0000-000000000000.
-        channel_id (str): Channel ID.
-        name (str | Unset): Name of the file.
-        size_bytes (int | Unset): File size.
-        version (int | Unset): Version of the file in the backup.
-        ui_version (str | Unset): Version of the file.
-        modified (datetime.datetime | Unset): Date and time of the last modification of the file.
-        modified_by (str | Unset): Name of the user who performed the last modification of the file.
-        team_id (UUID | Unset): Team ID.
-        file_type (RESTTeamsFileFileType | Unset): Type of the Microsoft Teams item.
-        field_links (RESTTeamsFileLinks | Unset):
-    """
+    """ 
+        Attributes:
+            id (UUID): File ID. Example: 00000000-0000-0000-0000-000000000000.
+            channel_id (str): Channel ID.
+            name (str | Unset): Name of the file.
+            size_bytes (int | Unset): File size.
+            version (int | Unset): Version of the file in the backup.
+            ui_version (str | Unset): Version of the file.
+            modified (datetime.datetime | Unset): Date and time of the last modification of the file.
+            modified_by (str | Unset): Name of the user who performed the last modification of the file.
+            team_id (UUID | Unset): Team ID.
+            file_type (RESTTeamsFileFileType | Unset): Type of the Microsoft Teams item.
+            field_links (RESTTeamsFileLinks | Unset):
+     """
 
     id: UUID
     channel_id: str
@@ -49,7 +56,12 @@ class RESTTeamsFile:
     field_links: RESTTeamsFileLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_teams_file_links import RESTTeamsFileLinks
         id = str(self.id)
 
         channel_id = self.channel_id
@@ -76,18 +88,18 @@ class RESTTeamsFile:
         if not isinstance(self.file_type, Unset):
             file_type = self.file_type.value
 
+
         field_links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "channelId": channel_id,
-            }
-        )
+        field_dict.update({
+            "id": id,
+            "channelId": channel_id,
+        })
         if name is not UNSET:
             field_dict["name"] = name
         if size_bytes is not UNSET:
@@ -109,12 +121,16 @@ class RESTTeamsFile:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_teams_file_links import RESTTeamsFileLinks
-
         d = dict(src_dict)
         id = UUID(d.pop("id"))
+
+
+
 
         channel_id = d.pop("channelId")
 
@@ -128,33 +144,45 @@ class RESTTeamsFile:
 
         _modified = d.pop("modified", UNSET)
         modified: datetime.datetime | Unset
-        if isinstance(_modified, Unset):
+        if isinstance(_modified,  Unset):
             modified = UNSET
         else:
             modified = isoparse(_modified)
+
+
+
 
         modified_by = d.pop("modifiedBy", UNSET)
 
         _team_id = d.pop("teamId", UNSET)
         team_id: UUID | Unset
-        if isinstance(_team_id, Unset):
+        if isinstance(_team_id,  Unset):
             team_id = UNSET
         else:
             team_id = UUID(_team_id)
 
+
+
+
         _file_type = d.pop("fileType", UNSET)
         file_type: RESTTeamsFileFileType | Unset
-        if isinstance(_file_type, Unset):
+        if isinstance(_file_type,  Unset):
             file_type = UNSET
         else:
             file_type = RESTTeamsFileFileType(_file_type)
 
+
+
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTTeamsFileLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTTeamsFileLinks.from_dict(_field_links)
+
+
+
 
         rest_teams_file = cls(
             id=id,
@@ -169,6 +197,7 @@ class RESTTeamsFile:
             file_type=file_type,
             field_links=field_links,
         )
+
 
         rest_teams_file.additional_properties = d
         return rest_teams_file

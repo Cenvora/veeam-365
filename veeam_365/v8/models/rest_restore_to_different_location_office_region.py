@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTRestoreToDifferentLocationOfficeRegion(str, Enum):
     CHINA = "China"
     GERMANY = "Germany"

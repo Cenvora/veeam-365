@@ -1,38 +1,47 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.azure_storage_endpoint import AzureStorageEndpoint
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
+
+
+
+
 
 T = TypeVar("T", bound="RESTServiceAccountCreationData")
 
 
+
 @_attrs_define
 class RESTServiceAccountCreationData:
-    """
-    Attributes:
-        application_name (str | Unset): Specifies a name of the Microsoft Entra application associated with Microsoft
-            Azure service account.
-        description (str | Unset): Specifies a description of Microsoft Azure service account.
-        application_id (UUID | Unset): Specifies the ID of the Microsoft Entra application.
-        azure_environment (AzureStorageEndpoint | Unset): Specifies a Microsoft Entra region.
-        azure_tenant_id (str | Unset): Specifies the identification number of a Microsoft 365 organization in Microsoft
-            Entra.
-        application_certificate (str | Unset): Specifies the Base64 string of an SSL certificate that you want to use to
-            access the Microsoft Entra application.
-        application_certificate_password (str | Unset): Specifies a password.
-        application_secret (str | Unset): Specifies an application secret for connecting to Microsoft Entra.
-        user_code (str | Unset): Specifies the code that you must copy and then specify on Microsoft Identity platform.
-        subscription_ids (list[str] | Unset): Specifies an array of subscriptions associated with a user account that
-            was used to sign in to Microsoft Entra. For more information on how to get these parameters, see [Get
-            Subscriptions](AzureServiceAccounts#operation/AzureServiceAccounts_GetSubscriptions).
-    """
+    """ 
+        Attributes:
+            application_name (str | Unset): Specifies a name of the Microsoft Entra application associated with Microsoft
+                Azure service account.
+            description (str | Unset): Specifies a description of Microsoft Azure service account.
+            application_id (UUID | Unset): Specifies the ID of the Microsoft Entra application.
+            azure_environment (AzureStorageEndpoint | Unset): Specifies a Microsoft Entra region.
+            azure_tenant_id (str | Unset): Specifies the identification number of a Microsoft 365 organization in Microsoft
+                Entra.
+            application_certificate (str | Unset): Specifies the Base64 string of a TLS certificate that you want to use to
+                access the Microsoft Entra application.
+            application_certificate_password (str | Unset): Specifies a password.
+            application_secret (str | Unset): Specifies an application secret for connecting to Microsoft Entra.
+            user_code (str | Unset): Specifies the code that you must copy and then specify on Microsoft Identity platform.
+            subscription_ids (list[str] | Unset): Specifies an array of subscriptions associated with a user account that
+                was used to sign in to Microsoft Entra. For more information on how to get these parameters, see [Get
+                Subscriptions](#/AzureServiceAccounts/AzureServiceAccounts_GetSubscriptions).
+     """
 
     application_name: str | Unset = UNSET
     description: str | Unset = UNSET
@@ -46,6 +55,10 @@ class RESTServiceAccountCreationData:
     subscription_ids: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
         application_name = self.application_name
 
@@ -58,6 +71,7 @@ class RESTServiceAccountCreationData:
         azure_environment: str | Unset = UNSET
         if not isinstance(self.azure_environment, Unset):
             azure_environment = self.azure_environment.value
+
 
         azure_tenant_id = self.azure_tenant_id
 
@@ -73,9 +87,13 @@ class RESTServiceAccountCreationData:
         if not isinstance(self.subscription_ids, Unset):
             subscription_ids = self.subscription_ids
 
+
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if application_name is not UNSET:
             field_dict["applicationName"] = application_name
         if description is not UNSET:
@@ -99,6 +117,8 @@ class RESTServiceAccountCreationData:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -108,17 +128,23 @@ class RESTServiceAccountCreationData:
 
         _application_id = d.pop("applicationId", UNSET)
         application_id: UUID | Unset
-        if isinstance(_application_id, Unset):
+        if isinstance(_application_id,  Unset):
             application_id = UNSET
         else:
             application_id = UUID(_application_id)
 
+
+
+
         _azure_environment = d.pop("azureEnvironment", UNSET)
         azure_environment: AzureStorageEndpoint | Unset
-        if isinstance(_azure_environment, Unset):
+        if isinstance(_azure_environment,  Unset):
             azure_environment = UNSET
         else:
             azure_environment = AzureStorageEndpoint(_azure_environment)
+
+
+
 
         azure_tenant_id = d.pop("azureTenantId", UNSET)
 
@@ -132,6 +158,7 @@ class RESTServiceAccountCreationData:
 
         subscription_ids = cast(list[str], d.pop("subscriptionIds", UNSET))
 
+
         rest_service_account_creation_data = cls(
             application_name=application_name,
             description=description,
@@ -144,6 +171,7 @@ class RESTServiceAccountCreationData:
             user_code=user_code,
             subscription_ids=subscription_ids,
         )
+
 
         rest_service_account_creation_data.additional_properties = d
         return rest_service_account_creation_data

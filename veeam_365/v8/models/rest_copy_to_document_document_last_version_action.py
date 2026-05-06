@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTCopyToDocumentDocumentLastVersionAction(str, Enum):
     MERGE = "Merge"
     OVERWRITE = "Overwrite"

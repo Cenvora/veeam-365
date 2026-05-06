@@ -1,45 +1,52 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_bulk_restore_config_document_action import RESTBulkRestoreConfigDocumentAction
 from ..types import UNSET, Unset
 
+from ..models.rest_bulk_restore_config_document_action import RESTBulkRestoreConfigDocumentAction
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_one_drive import RESTOneDrive
+  from ..models.rest_one_drive import RESTOneDrive
+
+
+
 
 
 T = TypeVar("T", bound="RESTBulkRestoreConfig")
 
 
+
 @_attrs_define
 class RESTBulkRestoreConfig:
-    """
-    Attributes:
-        document_action (RESTBulkRestoreConfigDocumentAction | Unset): Specifies the action that will be performed in
-            case the restore destination contains the restored documents.
-        skip_unresolved (bool | None | Unset): Defines whether the unresolved items will be skipped.
-        one_drives (list[RESTOneDrive] | Unset): Specifies OneDrives that you want to restore.
-        office_username (str | Unset): Specifies the user name that you want to use for authenticating to the
-            organization.
-        user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
-            see [Get Device Code](RestoreSession#operation/RestoreSession_DeviceCodeAction).
-            This property is required if you want to use a device code for data restore.
-        application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
-            for restore. Example: 00000000-0000-0000-0000-000000000000.
-        application_certificate_password (str | Unset): Specifies a password.
-        application_certificate (str | Unset): Specifies the SSL certificate configured for the Microsoft Entra
-            application that you want to use for data restore. You must provide the certificate as a Base64 string.
-        office_userpassword (str | Unset): Specifies a password.
-        onpremises_username (str | Unset): Specifies the user name that you want to use for authenticating to the on-
-            premises organization.
-        onpremises_userpassword (str | Unset): Specifies a password.
-    """
+    """ 
+        Attributes:
+            document_action (RESTBulkRestoreConfigDocumentAction | Unset): Specifies the action that will be performed in
+                case the restore destination contains the restored documents.
+            skip_unresolved (bool | None | Unset): Defines whether the unresolved items will be skipped.
+            one_drives (list[RESTOneDrive] | Unset): Specifies OneDrives that you want to restore.
+            office_username (str | Unset): Specifies the user name that you want to use for authenticating to the
+                organization.
+            user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
+                see [Get Device Code](#/RestoreSession/RestoreSession_DeviceCodeAction).
+                This property is required if you want to use a device code for data restore.
+            application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
+                for restore. Example: 00000000-0000-0000-0000-000000000000.
+            application_certificate_password (str | Unset): Specifies a password.
+            application_certificate (str | Unset): Specifies the TLS certificate configured for the Microsoft Entra
+                application that you want to use for data restore. You must provide the certificate as a Base64 string.
+            office_userpassword (str | Unset): Specifies a password.
+            onpremises_username (str | Unset): Specifies the user name that you want to use for authenticating to the on-
+                premises organization.
+            onpremises_userpassword (str | Unset): Specifies a password.
+     """
 
     document_action: RESTBulkRestoreConfigDocumentAction | Unset = UNSET
     skip_unresolved: bool | None | Unset = UNSET
@@ -54,10 +61,16 @@ class RESTBulkRestoreConfig:
     onpremises_userpassword: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_one_drive import RESTOneDrive
         document_action: str | Unset = UNSET
         if not isinstance(self.document_action, Unset):
             document_action = self.document_action.value
+
 
         skip_unresolved: bool | None | Unset
         if isinstance(self.skip_unresolved, Unset):
@@ -71,6 +84,8 @@ class RESTBulkRestoreConfig:
             for one_drives_item_data in self.one_drives:
                 one_drives_item = one_drives_item_data.to_dict()
                 one_drives.append(one_drives_item)
+
+
 
         office_username = self.office_username
 
@@ -94,9 +109,11 @@ class RESTBulkRestoreConfig:
 
         onpremises_userpassword = self.onpremises_userpassword
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if document_action is not UNSET:
             field_dict["documentAction"] = document_action
         if skip_unresolved is not UNSET:
@@ -122,17 +139,21 @@ class RESTBulkRestoreConfig:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_one_drive import RESTOneDrive
-
         d = dict(src_dict)
         _document_action = d.pop("documentAction", UNSET)
         document_action: RESTBulkRestoreConfigDocumentAction | Unset
-        if isinstance(_document_action, Unset):
+        if isinstance(_document_action,  Unset):
             document_action = UNSET
         else:
             document_action = RESTBulkRestoreConfigDocumentAction(_document_action)
+
+
+
 
         def _parse_skip_unresolved(data: object) -> bool | None | Unset:
             if data is None:
@@ -143,6 +164,7 @@ class RESTBulkRestoreConfig:
 
         skip_unresolved = _parse_skip_unresolved(d.pop("skipUnresolved", UNSET))
 
+
         _one_drives = d.pop("oneDrives", UNSET)
         one_drives: list[RESTOneDrive] | Unset = UNSET
         if _one_drives is not UNSET:
@@ -150,7 +172,10 @@ class RESTBulkRestoreConfig:
             for one_drives_item_data in _one_drives:
                 one_drives_item = RESTOneDrive.from_dict(one_drives_item_data)
 
+
+
                 one_drives.append(one_drives_item)
+
 
         office_username = d.pop("officeUsername", UNSET)
 
@@ -166,12 +191,15 @@ class RESTBulkRestoreConfig:
                     raise TypeError()
                 application_id_type_0 = UUID(data)
 
+
+
                 return application_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         application_id = _parse_application_id(d.pop("applicationId", UNSET))
+
 
         application_certificate_password = d.pop("applicationCertificatePassword", UNSET)
 
@@ -196,6 +224,7 @@ class RESTBulkRestoreConfig:
             onpremises_username=onpremises_username,
             onpremises_userpassword=onpremises_userpassword,
         )
+
 
         rest_bulk_restore_config.additional_properties = d
         return rest_bulk_restore_config

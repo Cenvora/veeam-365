@@ -1,26 +1,39 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_service_account_info import RESTServiceAccountInfo
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+
 
 
 def _get_kwargs(
     *,
     display_name: str | Unset = UNSET,
     description: str | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     params["displayName"] = display_name
 
     params["description"] = description
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -28,17 +41,19 @@ def _get_kwargs(
         "params": params,
     }
 
+
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTExceptionInfo | list[RESTServiceAccountInfo]:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | list[RESTServiceAccountInfo]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
-        for response_200_item_data in _response_200:
+        for response_200_item_data in (_response_200):
             response_200_item = RESTServiceAccountInfo.from_dict(response_200_item_data)
+
+
 
             response_200.append(response_200_item)
 
@@ -46,12 +61,13 @@ def _parse_response(
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTExceptionInfo | list[RESTServiceAccountInfo]]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | list[RESTServiceAccountInfo]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -65,8 +81,9 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     display_name: str | Unset = UNSET,
     description: str | Unset = UNSET,
+
 ) -> Response[RESTExceptionInfo | list[RESTServiceAccountInfo]]:
-    """Get Azure Service Accounts
+    """ Get Azure Service Accounts
 
      Returns a list of existing Microsoft Azure service accounts.
 
@@ -80,11 +97,13 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | list[RESTServiceAccountInfo]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         display_name=display_name,
-        description=description,
+description=description,
+
     )
 
     response = client.get_httpx_client().request(
@@ -93,14 +112,14 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     *,
     client: AuthenticatedClient | Client,
     display_name: str | Unset = UNSET,
     description: str | Unset = UNSET,
+
 ) -> RESTExceptionInfo | list[RESTServiceAccountInfo] | None:
-    """Get Azure Service Accounts
+    """ Get Azure Service Accounts
 
      Returns a list of existing Microsoft Azure service accounts.
 
@@ -114,22 +133,24 @@ def sync(
 
     Returns:
         RESTExceptionInfo | list[RESTServiceAccountInfo]
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        display_name=display_name,
-        description=description,
-    ).parsed
+display_name=display_name,
+description=description,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     display_name: str | Unset = UNSET,
     description: str | Unset = UNSET,
+
 ) -> Response[RESTExceptionInfo | list[RESTServiceAccountInfo]]:
-    """Get Azure Service Accounts
+    """ Get Azure Service Accounts
 
      Returns a list of existing Microsoft Azure service accounts.
 
@@ -143,25 +164,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | list[RESTServiceAccountInfo]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         display_name=display_name,
-        description=description,
+description=description,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     display_name: str | Unset = UNSET,
     description: str | Unset = UNSET,
+
 ) -> RESTExceptionInfo | list[RESTServiceAccountInfo] | None:
-    """Get Azure Service Accounts
+    """ Get Azure Service Accounts
 
      Returns a list of existing Microsoft Azure service accounts.
 
@@ -175,12 +200,12 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | list[RESTServiceAccountInfo]
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            display_name=display_name,
-            description=description,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+display_name=display_name,
+description=description,
+
+    )).parsed

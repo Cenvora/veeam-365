@@ -1,33 +1,40 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_rbac_operator_type import RESTRbacOperatorType
 from ..types import UNSET, Unset
 
+from ..models.rest_rbac_operator_type import RESTRbacOperatorType
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_rbac_group import RESTRbacGroup
-    from ..models.rest_rbac_operator_links import RESTRbacOperatorLinks
-    from ..models.rest_rbac_user import RESTRbacUser
+  from ..models.rest_rbac_group import RESTRbacGroup
+  from ..models.rest_rbac_operator_links import RESTRbacOperatorLinks
+  from ..models.rest_rbac_user import RESTRbacUser
+
+
+
 
 
 T = TypeVar("T", bound="RESTRbacOperator")
 
 
+
 @_attrs_define
 class RESTRbacOperator:
-    """
-    Attributes:
-        type_ (RESTRbacOperatorType): Type of the object.
-        user (RESTRbacUser | Unset):
-        id (str | Unset): ID of the restore operator.
-        field_links (RESTRbacOperatorLinks | Unset):
-        group (RESTRbacGroup | Unset):
-    """
+    """ 
+        Attributes:
+            type_ (RESTRbacOperatorType): Type of the object.
+            user (RESTRbacUser | Unset):
+            id (str | Unset): ID of the restore operator.
+            field_links (RESTRbacOperatorLinks | Unset):
+            group (RESTRbacGroup | Unset):
+     """
 
     type_: RESTRbacOperatorType
     user: RESTRbacUser | Unset = UNSET
@@ -36,7 +43,14 @@ class RESTRbacOperator:
     group: RESTRbacGroup | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_rbac_group import RESTRbacGroup
+        from ..models.rest_rbac_operator_links import RESTRbacOperatorLinks
+        from ..models.rest_rbac_user import RESTRbacUser
         type_ = self.type_.value
 
         user: dict[str, Any] | Unset = UNSET
@@ -53,13 +67,12 @@ class RESTRbacOperator:
         if not isinstance(self.group, Unset):
             group = self.group.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "type": type_,
-            }
-        )
+        field_dict.update({
+            "type": type_,
+        })
         if user is not UNSET:
             field_dict["user"] = user
         if id is not UNSET:
@@ -71,37 +84,50 @@ class RESTRbacOperator:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_rbac_group import RESTRbacGroup
         from ..models.rest_rbac_operator_links import RESTRbacOperatorLinks
         from ..models.rest_rbac_user import RESTRbacUser
-
         d = dict(src_dict)
         type_ = RESTRbacOperatorType(d.pop("type"))
 
+
+
+
         _user = d.pop("user", UNSET)
         user: RESTRbacUser | Unset
-        if isinstance(_user, Unset):
+        if isinstance(_user,  Unset):
             user = UNSET
         else:
             user = RESTRbacUser.from_dict(_user)
+
+
+
 
         id = d.pop("id", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTRbacOperatorLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTRbacOperatorLinks.from_dict(_field_links)
 
+
+
+
         _group = d.pop("group", UNSET)
         group: RESTRbacGroup | Unset
-        if isinstance(_group, Unset):
+        if isinstance(_group,  Unset):
             group = UNSET
         else:
             group = RESTRbacGroup.from_dict(_group)
+
+
+
 
         rest_rbac_operator = cls(
             type_=type_,
@@ -110,6 +136,7 @@ class RESTRbacOperator:
             field_links=field_links,
             group=group,
         )
+
 
         rest_rbac_operator.additional_properties = d
         return rest_rbac_operator

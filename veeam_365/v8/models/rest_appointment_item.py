@@ -1,44 +1,51 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
+
 if TYPE_CHECKING:
-    from ..models.rest_appointment_item_actions import RESTAppointmentItemActions
-    from ..models.rest_appointment_item_links import RESTAppointmentItemLinks
-    from ..models.rest_attachment import RESTAttachment
+  from ..models.rest_appointment_item_actions import RESTAppointmentItemActions
+  from ..models.rest_appointment_item_links import RESTAppointmentItemLinks
+  from ..models.rest_attachment import RESTAttachment
+
+
+
 
 
 T = TypeVar("T", bound="RESTAppointmentItem")
 
 
+
 @_attrs_define
 class RESTAppointmentItem:
-    """
-    Attributes:
-        mailbox_id (UUID | Unset): ID of the organization mailbox.
-        attachments (list[RESTAttachment] | Unset): Array of attachment items for the appointment.
-        organizer (str | Unset): Appointment organizer.
-        attendees (str | Unset): Appointment attendees.
-        start_time (datetime.datetime | Unset): Date and time when the appointment starts.
-        end_time (datetime.datetime | Unset): Date and time when the appointment finishes.
-        location (str | Unset): Location where the appointment is held.
-        subject (str | Unset): Appointment subject.
-        recurrence_pattern_format (str | Unset): Recurrence format.
-        recurring (bool | Unset): Defines whether the appointment is recurring.
-        item_class (str | Unset): Exchange item class.
-        field_links (RESTAppointmentItemLinks | Unset):
-        field_actions (RESTAppointmentItemActions | Unset):
-        id (str | Unset): Exchange item ID.
-    """
+    """ 
+        Attributes:
+            mailbox_id (UUID | Unset): ID of the organization mailbox.
+            attachments (list[RESTAttachment] | Unset): Array of attachment items for the appointment.
+            organizer (str | Unset): Appointment organizer.
+            attendees (str | Unset): Appointment attendees.
+            start_time (datetime.datetime | Unset): Date and time when the appointment starts.
+            end_time (datetime.datetime | Unset): Date and time when the appointment finishes.
+            location (str | Unset): Location where the appointment is held.
+            subject (str | Unset): Appointment subject.
+            recurrence_pattern_format (str | Unset): Recurrence format.
+            recurring (bool | Unset): Defines whether the appointment is recurring.
+            item_class (str | Unset): Exchange item class.
+            field_links (RESTAppointmentItemLinks | Unset):
+            field_actions (RESTAppointmentItemActions | Unset):
+            id (str | Unset): Exchange item ID.
+     """
 
     mailbox_id: UUID | Unset = UNSET
     attachments: list[RESTAttachment] | Unset = UNSET
@@ -56,7 +63,14 @@ class RESTAppointmentItem:
     id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_appointment_item_actions import RESTAppointmentItemActions
+        from ..models.rest_appointment_item_links import RESTAppointmentItemLinks
+        from ..models.rest_attachment import RESTAttachment
         mailbox_id: str | Unset = UNSET
         if not isinstance(self.mailbox_id, Unset):
             mailbox_id = str(self.mailbox_id)
@@ -67,6 +81,8 @@ class RESTAppointmentItem:
             for attachments_item_data in self.attachments:
                 attachments_item = attachments_item_data.to_dict()
                 attachments.append(attachments_item)
+
+
 
         organizer = self.organizer
 
@@ -100,9 +116,11 @@ class RESTAppointmentItem:
 
         id = self.id
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if mailbox_id is not UNSET:
             field_dict["mailboxId"] = mailbox_id
         if attachments is not UNSET:
@@ -134,19 +152,23 @@ class RESTAppointmentItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_appointment_item_actions import RESTAppointmentItemActions
         from ..models.rest_appointment_item_links import RESTAppointmentItemLinks
         from ..models.rest_attachment import RESTAttachment
-
         d = dict(src_dict)
         _mailbox_id = d.pop("mailboxId", UNSET)
         mailbox_id: UUID | Unset
-        if isinstance(_mailbox_id, Unset):
+        if isinstance(_mailbox_id,  Unset):
             mailbox_id = UNSET
         else:
             mailbox_id = UUID(_mailbox_id)
+
+
+
 
         _attachments = d.pop("attachments", UNSET)
         attachments: list[RESTAttachment] | Unset = UNSET
@@ -155,7 +177,10 @@ class RESTAppointmentItem:
             for attachments_item_data in _attachments:
                 attachments_item = RESTAttachment.from_dict(attachments_item_data)
 
+
+
                 attachments.append(attachments_item)
+
 
         organizer = d.pop("organizer", UNSET)
 
@@ -163,17 +188,23 @@ class RESTAppointmentItem:
 
         _start_time = d.pop("startTime", UNSET)
         start_time: datetime.datetime | Unset
-        if isinstance(_start_time, Unset):
+        if isinstance(_start_time,  Unset):
             start_time = UNSET
         else:
             start_time = isoparse(_start_time)
 
+
+
+
         _end_time = d.pop("endTime", UNSET)
         end_time: datetime.datetime | Unset
-        if isinstance(_end_time, Unset):
+        if isinstance(_end_time,  Unset):
             end_time = UNSET
         else:
             end_time = isoparse(_end_time)
+
+
+
 
         location = d.pop("location", UNSET)
 
@@ -187,17 +218,23 @@ class RESTAppointmentItem:
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTAppointmentItemLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTAppointmentItemLinks.from_dict(_field_links)
 
+
+
+
         _field_actions = d.pop("_actions", UNSET)
         field_actions: RESTAppointmentItemActions | Unset
-        if isinstance(_field_actions, Unset):
+        if isinstance(_field_actions,  Unset):
             field_actions = UNSET
         else:
             field_actions = RESTAppointmentItemActions.from_dict(_field_actions)
+
+
+
 
         id = d.pop("id", UNSET)
 
@@ -217,6 +254,7 @@ class RESTAppointmentItem:
             field_actions=field_actions,
             id=id,
         )
+
 
         rest_appointment_item.additional_properties = d
         return rest_appointment_item

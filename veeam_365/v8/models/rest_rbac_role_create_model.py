@@ -1,52 +1,59 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_rbac_role_create_model_role_type import RESTRbacRoleCreateModelRoleType
 from ..types import UNSET, Unset
 
+from ..models.rest_rbac_role_create_model_role_type import RESTRbacRoleCreateModelRoleType
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_rbac_item_composed import RESTRbacItemComposed
-    from ..models.rest_rbac_operator import RESTRbacOperator
-    from ..models.rest_rbac_role_create_model_links import RESTRbacRoleCreateModelLinks
+  from ..models.rest_rbac_item_composed import RESTRbacItemComposed
+  from ..models.rest_rbac_operator import RESTRbacOperator
+  from ..models.rest_rbac_role_create_model_links import RESTRbacRoleCreateModelLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTRbacRoleCreateModel")
 
 
+
 @_attrs_define
 class RESTRbacRoleCreateModel:
-    """
-    Attributes:
-        id (None | Unset | UUID): Specifies the ID of the restore operator role.
-        organization_id (UUID | Unset): Specifies the backed-up organization ID.
-        name (str | Unset): Specifies a name of the restore operator role.
-        description (str | Unset): Specifies a description of the restore operator role.
-        role_type (RESTRbacRoleCreateModelRoleType | Unset): Specifies the restore operator role type. The following
-            types are available: <ul> <li>*EntireOrganization*. Restore operators are allowed to explore and restore backed-
-            up data of all objects within the specified Microsoft 365 organization.</li> <li>*SpecificObjects*. Restore
-            operators are allowed to explore and restore backed-up data of the specified objects.</li> </ul>
+    """ 
+        Attributes:
+            id (None | Unset | UUID): Specifies the ID of the restore operator role.
+            organization_id (UUID | Unset): Specifies the backed-up organization ID.
+            name (str | Unset): Specifies a name of the restore operator role.
+            description (str | Unset): Specifies a description of the restore operator role.
+            role_type (RESTRbacRoleCreateModelRoleType | Unset): Specifies the restore operator role type. The following
+                types are available: <ul> <li>*EntireOrganization*. Restore operators are allowed to explore and restore backed-
+                up data of all objects within the specified Microsoft 365 organization.</li> <li>*SpecificObjects*. Restore
+                operators are allowed to explore and restore backed-up data of the specified objects.</li> </ul>
 
-            **Note**: For the restore operator role of the *SpecificObjects* type, you must specify a collection of objects
-            to manage. Restore operators will be able to explore and restore backed-up data of these objects.
-        operators (list[RESTRbacOperator] | Unset): Specifies IDs of the restore operators that you want to add to the
-            restore operator role. For more information on how to get such IDs, see [Get Restore
-            Operators](RbacRole#operation/RbacRole_GetOperators).
-        selected_items (list[RESTRbacItemComposed] | Unset): Specifies IDs of the objects that you want to add to the
-            restore operator role as objects to manage. Restore operators will be able to explore and restore data from
-            backups created by Veeam Backup for Microsoft 365 for these objects. For more information on how to get such
-            IDs, see [Get Objects to Manage](RbacRole#operation/RbacRole_GetSelectedItems).
-        excluded_items (list[RESTRbacItemComposed] | Unset): Specifies IDs of the objects that you want to exclude from
-            the scope of the restore operator role. Restore operators will not be able to explore and restore data from
-            backups created by Veeam Backup for Microsoft 365 for these objects. For more information on how to get such
-            IDs, see [Get Excluded Objects](RbacRole#operation/RbacRole_GetExcludedItems).
-        field_links (RESTRbacRoleCreateModelLinks | Unset):
-    """
+                **Note**: For the restore operator role of the *SpecificObjects* type, you must specify a collection of objects
+                to manage. Restore operators will be able to explore and restore backed-up data of these objects.
+            operators (list[RESTRbacOperator] | Unset): Specifies IDs of the restore operators that you want to add to the
+                restore operator role. For more information on how to get such IDs, see [Get Restore
+                Operators](#/RbacRole/RbacRole_GetOperators).
+            selected_items (list[RESTRbacItemComposed] | Unset): Specifies IDs of the objects that you want to add to the
+                restore operator role as objects to manage. Restore operators will be able to explore and restore data from
+                backups created by Veeam Backup for Microsoft 365 for these objects. For more information on how to get such
+                IDs, see [Get Objects to Manage](#/RbacRole/RbacRole_GetSelectedItems).
+            excluded_items (list[RESTRbacItemComposed] | Unset): Specifies IDs of the objects that you want to exclude from
+                the scope of the restore operator role. Restore operators will not be able to explore and restore data from
+                backups created by Veeam Backup for Microsoft 365 for these objects. For more information on how to get such
+                IDs, see [Get Excluded Objects](#/RbacRole/RbacRole_GetExcludedItems).
+            field_links (RESTRbacRoleCreateModelLinks | Unset):
+     """
 
     id: None | Unset | UUID = UNSET
     organization_id: UUID | Unset = UNSET
@@ -59,7 +66,14 @@ class RESTRbacRoleCreateModel:
     field_links: RESTRbacRoleCreateModelLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_rbac_item_composed import RESTRbacItemComposed
+        from ..models.rest_rbac_operator import RESTRbacOperator
+        from ..models.rest_rbac_role_create_model_links import RESTRbacRoleCreateModelLinks
         id: None | str | Unset
         if isinstance(self.id, Unset):
             id = UNSET
@@ -80,12 +94,15 @@ class RESTRbacRoleCreateModel:
         if not isinstance(self.role_type, Unset):
             role_type = self.role_type.value
 
+
         operators: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.operators, Unset):
             operators = []
             for operators_item_data in self.operators:
                 operators_item = operators_item_data.to_dict()
                 operators.append(operators_item)
+
+
 
         selected_items: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.selected_items, Unset):
@@ -94,6 +111,8 @@ class RESTRbacRoleCreateModel:
                 selected_items_item = selected_items_item_data.to_dict()
                 selected_items.append(selected_items_item)
 
+
+
         excluded_items: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.excluded_items, Unset):
             excluded_items = []
@@ -101,13 +120,17 @@ class RESTRbacRoleCreateModel:
                 excluded_items_item = excluded_items_item_data.to_dict()
                 excluded_items.append(excluded_items_item)
 
+
+
         field_links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if organization_id is not UNSET:
@@ -129,14 +152,14 @@ class RESTRbacRoleCreateModel:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_rbac_item_composed import RESTRbacItemComposed
         from ..models.rest_rbac_operator import RESTRbacOperator
         from ..models.rest_rbac_role_create_model_links import RESTRbacRoleCreateModelLinks
-
         d = dict(src_dict)
-
         def _parse_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
@@ -147,6 +170,8 @@ class RESTRbacRoleCreateModel:
                     raise TypeError()
                 id_type_0 = UUID(data)
 
+
+
                 return id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -154,12 +179,16 @@ class RESTRbacRoleCreateModel:
 
         id = _parse_id(d.pop("id", UNSET))
 
+
         _organization_id = d.pop("organizationId", UNSET)
         organization_id: UUID | Unset
-        if isinstance(_organization_id, Unset):
+        if isinstance(_organization_id,  Unset):
             organization_id = UNSET
         else:
             organization_id = UUID(_organization_id)
+
+
+
 
         name = d.pop("name", UNSET)
 
@@ -167,10 +196,13 @@ class RESTRbacRoleCreateModel:
 
         _role_type = d.pop("roleType", UNSET)
         role_type: RESTRbacRoleCreateModelRoleType | Unset
-        if isinstance(_role_type, Unset):
+        if isinstance(_role_type,  Unset):
             role_type = UNSET
         else:
             role_type = RESTRbacRoleCreateModelRoleType(_role_type)
+
+
+
 
         _operators = d.pop("operators", UNSET)
         operators: list[RESTRbacOperator] | Unset = UNSET
@@ -179,7 +211,10 @@ class RESTRbacRoleCreateModel:
             for operators_item_data in _operators:
                 operators_item = RESTRbacOperator.from_dict(operators_item_data)
 
+
+
                 operators.append(operators_item)
+
 
         _selected_items = d.pop("selectedItems", UNSET)
         selected_items: list[RESTRbacItemComposed] | Unset = UNSET
@@ -188,7 +223,10 @@ class RESTRbacRoleCreateModel:
             for selected_items_item_data in _selected_items:
                 selected_items_item = RESTRbacItemComposed.from_dict(selected_items_item_data)
 
+
+
                 selected_items.append(selected_items_item)
+
 
         _excluded_items = d.pop("excludedItems", UNSET)
         excluded_items: list[RESTRbacItemComposed] | Unset = UNSET
@@ -197,14 +235,20 @@ class RESTRbacRoleCreateModel:
             for excluded_items_item_data in _excluded_items:
                 excluded_items_item = RESTRbacItemComposed.from_dict(excluded_items_item_data)
 
+
+
                 excluded_items.append(excluded_items_item)
+
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTRbacRoleCreateModelLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTRbacRoleCreateModelLinks.from_dict(_field_links)
+
+
+
 
         rest_rbac_role_create_model = cls(
             id=id,
@@ -217,6 +261,7 @@ class RESTRbacRoleCreateModel:
             excluded_items=excluded_items,
             field_links=field_links,
         )
+
 
         rest_rbac_role_create_model.additional_properties = d
         return rest_rbac_role_create_model

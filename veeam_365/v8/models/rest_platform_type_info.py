@@ -1,27 +1,35 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from uuid import UUID
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTPlatformTypeInfo")
+
 
 
 @_attrs_define
 class RESTPlatformTypeInfo:
-    """
-    Attributes:
-        id (int | Unset): ID of the license usage counter type.
-        name (str | Unset): Name of the license usage counter type.
-        cis_counter_name (str | Unset): Unique name of the license usage counter within the Veeam infrastructure.
-        weight (float | Unset): Number of licensing points.
-        group_id (UUID | Unset): ID of a licensing group of objects.
-    """
+    """ 
+        Attributes:
+            id (int | Unset): ID of the license usage counter type.
+            name (str | Unset): Name of the license usage counter type.
+            cis_counter_name (str | Unset): Unique name of the license usage counter within the Veeam infrastructure.
+            weight (float | Unset): Number of licensing points.
+            group_id (UUID | Unset): ID of a licensing group of objects.
+     """
 
     id: int | Unset = UNSET
     name: str | Unset = UNSET
@@ -29,6 +37,10 @@ class RESTPlatformTypeInfo:
     weight: float | Unset = UNSET
     group_id: UUID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
@@ -43,9 +55,11 @@ class RESTPlatformTypeInfo:
         if not isinstance(self.group_id, Unset):
             group_id = str(self.group_id)
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if name is not UNSET:
@@ -58,6 +72,8 @@ class RESTPlatformTypeInfo:
             field_dict["groupId"] = group_id
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -72,10 +88,13 @@ class RESTPlatformTypeInfo:
 
         _group_id = d.pop("groupId", UNSET)
         group_id: UUID | Unset
-        if isinstance(_group_id, Unset):
+        if isinstance(_group_id,  Unset):
             group_id = UNSET
         else:
             group_id = UUID(_group_id)
+
+
+
 
         rest_platform_type_info = cls(
             id=id,
@@ -84,6 +103,7 @@ class RESTPlatformTypeInfo:
             weight=weight,
             group_id=group_id,
         )
+
 
         rest_platform_type_info.additional_properties = d
         return rest_platform_type_info

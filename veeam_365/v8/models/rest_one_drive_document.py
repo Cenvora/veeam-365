@@ -1,41 +1,48 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+import datetime
+
 if TYPE_CHECKING:
-    from ..models.rest_one_drive_document_links import RESTOneDriveDocumentLinks
+  from ..models.rest_one_drive_document_links import RESTOneDriveDocumentLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTOneDriveDocument")
 
 
+
 @_attrs_define
 class RESTOneDriveDocument:
-    """
-    Attributes:
-        size_bytes (int): Size of the backed-up OneDrive document.
-        id (str): ID of the backed-up OneDrive document.
-        name (str): Name of the backed-up OneDrive document.
-        created_by (str): User who created the document.
-        creation_time (datetime.datetime): Date and time when the document was created.
-        modified_by (str): User who performed the last modification to the document.
-        modification_time (datetime.datetime): Date and time when the document was modified.
-        one_drive_id (str | Unset): OneDrive ID.
-        inherited_permissions (bool | Unset): Defines whether the permission settings of an element will be passed on to
-            the subordinates of that element.
-        version (str | Unset): Version of the OneDrive document.
-        version_id (int | None | Unset): ID of the OneDrive document version.
-        is_folder (bool | Unset): Defines whether the item is a folder.
-        field_links (RESTOneDriveDocumentLinks | Unset):
-    """
+    """ 
+        Attributes:
+            size_bytes (int): Size of the backed-up OneDrive document.
+            id (str): ID of the backed-up OneDrive document.
+            name (str): Name of the backed-up OneDrive document.
+            created_by (str): User who created the document.
+            creation_time (datetime.datetime): Date and time when the document was created.
+            modified_by (str): User who performed the last modification to the document.
+            modification_time (datetime.datetime): Date and time when the document was modified.
+            one_drive_id (str | Unset): OneDrive ID.
+            inherited_permissions (bool | Unset): Defines whether the permission settings of an element will be passed on to
+                the subordinates of that element.
+            version (str | Unset): Version of the OneDrive document.
+            version_id (int | None | Unset): ID of the OneDrive document version.
+            is_folder (bool | Unset): Defines whether the item is a folder.
+            field_links (RESTOneDriveDocumentLinks | Unset):
+     """
 
     size_bytes: int
     id: str
@@ -52,7 +59,12 @@ class RESTOneDriveDocument:
     field_links: RESTOneDriveDocumentLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_one_drive_document_links import RESTOneDriveDocumentLinks
         size_bytes = self.size_bytes
 
         id = self.id
@@ -85,19 +97,18 @@ class RESTOneDriveDocument:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "sizeBytes": size_bytes,
-                "id": id,
-                "name": name,
-                "createdBy": created_by,
-                "creationTime": creation_time,
-                "modifiedBy": modified_by,
-                "modificationTime": modification_time,
-            }
-        )
+        field_dict.update({
+            "sizeBytes": size_bytes,
+            "id": id,
+            "name": name,
+            "createdBy": created_by,
+            "creationTime": creation_time,
+            "modifiedBy": modified_by,
+            "modificationTime": modification_time,
+        })
         if one_drive_id is not UNSET:
             field_dict["oneDriveId"] = one_drive_id
         if inherited_permissions is not UNSET:
@@ -113,10 +124,11 @@ class RESTOneDriveDocument:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_one_drive_document_links import RESTOneDriveDocumentLinks
-
         d = dict(src_dict)
         size_bytes = d.pop("sizeBytes")
 
@@ -128,9 +140,15 @@ class RESTOneDriveDocument:
 
         creation_time = isoparse(d.pop("creationTime"))
 
+
+
+
         modified_by = d.pop("modifiedBy")
 
         modification_time = isoparse(d.pop("modificationTime"))
+
+
+
 
         one_drive_id = d.pop("oneDriveId", UNSET)
 
@@ -147,14 +165,18 @@ class RESTOneDriveDocument:
 
         version_id = _parse_version_id(d.pop("versionId", UNSET))
 
+
         is_folder = d.pop("isFolder", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTOneDriveDocumentLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTOneDriveDocumentLinks.from_dict(_field_links)
+
+
+
 
         rest_one_drive_document = cls(
             size_bytes=size_bytes,
@@ -171,6 +193,7 @@ class RESTOneDriveDocument:
             is_folder=is_folder,
             field_links=field_links,
         )
+
 
         rest_one_drive_document.additional_properties = d
         return rest_one_drive_document

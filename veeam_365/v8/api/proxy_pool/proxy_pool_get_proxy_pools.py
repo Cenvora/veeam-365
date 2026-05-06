@@ -1,26 +1,39 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.page_of_rest_proxy_pool import PageOfRESTProxyPool
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+
 
 
 def _get_kwargs(
     *,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     params["limit"] = limit
 
     params["offset"] = offset
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -28,25 +41,28 @@ def _get_kwargs(
         "params": params,
     }
 
+
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> PageOfRESTProxyPool | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTProxyPool | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTProxyPool.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[PageOfRESTProxyPool | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTProxyPool | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -60,8 +76,9 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+
 ) -> Response[PageOfRESTProxyPool | RESTExceptionInfo]:
-    """Get Backup Proxy Pools
+    """ Get Backup Proxy Pools
 
      Returns a collection of backup proxy pools.
 
@@ -75,11 +92,13 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTProxyPool | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         limit=limit,
-        offset=offset,
+offset=offset,
+
     )
 
     response = client.get_httpx_client().request(
@@ -88,14 +107,14 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     *,
     client: AuthenticatedClient | Client,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+
 ) -> PageOfRESTProxyPool | RESTExceptionInfo | None:
-    """Get Backup Proxy Pools
+    """ Get Backup Proxy Pools
 
      Returns a collection of backup proxy pools.
 
@@ -109,22 +128,24 @@ def sync(
 
     Returns:
         PageOfRESTProxyPool | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        limit=limit,
-        offset=offset,
-    ).parsed
+limit=limit,
+offset=offset,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+
 ) -> Response[PageOfRESTProxyPool | RESTExceptionInfo]:
-    """Get Backup Proxy Pools
+    """ Get Backup Proxy Pools
 
      Returns a collection of backup proxy pools.
 
@@ -138,25 +159,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTProxyPool | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         limit=limit,
-        offset=offset,
+offset=offset,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+
 ) -> PageOfRESTProxyPool | RESTExceptionInfo | None:
-    """Get Backup Proxy Pools
+    """ Get Backup Proxy Pools
 
      Returns a collection of backup proxy pools.
 
@@ -170,12 +195,12 @@ async def asyncio(
 
     Returns:
         PageOfRESTProxyPool | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            limit=limit,
-            offset=offset,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+limit=limit,
+offset=offset,
+
+    )).parsed

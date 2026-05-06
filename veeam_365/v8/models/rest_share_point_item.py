@@ -1,39 +1,46 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+import datetime
+
 if TYPE_CHECKING:
-    from ..models.rest_share_point_item_links import RESTSharePointItemLinks
+  from ..models.rest_share_point_item_links import RESTSharePointItemLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTSharePointItem")
 
 
+
 @_attrs_define
 class RESTSharePointItem:
-    """
-    Attributes:
-        id (str): ID of the SharePoint item.
-        name (str): Name of the SharePoint item.
-        created_by (str): User who created the item.
-        creation_time (datetime.datetime): Date and time when the item was created.
-        modified_by (str): User who performed the last modification to the item.
-        modification_time (datetime.datetime): Date and time when the item was modified.
-        site_id (str | Unset): ID of the SharePoint site.
-        title (str | Unset): Title of the backed-up SharePoint item.
-        version (str | Unset): Version of the SharePoint item.
-        version_id (int | None | Unset): ID of the SharePoint item version.
-        is_folder (bool | Unset): Defines whether the item is a folder.
-        field_links (RESTSharePointItemLinks | Unset):
-    """
+    """ 
+        Attributes:
+            id (str): ID of the SharePoint item.
+            name (str): Name of the SharePoint item.
+            created_by (str): User who created the item.
+            creation_time (datetime.datetime): Date and time when the item was created.
+            modified_by (str): User who performed the last modification to the item.
+            modification_time (datetime.datetime): Date and time when the item was modified.
+            site_id (str | Unset): ID of the SharePoint site.
+            title (str | Unset): Title of the backed-up SharePoint item.
+            version (str | Unset): Version of the SharePoint item.
+            version_id (int | None | Unset): ID of the SharePoint item version.
+            is_folder (bool | Unset): Defines whether the item is a folder.
+            field_links (RESTSharePointItemLinks | Unset):
+     """
 
     id: str
     name: str
@@ -49,7 +56,12 @@ class RESTSharePointItem:
     field_links: RESTSharePointItemLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_share_point_item_links import RESTSharePointItemLinks
         id = self.id
 
         name = self.name
@@ -80,18 +92,17 @@ class RESTSharePointItem:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "name": name,
-                "createdBy": created_by,
-                "creationTime": creation_time,
-                "modifiedBy": modified_by,
-                "modificationTime": modification_time,
-            }
-        )
+        field_dict.update({
+            "id": id,
+            "name": name,
+            "createdBy": created_by,
+            "creationTime": creation_time,
+            "modifiedBy": modified_by,
+            "modificationTime": modification_time,
+        })
         if site_id is not UNSET:
             field_dict["siteId"] = site_id
         if title is not UNSET:
@@ -107,10 +118,11 @@ class RESTSharePointItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_share_point_item_links import RESTSharePointItemLinks
-
         d = dict(src_dict)
         id = d.pop("id")
 
@@ -120,9 +132,15 @@ class RESTSharePointItem:
 
         creation_time = isoparse(d.pop("creationTime"))
 
+
+
+
         modified_by = d.pop("modifiedBy")
 
         modification_time = isoparse(d.pop("modificationTime"))
+
+
+
 
         site_id = d.pop("siteId", UNSET)
 
@@ -139,14 +157,18 @@ class RESTSharePointItem:
 
         version_id = _parse_version_id(d.pop("versionId", UNSET))
 
+
         is_folder = d.pop("isFolder", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTSharePointItemLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTSharePointItemLinks.from_dict(_field_links)
+
+
+
 
         rest_share_point_item = cls(
             id=id,
@@ -162,6 +184,7 @@ class RESTSharePointItem:
             is_folder=is_folder,
             field_links=field_links,
         )
+
 
         rest_share_point_item.additional_properties = d
         return rest_share_point_item

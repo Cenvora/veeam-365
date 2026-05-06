@@ -1,16 +1,21 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.one_drive_search_one_drive_by_options_item_type import OneDriveSearchOneDriveByOptionsItemType
 from ...models.page_of_rest_item_composed import PageOfRESTItemComposed
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.restvesp_search_options import RESTVESPSearchOptions
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -22,8 +27,12 @@ def _get_kwargs(
     limit: int | Unset = UNSET,
     set_id: UUID | Unset = UNSET,
     item_type: OneDriveSearchOneDriveByOptionsItemType | Unset = UNSET,
+
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+
+
+    
 
     params: dict[str, Any] = {}
 
@@ -42,18 +51,18 @@ def _get_kwargs(
 
     params["itemType"] = json_item_type
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v8/RestoreSessions/{restore_session_id}/Organization/OneDrives/{one_drive_id}/search".format(
-            restore_session_id=quote(str(restore_session_id), safe=""),
-            one_drive_id=quote(str(one_drive_id), safe=""),
-        ),
+        "url": "/v8/RestoreSessions/{restore_session_id}/Organization/OneDrives/{one_drive_id}/search".format(restore_session_id=quote(str(restore_session_id), safe=""),one_drive_id=quote(str(one_drive_id), safe=""),),
         "params": params,
     }
 
     _kwargs["json"] = body.to_dict()
+
 
     headers["Content-Type"] = "application/json"
 
@@ -61,22 +70,24 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> PageOfRESTItemComposed | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTItemComposed | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTItemComposed.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[PageOfRESTItemComposed | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTItemComposed | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -95,8 +106,9 @@ def sync_detailed(
     limit: int | Unset = UNSET,
     set_id: UUID | Unset = UNSET,
     item_type: OneDriveSearchOneDriveByOptionsItemType | Unset = UNSET,
+
 ) -> Response[PageOfRESTItemComposed | RESTExceptionInfo]:
-    """Search for OneDrive Items in OneDrive
+    """ Search for OneDrive Items in OneDrive
 
      Searches for OneDrive items in backed-up OneDrive with the specified ID.
 
@@ -115,16 +127,18 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTItemComposed | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        one_drive_id=one_drive_id,
-        body=body,
-        offset=offset,
-        limit=limit,
-        set_id=set_id,
-        item_type=item_type,
+one_drive_id=one_drive_id,
+body=body,
+offset=offset,
+limit=limit,
+set_id=set_id,
+item_type=item_type,
+
     )
 
     response = client.get_httpx_client().request(
@@ -132,7 +146,6 @@ def sync_detailed(
     )
 
     return _build_response(client=client, response=response)
-
 
 def sync(
     restore_session_id: UUID,
@@ -144,8 +157,9 @@ def sync(
     limit: int | Unset = UNSET,
     set_id: UUID | Unset = UNSET,
     item_type: OneDriveSearchOneDriveByOptionsItemType | Unset = UNSET,
+
 ) -> PageOfRESTItemComposed | RESTExceptionInfo | None:
-    """Search for OneDrive Items in OneDrive
+    """ Search for OneDrive Items in OneDrive
 
      Searches for OneDrive items in backed-up OneDrive with the specified ID.
 
@@ -164,19 +178,20 @@ def sync(
 
     Returns:
         PageOfRESTItemComposed | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         restore_session_id=restore_session_id,
-        one_drive_id=one_drive_id,
-        client=client,
-        body=body,
-        offset=offset,
-        limit=limit,
-        set_id=set_id,
-        item_type=item_type,
-    ).parsed
+one_drive_id=one_drive_id,
+client=client,
+body=body,
+offset=offset,
+limit=limit,
+set_id=set_id,
+item_type=item_type,
 
+    ).parsed
 
 async def asyncio_detailed(
     restore_session_id: UUID,
@@ -188,8 +203,9 @@ async def asyncio_detailed(
     limit: int | Unset = UNSET,
     set_id: UUID | Unset = UNSET,
     item_type: OneDriveSearchOneDriveByOptionsItemType | Unset = UNSET,
+
 ) -> Response[PageOfRESTItemComposed | RESTExceptionInfo]:
-    """Search for OneDrive Items in OneDrive
+    """ Search for OneDrive Items in OneDrive
 
      Searches for OneDrive items in backed-up OneDrive with the specified ID.
 
@@ -208,22 +224,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTItemComposed | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        one_drive_id=one_drive_id,
-        body=body,
-        offset=offset,
-        limit=limit,
-        set_id=set_id,
-        item_type=item_type,
+one_drive_id=one_drive_id,
+body=body,
+offset=offset,
+limit=limit,
+set_id=set_id,
+item_type=item_type,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     restore_session_id: UUID,
@@ -235,8 +254,9 @@ async def asyncio(
     limit: int | Unset = UNSET,
     set_id: UUID | Unset = UNSET,
     item_type: OneDriveSearchOneDriveByOptionsItemType | Unset = UNSET,
+
 ) -> PageOfRESTItemComposed | RESTExceptionInfo | None:
-    """Search for OneDrive Items in OneDrive
+    """ Search for OneDrive Items in OneDrive
 
      Searches for OneDrive items in backed-up OneDrive with the specified ID.
 
@@ -255,17 +275,17 @@ async def asyncio(
 
     Returns:
         PageOfRESTItemComposed | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            restore_session_id=restore_session_id,
-            one_drive_id=one_drive_id,
-            client=client,
-            body=body,
-            offset=offset,
-            limit=limit,
-            set_id=set_id,
-            item_type=item_type,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        restore_session_id=restore_session_id,
+one_drive_id=one_drive_id,
+client=client,
+body=body,
+offset=offset,
+limit=limit,
+set_id=set_id,
+item_type=item_type,
+
+    )).parsed

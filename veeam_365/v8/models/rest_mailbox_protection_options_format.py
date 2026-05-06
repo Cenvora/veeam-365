@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTMailboxProtectionOptionsFormat(str, Enum):
     CSV = "CSV"
     PDF = "PDF"

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTRbacUserType(str, Enum):
     PUBLICMAILBOX = "PublicMailbox"
     SHAREDMAILBOX = "SharedMailbox"

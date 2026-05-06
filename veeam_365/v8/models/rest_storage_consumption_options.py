@@ -1,35 +1,48 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_storage_consumption_options_format import RESTStorageConsumptionOptionsFormat
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+import datetime
+
+
+
+
+
 
 T = TypeVar("T", bound="RESTStorageConsumptionOptions")
 
 
+
 @_attrs_define
 class RESTStorageConsumptionOptions:
-    """
-    Attributes:
-        start_time (datetime.datetime | None | Unset): Specifies date and time when the reporting interval starts.
-        end_time (datetime.datetime | None | Unset): Specifies date and time when the reporting interval ends.
-        format_ (RESTStorageConsumptionOptionsFormat | Unset): Specifies the format in which to save a report.
-        timezone (str | Unset): Specifies a time zone for the reporting interval. If you do not specify this property,
-            the server will generate a report for the UTC time zone.
-    """
+    """ 
+        Attributes:
+            start_time (datetime.datetime | None | Unset): Specifies date and time when the reporting interval starts.
+            end_time (datetime.datetime | None | Unset): Specifies date and time when the reporting interval ends.
+            format_ (RESTStorageConsumptionOptionsFormat | Unset): Specifies the format in which to save a report.
+            timezone (str | Unset): Specifies a time zone for the reporting interval. If you do not specify this property,
+                the server will generate a report for the UTC time zone.
+     """
 
     start_time: datetime.datetime | None | Unset = UNSET
     end_time: datetime.datetime | None | Unset = UNSET
     format_: RESTStorageConsumptionOptionsFormat | Unset = UNSET
     timezone: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         start_time: None | str | Unset
@@ -52,11 +65,14 @@ class RESTStorageConsumptionOptions:
         if not isinstance(self.format_, Unset):
             format_ = self.format_.value
 
+
         timezone = self.timezone
+
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if start_time is not UNSET:
             field_dict["startTime"] = start_time
         if end_time is not UNSET:
@@ -68,10 +84,11 @@ class RESTStorageConsumptionOptions:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-
         def _parse_start_time(data: object) -> datetime.datetime | None | Unset:
             if data is None:
                 return data
@@ -82,12 +99,15 @@ class RESTStorageConsumptionOptions:
                     raise TypeError()
                 start_time_type_0 = isoparse(data)
 
+
+
                 return start_time_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         start_time = _parse_start_time(d.pop("startTime", UNSET))
+
 
         def _parse_end_time(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -99,6 +119,8 @@ class RESTStorageConsumptionOptions:
                     raise TypeError()
                 end_time_type_0 = isoparse(data)
 
+
+
                 return end_time_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -106,12 +128,16 @@ class RESTStorageConsumptionOptions:
 
         end_time = _parse_end_time(d.pop("endTime", UNSET))
 
+
         _format_ = d.pop("format", UNSET)
         format_: RESTStorageConsumptionOptionsFormat | Unset
-        if isinstance(_format_, Unset):
+        if isinstance(_format_,  Unset):
             format_ = UNSET
         else:
             format_ = RESTStorageConsumptionOptionsFormat(_format_)
+
+
+
 
         timezone = d.pop("timezone", UNSET)
 
@@ -121,6 +147,7 @@ class RESTStorageConsumptionOptions:
             format_=format_,
             timezone=timezone,
         )
+
 
         rest_storage_consumption_options.additional_properties = d
         return rest_storage_consumption_options

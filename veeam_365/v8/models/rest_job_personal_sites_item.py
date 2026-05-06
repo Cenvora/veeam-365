@@ -1,41 +1,52 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_job_backup_item_type import RESTJobBackupItemType
 from ..types import UNSET, Unset
 
+from ..models.rest_job_backup_item_type import RESTJobBackupItemType
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_job_personal_sites_item_links_type_0 import RESTJobPersonalSitesItemLinksType0
+  from ..models.rest_job_personal_sites_item_links_type_0 import RESTJobPersonalSitesItemLinksType0
+
+
+
 
 
 T = TypeVar("T", bound="RESTJobPersonalSitesItem")
 
 
+
 @_attrs_define
 class RESTJobPersonalSitesItem:
-    """
-    Attributes:
-        type_ (RESTJobBackupItemType | Unset): Type of the backup item.
-        id (None | str | Unset): Backup item ID.
-        field_links (None | RESTJobPersonalSitesItemLinksType0 | Unset):
-    """
+    """ 
+        Attributes:
+            type_ (RESTJobBackupItemType | Unset): Type of the backup item.
+            id (None | str | Unset): Backup item ID.
+            field_links (None | RESTJobPersonalSitesItemLinksType0 | Unset):
+     """
 
     type_: RESTJobBackupItemType | Unset = UNSET
     id: None | str | Unset = UNSET
     field_links: None | RESTJobPersonalSitesItemLinksType0 | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
         from ..models.rest_job_personal_sites_item_links_type_0 import RESTJobPersonalSitesItemLinksType0
-
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
+
 
         id: None | str | Unset
         if isinstance(self.id, Unset):
@@ -51,9 +62,11 @@ class RESTJobPersonalSitesItem:
         else:
             field_links = self.field_links
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if type_ is not UNSET:
             field_dict["type"] = type_
         if id is not UNSET:
@@ -63,17 +76,21 @@ class RESTJobPersonalSitesItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_job_personal_sites_item_links_type_0 import RESTJobPersonalSitesItemLinksType0
-
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
         type_: RESTJobBackupItemType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTJobBackupItemType(_type_)
+
+
+
 
         def _parse_id(data: object) -> None | str | Unset:
             if data is None:
@@ -83,6 +100,7 @@ class RESTJobPersonalSitesItem:
             return cast(None | str | Unset, data)
 
         id = _parse_id(d.pop("id", UNSET))
+
 
         def _parse_field_links(data: object) -> None | RESTJobPersonalSitesItemLinksType0 | Unset:
             if data is None:
@@ -94,6 +112,8 @@ class RESTJobPersonalSitesItem:
                     raise TypeError()
                 field_links_type_0 = RESTJobPersonalSitesItemLinksType0.from_dict(data)
 
+
+
                 return field_links_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -101,11 +121,13 @@ class RESTJobPersonalSitesItem:
 
         field_links = _parse_field_links(d.pop("_links", UNSET))
 
+
         rest_job_personal_sites_item = cls(
             type_=type_,
             id=id,
             field_links=field_links,
         )
+
 
         rest_job_personal_sites_item.additional_properties = d
         return rest_job_personal_sites_item

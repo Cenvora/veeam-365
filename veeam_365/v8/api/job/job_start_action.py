@@ -1,32 +1,41 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_job_session import RESTJobSession
 from ...models.rest_start_job_options import RESTStartJobOptions
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
     job_id: UUID,
     *,
     body: RESTStartJobOptions,
+
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v8/Jobs/{job_id}/start".format(
-            job_id=quote(str(job_id), safe=""),
-        ),
+        "url": "/v8/Jobs/{job_id}/start".format(job_id=quote(str(job_id), safe=""),),
     }
 
     _kwargs["json"] = body.to_dict()
+
 
     headers["Content-Type"] = "application/json"
 
@@ -34,22 +43,24 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTExceptionInfo | RESTJobSession:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | RESTJobSession:
     if response.status_code == 200:
         response_200 = RESTJobSession.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTExceptionInfo | RESTJobSession]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | RESTJobSession]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -63,8 +74,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTStartJobOptions,
+
 ) -> Response[RESTExceptionInfo | RESTJobSession]:
-    """Start Backup Job
+    """ Start Backup Job
 
      Starts a backup job with the specified ID.
 
@@ -78,11 +90,13 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTJobSession]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         job_id=job_id,
-        body=body,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -91,14 +105,14 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     job_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTStartJobOptions,
+
 ) -> RESTExceptionInfo | RESTJobSession | None:
-    """Start Backup Job
+    """ Start Backup Job
 
      Starts a backup job with the specified ID.
 
@@ -112,22 +126,24 @@ def sync(
 
     Returns:
         RESTExceptionInfo | RESTJobSession
-    """
+     """
+
 
     return sync_detailed(
         job_id=job_id,
-        client=client,
-        body=body,
-    ).parsed
+client=client,
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     job_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTStartJobOptions,
+
 ) -> Response[RESTExceptionInfo | RESTJobSession]:
-    """Start Backup Job
+    """ Start Backup Job
 
      Starts a backup job with the specified ID.
 
@@ -141,25 +157,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTJobSession]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         job_id=job_id,
-        body=body,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     job_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTStartJobOptions,
+
 ) -> RESTExceptionInfo | RESTJobSession | None:
-    """Start Backup Job
+    """ Start Backup Job
 
      Starts a backup job with the specified ID.
 
@@ -173,12 +193,12 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | RESTJobSession
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            job_id=job_id,
-            client=client,
-            body=body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        job_id=job_id,
+client=client,
+body=body,
+
+    )).parsed

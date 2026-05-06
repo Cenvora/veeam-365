@@ -1,13 +1,19 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.page_of_rest_restore_session import PageOfRESTRestoreSession
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.restore_session_get_page_order_by import RestoreSessionGetPageOrderBy
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+
 
 
 def _get_kwargs(
@@ -20,7 +26,12 @@ def _get_kwargs(
     end_time_to: str | Unset = UNSET,
     order_asc: bool | Unset = UNSET,
     order_by: RestoreSessionGetPageOrderBy | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     params["limit"] = limit
@@ -43,7 +54,9 @@ def _get_kwargs(
 
     params["orderBy"] = json_order_by
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -51,25 +64,28 @@ def _get_kwargs(
         "params": params,
     }
 
+
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> PageOfRESTRestoreSession | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTRestoreSession | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTRestoreSession.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[PageOfRESTRestoreSession | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTRestoreSession | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -89,8 +105,9 @@ def sync_detailed(
     end_time_to: str | Unset = UNSET,
     order_asc: bool | Unset = UNSET,
     order_by: RestoreSessionGetPageOrderBy | Unset = UNSET,
+
 ) -> Response[PageOfRESTRestoreSession | RESTExceptionInfo]:
-    """Get Restore Sessions
+    """ Get Restore Sessions
 
      Returns a collection of restore sessions.
 
@@ -110,17 +127,19 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTRestoreSession | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         limit=limit,
-        offset=offset,
-        start_time_from=start_time_from,
-        start_time_to=start_time_to,
-        end_time_from=end_time_from,
-        end_time_to=end_time_to,
-        order_asc=order_asc,
-        order_by=order_by,
+offset=offset,
+start_time_from=start_time_from,
+start_time_to=start_time_to,
+end_time_from=end_time_from,
+end_time_to=end_time_to,
+order_asc=order_asc,
+order_by=order_by,
+
     )
 
     response = client.get_httpx_client().request(
@@ -128,7 +147,6 @@ def sync_detailed(
     )
 
     return _build_response(client=client, response=response)
-
 
 def sync(
     *,
@@ -141,8 +159,9 @@ def sync(
     end_time_to: str | Unset = UNSET,
     order_asc: bool | Unset = UNSET,
     order_by: RestoreSessionGetPageOrderBy | Unset = UNSET,
+
 ) -> PageOfRESTRestoreSession | RESTExceptionInfo | None:
-    """Get Restore Sessions
+    """ Get Restore Sessions
 
      Returns a collection of restore sessions.
 
@@ -162,20 +181,21 @@ def sync(
 
     Returns:
         PageOfRESTRestoreSession | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        limit=limit,
-        offset=offset,
-        start_time_from=start_time_from,
-        start_time_to=start_time_to,
-        end_time_from=end_time_from,
-        end_time_to=end_time_to,
-        order_asc=order_asc,
-        order_by=order_by,
-    ).parsed
+limit=limit,
+offset=offset,
+start_time_from=start_time_from,
+start_time_to=start_time_to,
+end_time_from=end_time_from,
+end_time_to=end_time_to,
+order_asc=order_asc,
+order_by=order_by,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
@@ -188,8 +208,9 @@ async def asyncio_detailed(
     end_time_to: str | Unset = UNSET,
     order_asc: bool | Unset = UNSET,
     order_by: RestoreSessionGetPageOrderBy | Unset = UNSET,
+
 ) -> Response[PageOfRESTRestoreSession | RESTExceptionInfo]:
-    """Get Restore Sessions
+    """ Get Restore Sessions
 
      Returns a collection of restore sessions.
 
@@ -209,23 +230,26 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTRestoreSession | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         limit=limit,
-        offset=offset,
-        start_time_from=start_time_from,
-        start_time_to=start_time_to,
-        end_time_from=end_time_from,
-        end_time_to=end_time_to,
-        order_asc=order_asc,
-        order_by=order_by,
+offset=offset,
+start_time_from=start_time_from,
+start_time_to=start_time_to,
+end_time_from=end_time_from,
+end_time_to=end_time_to,
+order_asc=order_asc,
+order_by=order_by,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
@@ -238,8 +262,9 @@ async def asyncio(
     end_time_to: str | Unset = UNSET,
     order_asc: bool | Unset = UNSET,
     order_by: RestoreSessionGetPageOrderBy | Unset = UNSET,
+
 ) -> PageOfRESTRestoreSession | RESTExceptionInfo | None:
-    """Get Restore Sessions
+    """ Get Restore Sessions
 
      Returns a collection of restore sessions.
 
@@ -259,18 +284,18 @@ async def asyncio(
 
     Returns:
         PageOfRESTRestoreSession | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            limit=limit,
-            offset=offset,
-            start_time_from=start_time_from,
-            start_time_to=start_time_to,
-            end_time_from=end_time_from,
-            end_time_to=end_time_to,
-            order_asc=order_asc,
-            order_by=order_by,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+limit=limit,
+offset=offset,
+start_time_from=start_time_from,
+start_time_to=start_time_to,
+end_time_from=end_time_from,
+end_time_to=end_time_to,
+order_asc=order_asc,
+order_by=order_by,
+
+    )).parsed

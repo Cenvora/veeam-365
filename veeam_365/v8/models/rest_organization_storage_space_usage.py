@@ -1,35 +1,42 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_organization_storage_space_usage_links import RESTOrganizationStorageSpaceUsageLinks
+  from ..models.rest_organization_storage_space_usage_links import RESTOrganizationStorageSpaceUsageLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTOrganizationStorageSpaceUsage")
 
 
+
 @_attrs_define
 class RESTOrganizationStorageSpaceUsage:
-    """
-    Attributes:
-        repository_id (UUID | Unset): Backup repository ID. Example: 00000000-0000-0000-0000-000000000000.
-        used_space_bytes (int | None | Unset): Occupied space in *Bytes*.
-        local_cache_used_space_bytes (int | None | Unset): Space occupied by cache for object storage repository in
-            *Bytes*.
-        object_storage_used_space_bytes (int | None | Unset): Occupied space in object storage repository in *Bytes*.
-        is_available (bool | Unset): Defines whether the backup repository is available for backup and restore.
-        details (str | Unset): Details about the backup repository.
-        protected_objects_count (int | None | Unset): Number of protected objects in object storage repository.
-        field_links (RESTOrganizationStorageSpaceUsageLinks | Unset):
-    """
+    """ 
+        Attributes:
+            repository_id (UUID | Unset): Backup repository ID. Example: 00000000-0000-0000-0000-000000000000.
+            used_space_bytes (int | None | Unset): Occupied space in *Bytes*.
+            local_cache_used_space_bytes (int | None | Unset): Space occupied by cache for object storage repository in
+                *Bytes*.
+            object_storage_used_space_bytes (int | None | Unset): Occupied space in object storage repository in *Bytes*.
+            is_available (bool | Unset): Defines whether the backup repository is available for backup and restore.
+            details (str | Unset): Details about the backup repository.
+            protected_objects_count (int | None | Unset): Number of protected objects in object storage repository.
+            field_links (RESTOrganizationStorageSpaceUsageLinks | Unset):
+     """
 
     repository_id: UUID | Unset = UNSET
     used_space_bytes: int | None | Unset = UNSET
@@ -41,7 +48,12 @@ class RESTOrganizationStorageSpaceUsage:
     field_links: RESTOrganizationStorageSpaceUsageLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_organization_storage_space_usage_links import RESTOrganizationStorageSpaceUsageLinks
         repository_id: str | Unset = UNSET
         if not isinstance(self.repository_id, Unset):
             repository_id = str(self.repository_id)
@@ -78,9 +90,11 @@ class RESTOrganizationStorageSpaceUsage:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if repository_id is not UNSET:
             field_dict["repositoryId"] = repository_id
         if used_space_bytes is not UNSET:
@@ -100,17 +114,21 @@ class RESTOrganizationStorageSpaceUsage:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_organization_storage_space_usage_links import RESTOrganizationStorageSpaceUsageLinks
-
         d = dict(src_dict)
         _repository_id = d.pop("repositoryId", UNSET)
         repository_id: UUID | Unset
-        if isinstance(_repository_id, Unset):
+        if isinstance(_repository_id,  Unset):
             repository_id = UNSET
         else:
             repository_id = UUID(_repository_id)
+
+
+
 
         def _parse_used_space_bytes(data: object) -> int | None | Unset:
             if data is None:
@@ -121,6 +139,7 @@ class RESTOrganizationStorageSpaceUsage:
 
         used_space_bytes = _parse_used_space_bytes(d.pop("usedSpaceBytes", UNSET))
 
+
         def _parse_local_cache_used_space_bytes(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -130,6 +149,7 @@ class RESTOrganizationStorageSpaceUsage:
 
         local_cache_used_space_bytes = _parse_local_cache_used_space_bytes(d.pop("localCacheUsedSpaceBytes", UNSET))
 
+
         def _parse_object_storage_used_space_bytes(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -137,9 +157,8 @@ class RESTOrganizationStorageSpaceUsage:
                 return data
             return cast(int | None | Unset, data)
 
-        object_storage_used_space_bytes = _parse_object_storage_used_space_bytes(
-            d.pop("objectStorageUsedSpaceBytes", UNSET)
-        )
+        object_storage_used_space_bytes = _parse_object_storage_used_space_bytes(d.pop("objectStorageUsedSpaceBytes", UNSET))
+
 
         is_available = d.pop("isAvailable", UNSET)
 
@@ -154,12 +173,16 @@ class RESTOrganizationStorageSpaceUsage:
 
         protected_objects_count = _parse_protected_objects_count(d.pop("protectedObjectsCount", UNSET))
 
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTOrganizationStorageSpaceUsageLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTOrganizationStorageSpaceUsageLinks.from_dict(_field_links)
+
+
+
 
         rest_organization_storage_space_usage = cls(
             repository_id=repository_id,
@@ -171,6 +194,7 @@ class RESTOrganizationStorageSpaceUsage:
             protected_objects_count=protected_objects_count,
             field_links=field_links,
         )
+
 
         rest_organization_storage_space_usage.additional_properties = d
         return rest_organization_storage_space_usage

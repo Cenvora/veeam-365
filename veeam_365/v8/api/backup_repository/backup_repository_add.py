@@ -1,20 +1,31 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_backup_repository import RESTBackupRepository
 from ...models.rest_backup_repository_from_client import RESTBackupRepositoryFromClient
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import Response
+from typing import cast
+
 
 
 def _get_kwargs(
     *,
     body: RESTBackupRepositoryFromClient,
+
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
+
+
+    
+
+    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -23,28 +34,31 @@ def _get_kwargs(
 
     _kwargs["json"] = body.to_dict()
 
+
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTBackupRepository | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTBackupRepository | RESTExceptionInfo:
     if response.status_code == 201:
         response_201 = RESTBackupRepository.from_dict(response.json())
+
+
 
         return response_201
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTBackupRepository | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTBackupRepository | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -57,8 +71,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTBackupRepositoryFromClient,
+
 ) -> Response[RESTBackupRepository | RESTExceptionInfo]:
-    """Add Backup Repository
+    """ Add Backup Repository
 
      Adds a backup repository to the Veeam Backup for Microsoft 365 infrastructure.
 
@@ -71,10 +86,12 @@ def sync_detailed(
 
     Returns:
         Response[RESTBackupRepository | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -83,13 +100,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     *,
     client: AuthenticatedClient | Client,
     body: RESTBackupRepositoryFromClient,
+
 ) -> RESTBackupRepository | RESTExceptionInfo | None:
-    """Add Backup Repository
+    """ Add Backup Repository
 
      Adds a backup repository to the Veeam Backup for Microsoft 365 infrastructure.
 
@@ -102,20 +119,22 @@ def sync(
 
     Returns:
         RESTBackupRepository | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        body=body,
-    ).parsed
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTBackupRepositoryFromClient,
+
 ) -> Response[RESTBackupRepository | RESTExceptionInfo]:
-    """Add Backup Repository
+    """ Add Backup Repository
 
      Adds a backup repository to the Veeam Backup for Microsoft 365 infrastructure.
 
@@ -128,23 +147,27 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTBackupRepository | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: RESTBackupRepositoryFromClient,
+
 ) -> RESTBackupRepository | RESTExceptionInfo | None:
-    """Add Backup Repository
+    """ Add Backup Repository
 
      Adds a backup repository to the Veeam Backup for Microsoft 365 infrastructure.
 
@@ -157,11 +180,11 @@ async def asyncio(
 
     Returns:
         RESTBackupRepository | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            body=body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+body=body,
+
+    )).parsed

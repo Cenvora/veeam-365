@@ -1,34 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_account_to_send_account_type import RESTAccountToSendAccountType
 from ..types import UNSET, Unset
 
+from ..models.rest_account_to_send_account_type import RESTAccountToSendAccountType
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTAccountToSend")
 
 
+
 @_attrs_define
 class RESTAccountToSend:
-    """
-    Attributes:
-        account_type (RESTAccountToSendAccountType | Unset): Specifies a cloud account type.
-        user_name (str | Unset): Specifies a cloud account user name. Must contain only lowercase characters.
-        password (str | Unset): Specifies a password.
-        id (None | Unset | UUID): Specifies a cloud account ID. Example: 00000000-0000-0000-0000-000000000000.
-        description (str | Unset): Specifies a cloud account description.
-        organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            account_type (RESTAccountToSendAccountType | Unset): Specifies a cloud account type.
+            user_name (str | Unset): Specifies a cloud account user name. Must contain only lowercase characters.
+            password (str | Unset): Specifies a password.
+            id (None | Unset | UUID): Specifies a cloud account ID. Example: 00000000-0000-0000-0000-000000000000.
+            description (str | Unset): Specifies a cloud account description.
+            organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     account_type: RESTAccountToSendAccountType | Unset = UNSET
     user_name: str | Unset = UNSET
@@ -39,10 +46,16 @@ class RESTAccountToSend:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         account_type: str | Unset = UNSET
         if not isinstance(self.account_type, Unset):
             account_type = self.account_type.value
+
 
         user_name = self.user_name
 
@@ -70,9 +83,11 @@ class RESTAccountToSend:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if account_type is not UNSET:
             field_dict["accountType"] = account_type
         if user_name is not UNSET:
@@ -90,17 +105,21 @@ class RESTAccountToSend:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         _account_type = d.pop("accountType", UNSET)
         account_type: RESTAccountToSendAccountType | Unset
-        if isinstance(_account_type, Unset):
+        if isinstance(_account_type,  Unset):
             account_type = UNSET
         else:
             account_type = RESTAccountToSendAccountType(_account_type)
+
+
+
 
         user_name = d.pop("userName", UNSET)
 
@@ -116,12 +135,15 @@ class RESTAccountToSend:
                     raise TypeError()
                 id_type_0 = UUID(data)
 
+
+
                 return id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         id = _parse_id(d.pop("id", UNSET))
+
 
         description = d.pop("description", UNSET)
 
@@ -135,6 +157,8 @@ class RESTAccountToSend:
                     raise TypeError()
                 organization_id_type_0 = UUID(data)
 
+
+
                 return organization_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -142,12 +166,16 @@ class RESTAccountToSend:
 
         organization_id = _parse_organization_id(d.pop("organizationId", UNSET))
 
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_account_to_send = cls(
             account_type=account_type,
@@ -158,6 +186,7 @@ class RESTAccountToSend:
             organization_id=organization_id,
             field_links=field_links,
         )
+
 
         rest_account_to_send.additional_properties = d
         return rest_account_to_send

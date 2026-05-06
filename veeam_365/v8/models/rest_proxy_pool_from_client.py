@@ -1,35 +1,48 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_proxy_id_from_client import RESTProxyIdFromClient
+  from ..models.rest_proxy_id_from_client import RESTProxyIdFromClient
+
+
+
 
 
 T = TypeVar("T", bound="RESTProxyPoolFromClient")
 
 
+
 @_attrs_define
 class RESTProxyPoolFromClient:
-    """
-    Attributes:
-        name (str): Specifies the backup proxy pool name.
-        description (str): Specifies the backup proxy pool description.
-        proxy_ids (list[RESTProxyIdFromClient]): Specifies IDs of the backup proxy servers to add to the new backup
-            proxy pool. For more information on how to get such IDs, see [Get Backup Proxy
-            Servers](Proxy#operation/Proxy_GetProxies).
-    """
+    """ 
+        Attributes:
+            name (str): Specifies the backup proxy pool name.
+            description (str): Specifies the backup proxy pool description.
+            proxy_ids (list[RESTProxyIdFromClient]): Specifies IDs of the backup proxy servers to add to the new backup
+                proxy pool. For more information on how to get such IDs, see [Get Backup Proxy
+                Servers](#/Proxy/Proxy_GetProxies).
+     """
 
     name: str
     description: str
     proxy_ids: list[RESTProxyIdFromClient]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_proxy_id_from_client import RESTProxyIdFromClient
         name = self.name
 
         description = self.description
@@ -39,22 +52,24 @@ class RESTProxyPoolFromClient:
             proxy_ids_item = proxy_ids_item_data.to_dict()
             proxy_ids.append(proxy_ids_item)
 
+
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "name": name,
-                "description": description,
-                "proxyIds": proxy_ids,
-            }
-        )
+        field_dict.update({
+            "name": name,
+            "description": description,
+            "proxyIds": proxy_ids,
+        })
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_proxy_id_from_client import RESTProxyIdFromClient
-
         d = dict(src_dict)
         name = d.pop("name")
 
@@ -62,16 +77,20 @@ class RESTProxyPoolFromClient:
 
         proxy_ids = []
         _proxy_ids = d.pop("proxyIds")
-        for proxy_ids_item_data in _proxy_ids:
+        for proxy_ids_item_data in (_proxy_ids):
             proxy_ids_item = RESTProxyIdFromClient.from_dict(proxy_ids_item_data)
 
+
+
             proxy_ids.append(proxy_ids_item)
+
 
         rest_proxy_pool_from_client = cls(
             name=name,
             description=description,
             proxy_ids=proxy_ids,
         )
+
 
         rest_proxy_pool_from_client.additional_properties = d
         return rest_proxy_pool_from_client

@@ -1,39 +1,46 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_licensed_user_license_state import RESTLicensedUserLicenseState
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTLicensedUser")
 
 
+
 @_attrs_define
 class RESTLicensedUser:
-    """
-    Attributes:
-        id (str | Unset): ID of the licensed user.
-        name (str | Unset): Name of the licensed user.
-        is_backed_up (bool | Unset): Defines whether the user was processed by a backup job.
-        last_backup_date (datetime.datetime | Unset): Date and time when the user was processed by a backup job for the
-            last time.
-        license_state (RESTLicensedUserLicenseState | Unset): Current status of the licensed user.
-        organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
-        backed_up_organization_id (str | Unset): ID of the backed-up organization in the backup.
-        organization_name (str | Unset): Name of the backed-up organization.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            id (str | Unset): ID of the licensed user.
+            name (str | Unset): Name of the licensed user.
+            is_backed_up (bool | Unset): Defines whether the user was processed by a backup job.
+            last_backup_date (datetime.datetime | Unset): Date and time when the user was processed by a backup job for the
+                last time.
+            license_state (RESTLicensedUserLicenseState | Unset): Current status of the licensed user.
+            organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
+            backed_up_organization_id (str | Unset): ID of the backed-up organization in the backup.
+            organization_name (str | Unset): Name of the backed-up organization.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     id: str | Unset = UNSET
     name: str | Unset = UNSET
@@ -46,7 +53,12 @@ class RESTLicensedUser:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         id = self.id
 
         name = self.name
@@ -60,6 +72,7 @@ class RESTLicensedUser:
         license_state: str | Unset = UNSET
         if not isinstance(self.license_state, Unset):
             license_state = self.license_state.value
+
 
         organization_id: None | str | Unset
         if isinstance(self.organization_id, Unset):
@@ -77,9 +90,11 @@ class RESTLicensedUser:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if name is not UNSET:
@@ -101,10 +116,11 @@ class RESTLicensedUser:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         id = d.pop("id", UNSET)
 
@@ -114,17 +130,23 @@ class RESTLicensedUser:
 
         _last_backup_date = d.pop("lastBackupDate", UNSET)
         last_backup_date: datetime.datetime | Unset
-        if isinstance(_last_backup_date, Unset):
+        if isinstance(_last_backup_date,  Unset):
             last_backup_date = UNSET
         else:
             last_backup_date = isoparse(_last_backup_date)
 
+
+
+
         _license_state = d.pop("licenseState", UNSET)
         license_state: RESTLicensedUserLicenseState | Unset
-        if isinstance(_license_state, Unset):
+        if isinstance(_license_state,  Unset):
             license_state = UNSET
         else:
             license_state = RESTLicensedUserLicenseState(_license_state)
+
+
+
 
         def _parse_organization_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -136,6 +158,8 @@ class RESTLicensedUser:
                     raise TypeError()
                 organization_id_type_0 = UUID(data)
 
+
+
                 return organization_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -143,16 +167,20 @@ class RESTLicensedUser:
 
         organization_id = _parse_organization_id(d.pop("organizationId", UNSET))
 
+
         backed_up_organization_id = d.pop("backedUpOrganizationId", UNSET)
 
         organization_name = d.pop("organizationName", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_licensed_user = cls(
             id=id,
@@ -165,6 +193,7 @@ class RESTLicensedUser:
             organization_name=organization_name,
             field_links=field_links,
         )
+
 
         rest_licensed_user.additional_properties = d
         return rest_licensed_user

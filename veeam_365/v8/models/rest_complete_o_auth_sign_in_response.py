@@ -1,43 +1,59 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTCompleteOAuthSignInResponse")
+
 
 
 @_attrs_define
 class RESTCompleteOAuthSignInResponse:
-    """
-    Attributes:
-        request_id (str | Unset): Authentication request ID.
-        user_id (str | Unset): Authenticated user account ID. Veeam Backup for Microsoft 365 and Veeam Explorers will
-            send emails on behalf of this user.
-    """
+    """ 
+        Attributes:
+            request_id (str | Unset): Authentication request ID.
+            user_id (str | Unset): Authenticated user account ID. Veeam Backup for Microsoft 365 and Veeam Explorers will
+                send emails on behalf of this user.
+     """
 
     request_id: str | Unset = UNSET
     user_id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         request_id = self.request_id
 
         user_id = self.user_id
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if request_id is not UNSET:
             field_dict["requestId"] = request_id
         if user_id is not UNSET:
             field_dict["userId"] = user_id
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -50,6 +66,7 @@ class RESTCompleteOAuthSignInResponse:
             request_id=request_id,
             user_id=user_id,
         )
+
 
         rest_complete_o_auth_sign_in_response.additional_properties = d
         return rest_complete_o_auth_sign_in_response

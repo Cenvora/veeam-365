@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTBackupRepositoryOwnerChangeSessionStatus(str, Enum):
     FAILED = "Failed"
     RUNNING = "Running"

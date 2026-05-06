@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTJobSessionObjectType(str, Enum):
     GROUP = "Group"
     SITE = "Site"

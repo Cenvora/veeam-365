@@ -1,46 +1,53 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.rest_restore_to_original_documents_document_action import RESTRestoreToOriginalDocumentsDocumentAction
 from ..models.rest_restore_to_original_documents_office_region import RESTRestoreToOriginalDocumentsOfficeRegion
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
 
 if TYPE_CHECKING:
-    from ..models.rest_one_drive_document import RESTOneDriveDocument
+  from ..models.rest_one_drive_document import RESTOneDriveDocument
+
+
+
 
 
 T = TypeVar("T", bound="RESTRestoreToOriginalDocuments")
 
 
+
 @_attrs_define
 class RESTRestoreToOriginalDocuments:
-    """
-    Attributes:
-        documents (list[RESTOneDriveDocument] | Unset): Specifies IDs of the OneDrive documents that you want to
-            restore. For more information on how to get such IDs, see [Get OneDrive
-            Documents](OneDriveDocument#operation/OneDriveDocument_Get).
-        document_action (RESTRestoreToOriginalDocumentsDocumentAction | Unset): Specifies the action that will be
-            performed in case the restore destination contains the restored documents.
-        user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
-            see [Get Device Code](RestoreSession#operation/RestoreSession_DeviceCodeAction).
-            This property is required if you want to use a device code for data restore.
-        application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
-            for restore. Example: 00000000-0000-0000-0000-000000000000.
-        application_certificate_password (str | Unset): Specifies a password.
-        application_certificate (str | Unset): Specifies the SSL certificate configured for the Microsoft Entra
-            application that you want to use for data restore. You must provide the certificate as a Base64 string.
-        user_name (str | Unset): Specifies the user name that you want to use for authenticating to the organization.
-        user_password (str | Unset): Specifies a password.
-        office_region (RESTRestoreToOriginalDocumentsOfficeRegion | Unset): Specifies the region of the target Microsoft
-            365 organization.
-        organization_name (str | Unset): Specifies the name of the target Microsoft 365 organization.
-    """
+    """ 
+        Attributes:
+            documents (list[RESTOneDriveDocument] | Unset): Specifies IDs of the OneDrive documents that you want to
+                restore. For more information on how to get such IDs, see [Get OneDrive
+                Documents](#/OneDriveDocument/OneDriveDocument_Get).
+            document_action (RESTRestoreToOriginalDocumentsDocumentAction | Unset): Specifies the action that will be
+                performed in case the restore destination contains the restored documents.
+            user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
+                see [Get Device Code](#/RestoreSession/RestoreSession_DeviceCodeAction).
+                This property is required if you want to use a device code for data restore.
+            application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
+                for restore. Example: 00000000-0000-0000-0000-000000000000.
+            application_certificate_password (str | Unset): Specifies a password.
+            application_certificate (str | Unset): Specifies the TLS certificate configured for the Microsoft Entra
+                application that you want to use for data restore. You must provide the certificate as a Base64 string.
+            user_name (str | Unset): Specifies the user name that you want to use for authenticating to the organization.
+            user_password (str | Unset): Specifies a password.
+            office_region (RESTRestoreToOriginalDocumentsOfficeRegion | Unset): Specifies the region of the target Microsoft
+                365 organization.
+            organization_name (str | Unset): Specifies the name of the target Microsoft 365 organization.
+     """
 
     documents: list[RESTOneDriveDocument] | Unset = UNSET
     document_action: RESTRestoreToOriginalDocumentsDocumentAction | Unset = UNSET
@@ -54,7 +61,12 @@ class RESTRestoreToOriginalDocuments:
     organization_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_one_drive_document import RESTOneDriveDocument
         documents: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.documents, Unset):
             documents = []
@@ -62,9 +74,12 @@ class RESTRestoreToOriginalDocuments:
                 documents_item = documents_item_data.to_dict()
                 documents.append(documents_item)
 
+
+
         document_action: str | Unset = UNSET
         if not isinstance(self.document_action, Unset):
             document_action = self.document_action.value
+
 
         user_code = self.user_code
 
@@ -88,11 +103,14 @@ class RESTRestoreToOriginalDocuments:
         if not isinstance(self.office_region, Unset):
             office_region = self.office_region.value
 
+
         organization_name = self.organization_name
+
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if documents is not UNSET:
             field_dict["documents"] = documents
         if document_action is not UNSET:
@@ -116,10 +134,11 @@ class RESTRestoreToOriginalDocuments:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_one_drive_document import RESTOneDriveDocument
-
         d = dict(src_dict)
         _documents = d.pop("documents", UNSET)
         documents: list[RESTOneDriveDocument] | Unset = UNSET
@@ -128,14 +147,20 @@ class RESTRestoreToOriginalDocuments:
             for documents_item_data in _documents:
                 documents_item = RESTOneDriveDocument.from_dict(documents_item_data)
 
+
+
                 documents.append(documents_item)
+
 
         _document_action = d.pop("documentAction", UNSET)
         document_action: RESTRestoreToOriginalDocumentsDocumentAction | Unset
-        if isinstance(_document_action, Unset):
+        if isinstance(_document_action,  Unset):
             document_action = UNSET
         else:
             document_action = RESTRestoreToOriginalDocumentsDocumentAction(_document_action)
+
+
+
 
         user_code = d.pop("userCode", UNSET)
 
@@ -149,12 +174,15 @@ class RESTRestoreToOriginalDocuments:
                     raise TypeError()
                 application_id_type_0 = UUID(data)
 
+
+
                 return application_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         application_id = _parse_application_id(d.pop("applicationId", UNSET))
+
 
         application_certificate_password = d.pop("applicationCertificatePassword", UNSET)
 
@@ -166,10 +194,13 @@ class RESTRestoreToOriginalDocuments:
 
         _office_region = d.pop("officeRegion", UNSET)
         office_region: RESTRestoreToOriginalDocumentsOfficeRegion | Unset
-        if isinstance(_office_region, Unset):
+        if isinstance(_office_region,  Unset):
             office_region = UNSET
         else:
             office_region = RESTRestoreToOriginalDocumentsOfficeRegion(_office_region)
+
+
+
 
         organization_name = d.pop("organizationName", UNSET)
 
@@ -185,6 +216,7 @@ class RESTRestoreToOriginalDocuments:
             office_region=office_region,
             organization_name=organization_name,
         )
+
 
         rest_restore_to_original_documents.additional_properties = d
         return rest_restore_to_original_documents

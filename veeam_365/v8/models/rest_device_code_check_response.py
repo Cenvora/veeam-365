@@ -1,37 +1,53 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTDeviceCodeCheckResponse")
+
 
 
 @_attrs_define
 class RESTDeviceCodeCheckResponse:
-    """
-    Attributes:
-        authenticated (bool | Unset): Defines whether the device code was used to sign in to Microsoft Identity
-            platform.
-    """
+    """ 
+        Attributes:
+            authenticated (bool | Unset): Defines whether the device code was used to sign in to Microsoft Identity
+                platform.
+     """
 
     authenticated: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
         authenticated = self.authenticated
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if authenticated is not UNSET:
             field_dict["authenticated"] = authenticated
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -41,6 +57,7 @@ class RESTDeviceCodeCheckResponse:
         rest_device_code_check_response = cls(
             authenticated=authenticated,
         )
+
 
         rest_device_code_check_response.additional_properties = d
         return rest_device_code_check_response

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTJobSessionJobType(str, Enum):
     BACKUP = "Backup"
     COPY = "Copy"

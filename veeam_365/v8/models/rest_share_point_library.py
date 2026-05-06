@@ -1,34 +1,41 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+import datetime
+
 if TYPE_CHECKING:
-    from ..models.rest_share_point_library_links import RESTSharePointLibraryLinks
+  from ..models.rest_share_point_library_links import RESTSharePointLibraryLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTSharePointLibrary")
 
 
+
 @_attrs_define
 class RESTSharePointLibrary:
-    """
-    Attributes:
-        id (str | Unset): ID of the SharePoint document library.
-        name (str | Unset): Name of the SharePoint document library.
-        url (str | Unset): Path to the SharePoint document library.
-        description (str | Unset): Description of the SharePoint document library.
-        creation_time (datetime.datetime | Unset): Date and time when the document library was created.
-        site_id (str | Unset): ID of the SharePoint site.
-        field_links (RESTSharePointLibraryLinks | Unset):
-    """
+    """ 
+        Attributes:
+            id (str | Unset): ID of the SharePoint document library.
+            name (str | Unset): Name of the SharePoint document library.
+            url (str | Unset): Path to the SharePoint document library.
+            description (str | Unset): Description of the SharePoint document library.
+            creation_time (datetime.datetime | Unset): Date and time when the document library was created.
+            site_id (str | Unset): ID of the SharePoint site.
+            field_links (RESTSharePointLibraryLinks | Unset):
+     """
 
     id: str | Unset = UNSET
     name: str | Unset = UNSET
@@ -39,7 +46,12 @@ class RESTSharePointLibrary:
     field_links: RESTSharePointLibraryLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_share_point_library_links import RESTSharePointLibraryLinks
         id = self.id
 
         name = self.name
@@ -58,9 +70,11 @@ class RESTSharePointLibrary:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if name is not UNSET:
@@ -78,10 +92,11 @@ class RESTSharePointLibrary:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_share_point_library_links import RESTSharePointLibraryLinks
-
         d = dict(src_dict)
         id = d.pop("id", UNSET)
 
@@ -93,19 +108,25 @@ class RESTSharePointLibrary:
 
         _creation_time = d.pop("creationTime", UNSET)
         creation_time: datetime.datetime | Unset
-        if isinstance(_creation_time, Unset):
+        if isinstance(_creation_time,  Unset):
             creation_time = UNSET
         else:
             creation_time = isoparse(_creation_time)
+
+
+
 
         site_id = d.pop("siteId", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTSharePointLibraryLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTSharePointLibraryLinks.from_dict(_field_links)
+
+
+
 
         rest_share_point_library = cls(
             id=id,
@@ -116,6 +137,7 @@ class RESTSharePointLibrary:
             site_id=site_id,
             field_links=field_links,
         )
+
 
         rest_share_point_library.additional_properties = d
         return rest_share_point_library

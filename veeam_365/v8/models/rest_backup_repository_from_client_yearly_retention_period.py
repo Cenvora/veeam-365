@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTBackupRepositoryFromClientYearlyRetentionPeriod(str, Enum):
     KEEP = "Keep"
     YEAR1 = "Year1"

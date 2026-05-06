@@ -1,62 +1,71 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.rest_authentication_type import RESTAuthenticationType
 from ..types import UNSET, Unset
+from typing import cast
+
+
+
+
+
 
 T = TypeVar("T", bound="RESTNotificationEmailSettingsRequest")
 
 
+
 @_attrs_define
 class RESTNotificationEmailSettingsRequest:
-    """
-    Attributes:
-        user_password (str | Unset): Specifies a password.
-        notify_on_success (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will send email
-            notifications if a backup or backup copy job completes successfully without any warnings or errors.
-        notify_on_warning (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will send email
-            notifications if a backup or backup copy job completes with warnings.
-        notify_on_failure (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will send email
-            notifications if a backup or backup copy completes with errors.
-        supress_until_last_retry (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will send email
-            notifications according to the job schedule options. The following email notification scenarios are available:
-            <ul> <li>If a job fails, Veeam Backup for Microsoft 365 will send a notification message on the last job
-            retry.</li> <li>If the job completes with *Success* or *Warning*, Veeam Backup for Microsoft 365 will send a
-            notification message on the last completion status.</li> <li>If the job is scheduled to *Terminate the job if it
-            exceeds allowed backup window*, Veeam Backup for Microsoft 365 will send a notification message on the last
-            attempt within the configured interval.</li> </ul>
-        attach_detailed_report (bool | None | Unset): Defines whether a detailed report about the job results will be
-            included as an email attachment.
-        enable_notification (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will send email
-            notifications.
-        smtp_server (str | Unset): Specifies the full DNS name or IP address of the SMTP server for sending email
-            notifications.
-        port (int | None | Unset): Specifies the port used for connection to the SMTP server.
-        use_authentication (bool | None | Unset): Defines whether the SMTP server requires authentication.
-        username (str | Unset): Specifies the user name of the account used for authentication to the SMTP server.
-        use_ssl (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 uses a secure connection to send
-            email notifications.
-        from_ (str | Unset): Specifies email address of the notification sender.
-        to (str | Unset): Specifies email address of the notification recipient. For listing multiple recipients, use
-            semicolon as a separator.
-        subject (str | Unset): Specifies the subject for email notifications. The subject of an email notification
-            displays information according to the following variables: <ul> <li>*%JobName%* - name of a backup or backup
-            copy job.</li> <li>*%JobResult%* - a job result.</li> <li>*%OrgName%* - organization whose data was processed by
-            a backup or backup copy job.</li> <li>*%MailboxCount%* - total number of processed objects.</li> <li>*%Issues%*
-            - number of objects that were processed with the *Failed* or *Warning* status.</li> <li>*%Time%* - date and time
-            of a job completion.</li> </ul>
-        authentication_type (RESTAuthenticationType | Unset): Specifies authentication method that Veeam Backup for
-            Microsoft 365 and Veeam Explorers use to send emails.
-        user_id (str | Unset): Specifies an authenticated user account ID. Veeam Backup for Microsoft 365 will send
-            email notifications on behalf of this user.
-        mail_api_url (None | str | Unset): Specifies the Microsoft Graph endpoint for sending emails.
-        request_id (None | str | Unset): Specifies an authentication request ID.
-    """
+    """ 
+        Attributes:
+            user_password (str | Unset): Specifies a password.
+            notify_on_success (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will send email
+                notifications if a backup or backup copy job completes successfully without any warnings or errors.
+            notify_on_warning (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will send email
+                notifications if a backup or backup copy job completes with warnings.
+            notify_on_failure (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will send email
+                notifications if a backup or backup copy completes with errors.
+            supress_until_last_retry (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will send email
+                notifications according to the job schedule options. The following email notification scenarios are available:
+                <ul> <li>If a job fails, Veeam Backup for Microsoft 365 will send a notification message on the last job
+                retry.</li> <li>If the job completes with *Success* or *Warning*, Veeam Backup for Microsoft 365 will send a
+                notification message on the last completion status.</li> <li>If the job is scheduled to *Terminate the job if it
+                exceeds allowed backup window*, Veeam Backup for Microsoft 365 will send a notification message on the last
+                attempt within the configured interval.</li> </ul>
+            attach_detailed_report (bool | None | Unset): Defines whether a detailed report about the job results will be
+                included as an email attachment.
+            enable_notification (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will send email
+                notifications.
+            smtp_server (str | Unset): Specifies the full DNS name or IP address of the SMTP server for sending email
+                notifications.
+            port (int | None | Unset): Specifies the port used for connection to the SMTP server.
+            use_authentication (bool | None | Unset): Defines whether the SMTP server requires authentication.
+            username (str | Unset): Specifies the user name of the account used for authentication to the SMTP server.
+            use_ssl (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 uses a secure connection to send
+                email notifications.
+            from_ (str | Unset): Specifies email address of the notification sender.
+            to (str | Unset): Specifies email address of the notification recipient. For listing multiple recipients, use
+                semicolon as a separator.
+            subject (str | Unset): Specifies the subject for email notifications. The subject of an email notification
+                displays information according to the following variables: <ul> <li>*%JobName%* - name of a backup or backup
+                copy job.</li> <li>*%JobResult%* - a job result.</li> <li>*%OrgName%* - organization whose data was processed by
+                a backup or backup copy job.</li> <li>*%MailboxCount%* - total number of processed objects.</li> <li>*%Issues%*
+                - number of objects that were processed with the *Failed* or *Warning* status.</li> <li>*%Time%* - date and time
+                of a job completion.</li> </ul>
+            authentication_type (RESTAuthenticationType | Unset): Specifies authentication method that Veeam Backup for
+                Microsoft 365 and Veeam Explorers use to send emails.
+            user_id (str | Unset): Specifies an authenticated user account ID. Veeam Backup for Microsoft 365 will send
+                email notifications on behalf of this user.
+            mail_api_url (None | str | Unset): Specifies the Microsoft Graph endpoint for sending emails.
+            request_id (None | str | Unset): Specifies an authentication request ID.
+     """
 
     user_password: str | Unset = UNSET
     notify_on_success: bool | None | Unset = UNSET
@@ -78,6 +87,10 @@ class RESTNotificationEmailSettingsRequest:
     mail_api_url: None | str | Unset = UNSET
     request_id: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         user_password = self.user_password
@@ -150,6 +163,7 @@ class RESTNotificationEmailSettingsRequest:
         if not isinstance(self.authentication_type, Unset):
             authentication_type = self.authentication_type.value
 
+
         user_id = self.user_id
 
         mail_api_url: None | str | Unset
@@ -164,9 +178,11 @@ class RESTNotificationEmailSettingsRequest:
         else:
             request_id = self.request_id
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if user_password is not UNSET:
             field_dict["userPassword"] = user_password
         if notify_on_success is not UNSET:
@@ -208,6 +224,8 @@ class RESTNotificationEmailSettingsRequest:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -222,6 +240,7 @@ class RESTNotificationEmailSettingsRequest:
 
         notify_on_success = _parse_notify_on_success(d.pop("notifyOnSuccess", UNSET))
 
+
         def _parse_notify_on_warning(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -230,6 +249,7 @@ class RESTNotificationEmailSettingsRequest:
             return cast(bool | None | Unset, data)
 
         notify_on_warning = _parse_notify_on_warning(d.pop("notifyOnWarning", UNSET))
+
 
         def _parse_notify_on_failure(data: object) -> bool | None | Unset:
             if data is None:
@@ -240,6 +260,7 @@ class RESTNotificationEmailSettingsRequest:
 
         notify_on_failure = _parse_notify_on_failure(d.pop("notifyOnFailure", UNSET))
 
+
         def _parse_supress_until_last_retry(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -248,6 +269,7 @@ class RESTNotificationEmailSettingsRequest:
             return cast(bool | None | Unset, data)
 
         supress_until_last_retry = _parse_supress_until_last_retry(d.pop("supressUntilLastRetry", UNSET))
+
 
         def _parse_attach_detailed_report(data: object) -> bool | None | Unset:
             if data is None:
@@ -258,6 +280,7 @@ class RESTNotificationEmailSettingsRequest:
 
         attach_detailed_report = _parse_attach_detailed_report(d.pop("attachDetailedReport", UNSET))
 
+
         def _parse_enable_notification(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -266,6 +289,7 @@ class RESTNotificationEmailSettingsRequest:
             return cast(bool | None | Unset, data)
 
         enable_notification = _parse_enable_notification(d.pop("enableNotification", UNSET))
+
 
         smtp_server = d.pop("smtpServer", UNSET)
 
@@ -278,6 +302,7 @@ class RESTNotificationEmailSettingsRequest:
 
         port = _parse_port(d.pop("port", UNSET))
 
+
         def _parse_use_authentication(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -286,6 +311,7 @@ class RESTNotificationEmailSettingsRequest:
             return cast(bool | None | Unset, data)
 
         use_authentication = _parse_use_authentication(d.pop("useAuthentication", UNSET))
+
 
         username = d.pop("username", UNSET)
 
@@ -298,6 +324,7 @@ class RESTNotificationEmailSettingsRequest:
 
         use_ssl = _parse_use_ssl(d.pop("useSSL", UNSET))
 
+
         from_ = d.pop("from", UNSET)
 
         to = d.pop("to", UNSET)
@@ -306,10 +333,13 @@ class RESTNotificationEmailSettingsRequest:
 
         _authentication_type = d.pop("authenticationType", UNSET)
         authentication_type: RESTAuthenticationType | Unset
-        if isinstance(_authentication_type, Unset):
+        if isinstance(_authentication_type,  Unset):
             authentication_type = UNSET
         else:
             authentication_type = RESTAuthenticationType(_authentication_type)
+
+
+
 
         user_id = d.pop("userId", UNSET)
 
@@ -322,6 +352,7 @@ class RESTNotificationEmailSettingsRequest:
 
         mail_api_url = _parse_mail_api_url(d.pop("mailApiUrl", UNSET))
 
+
         def _parse_request_id(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -330,6 +361,7 @@ class RESTNotificationEmailSettingsRequest:
             return cast(None | str | Unset, data)
 
         request_id = _parse_request_id(d.pop("requestId", UNSET))
+
 
         rest_notification_email_settings_request = cls(
             user_password=user_password,
@@ -352,6 +384,7 @@ class RESTNotificationEmailSettingsRequest:
             mail_api_url=mail_api_url,
             request_id=request_id,
         )
+
 
         rest_notification_email_settings_request.additional_properties = d
         return rest_notification_email_settings_request

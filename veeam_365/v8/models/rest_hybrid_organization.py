@@ -1,71 +1,78 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_organization_region import RestOrganizationRegion
 from ..models.rest_organization_type import RestOrganizationType
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_exchange_settings import RESTExchangeSettings
-    from ..models.rest_hybrid_organization_actions import RestHybridOrganizationActions
-    from ..models.rest_hybrid_organization_links import RestHybridOrganizationLinks
-    from ..models.rest_office_365_connection_settings_type_0 import RESTOffice365ConnectionSettingsType0
-    from ..models.rest_sharepoint_settings import RESTSharepointSettings
+  from ..models.rest_exchange_settings import RESTExchangeSettings
+  from ..models.rest_hybrid_organization_actions import RestHybridOrganizationActions
+  from ..models.rest_hybrid_organization_links import RestHybridOrganizationLinks
+  from ..models.rest_office_365_connection_settings_type_0 import RESTOffice365ConnectionSettingsType0
+  from ..models.rest_sharepoint_settings import RESTSharepointSettings
+
+
+
 
 
 T = TypeVar("T", bound="RestHybridOrganization")
 
 
+
 @_attrs_define
 class RestHybridOrganization:
-    """
-    Attributes:
-        is_teams_online (bool | None | Unset): Defines whether the added organization uses Microsoft Teams and you will
-            be able to back up Microsoft Teams data for this organization.
-        is_teams_chats_online (bool | None | Unset): Defines whether the added organization uses team chats and you will
-            be able to back up team chats for this organization.
-        configure_application (bool | None | Unset): Defines whether you want to let Veeam Backup for Microsoft 365
-            automatically assign the certificate and required permissions to the specified Microsoft Entra application.
-        user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
-            see [Get Device Code](Organization#operation/Organization_OrganizationDeviceCode).
+    """ 
+        Attributes:
+            is_teams_online (bool | None | Unset): Defines whether the added organization uses Microsoft Teams and you will
+                be able to back up Microsoft Teams data for this organization.
+            is_teams_chats_online (bool | None | Unset): Defines whether the added organization uses team chats and you will
+                be able to back up team chats for this organization.
+            configure_application (bool | None | Unset): Defines whether you want to let Veeam Backup for Microsoft 365
+                automatically assign the certificate and required permissions to the specified Microsoft Entra application.
+            user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
+                see [Get Device Code](#/Organization/Organization_OrganizationDeviceCode).
 
-            **Note**: To sign in, open Microsoft Identity platform and specify this device code.
-        new_application_name (str | Unset): Specifies the name for the Microsoft Entra application. Veeam Backup for
-            Microsoft 365 automatically creates a new Microsoft Entra application with this name in Microsoft Entra ID.
-        exchange_online_settings (None | RESTOffice365ConnectionSettingsType0 | Unset):
-        share_point_online_settings (None | RESTOffice365ConnectionSettingsType0 | Unset):
-        type_ (RestOrganizationType | Unset): Specifies the organization type.
-        region (RestOrganizationRegion | Unset): Specifies a Microsoft Entra region.
-        is_exchange_online (bool | None | Unset): Defines whether to add an Exchange Online organization.
-        is_share_point_online (bool | None | Unset): Defines whether to add a SharePoint Online organization.
-        is_sharepoint (bool | None | Unset): Defines whether to add an on-premises SharePoint organization.
-        sharepoint_settings (RESTSharepointSettings | Unset):
-        is_exchange (bool | None | Unset): Defines whether to add an on-premises Exchange organization.
-        exchange_settings (RESTExchangeSettings | Unset):
-        id (None | Unset | UUID): Specifies the identification number of the Microsoft 365 organization added to Veeam
-            Backup for Microsoft 365. Example: 00000000-0000-0000-0000-000000000000.
-        name (str | Unset): Specifies the name of the Microsoft organization.
-        office_name (str | Unset): Specifies the Microsoft 365 Online name.
-        description (None | str | Unset): Specifies the Microsoft organization description.
-        is_backedup (bool | None | Unset): Defines whether the organizations was backed up.
-        first_backuptime (datetime.datetime | None | Unset): Specifies the date and time when the first backup was
-            created for the organization.
-        last_backuptime (datetime.datetime | None | Unset): Specifies the date and time when the last backup was created
-            for the organization.
-        msid (None | Unset | UUID): Specifies the identification number of the organization assigned by Microsoft.
-        backed_up_organization_id (None | str | Unset): Specifies the identification number of the backed-up
-            organization in the backup.
-        field_links (RestHybridOrganizationLinks | Unset):
-        field_actions (RestHybridOrganizationActions | Unset):
-    """
+                **Note**: To sign in, open Microsoft Identity platform and specify this device code.
+            new_application_name (str | Unset): Specifies the name for the Microsoft Entra application. Veeam Backup for
+                Microsoft 365 automatically creates a new Microsoft Entra application with this name in Microsoft Entra ID.
+            exchange_online_settings (None | RESTOffice365ConnectionSettingsType0 | Unset):
+            share_point_online_settings (None | RESTOffice365ConnectionSettingsType0 | Unset):
+            type_ (RestOrganizationType | Unset): Specifies the organization type.
+            region (RestOrganizationRegion | Unset): Specifies a Microsoft Entra region.
+            is_exchange_online (bool | None | Unset): Defines whether to add an Exchange Online organization.
+            is_share_point_online (bool | None | Unset): Defines whether to add a SharePoint Online organization.
+            is_sharepoint (bool | None | Unset): Defines whether to add an on-premises SharePoint organization.
+            sharepoint_settings (RESTSharepointSettings | Unset):
+            is_exchange (bool | None | Unset): Defines whether to add an on-premises Exchange organization.
+            exchange_settings (RESTExchangeSettings | Unset):
+            id (None | Unset | UUID): Specifies the identification number of the Microsoft 365 organization added to Veeam
+                Backup for Microsoft 365. Example: 00000000-0000-0000-0000-000000000000.
+            name (str | Unset): Specifies the name of the Microsoft organization.
+            office_name (str | Unset): Specifies the Microsoft 365 Online name.
+            description (None | str | Unset): Specifies the Microsoft organization description.
+            is_backedup (bool | None | Unset): Defines whether the organizations was backed up.
+            first_backuptime (datetime.datetime | None | Unset): Specifies the date and time when the first backup was
+                created for the organization.
+            last_backuptime (datetime.datetime | None | Unset): Specifies the date and time when the last backup was created
+                for the organization.
+            msid (None | Unset | UUID): Specifies the identification number of the organization assigned by Microsoft.
+            backed_up_organization_id (None | str | Unset): Specifies the identification number of the backed-up
+                organization in the backup.
+            field_links (RestHybridOrganizationLinks | Unset):
+            field_actions (RestHybridOrganizationActions | Unset):
+     """
 
     is_teams_online: bool | None | Unset = UNSET
     is_teams_chats_online: bool | None | Unset = UNSET
@@ -95,9 +102,16 @@ class RestHybridOrganization:
     field_actions: RestHybridOrganizationActions | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> dict[str, Any]:
-        from ..models.rest_office_365_connection_settings_type_0 import RESTOffice365ConnectionSettingsType0
 
+
+
+
+    def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_exchange_settings import RESTExchangeSettings
+        from ..models.rest_hybrid_organization_actions import RestHybridOrganizationActions
+        from ..models.rest_hybrid_organization_links import RestHybridOrganizationLinks
+        from ..models.rest_office_365_connection_settings_type_0 import RESTOffice365ConnectionSettingsType0
+        from ..models.rest_sharepoint_settings import RESTSharepointSettings
         is_teams_online: bool | None | Unset
         if isinstance(self.is_teams_online, Unset):
             is_teams_online = UNSET
@@ -140,9 +154,11 @@ class RestHybridOrganization:
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
+
         region: str | Unset = UNSET
         if not isinstance(self.region, Unset):
             region = self.region.value
+
 
         is_exchange_online: bool | None | Unset
         if isinstance(self.is_exchange_online, Unset):
@@ -238,9 +254,11 @@ class RestHybridOrganization:
         if not isinstance(self.field_actions, Unset):
             field_actions = self.field_actions.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if is_teams_online is not UNSET:
             field_dict["isTeamsOnline"] = is_teams_online
         if is_teams_chats_online is not UNSET:
@@ -296,6 +314,8 @@ class RestHybridOrganization:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_exchange_settings import RESTExchangeSettings
@@ -303,9 +323,7 @@ class RestHybridOrganization:
         from ..models.rest_hybrid_organization_links import RestHybridOrganizationLinks
         from ..models.rest_office_365_connection_settings_type_0 import RESTOffice365ConnectionSettingsType0
         from ..models.rest_sharepoint_settings import RESTSharepointSettings
-
         d = dict(src_dict)
-
         def _parse_is_teams_online(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -314,6 +332,7 @@ class RestHybridOrganization:
             return cast(bool | None | Unset, data)
 
         is_teams_online = _parse_is_teams_online(d.pop("isTeamsOnline", UNSET))
+
 
         def _parse_is_teams_chats_online(data: object) -> bool | None | Unset:
             if data is None:
@@ -324,6 +343,7 @@ class RestHybridOrganization:
 
         is_teams_chats_online = _parse_is_teams_chats_online(d.pop("isTeamsChatsOnline", UNSET))
 
+
         def _parse_configure_application(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -332,6 +352,7 @@ class RestHybridOrganization:
             return cast(bool | None | Unset, data)
 
         configure_application = _parse_configure_application(d.pop("configureApplication", UNSET))
+
 
         user_code = d.pop("userCode", UNSET)
 
@@ -345,9 +366,9 @@ class RestHybridOrganization:
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                componentsschemas_rest_office_365_connection_settings_type_0 = (
-                    RESTOffice365ConnectionSettingsType0.from_dict(data)
-                )
+                componentsschemas_rest_office_365_connection_settings_type_0 = RESTOffice365ConnectionSettingsType0.from_dict(data)
+
+
 
                 return componentsschemas_rest_office_365_connection_settings_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -355,6 +376,7 @@ class RestHybridOrganization:
             return cast(None | RESTOffice365ConnectionSettingsType0 | Unset, data)
 
         exchange_online_settings = _parse_exchange_online_settings(d.pop("exchangeOnlineSettings", UNSET))
+
 
         def _parse_share_point_online_settings(data: object) -> None | RESTOffice365ConnectionSettingsType0 | Unset:
             if data is None:
@@ -364,9 +386,9 @@ class RestHybridOrganization:
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
-                componentsschemas_rest_office_365_connection_settings_type_0 = (
-                    RESTOffice365ConnectionSettingsType0.from_dict(data)
-                )
+                componentsschemas_rest_office_365_connection_settings_type_0 = RESTOffice365ConnectionSettingsType0.from_dict(data)
+
+
 
                 return componentsschemas_rest_office_365_connection_settings_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
@@ -375,19 +397,26 @@ class RestHybridOrganization:
 
         share_point_online_settings = _parse_share_point_online_settings(d.pop("sharePointOnlineSettings", UNSET))
 
+
         _type_ = d.pop("type", UNSET)
         type_: RestOrganizationType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RestOrganizationType(_type_)
 
+
+
+
         _region = d.pop("region", UNSET)
         region: RestOrganizationRegion | Unset
-        if isinstance(_region, Unset):
+        if isinstance(_region,  Unset):
             region = UNSET
         else:
             region = RestOrganizationRegion(_region)
+
+
+
 
         def _parse_is_exchange_online(data: object) -> bool | None | Unset:
             if data is None:
@@ -398,6 +427,7 @@ class RestHybridOrganization:
 
         is_exchange_online = _parse_is_exchange_online(d.pop("isExchangeOnline", UNSET))
 
+
         def _parse_is_share_point_online(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -406,6 +436,7 @@ class RestHybridOrganization:
             return cast(bool | None | Unset, data)
 
         is_share_point_online = _parse_is_share_point_online(d.pop("isSharePointOnline", UNSET))
+
 
         def _parse_is_sharepoint(data: object) -> bool | None | Unset:
             if data is None:
@@ -416,12 +447,16 @@ class RestHybridOrganization:
 
         is_sharepoint = _parse_is_sharepoint(d.pop("isSharepoint", UNSET))
 
+
         _sharepoint_settings = d.pop("sharepointSettings", UNSET)
         sharepoint_settings: RESTSharepointSettings | Unset
-        if isinstance(_sharepoint_settings, Unset):
+        if isinstance(_sharepoint_settings,  Unset):
             sharepoint_settings = UNSET
         else:
             sharepoint_settings = RESTSharepointSettings.from_dict(_sharepoint_settings)
+
+
+
 
         def _parse_is_exchange(data: object) -> bool | None | Unset:
             if data is None:
@@ -432,12 +467,16 @@ class RestHybridOrganization:
 
         is_exchange = _parse_is_exchange(d.pop("isExchange", UNSET))
 
+
         _exchange_settings = d.pop("exchangeSettings", UNSET)
         exchange_settings: RESTExchangeSettings | Unset
-        if isinstance(_exchange_settings, Unset):
+        if isinstance(_exchange_settings,  Unset):
             exchange_settings = UNSET
         else:
             exchange_settings = RESTExchangeSettings.from_dict(_exchange_settings)
+
+
+
 
         def _parse_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -449,12 +488,15 @@ class RestHybridOrganization:
                     raise TypeError()
                 id_type_0 = UUID(data)
 
+
+
                 return id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         id = _parse_id(d.pop("id", UNSET))
+
 
         name = d.pop("name", UNSET)
 
@@ -469,6 +511,7 @@ class RestHybridOrganization:
 
         description = _parse_description(d.pop("description", UNSET))
 
+
         def _parse_is_backedup(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -477,6 +520,7 @@ class RestHybridOrganization:
             return cast(bool | None | Unset, data)
 
         is_backedup = _parse_is_backedup(d.pop("isBackedup", UNSET))
+
 
         def _parse_first_backuptime(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -488,12 +532,15 @@ class RestHybridOrganization:
                     raise TypeError()
                 first_backuptime_type_0 = isoparse(data)
 
+
+
                 return first_backuptime_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         first_backuptime = _parse_first_backuptime(d.pop("firstBackuptime", UNSET))
+
 
         def _parse_last_backuptime(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -505,12 +552,15 @@ class RestHybridOrganization:
                     raise TypeError()
                 last_backuptime_type_0 = isoparse(data)
 
+
+
                 return last_backuptime_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         last_backuptime = _parse_last_backuptime(d.pop("lastBackuptime", UNSET))
+
 
         def _parse_msid(data: object) -> None | Unset | UUID:
             if data is None:
@@ -522,12 +572,15 @@ class RestHybridOrganization:
                     raise TypeError()
                 msid_type_0 = UUID(data)
 
+
+
                 return msid_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         msid = _parse_msid(d.pop("msid", UNSET))
+
 
         def _parse_backed_up_organization_id(data: object) -> None | str | Unset:
             if data is None:
@@ -538,19 +591,26 @@ class RestHybridOrganization:
 
         backed_up_organization_id = _parse_backed_up_organization_id(d.pop("backedUpOrganizationId", UNSET))
 
+
         _field_links = d.pop("_links", UNSET)
         field_links: RestHybridOrganizationLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RestHybridOrganizationLinks.from_dict(_field_links)
 
+
+
+
         _field_actions = d.pop("_actions", UNSET)
         field_actions: RestHybridOrganizationActions | Unset
-        if isinstance(_field_actions, Unset):
+        if isinstance(_field_actions,  Unset):
             field_actions = UNSET
         else:
             field_actions = RestHybridOrganizationActions.from_dict(_field_actions)
+
+
+
 
         rest_hybrid_organization = cls(
             is_teams_online=is_teams_online,
@@ -580,6 +640,7 @@ class RestHybridOrganization:
             field_links=field_links,
             field_actions=field_actions,
         )
+
 
         rest_hybrid_organization.additional_properties = d
         return rest_hybrid_organization

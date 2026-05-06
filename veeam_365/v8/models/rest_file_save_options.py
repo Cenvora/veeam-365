@@ -1,36 +1,52 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTFileSaveOptions")
+
 
 
 @_attrs_define
 class RESTFileSaveOptions:
-    """
-    Attributes:
-        as_zip (bool | Unset): Defines whether the Microsoft Teams file will be saved in a ZIP archive.
-    """
+    """ 
+        Attributes:
+            as_zip (bool | Unset): Defines whether the Microsoft Teams file will be saved in a ZIP archive.
+     """
 
     as_zip: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
         as_zip = self.as_zip
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if as_zip is not UNSET:
             field_dict["asZip"] = as_zip
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -40,6 +56,7 @@ class RESTFileSaveOptions:
         rest_file_save_options = cls(
             as_zip=as_zip,
         )
+
 
         rest_file_save_options.additional_properties = d
         return rest_file_save_options

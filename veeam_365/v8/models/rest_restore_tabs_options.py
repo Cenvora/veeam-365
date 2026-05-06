@@ -1,43 +1,50 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_teams_tab import RestTeamsTab
+  from ..models.rest_teams_tab import RestTeamsTab
+
+
+
 
 
 T = TypeVar("T", bound="RESTRestoreTabsOptions")
 
 
+
 @_attrs_define
 class RESTRestoreTabsOptions:
-    """
-    Attributes:
-        restore_changed_tabs (bool): Defines whether to restore tabs that have been modified in the original location
-            since the time when the backup was created.
-        restore_missing_tabs (bool): Defines whether to restore tabs that are missed in the original location.
-        tabs (list[RestTeamsTab] | Unset): Specifies IDs of the channel tabs that you want to restore. For more
-            information on how to get such IDs, see [Get Tabs](TeamsTab#operation/TeamsTab_Get).
+    """ 
+        Attributes:
+            restore_changed_tabs (bool): Defines whether to restore tabs that have been modified in the original location
+                since the time when the backup was created.
+            restore_missing_tabs (bool): Defines whether to restore tabs that are missed in the original location.
+            tabs (list[RestTeamsTab] | Unset): Specifies IDs of the channel tabs that you want to restore. For more
+                information on how to get such IDs, see [Get Tabs](#/TeamsTab/TeamsTab_Get).
 
-            **Note**: If you omit this property, all backed-up tabs of the specified channel will be restored.
-        user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
-            see [Get Device Code](RestoreSession#operation/RestoreSession_DeviceCodeAction).
-            This property is required if you want to use a device code for data restore.
-        application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
-            for restore. Example: 00000000-0000-0000-0000-000000000000.
-        application_certificate (str | Unset): Specifies the SSL certificate configured for the Microsoft Entra
-            application that you want to use for data restore. You must provide the certificate as a Base64 string.
-        application_certificate_password (str | Unset): Specifies a password.
-        user_name (str | Unset): Specifies the user name that you want to use for authenticating to the organization.
-        user_password (str | Unset): Specifies a password.
-    """
+                **Note**: If you omit this property, all backed-up tabs of the specified channel will be restored.
+            user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
+                see [Get Device Code](#/RestoreSession/RestoreSession_DeviceCodeAction).
+                This property is required if you want to use a device code for data restore.
+            application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
+                for restore. Example: 00000000-0000-0000-0000-000000000000.
+            application_certificate (str | Unset): Specifies the TLS certificate configured for the Microsoft Entra
+                application that you want to use for data restore. You must provide the certificate as a Base64 string.
+            application_certificate_password (str | Unset): Specifies a password.
+            user_name (str | Unset): Specifies the user name that you want to use for authenticating to the organization.
+            user_password (str | Unset): Specifies a password.
+     """
 
     restore_changed_tabs: bool
     restore_missing_tabs: bool
@@ -50,7 +57,12 @@ class RESTRestoreTabsOptions:
     user_password: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_teams_tab import RestTeamsTab
         restore_changed_tabs = self.restore_changed_tabs
 
         restore_missing_tabs = self.restore_missing_tabs
@@ -61,6 +73,8 @@ class RESTRestoreTabsOptions:
             for tabs_item_data in self.tabs:
                 tabs_item = tabs_item_data.to_dict()
                 tabs.append(tabs_item)
+
+
 
         user_code = self.user_code
 
@@ -80,14 +94,13 @@ class RESTRestoreTabsOptions:
 
         user_password = self.user_password
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "restoreChangedTabs": restore_changed_tabs,
-                "restoreMissingTabs": restore_missing_tabs,
-            }
-        )
+        field_dict.update({
+            "restoreChangedTabs": restore_changed_tabs,
+            "restoreMissingTabs": restore_missing_tabs,
+        })
         if tabs is not UNSET:
             field_dict["tabs"] = tabs
         if user_code is not UNSET:
@@ -105,10 +118,11 @@ class RESTRestoreTabsOptions:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_teams_tab import RestTeamsTab
-
         d = dict(src_dict)
         restore_changed_tabs = d.pop("restoreChangedTabs")
 
@@ -121,7 +135,10 @@ class RESTRestoreTabsOptions:
             for tabs_item_data in _tabs:
                 tabs_item = RestTeamsTab.from_dict(tabs_item_data)
 
+
+
                 tabs.append(tabs_item)
+
 
         user_code = d.pop("userCode", UNSET)
 
@@ -135,12 +152,15 @@ class RESTRestoreTabsOptions:
                     raise TypeError()
                 application_id_type_0 = UUID(data)
 
+
+
                 return application_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         application_id = _parse_application_id(d.pop("applicationId", UNSET))
+
 
         application_certificate = d.pop("applicationCertificate", UNSET)
 
@@ -161,6 +181,7 @@ class RESTRestoreTabsOptions:
             user_name=user_name,
             user_password=user_password,
         )
+
 
         rest_restore_tabs_options.additional_properties = d
         return rest_restore_tabs_options

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTRestoreSessionType(str, Enum):
     VEOD = "Veod"
     VESP = "Vesp"

@@ -1,57 +1,64 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_object_storage_type import RESTObjectStorageType
 from ..types import UNSET, Unset
 
+from ..models.rest_object_storage_type import RESTObjectStorageType
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_azure_archiver_appliance import RESTAzureArchiverAppliance
-    from ..models.rest_azure_container import RESTAzureContainer
-    from ..models.rest_azure_object_storage_links import RESTAzureObjectStorageLinks
-    from ..models.rest_azure_subscription import RESTAzureSubscription
-    from ..models.rest_service_account_info import RESTServiceAccountInfo
+  from ..models.rest_azure_archiver_appliance import RESTAzureArchiverAppliance
+  from ..models.rest_azure_container import RESTAzureContainer
+  from ..models.rest_azure_object_storage_links import RESTAzureObjectStorageLinks
+  from ..models.rest_azure_subscription import RESTAzureSubscription
+  from ..models.rest_service_account_info import RESTServiceAccountInfo
+
+
+
 
 
 T = TypeVar("T", bound="RESTAzureObjectStorage")
 
 
+
 @_attrs_define
 class RESTAzureObjectStorage:
-    """
-    Attributes:
-        azure_container (RESTAzureContainer | Unset):
-        azure_folder (str | Unset): Specifies storage folder where backups will reside.
-        id (UUID | Unset): Specifies the object storage repository ID. Example: 00000000-0000-0000-0000-000000000000.
-        account_id (None | Unset | UUID): Specifies the ID of the account under which the object storage repository is
-            being added. For more information on how to get this parameter, see [Get
-            Accounts](Account#operation/Account_GetAccounts). Example: 00000000-0000-0000-0000-000000000000.
-        size_limit_enabled (bool | None | Unset): Defines whether the size limit is set.
-        size_limit_gb (int | None | Unset): Specifies size limit in *GB*.
-        used_space_bytes (int | None | Unset): Specifies used space in *Bytes*.
-        free_space_bytes (int | None | Unset): Specifies free space in *Bytes*. This property is displayed only if the
-            size limit is set.
-        enable_immutability (bool | None | Unset): Defines whether immutability is enabled to prohibit deletion of data
-            from the object storage repository by making that data temporarily immutable and to protect data against malware
-            activity.
-        enable_immutability_governance_mode (bool | None | Unset): Defines whether the `Governance` mode is enabled.
-        immutability_period_days (int | None | Unset): Specifies the number of days when your data will be blocked for
-            deletion or modification. If you set the *null* or *0* value, data will be blocked for deletion or modification
-            for the same period as the retention period.
-        type_ (RESTObjectStorageType | Unset): Specifies the object storage repository type.
-        use_archiver_appliance (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 uses the Azure
-            archiver appliance when transferring backed-up data between different instances of Azure Blob Storage or to
-            Azure Blob Storage Archive during backup copy jobs.
-        azure_service_account (RESTServiceAccountInfo | Unset):
-        azure_subscription (RESTAzureSubscription | Unset):
-        azure_archiver_appliance (RESTAzureArchiverAppliance | Unset):
-        field_links (RESTAzureObjectStorageLinks | Unset):
-    """
+    """ 
+        Attributes:
+            azure_container (RESTAzureContainer | Unset):
+            azure_folder (str | Unset): Specifies storage folder where backups will reside.
+            id (UUID | Unset): Specifies the object storage repository ID. Example: 00000000-0000-0000-0000-000000000000.
+            account_id (None | Unset | UUID): Specifies the ID of the account under which the object storage repository is
+                being added. For more information on how to get this parameter, see [Get
+                Accounts](#/Account/Account_GetAccounts). Example: 00000000-0000-0000-0000-000000000000.
+            size_limit_enabled (bool | None | Unset): Defines whether the size limit is set.
+            size_limit_gb (int | None | Unset): Specifies size limit in *GB*.
+            used_space_bytes (int | None | Unset): Specifies used space in *Bytes*.
+            free_space_bytes (int | None | Unset): Specifies free space in *Bytes*. This property is displayed only if the
+                size limit is set.
+            enable_immutability (bool | None | Unset): Defines whether immutability is enabled to prohibit deletion of data
+                from the object storage repository by making that data temporarily immutable and to protect data against malware
+                activity.
+            enable_immutability_governance_mode (bool | None | Unset): Defines whether the `Governance` mode is enabled.
+            immutability_period_days (int | None | Unset): Specifies the number of days when your data will be blocked for
+                deletion or modification. If you set the *null* or *0* value, data will be blocked for deletion or modification
+                for the same period as the retention period.
+            type_ (RESTObjectStorageType | Unset): Specifies the object storage repository type.
+            use_archiver_appliance (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 uses the Azure
+                archiver appliance when transferring backed-up data between different instances of Azure Blob Storage or to
+                Azure Blob Storage Archive during backup copy jobs.
+            azure_service_account (RESTServiceAccountInfo | Unset):
+            azure_subscription (RESTAzureSubscription | Unset):
+            azure_archiver_appliance (RESTAzureArchiverAppliance | Unset):
+            field_links (RESTAzureObjectStorageLinks | Unset):
+     """
 
     azure_container: RESTAzureContainer | Unset = UNSET
     azure_folder: str | Unset = UNSET
@@ -72,7 +79,16 @@ class RESTAzureObjectStorage:
     field_links: RESTAzureObjectStorageLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_azure_archiver_appliance import RESTAzureArchiverAppliance
+        from ..models.rest_azure_container import RESTAzureContainer
+        from ..models.rest_azure_object_storage_links import RESTAzureObjectStorageLinks
+        from ..models.rest_azure_subscription import RESTAzureSubscription
+        from ..models.rest_service_account_info import RESTServiceAccountInfo
         azure_container: dict[str, Any] | Unset = UNSET
         if not isinstance(self.azure_container, Unset):
             azure_container = self.azure_container.to_dict()
@@ -137,6 +153,7 @@ class RESTAzureObjectStorage:
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
+
         use_archiver_appliance: bool | None | Unset
         if isinstance(self.use_archiver_appliance, Unset):
             use_archiver_appliance = UNSET
@@ -159,9 +176,11 @@ class RESTAzureObjectStorage:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if azure_container is not UNSET:
             field_dict["azureContainer"] = azure_container
         if azure_folder is not UNSET:
@@ -199,6 +218,8 @@ class RESTAzureObjectStorage:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_azure_archiver_appliance import RESTAzureArchiverAppliance
@@ -206,23 +227,28 @@ class RESTAzureObjectStorage:
         from ..models.rest_azure_object_storage_links import RESTAzureObjectStorageLinks
         from ..models.rest_azure_subscription import RESTAzureSubscription
         from ..models.rest_service_account_info import RESTServiceAccountInfo
-
         d = dict(src_dict)
         _azure_container = d.pop("azureContainer", UNSET)
         azure_container: RESTAzureContainer | Unset
-        if isinstance(_azure_container, Unset):
+        if isinstance(_azure_container,  Unset):
             azure_container = UNSET
         else:
             azure_container = RESTAzureContainer.from_dict(_azure_container)
+
+
+
 
         azure_folder = d.pop("azureFolder", UNSET)
 
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
+
+
+
 
         def _parse_account_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -234,12 +260,15 @@ class RESTAzureObjectStorage:
                     raise TypeError()
                 account_id_type_0 = UUID(data)
 
+
+
                 return account_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         account_id = _parse_account_id(d.pop("accountId", UNSET))
+
 
         def _parse_size_limit_enabled(data: object) -> bool | None | Unset:
             if data is None:
@@ -250,6 +279,7 @@ class RESTAzureObjectStorage:
 
         size_limit_enabled = _parse_size_limit_enabled(d.pop("sizeLimitEnabled", UNSET))
 
+
         def _parse_size_limit_gb(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -258,6 +288,7 @@ class RESTAzureObjectStorage:
             return cast(int | None | Unset, data)
 
         size_limit_gb = _parse_size_limit_gb(d.pop("sizeLimitGB", UNSET))
+
 
         def _parse_used_space_bytes(data: object) -> int | None | Unset:
             if data is None:
@@ -268,6 +299,7 @@ class RESTAzureObjectStorage:
 
         used_space_bytes = _parse_used_space_bytes(d.pop("usedSpaceBytes", UNSET))
 
+
         def _parse_free_space_bytes(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -276,6 +308,7 @@ class RESTAzureObjectStorage:
             return cast(int | None | Unset, data)
 
         free_space_bytes = _parse_free_space_bytes(d.pop("freeSpaceBytes", UNSET))
+
 
         def _parse_enable_immutability(data: object) -> bool | None | Unset:
             if data is None:
@@ -286,6 +319,7 @@ class RESTAzureObjectStorage:
 
         enable_immutability = _parse_enable_immutability(d.pop("enableImmutability", UNSET))
 
+
         def _parse_enable_immutability_governance_mode(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -293,9 +327,8 @@ class RESTAzureObjectStorage:
                 return data
             return cast(bool | None | Unset, data)
 
-        enable_immutability_governance_mode = _parse_enable_immutability_governance_mode(
-            d.pop("enableImmutabilityGovernanceMode", UNSET)
-        )
+        enable_immutability_governance_mode = _parse_enable_immutability_governance_mode(d.pop("enableImmutabilityGovernanceMode", UNSET))
+
 
         def _parse_immutability_period_days(data: object) -> int | None | Unset:
             if data is None:
@@ -306,12 +339,16 @@ class RESTAzureObjectStorage:
 
         immutability_period_days = _parse_immutability_period_days(d.pop("immutabilityPeriodDays", UNSET))
 
+
         _type_ = d.pop("type", UNSET)
         type_: RESTObjectStorageType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTObjectStorageType(_type_)
+
+
+
 
         def _parse_use_archiver_appliance(data: object) -> bool | None | Unset:
             if data is None:
@@ -322,33 +359,46 @@ class RESTAzureObjectStorage:
 
         use_archiver_appliance = _parse_use_archiver_appliance(d.pop("useArchiverAppliance", UNSET))
 
+
         _azure_service_account = d.pop("azureServiceAccount", UNSET)
         azure_service_account: RESTServiceAccountInfo | Unset
-        if isinstance(_azure_service_account, Unset):
+        if isinstance(_azure_service_account,  Unset):
             azure_service_account = UNSET
         else:
             azure_service_account = RESTServiceAccountInfo.from_dict(_azure_service_account)
 
+
+
+
         _azure_subscription = d.pop("azureSubscription", UNSET)
         azure_subscription: RESTAzureSubscription | Unset
-        if isinstance(_azure_subscription, Unset):
+        if isinstance(_azure_subscription,  Unset):
             azure_subscription = UNSET
         else:
             azure_subscription = RESTAzureSubscription.from_dict(_azure_subscription)
 
+
+
+
         _azure_archiver_appliance = d.pop("azureArchiverAppliance", UNSET)
         azure_archiver_appliance: RESTAzureArchiverAppliance | Unset
-        if isinstance(_azure_archiver_appliance, Unset):
+        if isinstance(_azure_archiver_appliance,  Unset):
             azure_archiver_appliance = UNSET
         else:
             azure_archiver_appliance = RESTAzureArchiverAppliance.from_dict(_azure_archiver_appliance)
 
+
+
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTAzureObjectStorageLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTAzureObjectStorageLinks.from_dict(_field_links)
+
+
+
 
         rest_azure_object_storage = cls(
             azure_container=azure_container,
@@ -369,6 +419,7 @@ class RESTAzureObjectStorage:
             azure_archiver_appliance=azure_archiver_appliance,
             field_links=field_links,
         )
+
 
         rest_azure_object_storage.additional_properties = d
         return rest_azure_object_storage

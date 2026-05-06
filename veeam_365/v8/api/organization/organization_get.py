@@ -1,13 +1,19 @@
 from http import HTTPStatus
-from typing import Any
-from uuid import UUID
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.page_of_rest_organization_composed import PageOfRestOrganizationComposed
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -17,7 +23,12 @@ def _get_kwargs(
     backed_up_organization_id: str | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     params["extendedView"] = extended_view
@@ -33,7 +44,9 @@ def _get_kwargs(
 
     params["offset"] = offset
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -41,25 +54,28 @@ def _get_kwargs(
         "params": params,
     }
 
+
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> PageOfRestOrganizationComposed | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRestOrganizationComposed | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRestOrganizationComposed.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[PageOfRestOrganizationComposed | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRestOrganizationComposed | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -76,8 +92,9 @@ def sync_detailed(
     backed_up_organization_id: str | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+
 ) -> Response[PageOfRestOrganizationComposed | RESTExceptionInfo]:
-    """Get Organizations
+    """ Get Organizations
 
      Returns a collection of Microsoft organizations added to the Veeam Backup for Microsoft 365
     infrastructure.
@@ -95,14 +112,16 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRestOrganizationComposed | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         extended_view=extended_view,
-        msid=msid,
-        backed_up_organization_id=backed_up_organization_id,
-        limit=limit,
-        offset=offset,
+msid=msid,
+backed_up_organization_id=backed_up_organization_id,
+limit=limit,
+offset=offset,
+
     )
 
     response = client.get_httpx_client().request(
@@ -110,7 +129,6 @@ def sync_detailed(
     )
 
     return _build_response(client=client, response=response)
-
 
 def sync(
     *,
@@ -120,8 +138,9 @@ def sync(
     backed_up_organization_id: str | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+
 ) -> PageOfRestOrganizationComposed | RESTExceptionInfo | None:
-    """Get Organizations
+    """ Get Organizations
 
      Returns a collection of Microsoft organizations added to the Veeam Backup for Microsoft 365
     infrastructure.
@@ -139,17 +158,18 @@ def sync(
 
     Returns:
         PageOfRestOrganizationComposed | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        extended_view=extended_view,
-        msid=msid,
-        backed_up_organization_id=backed_up_organization_id,
-        limit=limit,
-        offset=offset,
-    ).parsed
+extended_view=extended_view,
+msid=msid,
+backed_up_organization_id=backed_up_organization_id,
+limit=limit,
+offset=offset,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
@@ -159,8 +179,9 @@ async def asyncio_detailed(
     backed_up_organization_id: str | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+
 ) -> Response[PageOfRestOrganizationComposed | RESTExceptionInfo]:
-    """Get Organizations
+    """ Get Organizations
 
      Returns a collection of Microsoft organizations added to the Veeam Backup for Microsoft 365
     infrastructure.
@@ -178,20 +199,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRestOrganizationComposed | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         extended_view=extended_view,
-        msid=msid,
-        backed_up_organization_id=backed_up_organization_id,
-        limit=limit,
-        offset=offset,
+msid=msid,
+backed_up_organization_id=backed_up_organization_id,
+limit=limit,
+offset=offset,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
@@ -201,8 +225,9 @@ async def asyncio(
     backed_up_organization_id: str | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+
 ) -> PageOfRestOrganizationComposed | RESTExceptionInfo | None:
-    """Get Organizations
+    """ Get Organizations
 
      Returns a collection of Microsoft organizations added to the Veeam Backup for Microsoft 365
     infrastructure.
@@ -220,15 +245,15 @@ async def asyncio(
 
     Returns:
         PageOfRestOrganizationComposed | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            extended_view=extended_view,
-            msid=msid,
-            backed_up_organization_id=backed_up_organization_id,
-            limit=limit,
-            offset=offset,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+extended_view=extended_view,
+msid=msid,
+backed_up_organization_id=backed_up_organization_id,
+limit=limit,
+offset=offset,
+
+    )).parsed

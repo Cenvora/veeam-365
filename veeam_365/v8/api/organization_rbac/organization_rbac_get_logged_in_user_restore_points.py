@@ -1,26 +1,39 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_restore_point import RESTRestorePoint
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+
 
 
 def _get_kwargs(
     *,
     rbac_item: str | Unset = UNSET,
     is_copy: bool | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     params["rbacItem"] = rbac_item
 
     params["isCopy"] = is_copy
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -28,17 +41,19 @@ def _get_kwargs(
         "params": params,
     }
 
+
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTExceptionInfo | list[RESTRestorePoint]:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | list[RESTRestorePoint]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
-        for response_200_item_data in _response_200:
+        for response_200_item_data in (_response_200):
             response_200_item = RESTRestorePoint.from_dict(response_200_item_data)
+
+
 
             response_200.append(response_200_item)
 
@@ -46,12 +61,13 @@ def _parse_response(
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTExceptionInfo | list[RESTRestorePoint]]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | list[RESTRestorePoint]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -65,8 +81,9 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     rbac_item: str | Unset = UNSET,
     is_copy: bool | Unset = UNSET,
+
 ) -> Response[RESTExceptionInfo | list[RESTRestorePoint]]:
-    """Get Restore Points
+    """ Get Restore Points
 
      Returns a resource representation of restore points created by Veeam Backup for Microsoft 365 for
     organization users currently logged in to Restore Portal.
@@ -81,11 +98,13 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | list[RESTRestorePoint]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         rbac_item=rbac_item,
-        is_copy=is_copy,
+is_copy=is_copy,
+
     )
 
     response = client.get_httpx_client().request(
@@ -94,14 +113,14 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     *,
     client: AuthenticatedClient | Client,
     rbac_item: str | Unset = UNSET,
     is_copy: bool | Unset = UNSET,
+
 ) -> RESTExceptionInfo | list[RESTRestorePoint] | None:
-    """Get Restore Points
+    """ Get Restore Points
 
      Returns a resource representation of restore points created by Veeam Backup for Microsoft 365 for
     organization users currently logged in to Restore Portal.
@@ -116,22 +135,24 @@ def sync(
 
     Returns:
         RESTExceptionInfo | list[RESTRestorePoint]
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        rbac_item=rbac_item,
-        is_copy=is_copy,
-    ).parsed
+rbac_item=rbac_item,
+is_copy=is_copy,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     rbac_item: str | Unset = UNSET,
     is_copy: bool | Unset = UNSET,
+
 ) -> Response[RESTExceptionInfo | list[RESTRestorePoint]]:
-    """Get Restore Points
+    """ Get Restore Points
 
      Returns a resource representation of restore points created by Veeam Backup for Microsoft 365 for
     organization users currently logged in to Restore Portal.
@@ -146,25 +167,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | list[RESTRestorePoint]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         rbac_item=rbac_item,
-        is_copy=is_copy,
+is_copy=is_copy,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     rbac_item: str | Unset = UNSET,
     is_copy: bool | Unset = UNSET,
+
 ) -> RESTExceptionInfo | list[RESTRestorePoint] | None:
-    """Get Restore Points
+    """ Get Restore Points
 
      Returns a resource representation of restore points created by Veeam Backup for Microsoft 365 for
     organization users currently logged in to Restore Portal.
@@ -179,12 +204,12 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | list[RESTRestorePoint]
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            rbac_item=rbac_item,
-            is_copy=is_copy,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+rbac_item=rbac_item,
+is_copy=is_copy,
+
+    )).parsed

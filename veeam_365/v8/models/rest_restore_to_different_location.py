@@ -1,57 +1,66 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.rest_restore_to_different_location_office_region import RESTRestoreToDifferentLocationOfficeRegion
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
+
+
+
+
 
 T = TypeVar("T", bound="RESTRestoreToDifferentLocation")
 
 
+
 @_attrs_define
 class RESTRestoreToDifferentLocation:
-    """
-    Attributes:
-        changed_items (bool | None | Unset): Defines whether all versions of mailbox items will be restored.
-        deleted_items (bool | None | Unset): Defines whether the deleted mailbox items will be restored.
-        mark_restored_as_unread (bool | None | Unset): Defines whether the restored mailbox data will be marked as
-            unread.
-        exclude_drafts (bool | None | Unset): Defines whether the *Drafts* mailbox folder will not be restored.
-        exclude_deleted_items (bool | None | Unset): Defines whether the *Deleted Items* mailbox folder will not be
-            restored.
-        exclude_in_place_hold_items (bool | None | Unset): Defines whether the preserved items placed on In-Place Hold
-            will not be restored.
-        exclude_litigation_hold_items (bool | None | Unset): Defines whether the preserved items placed on Litigation
-            Hold will not be restored.
-        mailbox (str | Unset): Specifies the email address of the mailbox to which you want to restore data.
-        cas_server (str | Unset): Specifies the Microsoft Exchange server with Client Access Server (CAS) role. Data
-            will be restored to a specified mailbox server.
-        folder (str | Unset): Specifies the mailbox folder to which you want to restore data.
-        office_region (RESTRestoreToDifferentLocationOfficeRegion | Unset): Specifies the region of the target Exchange
-            organization.
-        office_organization_name (str | Unset): Specifies the name of the target Exchange organization.
-        user_name (str | Unset): Specifies the user name that you want to use for authenticating to the Exchange
-            organization.
-        user_password (str | Unset): Specifies a password.
-        user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
-            see [Get Device Code](RestoreSession#operation/RestoreSession_DeviceCodeAction).
-            This property is required if you want to use a device code for data restore.
-        application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
-            for restore. Example: 00000000-0000-0000-0000-000000000000.
-        application_certificate_password (str | Unset): Specifies a password.
-        application_certificate (str | Unset): Specifies the SSL certificate configured for the Microsoft Entra
-            application that you want to use for data restore. You must provide the certificate as a Base64 string.
-        impersonation_account_name (str | Unset): Specifies a user name of the account that will be used as a Microsoft
-            Exchange account to restore data.
+    """ 
+        Attributes:
+            changed_items (bool | None | Unset): Defines whether all versions of mailbox items will be restored.
+            deleted_items (bool | None | Unset): Defines whether the deleted mailbox items will be restored.
+            mark_restored_as_unread (bool | None | Unset): Defines whether the restored mailbox data will be marked as
+                unread.
+            exclude_drafts (bool | None | Unset): Defines whether the *Drafts* mailbox folder will not be restored.
+            exclude_deleted_items (bool | None | Unset): Defines whether the *Deleted Items* mailbox folder will not be
+                restored.
+            exclude_in_place_hold_items (bool | None | Unset): Defines whether the preserved items placed on In-Place Hold
+                will not be restored.
+            exclude_litigation_hold_items (bool | None | Unset): Defines whether the preserved items placed on Litigation
+                Hold will not be restored.
+            mailbox (str | Unset): Specifies the email address of the mailbox to which you want to restore data.
+            cas_server (str | Unset): Specifies the Microsoft Exchange server with Client Access Server (CAS) role. Data
+                will be restored to a specified mailbox server.
+            folder (str | Unset): Specifies the mailbox folder to which you want to restore data.
+            office_region (RESTRestoreToDifferentLocationOfficeRegion | Unset): Specifies the region of the target Exchange
+                organization.
+            office_organization_name (str | Unset): Specifies the name of the target Exchange organization.
+            user_name (str | Unset): Specifies the user name that you want to use for authenticating to the Exchange
+                organization.
+            user_password (str | Unset): Specifies a password.
+            user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
+                see [Get Device Code](#/RestoreSession/RestoreSession_DeviceCodeAction).
+                This property is required if you want to use a device code for data restore.
+            application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
+                for restore. Example: 00000000-0000-0000-0000-000000000000.
+            application_certificate_password (str | Unset): Specifies a password.
+            application_certificate (str | Unset): Specifies the TLS certificate configured for the Microsoft Entra
+                application that you want to use for data restore. You must provide the certificate as a Base64 string.
+            impersonation_account_name (str | Unset): Specifies a user name of the account that will be used as a Microsoft
+                Exchange account to restore data.
 
-            **Note**: This property is required if you want to use an application certificate for data restore. Use this
-            property only with the `applicationCertificate` property.
-    """
+                **Note**: This property is required if you want to use an application certificate for data restore. Use this
+                property only with the `applicationCertificate` property.
+     """
 
     changed_items: bool | None | Unset = UNSET
     deleted_items: bool | None | Unset = UNSET
@@ -73,6 +82,10 @@ class RESTRestoreToDifferentLocation:
     application_certificate: str | Unset = UNSET
     impersonation_account_name: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         changed_items: bool | None | Unset
@@ -127,6 +140,7 @@ class RESTRestoreToDifferentLocation:
         if not isinstance(self.office_region, Unset):
             office_region = self.office_region.value
 
+
         office_organization_name = self.office_organization_name
 
         user_name = self.user_name
@@ -149,9 +163,11 @@ class RESTRestoreToDifferentLocation:
 
         impersonation_account_name = self.impersonation_account_name
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if changed_items is not UNSET:
             field_dict["changedItems"] = changed_items
         if deleted_items is not UNSET:
@@ -193,10 +209,11 @@ class RESTRestoreToDifferentLocation:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-
         def _parse_changed_items(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -205,6 +222,7 @@ class RESTRestoreToDifferentLocation:
             return cast(bool | None | Unset, data)
 
         changed_items = _parse_changed_items(d.pop("changedItems", UNSET))
+
 
         def _parse_deleted_items(data: object) -> bool | None | Unset:
             if data is None:
@@ -215,6 +233,7 @@ class RESTRestoreToDifferentLocation:
 
         deleted_items = _parse_deleted_items(d.pop("deletedItems", UNSET))
 
+
         def _parse_mark_restored_as_unread(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -223,6 +242,7 @@ class RESTRestoreToDifferentLocation:
             return cast(bool | None | Unset, data)
 
         mark_restored_as_unread = _parse_mark_restored_as_unread(d.pop("markRestoredAsUnread", UNSET))
+
 
         def _parse_exclude_drafts(data: object) -> bool | None | Unset:
             if data is None:
@@ -233,6 +253,7 @@ class RESTRestoreToDifferentLocation:
 
         exclude_drafts = _parse_exclude_drafts(d.pop("excludeDrafts", UNSET))
 
+
         def _parse_exclude_deleted_items(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -241,6 +262,7 @@ class RESTRestoreToDifferentLocation:
             return cast(bool | None | Unset, data)
 
         exclude_deleted_items = _parse_exclude_deleted_items(d.pop("excludeDeletedItems", UNSET))
+
 
         def _parse_exclude_in_place_hold_items(data: object) -> bool | None | Unset:
             if data is None:
@@ -251,6 +273,7 @@ class RESTRestoreToDifferentLocation:
 
         exclude_in_place_hold_items = _parse_exclude_in_place_hold_items(d.pop("excludeInPlaceHoldItems", UNSET))
 
+
         def _parse_exclude_litigation_hold_items(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -260,6 +283,7 @@ class RESTRestoreToDifferentLocation:
 
         exclude_litigation_hold_items = _parse_exclude_litigation_hold_items(d.pop("excludeLitigationHoldItems", UNSET))
 
+
         mailbox = d.pop("mailbox", UNSET)
 
         cas_server = d.pop("casServer", UNSET)
@@ -268,10 +292,13 @@ class RESTRestoreToDifferentLocation:
 
         _office_region = d.pop("officeRegion", UNSET)
         office_region: RESTRestoreToDifferentLocationOfficeRegion | Unset
-        if isinstance(_office_region, Unset):
+        if isinstance(_office_region,  Unset):
             office_region = UNSET
         else:
             office_region = RESTRestoreToDifferentLocationOfficeRegion(_office_region)
+
+
+
 
         office_organization_name = d.pop("officeOrganizationName", UNSET)
 
@@ -291,12 +318,15 @@ class RESTRestoreToDifferentLocation:
                     raise TypeError()
                 application_id_type_0 = UUID(data)
 
+
+
                 return application_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         application_id = _parse_application_id(d.pop("applicationId", UNSET))
+
 
         application_certificate_password = d.pop("applicationCertificatePassword", UNSET)
 
@@ -325,6 +355,7 @@ class RESTRestoreToDifferentLocation:
             application_certificate=application_certificate,
             impersonation_account_name=impersonation_account_name,
         )
+
 
         rest_restore_to_different_location.additional_properties = d
         return rest_restore_to_different_location

@@ -1,34 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-    from ..models.rest_management_mode_actions import RESTManagementModeActions
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_management_mode_actions import RESTManagementModeActions
+
+
+
 
 
 T = TypeVar("T", bound="RESTManagementMode")
 
 
+
 @_attrs_define
 class RESTManagementMode:
-    """
-    Attributes:
-        is_managed (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 is managed by Veeam Service
-            Provider Console or Veeam One.
-        manager_id (None | Unset | UUID): ID of the Veeam Service Provider Console server that manages Veeam Backup for
-            Microsoft 365. Example: 00000000-0000-0000-0000-000000000000.
-        company_name (str | Unset): Name of the company that manages Veeam Backup for Microsoft 365.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-        field_actions (RESTManagementModeActions | Unset):
-    """
+    """ 
+        Attributes:
+            is_managed (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 is managed by Veeam Service
+                Provider Console or Veeam One.
+            manager_id (None | Unset | UUID): ID of the Veeam Service Provider Console server that manages Veeam Backup for
+                Microsoft 365. Example: 00000000-0000-0000-0000-000000000000.
+            company_name (str | Unset): Name of the company that manages Veeam Backup for Microsoft 365.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+            field_actions (RESTManagementModeActions | Unset):
+     """
 
     is_managed: bool | None | Unset = UNSET
     manager_id: None | Unset | UUID = UNSET
@@ -37,7 +44,13 @@ class RESTManagementMode:
     field_actions: RESTManagementModeActions | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+        from ..models.rest_management_mode_actions import RESTManagementModeActions
         is_managed: bool | None | Unset
         if isinstance(self.is_managed, Unset):
             is_managed = UNSET
@@ -62,9 +75,11 @@ class RESTManagementMode:
         if not isinstance(self.field_actions, Unset):
             field_actions = self.field_actions.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if is_managed is not UNSET:
             field_dict["isManaged"] = is_managed
         if manager_id is not UNSET:
@@ -78,13 +93,13 @@ class RESTManagementMode:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         from ..models.rest_management_mode_actions import RESTManagementModeActions
-
         d = dict(src_dict)
-
         def _parse_is_managed(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -93,6 +108,7 @@ class RESTManagementMode:
             return cast(bool | None | Unset, data)
 
         is_managed = _parse_is_managed(d.pop("isManaged", UNSET))
+
 
         def _parse_manager_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -104,6 +120,8 @@ class RESTManagementMode:
                     raise TypeError()
                 manager_id_type_0 = UUID(data)
 
+
+
                 return manager_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -111,21 +129,28 @@ class RESTManagementMode:
 
         manager_id = _parse_manager_id(d.pop("managerId", UNSET))
 
+
         company_name = d.pop("companyName", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
 
+
+
+
         _field_actions = d.pop("_actions", UNSET)
         field_actions: RESTManagementModeActions | Unset
-        if isinstance(_field_actions, Unset):
+        if isinstance(_field_actions,  Unset):
             field_actions = UNSET
         else:
             field_actions = RESTManagementModeActions.from_dict(_field_actions)
+
+
+
 
         rest_management_mode = cls(
             is_managed=is_managed,
@@ -134,6 +159,7 @@ class RESTManagementMode:
             field_links=field_links,
             field_actions=field_actions,
         )
+
 
         rest_management_mode.additional_properties = d
         return rest_management_mode

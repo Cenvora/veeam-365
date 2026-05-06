@@ -1,14 +1,20 @@
 from http import HTTPStatus
-from typing import Any
-from uuid import UUID
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.amazon_s3_aws_region_type import AmazonS3AwsRegionType
 from ...models.rest_amazon_bucket_s3_aws import RESTAmazonBucketS3Aws
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -17,7 +23,12 @@ def _get_kwargs(
     region_type: AmazonS3AwsRegionType,
     region_id: str | Unset = UNSET,
     name: str | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     json_account_id = str(account_id)
@@ -30,7 +41,9 @@ def _get_kwargs(
 
     params["Name"] = name
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -38,17 +51,19 @@ def _get_kwargs(
         "params": params,
     }
 
+
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTExceptionInfo | list[RESTAmazonBucketS3Aws]:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | list[RESTAmazonBucketS3Aws]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
-        for response_200_item_data in _response_200:
+        for response_200_item_data in (_response_200):
             response_200_item = RESTAmazonBucketS3Aws.from_dict(response_200_item_data)
+
+
 
             response_200.append(response_200_item)
 
@@ -56,12 +71,13 @@ def _parse_response(
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTExceptionInfo | list[RESTAmazonBucketS3Aws]]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | list[RESTAmazonBucketS3Aws]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -77,8 +93,9 @@ def sync_detailed(
     region_type: AmazonS3AwsRegionType,
     region_id: str | Unset = UNSET,
     name: str | Unset = UNSET,
+
 ) -> Response[RESTExceptionInfo | list[RESTAmazonBucketS3Aws]]:
-    """Get Buckets
+    """ Get Buckets
 
      Returns a list of Amazon S3 buckets.
 
@@ -94,13 +111,15 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | list[RESTAmazonBucketS3Aws]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         account_id=account_id,
-        region_type=region_type,
-        region_id=region_id,
-        name=name,
+region_type=region_type,
+region_id=region_id,
+name=name,
+
     )
 
     response = client.get_httpx_client().request(
@@ -109,7 +128,6 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     *,
     client: AuthenticatedClient | Client,
@@ -117,8 +135,9 @@ def sync(
     region_type: AmazonS3AwsRegionType,
     region_id: str | Unset = UNSET,
     name: str | Unset = UNSET,
+
 ) -> RESTExceptionInfo | list[RESTAmazonBucketS3Aws] | None:
-    """Get Buckets
+    """ Get Buckets
 
      Returns a list of Amazon S3 buckets.
 
@@ -134,16 +153,17 @@ def sync(
 
     Returns:
         RESTExceptionInfo | list[RESTAmazonBucketS3Aws]
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        account_id=account_id,
-        region_type=region_type,
-        region_id=region_id,
-        name=name,
-    ).parsed
+account_id=account_id,
+region_type=region_type,
+region_id=region_id,
+name=name,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
@@ -152,8 +172,9 @@ async def asyncio_detailed(
     region_type: AmazonS3AwsRegionType,
     region_id: str | Unset = UNSET,
     name: str | Unset = UNSET,
+
 ) -> Response[RESTExceptionInfo | list[RESTAmazonBucketS3Aws]]:
-    """Get Buckets
+    """ Get Buckets
 
      Returns a list of Amazon S3 buckets.
 
@@ -169,19 +190,22 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | list[RESTAmazonBucketS3Aws]]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         account_id=account_id,
-        region_type=region_type,
-        region_id=region_id,
-        name=name,
+region_type=region_type,
+region_id=region_id,
+name=name,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
@@ -190,8 +214,9 @@ async def asyncio(
     region_type: AmazonS3AwsRegionType,
     region_id: str | Unset = UNSET,
     name: str | Unset = UNSET,
+
 ) -> RESTExceptionInfo | list[RESTAmazonBucketS3Aws] | None:
-    """Get Buckets
+    """ Get Buckets
 
      Returns a list of Amazon S3 buckets.
 
@@ -207,14 +232,14 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | list[RESTAmazonBucketS3Aws]
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            account_id=account_id,
-            region_type=region_type,
-            region_id=region_id,
-            name=name,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+account_id=account_id,
+region_type=region_type,
+region_id=region_id,
+name=name,
+
+    )).parsed

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTRestoreSessionEventStatus(str, Enum):
     CANCELLED = "Cancelled"
     FAILED = "Failed"

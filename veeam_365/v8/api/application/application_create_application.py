@@ -1,32 +1,41 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.page_of_rest_application import PageOfRESTApplication
 from ...models.rest_application_from_client import RESTApplicationFromClient
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
     organization_id: UUID,
     *,
     body: RESTApplicationFromClient,
+
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v8/Organizations/{organization_id}/Applications".format(
-            organization_id=quote(str(organization_id), safe=""),
-        ),
+        "url": "/v8/Organizations/{organization_id}/Applications".format(organization_id=quote(str(organization_id), safe=""),),
     }
 
     _kwargs["json"] = body.to_dict()
+
 
     headers["Content-Type"] = "application/json"
 
@@ -34,22 +43,24 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> PageOfRESTApplication | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTApplication | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTApplication.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[PageOfRESTApplication | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTApplication | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -63,8 +74,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTApplicationFromClient,
+
 ) -> Response[PageOfRESTApplication | RESTExceptionInfo]:
-    """Create Applications in Microsoft Entra
+    """ Create Applications in Microsoft Entra
 
      Creates Microsoft Entra applications in Microsoft Entra ID using the device code.
 
@@ -78,11 +90,13 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTApplication | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-        body=body,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -91,14 +105,14 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTApplicationFromClient,
+
 ) -> PageOfRESTApplication | RESTExceptionInfo | None:
-    """Create Applications in Microsoft Entra
+    """ Create Applications in Microsoft Entra
 
      Creates Microsoft Entra applications in Microsoft Entra ID using the device code.
 
@@ -112,22 +126,24 @@ def sync(
 
     Returns:
         PageOfRESTApplication | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         organization_id=organization_id,
-        client=client,
-        body=body,
-    ).parsed
+client=client,
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTApplicationFromClient,
+
 ) -> Response[PageOfRESTApplication | RESTExceptionInfo]:
-    """Create Applications in Microsoft Entra
+    """ Create Applications in Microsoft Entra
 
      Creates Microsoft Entra applications in Microsoft Entra ID using the device code.
 
@@ -141,25 +157,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTApplication | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-        body=body,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTApplicationFromClient,
+
 ) -> PageOfRESTApplication | RESTExceptionInfo | None:
-    """Create Applications in Microsoft Entra
+    """ Create Applications in Microsoft Entra
 
      Creates Microsoft Entra applications in Microsoft Entra ID using the device code.
 
@@ -173,12 +193,12 @@ async def asyncio(
 
     Returns:
         PageOfRESTApplication | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            organization_id=organization_id,
-            client=client,
-            body=body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        organization_id=organization_id,
+client=client,
+body=body,
+
+    )).parsed

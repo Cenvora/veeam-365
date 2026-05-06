@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTProxyFromClientInternetProxyType(str, Enum):
     CUSTOM = "Custom"
     FROMMANAGEMENTSERVER = "FromManagementServer"

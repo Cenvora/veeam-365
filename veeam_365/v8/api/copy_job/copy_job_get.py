@@ -1,13 +1,19 @@
 from http import HTTPStatus
-from typing import Any
-from uuid import UUID
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.page_of_rest_copy_job import PageOfRESTCopyJob
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -16,7 +22,12 @@ def _get_kwargs(
     repository_id: UUID | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     json_organization_id: str | Unset = UNSET
@@ -33,7 +44,9 @@ def _get_kwargs(
 
     params["offset"] = offset
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -41,25 +54,28 @@ def _get_kwargs(
         "params": params,
     }
 
+
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> PageOfRESTCopyJob | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTCopyJob | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTCopyJob.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[PageOfRESTCopyJob | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTCopyJob | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -75,8 +91,9 @@ def sync_detailed(
     repository_id: UUID | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+
 ) -> Response[PageOfRESTCopyJob | RESTExceptionInfo]:
-    """Get Backup Copy Jobs
+    """ Get Backup Copy Jobs
 
      Returns a collection of configured backup copy jobs.
 
@@ -92,13 +109,15 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTCopyJob | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-        repository_id=repository_id,
-        limit=limit,
-        offset=offset,
+repository_id=repository_id,
+limit=limit,
+offset=offset,
+
     )
 
     response = client.get_httpx_client().request(
@@ -107,7 +126,6 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     *,
     client: AuthenticatedClient | Client,
@@ -115,8 +133,9 @@ def sync(
     repository_id: UUID | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+
 ) -> PageOfRESTCopyJob | RESTExceptionInfo | None:
-    """Get Backup Copy Jobs
+    """ Get Backup Copy Jobs
 
      Returns a collection of configured backup copy jobs.
 
@@ -132,16 +151,17 @@ def sync(
 
     Returns:
         PageOfRESTCopyJob | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        organization_id=organization_id,
-        repository_id=repository_id,
-        limit=limit,
-        offset=offset,
-    ).parsed
+organization_id=organization_id,
+repository_id=repository_id,
+limit=limit,
+offset=offset,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
@@ -150,8 +170,9 @@ async def asyncio_detailed(
     repository_id: UUID | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+
 ) -> Response[PageOfRESTCopyJob | RESTExceptionInfo]:
-    """Get Backup Copy Jobs
+    """ Get Backup Copy Jobs
 
      Returns a collection of configured backup copy jobs.
 
@@ -167,19 +188,22 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTCopyJob | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-        repository_id=repository_id,
-        limit=limit,
-        offset=offset,
+repository_id=repository_id,
+limit=limit,
+offset=offset,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
@@ -188,8 +212,9 @@ async def asyncio(
     repository_id: UUID | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+
 ) -> PageOfRESTCopyJob | RESTExceptionInfo | None:
-    """Get Backup Copy Jobs
+    """ Get Backup Copy Jobs
 
      Returns a collection of configured backup copy jobs.
 
@@ -205,14 +230,14 @@ async def asyncio(
 
     Returns:
         PageOfRESTCopyJob | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            organization_id=organization_id,
-            repository_id=repository_id,
-            limit=limit,
-            offset=offset,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+organization_id=organization_id,
+repository_id=repository_id,
+limit=limit,
+offset=offset,
+
+    )).parsed

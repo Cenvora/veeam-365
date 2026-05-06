@@ -1,35 +1,44 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTRestoreTabOptions")
+
 
 
 @_attrs_define
 class RESTRestoreTabOptions:
-    """
-    Attributes:
-        restore_changed_tabs (bool): Defines whether to restore tabs that have been modified in the original location
-            since the time when the backup was created.
-        restore_missing_tabs (bool): Defines whether to restore tabs that are missed in the original location.
-        user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
-            see [Get Device Code](RestoreSession#operation/RestoreSession_DeviceCodeAction).
-            This property is required if you want to use a device code for data restore.
-        application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
-            for restore. Example: 00000000-0000-0000-0000-000000000000.
-        application_certificate (str | Unset): Specifies the SSL certificate configured for the Microsoft Entra
-            application that you want to use for data restore. You must provide the certificate as a Base64 string.
-        application_certificate_password (str | Unset): Specifies a password.
-        user_name (str | Unset): Specifies the user name that you want to use for authenticating to the organization.
-        user_password (str | Unset): Specifies a password.
-    """
+    """ 
+        Attributes:
+            restore_changed_tabs (bool): Defines whether to restore tabs that have been modified in the original location
+                since the time when the backup was created.
+            restore_missing_tabs (bool): Defines whether to restore tabs that are missed in the original location.
+            user_code (str | Unset): Specifies the authentication code. For more information on how to get a device code,
+                see [Get Device Code](#/RestoreSession/RestoreSession_DeviceCodeAction).
+                This property is required if you want to use a device code for data restore.
+            application_id (None | Unset | UUID): Specifies the ID of the Microsoft Entra application that you want to use
+                for restore. Example: 00000000-0000-0000-0000-000000000000.
+            application_certificate (str | Unset): Specifies the TLS certificate configured for the Microsoft Entra
+                application that you want to use for data restore. You must provide the certificate as a Base64 string.
+            application_certificate_password (str | Unset): Specifies a password.
+            user_name (str | Unset): Specifies the user name that you want to use for authenticating to the organization.
+            user_password (str | Unset): Specifies a password.
+     """
 
     restore_changed_tabs: bool
     restore_missing_tabs: bool
@@ -40,6 +49,10 @@ class RESTRestoreTabOptions:
     user_name: str | Unset = UNSET
     user_password: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         restore_changed_tabs = self.restore_changed_tabs
@@ -64,14 +77,13 @@ class RESTRestoreTabOptions:
 
         user_password = self.user_password
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "restoreChangedTabs": restore_changed_tabs,
-                "restoreMissingTabs": restore_missing_tabs,
-            }
-        )
+        field_dict.update({
+            "restoreChangedTabs": restore_changed_tabs,
+            "restoreMissingTabs": restore_missing_tabs,
+        })
         if user_code is not UNSET:
             field_dict["userCode"] = user_code
         if application_id is not UNSET:
@@ -86,6 +98,8 @@ class RESTRestoreTabOptions:
             field_dict["userPassword"] = user_password
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -106,12 +120,15 @@ class RESTRestoreTabOptions:
                     raise TypeError()
                 application_id_type_0 = UUID(data)
 
+
+
                 return application_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         application_id = _parse_application_id(d.pop("applicationId", UNSET))
+
 
         application_certificate = d.pop("applicationCertificate", UNSET)
 
@@ -131,6 +148,7 @@ class RESTRestoreTabOptions:
             user_name=user_name,
             user_password=user_password,
         )
+
 
         rest_restore_tab_options.additional_properties = d
         return rest_restore_tab_options

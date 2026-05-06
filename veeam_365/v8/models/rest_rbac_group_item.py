@@ -1,31 +1,38 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_rbac_item_type import RESTRbacItemType
 from ..types import UNSET, Unset
 
+from ..models.rest_rbac_item_type import RESTRbacItemType
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_rbac_group import RESTRbacGroup
-    from ..models.rest_rbac_group_item_links import RESTRbacGroupItemLinks
+  from ..models.rest_rbac_group import RESTRbacGroup
+  from ..models.rest_rbac_group_item_links import RESTRbacGroupItemLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTRbacGroupItem")
 
 
+
 @_attrs_define
 class RESTRbacGroupItem:
-    """
-    Attributes:
-        type_ (RESTRbacItemType): Type of the managed object.
-        group (RESTRbacGroup):
-        id (str): ID of the organization group.
-        field_links (RESTRbacGroupItemLinks | Unset):
-    """
+    """ 
+        Attributes:
+            type_ (RESTRbacItemType): Type of the managed object.
+            group (RESTRbacGroup):
+            id (str): ID of the organization group.
+            field_links (RESTRbacGroupItemLinks | Unset):
+     """
 
     type_: RESTRbacItemType
     group: RESTRbacGroup
@@ -33,7 +40,13 @@ class RESTRbacGroupItem:
     field_links: RESTRbacGroupItemLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_rbac_group import RESTRbacGroup
+        from ..models.rest_rbac_group_item_links import RESTRbacGroupItemLinks
         type_ = self.type_.value
 
         group = self.group.to_dict()
@@ -44,38 +57,47 @@ class RESTRbacGroupItem:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "type": type_,
-                "group": group,
-                "id": id,
-            }
-        )
+        field_dict.update({
+            "type": type_,
+            "group": group,
+            "id": id,
+        })
         if field_links is not UNSET:
             field_dict["_links"] = field_links
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_rbac_group import RESTRbacGroup
         from ..models.rest_rbac_group_item_links import RESTRbacGroupItemLinks
-
         d = dict(src_dict)
         type_ = RESTRbacItemType(d.pop("type"))
 
+
+
+
         group = RESTRbacGroup.from_dict(d.pop("group"))
+
+
+
 
         id = d.pop("id")
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTRbacGroupItemLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTRbacGroupItemLinks.from_dict(_field_links)
+
+
+
 
         rest_rbac_group_item = cls(
             type_=type_,
@@ -83,6 +105,7 @@ class RESTRbacGroupItem:
             id=id,
             field_links=field_links,
         )
+
 
         rest_rbac_group_item.additional_properties = d
         return rest_rbac_group_item

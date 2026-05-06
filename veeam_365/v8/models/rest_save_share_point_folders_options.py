@@ -1,33 +1,44 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_share_point_folder import RESTSharePointFolder
+  from ..models.rest_share_point_folder import RESTSharePointFolder
+
+
+
 
 
 T = TypeVar("T", bound="RESTSaveSharePointFoldersOptions")
 
 
+
 @_attrs_define
 class RESTSaveSharePointFoldersOptions:
-    """
-    Attributes:
-        folders (list[RESTSharePointFolder] | Unset): Specifies IDs of the SharePoint folders that you want to save. For
-            more information on how to get such IDs, see [Get SharePoint
-            Folders](SharePointFolder#operation/SharePointFolder_Get).
-    """
+    """ 
+        Attributes:
+            folders (list[RESTSharePointFolder] | Unset): Specifies IDs of the SharePoint folders that you want to save. For
+                more information on how to get such IDs, see [Get SharePoint Folders](#/SharePointFolder/SharePointFolder_Get).
+     """
 
     folders: list[RESTSharePointFolder] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_share_point_folder import RESTSharePointFolder
         folders: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.folders, Unset):
             folders = []
@@ -35,18 +46,23 @@ class RESTSaveSharePointFoldersOptions:
                 folders_item = folders_item_data.to_dict()
                 folders.append(folders_item)
 
+
+
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if folders is not UNSET:
             field_dict["folders"] = folders
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_share_point_folder import RESTSharePointFolder
-
         d = dict(src_dict)
         _folders = d.pop("folders", UNSET)
         folders: list[RESTSharePointFolder] | Unset = UNSET
@@ -55,11 +71,15 @@ class RESTSaveSharePointFoldersOptions:
             for folders_item_data in _folders:
                 folders_item = RESTSharePointFolder.from_dict(folders_item_data)
 
+
+
                 folders.append(folders_item)
+
 
         rest_save_share_point_folders_options = cls(
             folders=folders,
         )
+
 
         rest_save_share_point_folders_options.additional_properties = d
         return rest_save_share_point_folders_options

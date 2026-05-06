@@ -1,34 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_repository_synchronize_session_state import RESTRepositorySynchronizeSessionState
 from ..types import UNSET, Unset
 
+from ..models.rest_repository_synchronize_session_state import RESTRepositorySynchronizeSessionState
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTRepositorySynchronizeSession")
 
 
+
 @_attrs_define
 class RESTRepositorySynchronizeSession:
-    """
-    Attributes:
-        id (None | Unset | UUID): Synchronization session ID. Example: 00000000-0000-0000-0000-000000000000.
-        repository_id (None | Unset | UUID): ID of the backup repository being synchronized. Example:
-            00000000-0000-0000-0000-000000000000.
-        state (RESTRepositorySynchronizeSessionState | Unset): Synchronization state.
-        progress_percent (int | None | Unset): Synchronization progress in percent.
-        error (str | Unset): Error occurred when synchronizing the backup repository.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            id (None | Unset | UUID): Synchronization session ID. Example: 00000000-0000-0000-0000-000000000000.
+            repository_id (None | Unset | UUID): ID of the backup repository being synchronized. Example:
+                00000000-0000-0000-0000-000000000000.
+            state (RESTRepositorySynchronizeSessionState | Unset): Synchronization state.
+            progress_percent (int | None | Unset): Synchronization progress in percent.
+            error (str | Unset): Error occurred when synchronizing the backup repository.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     id: None | Unset | UUID = UNSET
     repository_id: None | Unset | UUID = UNSET
@@ -38,7 +45,12 @@ class RESTRepositorySynchronizeSession:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         id: None | str | Unset
         if isinstance(self.id, Unset):
             id = UNSET
@@ -59,6 +71,7 @@ class RESTRepositorySynchronizeSession:
         if not isinstance(self.state, Unset):
             state = self.state.value
 
+
         progress_percent: int | None | Unset
         if isinstance(self.progress_percent, Unset):
             progress_percent = UNSET
@@ -71,9 +84,11 @@ class RESTRepositorySynchronizeSession:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if repository_id is not UNSET:
@@ -89,12 +104,12 @@ class RESTRepositorySynchronizeSession:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
-
         def _parse_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
@@ -105,12 +120,15 @@ class RESTRepositorySynchronizeSession:
                     raise TypeError()
                 id_type_0 = UUID(data)
 
+
+
                 return id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         id = _parse_id(d.pop("id", UNSET))
+
 
         def _parse_repository_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -122,6 +140,8 @@ class RESTRepositorySynchronizeSession:
                     raise TypeError()
                 repository_id_type_0 = UUID(data)
 
+
+
                 return repository_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -129,12 +149,16 @@ class RESTRepositorySynchronizeSession:
 
         repository_id = _parse_repository_id(d.pop("repositoryId", UNSET))
 
+
         _state = d.pop("state", UNSET)
         state: RESTRepositorySynchronizeSessionState | Unset
-        if isinstance(_state, Unset):
+        if isinstance(_state,  Unset):
             state = UNSET
         else:
             state = RESTRepositorySynchronizeSessionState(_state)
+
+
+
 
         def _parse_progress_percent(data: object) -> int | None | Unset:
             if data is None:
@@ -145,14 +169,18 @@ class RESTRepositorySynchronizeSession:
 
         progress_percent = _parse_progress_percent(d.pop("progressPercent", UNSET))
 
+
         error = d.pop("error", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_repository_synchronize_session = cls(
             id=id,
@@ -162,6 +190,7 @@ class RESTRepositorySynchronizeSession:
             error=error,
             field_links=field_links,
         )
+
 
         rest_repository_synchronize_session.additional_properties = d
         return rest_repository_synchronize_session

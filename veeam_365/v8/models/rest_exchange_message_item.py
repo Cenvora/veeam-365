@@ -1,46 +1,53 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_exchange_item_importance import RESTExchangeItemImportance
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_attachment import RESTAttachment
-    from ..models.rest_exchange_message_item_actions import RESTExchangeMessageItemActions
-    from ..models.rest_exchange_message_item_links import RESTExchangeMessageItemLinks
+  from ..models.rest_attachment import RESTAttachment
+  from ..models.rest_exchange_message_item_actions import RESTExchangeMessageItemActions
+  from ..models.rest_exchange_message_item_links import RESTExchangeMessageItemLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTExchangeMessageItem")
 
 
+
 @_attrs_define
 class RESTExchangeMessageItem:
-    """
-    Attributes:
-        mailbox_id (UUID | Unset): ID of the organization mailbox.
-        from_ (str | Unset): Sender email address.
-        cc (str | Unset): Recipient email address in carbon copy.
-        bcc (str | Unset): Recipient address in blind carbon copy.
-        to (str | Unset): Recipient email address.
-        sent (datetime.datetime | Unset): Date and time when the message was sent.
-        received (datetime.datetime | Unset): Date and time when the message was received.
-        reminder (bool | Unset): Defines whether the message was sent with the reminder.
-        attachments (list[RESTAttachment] | Unset): Array of attachment items for the message.
-        subject (str | Unset): Message subject.
-        item_class (str | Unset): Exchange item class.
-        importance (RESTExchangeItemImportance | Unset): Message importance.
-        field_links (RESTExchangeMessageItemLinks | Unset):
-        field_actions (RESTExchangeMessageItemActions | Unset):
-        id (str | Unset): Exchange item ID.
-    """
+    """ 
+        Attributes:
+            mailbox_id (UUID | Unset): ID of the organization mailbox.
+            from_ (str | Unset): Sender email address.
+            cc (str | Unset): Recipient email address in carbon copy.
+            bcc (str | Unset): Recipient address in blind carbon copy.
+            to (str | Unset): Recipient email address.
+            sent (datetime.datetime | Unset): Date and time when the message was sent.
+            received (datetime.datetime | Unset): Date and time when the message was received.
+            reminder (bool | Unset): Defines whether the message was sent with the reminder.
+            attachments (list[RESTAttachment] | Unset): Array of attachment items for the message.
+            subject (str | Unset): Message subject.
+            item_class (str | Unset): Exchange item class.
+            importance (RESTExchangeItemImportance | Unset): Message importance.
+            field_links (RESTExchangeMessageItemLinks | Unset):
+            field_actions (RESTExchangeMessageItemActions | Unset):
+            id (str | Unset): Exchange item ID.
+     """
 
     mailbox_id: UUID | Unset = UNSET
     from_: str | Unset = UNSET
@@ -59,7 +66,14 @@ class RESTExchangeMessageItem:
     id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_attachment import RESTAttachment
+        from ..models.rest_exchange_message_item_actions import RESTExchangeMessageItemActions
+        from ..models.rest_exchange_message_item_links import RESTExchangeMessageItemLinks
         mailbox_id: str | Unset = UNSET
         if not isinstance(self.mailbox_id, Unset):
             mailbox_id = str(self.mailbox_id)
@@ -89,6 +103,8 @@ class RESTExchangeMessageItem:
                 attachments_item = attachments_item_data.to_dict()
                 attachments.append(attachments_item)
 
+
+
         subject = self.subject
 
         item_class = self.item_class
@@ -96,6 +112,7 @@ class RESTExchangeMessageItem:
         importance: str | Unset = UNSET
         if not isinstance(self.importance, Unset):
             importance = self.importance.value
+
 
         field_links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.field_links, Unset):
@@ -107,9 +124,11 @@ class RESTExchangeMessageItem:
 
         id = self.id
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if mailbox_id is not UNSET:
             field_dict["mailboxId"] = mailbox_id
         if from_ is not UNSET:
@@ -143,19 +162,23 @@ class RESTExchangeMessageItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_attachment import RESTAttachment
         from ..models.rest_exchange_message_item_actions import RESTExchangeMessageItemActions
         from ..models.rest_exchange_message_item_links import RESTExchangeMessageItemLinks
-
         d = dict(src_dict)
         _mailbox_id = d.pop("mailboxId", UNSET)
         mailbox_id: UUID | Unset
-        if isinstance(_mailbox_id, Unset):
+        if isinstance(_mailbox_id,  Unset):
             mailbox_id = UNSET
         else:
             mailbox_id = UUID(_mailbox_id)
+
+
+
 
         from_ = d.pop("from", UNSET)
 
@@ -167,17 +190,23 @@ class RESTExchangeMessageItem:
 
         _sent = d.pop("sent", UNSET)
         sent: datetime.datetime | Unset
-        if isinstance(_sent, Unset):
+        if isinstance(_sent,  Unset):
             sent = UNSET
         else:
             sent = isoparse(_sent)
 
+
+
+
         _received = d.pop("received", UNSET)
         received: datetime.datetime | Unset
-        if isinstance(_received, Unset):
+        if isinstance(_received,  Unset):
             received = UNSET
         else:
             received = isoparse(_received)
+
+
+
 
         reminder = d.pop("reminder", UNSET)
 
@@ -188,7 +217,10 @@ class RESTExchangeMessageItem:
             for attachments_item_data in _attachments:
                 attachments_item = RESTAttachment.from_dict(attachments_item_data)
 
+
+
                 attachments.append(attachments_item)
+
 
         subject = d.pop("subject", UNSET)
 
@@ -196,24 +228,33 @@ class RESTExchangeMessageItem:
 
         _importance = d.pop("importance", UNSET)
         importance: RESTExchangeItemImportance | Unset
-        if isinstance(_importance, Unset):
+        if isinstance(_importance,  Unset):
             importance = UNSET
         else:
             importance = RESTExchangeItemImportance(_importance)
 
+
+
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTExchangeMessageItemLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTExchangeMessageItemLinks.from_dict(_field_links)
 
+
+
+
         _field_actions = d.pop("_actions", UNSET)
         field_actions: RESTExchangeMessageItemActions | Unset
-        if isinstance(_field_actions, Unset):
+        if isinstance(_field_actions,  Unset):
             field_actions = UNSET
         else:
             field_actions = RESTExchangeMessageItemActions.from_dict(_field_actions)
+
+
+
 
         id = d.pop("id", UNSET)
 
@@ -234,6 +275,7 @@ class RESTExchangeMessageItem:
             field_actions=field_actions,
             id=id,
         )
+
 
         rest_exchange_message_item.additional_properties = d
         return rest_exchange_message_item

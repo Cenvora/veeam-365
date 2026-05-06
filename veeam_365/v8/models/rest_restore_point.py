@@ -1,53 +1,60 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
+
 if TYPE_CHECKING:
-    from ..models.rest_restore_point_links import RESTRestorePointLinks
+  from ..models.rest_restore_point_links import RESTRestorePointLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTRestorePoint")
 
 
+
 @_attrs_define
 class RESTRestorePoint:
-    """
-    Attributes:
-        id (str | Unset): ID of the restore point.
-        is_deleted (bool | Unset): Defines whether the restore point contains data marked as deleted or soft deleted.
-        repository_id (UUID | Unset): Backup repository ID. Example: 00000000-0000-0000-0000-000000000000.
-        backup_time (datetime.datetime | Unset): Date and time when the restore point was created.
-        job_id (UUID | Unset): ID of a backup job. Example: 00000000-0000-0000-0000-000000000000.
-        retrieval_id (UUID | Unset): ID of a retrieval job. Example: 00000000-0000-0000-0000-000000000000.
-        organization_id (UUID | Unset): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
-        is_exchange (bool | Unset): Defines whether the restore point contains Microsoft Exchange data.
-        is_share_point (bool | Unset): Defines whether the restore point contains Microsoft SharePoint data.
-        is_one_drive (bool | Unset): Defines whether the restore point contains Microsoft OneDrive data.
-        is_teams (bool | Unset): Defines whether the restore point contains Microsoft Teams data.
-        is_long_term_copy (bool | Unset): Defines whether the restore point was created by a backup copy job in the
-            following object storage repositories: Azure Blob Storage Archive access tier, Amazon S3 Glacier Instant
-            Retrieval, Amazon S3 Glacier Flexible Retrieval or Amazon S3 Glacier Deep Archive storage classes.
-        is_copy (bool | Unset): Defines whether the restore point was created by a backup copy job in any object storage
-            repository.
-        is_retrieved (bool | Unset): Defines whether the restore point was retrieved from object storage repository by a
-            data retrieval job.
-        e_tag (int | Unset): Version number that Veeam Backup for Microsoft 365 assigns if the restore point was
-            modified.
-        objects_etag (int | Unset): Version number that Veeam Backup for Microsoft 365 assigns if objects included to
-            the restore point were modified.
-        immutability_expires_on (datetime.datetime | None | Unset): Date and time until which the backed-up data in the
-            restore point will be blocked for deletion or modification.
-        field_links (RESTRestorePointLinks | Unset):
-    """
+    """ 
+        Attributes:
+            id (str | Unset): ID of the restore point.
+            is_deleted (bool | Unset): Defines whether the restore point contains data marked as deleted or soft deleted.
+            repository_id (UUID | Unset): Backup repository ID. Example: 00000000-0000-0000-0000-000000000000.
+            backup_time (datetime.datetime | Unset): Date and time when the restore point was created.
+            job_id (UUID | Unset): ID of a backup job. Example: 00000000-0000-0000-0000-000000000000.
+            retrieval_id (UUID | Unset): ID of a retrieval job. Example: 00000000-0000-0000-0000-000000000000.
+            organization_id (UUID | Unset): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
+            is_exchange (bool | Unset): Defines whether the restore point contains Microsoft Exchange data.
+            is_share_point (bool | Unset): Defines whether the restore point contains Microsoft SharePoint data.
+            is_one_drive (bool | Unset): Defines whether the restore point contains Microsoft OneDrive data.
+            is_teams (bool | Unset): Defines whether the restore point contains Microsoft Teams data.
+            is_long_term_copy (bool | Unset): Defines whether the restore point was created by a backup copy job in the
+                following object storage repositories: Azure Blob Storage Archive access tier, Amazon S3 Glacier Instant
+                Retrieval, Amazon S3 Glacier Flexible Retrieval or Amazon S3 Glacier Deep Archive storage classes.
+            is_copy (bool | Unset): Defines whether the restore point was created by a backup copy job in any object storage
+                repository.
+            is_retrieved (bool | Unset): Defines whether the restore point was retrieved from object storage repository by a
+                data retrieval job.
+            e_tag (int | Unset): Version number that Veeam Backup for Microsoft 365 assigns if the restore point was
+                modified.
+            objects_etag (int | Unset): Version number that Veeam Backup for Microsoft 365 assigns if objects included to
+                the restore point were modified.
+            immutability_expires_on (datetime.datetime | None | Unset): Date and time until which the backed-up data in the
+                restore point will be blocked for deletion or modification.
+            field_links (RESTRestorePointLinks | Unset):
+     """
 
     id: str | Unset = UNSET
     is_deleted: bool | Unset = UNSET
@@ -69,7 +76,12 @@ class RESTRestorePoint:
     field_links: RESTRestorePointLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_restore_point_links import RESTRestorePointLinks
         id = self.id
 
         is_deleted = self.is_deleted
@@ -124,9 +136,11 @@ class RESTRestorePoint:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if is_deleted is not UNSET:
@@ -166,10 +180,11 @@ class RESTRestorePoint:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_restore_point_links import RESTRestorePointLinks
-
         d = dict(src_dict)
         id = d.pop("id", UNSET)
 
@@ -177,38 +192,53 @@ class RESTRestorePoint:
 
         _repository_id = d.pop("repositoryId", UNSET)
         repository_id: UUID | Unset
-        if isinstance(_repository_id, Unset):
+        if isinstance(_repository_id,  Unset):
             repository_id = UNSET
         else:
             repository_id = UUID(_repository_id)
 
+
+
+
         _backup_time = d.pop("backupTime", UNSET)
         backup_time: datetime.datetime | Unset
-        if isinstance(_backup_time, Unset):
+        if isinstance(_backup_time,  Unset):
             backup_time = UNSET
         else:
             backup_time = isoparse(_backup_time)
 
+
+
+
         _job_id = d.pop("jobId", UNSET)
         job_id: UUID | Unset
-        if isinstance(_job_id, Unset):
+        if isinstance(_job_id,  Unset):
             job_id = UNSET
         else:
             job_id = UUID(_job_id)
 
+
+
+
         _retrieval_id = d.pop("retrievalId", UNSET)
         retrieval_id: UUID | Unset
-        if isinstance(_retrieval_id, Unset):
+        if isinstance(_retrieval_id,  Unset):
             retrieval_id = UNSET
         else:
             retrieval_id = UUID(_retrieval_id)
 
+
+
+
         _organization_id = d.pop("organizationId", UNSET)
         organization_id: UUID | Unset
-        if isinstance(_organization_id, Unset):
+        if isinstance(_organization_id,  Unset):
             organization_id = UNSET
         else:
             organization_id = UUID(_organization_id)
+
+
+
 
         is_exchange = d.pop("isExchange", UNSET)
 
@@ -238,6 +268,8 @@ class RESTRestorePoint:
                     raise TypeError()
                 immutability_expires_on_type_0 = isoparse(data)
 
+
+
                 return immutability_expires_on_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -245,12 +277,16 @@ class RESTRestorePoint:
 
         immutability_expires_on = _parse_immutability_expires_on(d.pop("immutabilityExpiresOn", UNSET))
 
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTRestorePointLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTRestorePointLinks.from_dict(_field_links)
+
+
+
 
         rest_restore_point = cls(
             id=id,
@@ -272,6 +308,7 @@ class RESTRestorePoint:
             immutability_expires_on=immutability_expires_on,
             field_links=field_links,
         )
+
 
         rest_restore_point.additional_properties = d
         return rest_restore_point

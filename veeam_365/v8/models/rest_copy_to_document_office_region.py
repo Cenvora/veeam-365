@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTCopyToDocumentOfficeRegion(str, Enum):
     CHINA = "China"
     GERMANY = "Germany"

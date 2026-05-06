@@ -1,39 +1,46 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_create_backup_job_backup_type import RESTCreateBackupJobBackupType
 from ..types import UNSET, Unset
 
+from ..models.rest_create_backup_job_backup_type import RESTCreateBackupJobBackupType
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_job_item_composed import RESTJobItemComposed
-    from ..models.rest_job_schedule_policy import RESTJobSchedulePolicy
+  from ..models.rest_job_item_composed import RESTJobItemComposed
+  from ..models.rest_job_schedule_policy import RESTJobSchedulePolicy
+
+
+
 
 
 T = TypeVar("T", bound="RESTCreateBackupJob")
 
 
+
 @_attrs_define
 class RESTCreateBackupJob:
-    """
-    Attributes:
-        backup_type (RESTCreateBackupJobBackupType): Type of the backup job.
-        organization_id (UUID): ID of the Microsoft 365 organization. Example: 00000000-0000-0000-0000-000000000000.
-        repository_id (UUID): Backup repository ID. Example: 00000000-0000-0000-0000-000000000000.
-        description (str | Unset): Description of the backup job.
-        run_now (bool | None | Unset): Defines whether the job will run right after it is created.
-        selected_items (list[RESTJobItemComposed] | Unset): Array of objects that you want to back up.
-        excluded_items (list[RESTJobItemComposed] | Unset): Array of objects that you want to exclude from a backup job
-            scope.
-        schedule_policy (RESTJobSchedulePolicy | Unset):
-        name (str | Unset): Name of the backup job.
-        is_enabled (bool | None | Unset): Defines whether the backup job is enabled.
-    """
+    """ 
+        Attributes:
+            backup_type (RESTCreateBackupJobBackupType): Type of the backup job.
+            organization_id (UUID): ID of the Microsoft 365 organization. Example: 00000000-0000-0000-0000-000000000000.
+            repository_id (UUID): Backup repository ID. Example: 00000000-0000-0000-0000-000000000000.
+            description (str | Unset): Description of the backup job.
+            run_now (bool | None | Unset): Defines whether the job will run right after it is created.
+            selected_items (list[RESTJobItemComposed] | Unset): Array of objects that you want to back up.
+            excluded_items (list[RESTJobItemComposed] | Unset): Array of objects that you want to exclude from a backup job
+                scope.
+            schedule_policy (RESTJobSchedulePolicy | Unset):
+            name (str | Unset): Name of the backup job.
+            is_enabled (bool | None | Unset): Defines whether the backup job is enabled.
+     """
 
     backup_type: RESTCreateBackupJobBackupType
     organization_id: UUID
@@ -47,7 +54,13 @@ class RESTCreateBackupJob:
     is_enabled: bool | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_job_item_composed import RESTJobItemComposed
+        from ..models.rest_job_schedule_policy import RESTJobSchedulePolicy
         backup_type = self.backup_type.value
 
         organization_id = str(self.organization_id)
@@ -69,12 +82,16 @@ class RESTCreateBackupJob:
                 selected_items_item = selected_items_item_data.to_dict()
                 selected_items.append(selected_items_item)
 
+
+
         excluded_items: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.excluded_items, Unset):
             excluded_items = []
             for excluded_items_item_data in self.excluded_items:
                 excluded_items_item = excluded_items_item_data.to_dict()
                 excluded_items.append(excluded_items_item)
+
+
 
         schedule_policy: dict[str, Any] | Unset = UNSET
         if not isinstance(self.schedule_policy, Unset):
@@ -88,15 +105,14 @@ class RESTCreateBackupJob:
         else:
             is_enabled = self.is_enabled
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "backupType": backup_type,
-                "organizationId": organization_id,
-                "repositoryId": repository_id,
-            }
-        )
+        field_dict.update({
+            "backupType": backup_type,
+            "organizationId": organization_id,
+            "repositoryId": repository_id,
+        })
         if description is not UNSET:
             field_dict["description"] = description
         if run_now is not UNSET:
@@ -114,17 +130,27 @@ class RESTCreateBackupJob:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_job_item_composed import RESTJobItemComposed
         from ..models.rest_job_schedule_policy import RESTJobSchedulePolicy
-
         d = dict(src_dict)
         backup_type = RESTCreateBackupJobBackupType(d.pop("backupType"))
 
+
+
+
         organization_id = UUID(d.pop("organizationId"))
 
+
+
+
         repository_id = UUID(d.pop("repositoryId"))
+
+
+
 
         description = d.pop("description", UNSET)
 
@@ -137,6 +163,7 @@ class RESTCreateBackupJob:
 
         run_now = _parse_run_now(d.pop("runNow", UNSET))
 
+
         _selected_items = d.pop("selectedItems", UNSET)
         selected_items: list[RESTJobItemComposed] | Unset = UNSET
         if _selected_items is not UNSET:
@@ -144,7 +171,10 @@ class RESTCreateBackupJob:
             for selected_items_item_data in _selected_items:
                 selected_items_item = RESTJobItemComposed.from_dict(selected_items_item_data)
 
+
+
                 selected_items.append(selected_items_item)
+
 
         _excluded_items = d.pop("excludedItems", UNSET)
         excluded_items: list[RESTJobItemComposed] | Unset = UNSET
@@ -153,14 +183,20 @@ class RESTCreateBackupJob:
             for excluded_items_item_data in _excluded_items:
                 excluded_items_item = RESTJobItemComposed.from_dict(excluded_items_item_data)
 
+
+
                 excluded_items.append(excluded_items_item)
+
 
         _schedule_policy = d.pop("schedulePolicy", UNSET)
         schedule_policy: RESTJobSchedulePolicy | Unset
-        if isinstance(_schedule_policy, Unset):
+        if isinstance(_schedule_policy,  Unset):
             schedule_policy = UNSET
         else:
             schedule_policy = RESTJobSchedulePolicy.from_dict(_schedule_policy)
+
+
+
 
         name = d.pop("name", UNSET)
 
@@ -172,6 +208,7 @@ class RESTCreateBackupJob:
             return cast(bool | None | Unset, data)
 
         is_enabled = _parse_is_enabled(d.pop("isEnabled", UNSET))
+
 
         rest_create_backup_job = cls(
             backup_type=backup_type,
@@ -185,6 +222,7 @@ class RESTCreateBackupJob:
             name=name,
             is_enabled=is_enabled,
         )
+
 
         rest_create_backup_job.additional_properties = d
         return rest_create_backup_job

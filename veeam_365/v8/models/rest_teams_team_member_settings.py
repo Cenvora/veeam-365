@@ -1,30 +1,38 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+
+
+
+
+
+
 T = TypeVar("T", bound="RESTTeamsTeamMemberSettings")
+
 
 
 @_attrs_define
 class RESTTeamsTeamMemberSettings:
-    """
-    Attributes:
-        allow_create_private_channel (bool | Unset): Defines whether team members are allowed to add and update private
-            channels.
-        allow_create_update_channel (bool | Unset): Defines whether team members are allowed to add and update channels.
-        allow_delete_channel (bool | Unset): Defines whether team members are allowed to delete channels.
-        allow_add_remove_app (bool | Unset): Defines whether team members are allowed to add and remove apps.
-        allow_create_update_remove_tab (bool | Unset): Defines whether team members are allowed to add, update, and
-            remove tabs.
-        allow_create_update_remove_connector (bool | Unset): Defines whether team members are allowed to add, update,
-            and remove connectors.
-    """
+    """ 
+        Attributes:
+            allow_create_private_channel (bool | Unset): Defines whether team members are allowed to add and update private
+                channels.
+            allow_create_update_channel (bool | Unset): Defines whether team members are allowed to add and update channels.
+            allow_delete_channel (bool | Unset): Defines whether team members are allowed to delete channels.
+            allow_add_remove_app (bool | Unset): Defines whether team members are allowed to add and remove apps.
+            allow_create_update_remove_tab (bool | Unset): Defines whether team members are allowed to add, update, and
+                remove tabs.
+            allow_create_update_remove_connector (bool | Unset): Defines whether team members are allowed to add, update,
+                and remove connectors.
+     """
 
     allow_create_private_channel: bool | Unset = UNSET
     allow_create_update_channel: bool | Unset = UNSET
@@ -33,6 +41,10 @@ class RESTTeamsTeamMemberSettings:
     allow_create_update_remove_tab: bool | Unset = UNSET
     allow_create_update_remove_connector: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         allow_create_private_channel = self.allow_create_private_channel
@@ -47,9 +59,11 @@ class RESTTeamsTeamMemberSettings:
 
         allow_create_update_remove_connector = self.allow_create_update_remove_connector
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if allow_create_private_channel is not UNSET:
             field_dict["allowCreatePrivateChannel"] = allow_create_private_channel
         if allow_create_update_channel is not UNSET:
@@ -64,6 +78,8 @@ class RESTTeamsTeamMemberSettings:
             field_dict["allowCreateUpdateRemoveConnector"] = allow_create_update_remove_connector
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -88,6 +104,7 @@ class RESTTeamsTeamMemberSettings:
             allow_create_update_remove_tab=allow_create_update_remove_tab,
             allow_create_update_remove_connector=allow_create_update_remove_connector,
         )
+
 
         rest_teams_team_member_settings.additional_properties = d
         return rest_teams_team_member_settings

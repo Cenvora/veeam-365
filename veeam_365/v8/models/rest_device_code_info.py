@@ -1,33 +1,46 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
+
+from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+import datetime
+
+
+
+
+
 
 T = TypeVar("T", bound="RESTDeviceCodeInfo")
 
 
+
 @_attrs_define
 class RESTDeviceCodeInfo:
-    """
-    Attributes:
-        user_code (str | Unset): Code that you must copy and then specify on Microsoft Identity platform.
-        verification_uri (str | Unset): Verification URL that you must open to sign in to Microsoft Identity platform.
-        expires_on_utc (datetime.datetime | Unset): Date and time when the code expires.
-        message (str | Unset): Help message.
-    """
+    """ 
+        Attributes:
+            user_code (str | Unset): Code that you must copy and then specify on Microsoft Identity platform.
+            verification_uri (str | Unset): Verification URL that you must open to sign in to Microsoft Identity platform.
+            expires_on_utc (datetime.datetime | Unset): Date and time when the code expires.
+            message (str | Unset): Help message.
+     """
 
     user_code: str | Unset = UNSET
     verification_uri: str | Unset = UNSET
     expires_on_utc: datetime.datetime | Unset = UNSET
     message: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         user_code = self.user_code
@@ -40,9 +53,11 @@ class RESTDeviceCodeInfo:
 
         message = self.message
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if user_code is not UNSET:
             field_dict["userCode"] = user_code
         if verification_uri is not UNSET:
@@ -54,6 +69,8 @@ class RESTDeviceCodeInfo:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
@@ -63,10 +80,13 @@ class RESTDeviceCodeInfo:
 
         _expires_on_utc = d.pop("expiresOnUtc", UNSET)
         expires_on_utc: datetime.datetime | Unset
-        if isinstance(_expires_on_utc, Unset):
+        if isinstance(_expires_on_utc,  Unset):
             expires_on_utc = UNSET
         else:
             expires_on_utc = isoparse(_expires_on_utc)
+
+
+
 
         message = d.pop("message", UNSET)
 
@@ -76,6 +96,7 @@ class RESTDeviceCodeInfo:
             expires_on_utc=expires_on_utc,
             message=message,
         )
+
 
         rest_device_code_info.additional_properties = d
         return rest_device_code_info

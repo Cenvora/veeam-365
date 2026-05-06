@@ -1,36 +1,43 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
+
 if TYPE_CHECKING:
-    from ..models.rest_sticky_note_item_actions import RESTStickyNoteItemActions
-    from ..models.rest_sticky_note_item_links import RESTStickyNoteItemLinks
+  from ..models.rest_sticky_note_item_actions import RESTStickyNoteItemActions
+  from ..models.rest_sticky_note_item_links import RESTStickyNoteItemLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTStickyNoteItem")
 
 
+
 @_attrs_define
 class RESTStickyNoteItem:
-    """
-    Attributes:
-        mailbox_id (UUID | Unset): ID of the organization mailbox.
-        subject (str | Unset): Note subject.
-        date (datetime.datetime | Unset): Date when the note was created.
-        item_class (str | Unset): Exchange item class.
-        field_links (RESTStickyNoteItemLinks | Unset):
-        field_actions (RESTStickyNoteItemActions | Unset):
-        id (str | Unset): Exchange item ID.
-    """
+    """ 
+        Attributes:
+            mailbox_id (UUID | Unset): ID of the organization mailbox.
+            subject (str | Unset): Note subject.
+            date (datetime.datetime | Unset): Date when the note was created.
+            item_class (str | Unset): Exchange item class.
+            field_links (RESTStickyNoteItemLinks | Unset):
+            field_actions (RESTStickyNoteItemActions | Unset):
+            id (str | Unset): Exchange item ID.
+     """
 
     mailbox_id: UUID | Unset = UNSET
     subject: str | Unset = UNSET
@@ -41,7 +48,13 @@ class RESTStickyNoteItem:
     id: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_sticky_note_item_actions import RESTStickyNoteItemActions
+        from ..models.rest_sticky_note_item_links import RESTStickyNoteItemLinks
         mailbox_id: str | Unset = UNSET
         if not isinstance(self.mailbox_id, Unset):
             mailbox_id = str(self.mailbox_id)
@@ -64,9 +77,11 @@ class RESTStickyNoteItem:
 
         id = self.id
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if mailbox_id is not UNSET:
             field_dict["mailboxId"] = mailbox_id
         if subject is not UNSET:
@@ -84,43 +99,56 @@ class RESTStickyNoteItem:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_sticky_note_item_actions import RESTStickyNoteItemActions
         from ..models.rest_sticky_note_item_links import RESTStickyNoteItemLinks
-
         d = dict(src_dict)
         _mailbox_id = d.pop("mailboxId", UNSET)
         mailbox_id: UUID | Unset
-        if isinstance(_mailbox_id, Unset):
+        if isinstance(_mailbox_id,  Unset):
             mailbox_id = UNSET
         else:
             mailbox_id = UUID(_mailbox_id)
+
+
+
 
         subject = d.pop("subject", UNSET)
 
         _date = d.pop("date", UNSET)
         date: datetime.datetime | Unset
-        if isinstance(_date, Unset):
+        if isinstance(_date,  Unset):
             date = UNSET
         else:
             date = isoparse(_date)
+
+
+
 
         item_class = d.pop("itemClass", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTStickyNoteItemLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTStickyNoteItemLinks.from_dict(_field_links)
 
+
+
+
         _field_actions = d.pop("_actions", UNSET)
         field_actions: RESTStickyNoteItemActions | Unset
-        if isinstance(_field_actions, Unset):
+        if isinstance(_field_actions,  Unset):
             field_actions = UNSET
         else:
             field_actions = RESTStickyNoteItemActions.from_dict(_field_actions)
+
+
+
 
         id = d.pop("id", UNSET)
 
@@ -133,6 +161,7 @@ class RESTStickyNoteItem:
             field_actions=field_actions,
             id=id,
         )
+
 
         rest_sticky_note_item.additional_properties = d
         return rest_sticky_note_item

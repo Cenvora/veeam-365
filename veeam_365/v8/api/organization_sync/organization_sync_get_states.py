@@ -1,31 +1,46 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_organization_sync_state import RESTOrganizationSyncState
-from ...types import Response
+from typing import cast
 
 
-def _get_kwargs() -> dict[str, Any]:
+
+def _get_kwargs(
+    
+) -> dict[str, Any]:
+    
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/v8/Organizations/SyncState",
     }
 
+
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTExceptionInfo | list[RESTOrganizationSyncState]:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | list[RESTOrganizationSyncState]:
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
-        for response_200_item_data in _response_200:
+        for response_200_item_data in (_response_200):
             response_200_item = RESTOrganizationSyncState.from_dict(response_200_item_data)
+
+
 
             response_200.append(response_200_item)
 
@@ -33,12 +48,13 @@ def _parse_response(
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTExceptionInfo | list[RESTOrganizationSyncState]]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | list[RESTOrganizationSyncState]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -50,8 +66,9 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[RESTExceptionInfo | list[RESTOrganizationSyncState]]:
-    """Get Synchronization Status
+    """ Get Synchronization Status
 
      Returns status of synchronization of Microsoft organization objects with the organization cache
     database.
@@ -62,9 +79,12 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | list[RESTOrganizationSyncState]]
-    """
+     """
 
-    kwargs = _get_kwargs()
+
+    kwargs = _get_kwargs(
+        
+    )
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -72,12 +92,12 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     *,
     client: AuthenticatedClient | Client,
+
 ) -> RESTExceptionInfo | list[RESTOrganizationSyncState] | None:
-    """Get Synchronization Status
+    """ Get Synchronization Status
 
      Returns status of synchronization of Microsoft organization objects with the organization cache
     database.
@@ -88,18 +108,20 @@ def sync(
 
     Returns:
         RESTExceptionInfo | list[RESTOrganizationSyncState]
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-    ).parsed
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[RESTExceptionInfo | list[RESTOrganizationSyncState]]:
-    """Get Synchronization Status
+    """ Get Synchronization Status
 
      Returns status of synchronization of Microsoft organization objects with the organization cache
     database.
@@ -110,20 +132,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | list[RESTOrganizationSyncState]]
-    """
+     """
 
-    kwargs = _get_kwargs()
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    kwargs = _get_kwargs(
+        
+    )
+
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
+
 ) -> RESTExceptionInfo | list[RESTOrganizationSyncState] | None:
-    """Get Synchronization Status
+    """ Get Synchronization Status
 
      Returns status of synchronization of Microsoft organization objects with the organization cache
     database.
@@ -134,10 +161,10 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | list[RESTOrganizationSyncState]
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+
+    )).parsed

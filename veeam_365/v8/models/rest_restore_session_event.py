@@ -1,51 +1,58 @@
 from __future__ import annotations
 
-import datetime
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-from dateutil.parser import isoparse
+
+from ..types import UNSET, Unset
 
 from ..models.rest_restore_session_event_status import RESTRestoreSessionEventStatus
 from ..models.rest_restore_session_event_type import RESTRestoreSessionEventType
 from ..types import UNSET, Unset
+from dateutil.parser import isoparse
+from typing import cast
+from uuid import UUID
+import datetime
 
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
+
+
 
 
 T = TypeVar("T", bound="RESTRestoreSessionEvent")
 
 
+
 @_attrs_define
 class RESTRestoreSessionEvent:
-    """
-    Attributes:
-        id (UUID): ID of the restore session event. Example: 00000000-0000-0000-0000-000000000000.
-        status (RESTRestoreSessionEventStatus): Status of the restore session.
-        start_time (datetime.datetime): Date and time when the restore session event was started.
-        message (str): Message of the restore session event.
-        order (int): Order number of the restore session event.
-        item_name (str | Unset): Name of the restored item.
-        item_type (str | Unset): Type of the restored item.
-        item_size_bytes (int | Unset): Size of the restored item in *Bytes*.
-        source (str | Unset): Source path of the restored item.
-        target (str | Unset): Target path to the restored item.
-        type_ (RESTRestoreSessionEventType | Unset): Type of the restore session event.
-        end_time (datetime.datetime | None | Unset): Date and time when the restore session event ended.
-        duration (str | Unset): Duration of the restore session.
-        title (str | Unset): Title of the restore session event.
-        organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
-        backed_up_organization_id (None | str | Unset): ID of the backed-up organization in the backup.
-        user_id (None | str | Unset): ID of the backed-up organization user.
-        group_id (None | str | Unset): ID of the backed-up organization group.
-        site_id (None | str | Unset): ID of the backed-up organization site.
-        team_id (None | Unset | UUID): ID of the backed-up team. Example: 00000000-0000-0000-0000-000000000000.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-    """
+    """ 
+        Attributes:
+            id (UUID): ID of the restore session event. Example: 00000000-0000-0000-0000-000000000000.
+            status (RESTRestoreSessionEventStatus): Status of the restore session.
+            start_time (datetime.datetime): Date and time when the restore session event was started.
+            message (str): Message of the restore session event.
+            order (int): Order number of the restore session event.
+            item_name (str | Unset): Name of the restored item.
+            item_type (str | Unset): Type of the restored item.
+            item_size_bytes (int | Unset): Size of the restored item in *Bytes*.
+            source (str | Unset): Source path of the restored item.
+            target (str | Unset): Target path to the restored item.
+            type_ (RESTRestoreSessionEventType | Unset): Type of the restore session event.
+            end_time (datetime.datetime | None | Unset): Date and time when the restore session event ended.
+            duration (str | Unset): Duration of the restore session.
+            title (str | Unset): Title of the restore session event.
+            organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
+            backed_up_organization_id (None | str | Unset): ID of the backed-up organization in the backup.
+            user_id (None | str | Unset): ID of the backed-up organization user.
+            group_id (None | str | Unset): ID of the backed-up organization group.
+            site_id (None | str | Unset): ID of the backed-up organization site.
+            team_id (None | Unset | UUID): ID of the backed-up team. Example: 00000000-0000-0000-0000-000000000000.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+     """
 
     id: UUID
     status: RESTRestoreSessionEventStatus
@@ -70,7 +77,12 @@ class RESTRestoreSessionEvent:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         id = str(self.id)
 
         status = self.status.value
@@ -94,6 +106,7 @@ class RESTRestoreSessionEvent:
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
+
 
         end_time: None | str | Unset
         if isinstance(self.end_time, Unset):
@@ -151,17 +164,16 @@ class RESTRestoreSessionEvent:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "id": id,
-                "status": status,
-                "startTime": start_time,
-                "message": message,
-                "order": order,
-            }
-        )
+        field_dict.update({
+            "id": id,
+            "status": status,
+            "startTime": start_time,
+            "message": message,
+            "order": order,
+        })
         if item_name is not UNSET:
             field_dict["itemName"] = item_name
         if item_type is not UNSET:
@@ -197,16 +209,26 @@ class RESTRestoreSessionEvent:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
         d = dict(src_dict)
         id = UUID(d.pop("id"))
 
+
+
+
         status = RESTRestoreSessionEventStatus(d.pop("status"))
 
+
+
+
         start_time = isoparse(d.pop("startTime"))
+
+
+
 
         message = d.pop("message")
 
@@ -224,10 +246,13 @@ class RESTRestoreSessionEvent:
 
         _type_ = d.pop("type", UNSET)
         type_: RESTRestoreSessionEventType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTRestoreSessionEventType(_type_)
+
+
+
 
         def _parse_end_time(data: object) -> datetime.datetime | None | Unset:
             if data is None:
@@ -239,12 +264,15 @@ class RESTRestoreSessionEvent:
                     raise TypeError()
                 end_time_type_0 = isoparse(data)
 
+
+
                 return end_time_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(datetime.datetime | None | Unset, data)
 
         end_time = _parse_end_time(d.pop("endTime", UNSET))
+
 
         duration = d.pop("duration", UNSET)
 
@@ -260,12 +288,15 @@ class RESTRestoreSessionEvent:
                     raise TypeError()
                 organization_id_type_0 = UUID(data)
 
+
+
                 return organization_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         organization_id = _parse_organization_id(d.pop("organizationId", UNSET))
+
 
         def _parse_backed_up_organization_id(data: object) -> None | str | Unset:
             if data is None:
@@ -276,6 +307,7 @@ class RESTRestoreSessionEvent:
 
         backed_up_organization_id = _parse_backed_up_organization_id(d.pop("backedUpOrganizationId", UNSET))
 
+
         def _parse_user_id(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -284,6 +316,7 @@ class RESTRestoreSessionEvent:
             return cast(None | str | Unset, data)
 
         user_id = _parse_user_id(d.pop("userId", UNSET))
+
 
         def _parse_group_id(data: object) -> None | str | Unset:
             if data is None:
@@ -294,6 +327,7 @@ class RESTRestoreSessionEvent:
 
         group_id = _parse_group_id(d.pop("groupId", UNSET))
 
+
         def _parse_site_id(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -302,6 +336,7 @@ class RESTRestoreSessionEvent:
             return cast(None | str | Unset, data)
 
         site_id = _parse_site_id(d.pop("siteId", UNSET))
+
 
         def _parse_team_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -313,6 +348,8 @@ class RESTRestoreSessionEvent:
                     raise TypeError()
                 team_id_type_0 = UUID(data)
 
+
+
                 return team_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -320,12 +357,16 @@ class RESTRestoreSessionEvent:
 
         team_id = _parse_team_id(d.pop("teamId", UNSET))
 
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
+
+
+
 
         rest_restore_session_event = cls(
             id=id,
@@ -350,6 +391,7 @@ class RESTRestoreSessionEvent:
             team_id=team_id,
             field_links=field_links,
         )
+
 
         rest_restore_session_event.additional_properties = d
         return rest_restore_session_event

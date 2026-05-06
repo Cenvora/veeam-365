@@ -1,45 +1,57 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_backup_repository import RESTBackupRepository
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
     repository_id: UUID,
+
 ) -> dict[str, Any]:
+    
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/BackupRepositories/{repository_id}".format(
-            repository_id=quote(str(repository_id), safe=""),
-        ),
+        "url": "/v8/BackupRepositories/{repository_id}".format(repository_id=quote(str(repository_id), safe=""),),
     }
+
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTBackupRepository | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTBackupRepository | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = RESTBackupRepository.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTBackupRepository | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTBackupRepository | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -52,8 +64,9 @@ def sync_detailed(
     repository_id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[RESTBackupRepository | RESTExceptionInfo]:
-    """Get Backup Repository
+    """ Get Backup Repository
 
      Returns a resource representation of a backup repository with the specified ID.
 
@@ -66,10 +79,12 @@ def sync_detailed(
 
     Returns:
         Response[RESTBackupRepository | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         repository_id=repository_id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -78,13 +93,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     repository_id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> RESTBackupRepository | RESTExceptionInfo | None:
-    """Get Backup Repository
+    """ Get Backup Repository
 
      Returns a resource representation of a backup repository with the specified ID.
 
@@ -97,20 +112,22 @@ def sync(
 
     Returns:
         RESTBackupRepository | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         repository_id=repository_id,
-        client=client,
-    ).parsed
+client=client,
 
+    ).parsed
 
 async def asyncio_detailed(
     repository_id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[RESTBackupRepository | RESTExceptionInfo]:
-    """Get Backup Repository
+    """ Get Backup Repository
 
      Returns a resource representation of a backup repository with the specified ID.
 
@@ -123,23 +140,27 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTBackupRepository | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         repository_id=repository_id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     repository_id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> RESTBackupRepository | RESTExceptionInfo | None:
-    """Get Backup Repository
+    """ Get Backup Repository
 
      Returns a resource representation of a backup repository with the specified ID.
 
@@ -152,11 +173,11 @@ async def asyncio(
 
     Returns:
         RESTBackupRepository | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            repository_id=repository_id,
-            client=client,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        repository_id=repository_id,
+client=client,
+
+    )).parsed

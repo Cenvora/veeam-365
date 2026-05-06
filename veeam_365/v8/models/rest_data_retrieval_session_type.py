@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTDataRetrievalSessionType(str, Enum):
     RETRIEVALCHANGEAVAILABILITYPERIODDAYS = "RetrievalChangeAvailabilityPeriodDays"
     RETRIEVALREMOVING = "RetrievalRemoving"

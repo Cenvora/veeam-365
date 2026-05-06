@@ -1,48 +1,55 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_object_storage_type import RESTObjectStorageType
 from ..types import UNSET, Unset
 
+from ..models.rest_object_storage_type import RESTObjectStorageType
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_amazon_bucket_s3_compatible_from_client import RESTAmazonBucketS3CompatibleFromClient
-    from ..models.rests3_compatible_object_storage_links import RESTS3CompatibleObjectStorageLinks
+  from ..models.rest_amazon_bucket_s3_compatible_from_client import RESTAmazonBucketS3CompatibleFromClient
+  from ..models.rests3_compatible_object_storage_links import RESTS3CompatibleObjectStorageLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTS3CompatibleObjectStorage")
 
 
+
 @_attrs_define
 class RESTS3CompatibleObjectStorage:
-    """
-    Attributes:
-        amazon_bucket_s3_compatible (RESTAmazonBucketS3CompatibleFromClient | Unset):
-        s_3_folder (str | Unset): Specifies storage folder where backups will reside.
-        id (UUID | Unset): Specifies the object storage repository ID. Example: 00000000-0000-0000-0000-000000000000.
-        account_id (None | Unset | UUID): Specifies the ID of the account under which the object storage repository is
-            being added. For more information on how to get this parameter, see [Get
-            Accounts](Account#operation/Account_GetAccounts). Example: 00000000-0000-0000-0000-000000000000.
-        size_limit_enabled (bool | None | Unset): Defines whether the size limit is set.
-        size_limit_gb (int | None | Unset): Specifies size limit in *GB*.
-        used_space_bytes (int | None | Unset): Specifies used space in *Bytes*.
-        free_space_bytes (int | None | Unset): Specifies free space in *Bytes*. This property is displayed only if the
-            size limit is set.
-        enable_immutability (bool | None | Unset): Defines whether immutability is enabled to prohibit deletion of data
-            from the object storage repository by making that data temporarily immutable and to protect data against malware
-            activity.
-        enable_immutability_governance_mode (bool | None | Unset): Defines whether the `Governance` mode is enabled.
-        immutability_period_days (int | None | Unset): Specifies the number of days when your data will be blocked for
-            deletion or modification. If you set the *null* or *0* value, data will be blocked for deletion or modification
-            for the same period as the retention period.
-        type_ (RESTObjectStorageType | Unset): Specifies the object storage repository type.
-        field_links (RESTS3CompatibleObjectStorageLinks | Unset):
-    """
+    """ 
+        Attributes:
+            amazon_bucket_s3_compatible (RESTAmazonBucketS3CompatibleFromClient | Unset):
+            s_3_folder (str | Unset): Specifies storage folder where backups will reside.
+            id (UUID | Unset): Specifies the object storage repository ID. Example: 00000000-0000-0000-0000-000000000000.
+            account_id (None | Unset | UUID): Specifies the ID of the account under which the object storage repository is
+                being added. For more information on how to get this parameter, see [Get
+                Accounts](#/Account/Account_GetAccounts). Example: 00000000-0000-0000-0000-000000000000.
+            size_limit_enabled (bool | None | Unset): Defines whether the size limit is set.
+            size_limit_gb (int | None | Unset): Specifies size limit in *GB*.
+            used_space_bytes (int | None | Unset): Specifies used space in *Bytes*.
+            free_space_bytes (int | None | Unset): Specifies free space in *Bytes*. This property is displayed only if the
+                size limit is set.
+            enable_immutability (bool | None | Unset): Defines whether immutability is enabled to prohibit deletion of data
+                from the object storage repository by making that data temporarily immutable and to protect data against malware
+                activity.
+            enable_immutability_governance_mode (bool | None | Unset): Defines whether the `Governance` mode is enabled.
+            immutability_period_days (int | None | Unset): Specifies the number of days when your data will be blocked for
+                deletion or modification. If you set the *null* or *0* value, data will be blocked for deletion or modification
+                for the same period as the retention period.
+            type_ (RESTObjectStorageType | Unset): Specifies the object storage repository type.
+            field_links (RESTS3CompatibleObjectStorageLinks | Unset):
+     """
 
     amazon_bucket_s3_compatible: RESTAmazonBucketS3CompatibleFromClient | Unset = UNSET
     s_3_folder: str | Unset = UNSET
@@ -59,7 +66,13 @@ class RESTS3CompatibleObjectStorage:
     field_links: RESTS3CompatibleObjectStorageLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_amazon_bucket_s3_compatible_from_client import RESTAmazonBucketS3CompatibleFromClient
+        from ..models.rests3_compatible_object_storage_links import RESTS3CompatibleObjectStorageLinks
         amazon_bucket_s3_compatible: dict[str, Any] | Unset = UNSET
         if not isinstance(self.amazon_bucket_s3_compatible, Unset):
             amazon_bucket_s3_compatible = self.amazon_bucket_s3_compatible.to_dict()
@@ -124,13 +137,16 @@ class RESTS3CompatibleObjectStorage:
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
+
         field_links: dict[str, Any] | Unset = UNSET
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if amazon_bucket_s3_compatible is not UNSET:
             field_dict["amazonBucketS3Compatible"] = amazon_bucket_s3_compatible
         if s_3_folder is not UNSET:
@@ -160,27 +176,34 @@ class RESTS3CompatibleObjectStorage:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_amazon_bucket_s3_compatible_from_client import RESTAmazonBucketS3CompatibleFromClient
         from ..models.rests3_compatible_object_storage_links import RESTS3CompatibleObjectStorageLinks
-
         d = dict(src_dict)
         _amazon_bucket_s3_compatible = d.pop("amazonBucketS3Compatible", UNSET)
         amazon_bucket_s3_compatible: RESTAmazonBucketS3CompatibleFromClient | Unset
-        if isinstance(_amazon_bucket_s3_compatible, Unset):
+        if isinstance(_amazon_bucket_s3_compatible,  Unset):
             amazon_bucket_s3_compatible = UNSET
         else:
             amazon_bucket_s3_compatible = RESTAmazonBucketS3CompatibleFromClient.from_dict(_amazon_bucket_s3_compatible)
+
+
+
 
         s_3_folder = d.pop("s3Folder", UNSET)
 
         _id = d.pop("id", UNSET)
         id: UUID | Unset
-        if isinstance(_id, Unset):
+        if isinstance(_id,  Unset):
             id = UNSET
         else:
             id = UUID(_id)
+
+
+
 
         def _parse_account_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -192,12 +215,15 @@ class RESTS3CompatibleObjectStorage:
                     raise TypeError()
                 account_id_type_0 = UUID(data)
 
+
+
                 return account_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         account_id = _parse_account_id(d.pop("accountId", UNSET))
+
 
         def _parse_size_limit_enabled(data: object) -> bool | None | Unset:
             if data is None:
@@ -208,6 +234,7 @@ class RESTS3CompatibleObjectStorage:
 
         size_limit_enabled = _parse_size_limit_enabled(d.pop("sizeLimitEnabled", UNSET))
 
+
         def _parse_size_limit_gb(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -216,6 +243,7 @@ class RESTS3CompatibleObjectStorage:
             return cast(int | None | Unset, data)
 
         size_limit_gb = _parse_size_limit_gb(d.pop("sizeLimitGB", UNSET))
+
 
         def _parse_used_space_bytes(data: object) -> int | None | Unset:
             if data is None:
@@ -226,6 +254,7 @@ class RESTS3CompatibleObjectStorage:
 
         used_space_bytes = _parse_used_space_bytes(d.pop("usedSpaceBytes", UNSET))
 
+
         def _parse_free_space_bytes(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -234,6 +263,7 @@ class RESTS3CompatibleObjectStorage:
             return cast(int | None | Unset, data)
 
         free_space_bytes = _parse_free_space_bytes(d.pop("freeSpaceBytes", UNSET))
+
 
         def _parse_enable_immutability(data: object) -> bool | None | Unset:
             if data is None:
@@ -244,6 +274,7 @@ class RESTS3CompatibleObjectStorage:
 
         enable_immutability = _parse_enable_immutability(d.pop("enableImmutability", UNSET))
 
+
         def _parse_enable_immutability_governance_mode(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -251,9 +282,8 @@ class RESTS3CompatibleObjectStorage:
                 return data
             return cast(bool | None | Unset, data)
 
-        enable_immutability_governance_mode = _parse_enable_immutability_governance_mode(
-            d.pop("enableImmutabilityGovernanceMode", UNSET)
-        )
+        enable_immutability_governance_mode = _parse_enable_immutability_governance_mode(d.pop("enableImmutabilityGovernanceMode", UNSET))
+
 
         def _parse_immutability_period_days(data: object) -> int | None | Unset:
             if data is None:
@@ -264,19 +294,26 @@ class RESTS3CompatibleObjectStorage:
 
         immutability_period_days = _parse_immutability_period_days(d.pop("immutabilityPeriodDays", UNSET))
 
+
         _type_ = d.pop("type", UNSET)
         type_: RESTObjectStorageType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTObjectStorageType(_type_)
 
+
+
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTS3CompatibleObjectStorageLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTS3CompatibleObjectStorageLinks.from_dict(_field_links)
+
+
+
 
         rests3_compatible_object_storage = cls(
             amazon_bucket_s3_compatible=amazon_bucket_s3_compatible,
@@ -293,6 +330,7 @@ class RESTS3CompatibleObjectStorage:
             type_=type_,
             field_links=field_links,
         )
+
 
         rests3_compatible_object_storage.additional_properties = d
         return rests3_compatible_object_storage

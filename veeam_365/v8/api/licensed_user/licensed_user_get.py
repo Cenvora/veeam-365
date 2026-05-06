@@ -1,12 +1,18 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.page_of_rest_licensed_user import PageOfRESTLicensedUser
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+
 
 
 def _get_kwargs(
@@ -16,7 +22,12 @@ def _get_kwargs(
     organization_id: str | Unset = UNSET,
     backed_up_organization_id: str | Unset = UNSET,
     name: str | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     params["limit"] = limit
@@ -29,7 +40,9 @@ def _get_kwargs(
 
     params["name"] = name
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -37,25 +50,28 @@ def _get_kwargs(
         "params": params,
     }
 
+
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> PageOfRESTLicensedUser | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTLicensedUser | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTLicensedUser.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[PageOfRESTLicensedUser | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTLicensedUser | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -72,8 +88,9 @@ def sync_detailed(
     organization_id: str | Unset = UNSET,
     backed_up_organization_id: str | Unset = UNSET,
     name: str | Unset = UNSET,
+
 ) -> Response[PageOfRESTLicensedUser | RESTExceptionInfo]:
-    """Get Licensed Users
+    """ Get Licensed Users
 
      Returns a collection of information about the licensed users.
 
@@ -90,14 +107,16 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTLicensedUser | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         limit=limit,
-        offset=offset,
-        organization_id=organization_id,
-        backed_up_organization_id=backed_up_organization_id,
-        name=name,
+offset=offset,
+organization_id=organization_id,
+backed_up_organization_id=backed_up_organization_id,
+name=name,
+
     )
 
     response = client.get_httpx_client().request(
@@ -105,7 +124,6 @@ def sync_detailed(
     )
 
     return _build_response(client=client, response=response)
-
 
 def sync(
     *,
@@ -115,8 +133,9 @@ def sync(
     organization_id: str | Unset = UNSET,
     backed_up_organization_id: str | Unset = UNSET,
     name: str | Unset = UNSET,
+
 ) -> PageOfRESTLicensedUser | RESTExceptionInfo | None:
-    """Get Licensed Users
+    """ Get Licensed Users
 
      Returns a collection of information about the licensed users.
 
@@ -133,17 +152,18 @@ def sync(
 
     Returns:
         PageOfRESTLicensedUser | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         client=client,
-        limit=limit,
-        offset=offset,
-        organization_id=organization_id,
-        backed_up_organization_id=backed_up_organization_id,
-        name=name,
-    ).parsed
+limit=limit,
+offset=offset,
+organization_id=organization_id,
+backed_up_organization_id=backed_up_organization_id,
+name=name,
 
+    ).parsed
 
 async def asyncio_detailed(
     *,
@@ -153,8 +173,9 @@ async def asyncio_detailed(
     organization_id: str | Unset = UNSET,
     backed_up_organization_id: str | Unset = UNSET,
     name: str | Unset = UNSET,
+
 ) -> Response[PageOfRESTLicensedUser | RESTExceptionInfo]:
-    """Get Licensed Users
+    """ Get Licensed Users
 
      Returns a collection of information about the licensed users.
 
@@ -171,20 +192,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTLicensedUser | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         limit=limit,
-        offset=offset,
-        organization_id=organization_id,
-        backed_up_organization_id=backed_up_organization_id,
-        name=name,
+offset=offset,
+organization_id=organization_id,
+backed_up_organization_id=backed_up_organization_id,
+name=name,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     *,
@@ -194,8 +218,9 @@ async def asyncio(
     organization_id: str | Unset = UNSET,
     backed_up_organization_id: str | Unset = UNSET,
     name: str | Unset = UNSET,
+
 ) -> PageOfRESTLicensedUser | RESTExceptionInfo | None:
-    """Get Licensed Users
+    """ Get Licensed Users
 
      Returns a collection of information about the licensed users.
 
@@ -212,15 +237,15 @@ async def asyncio(
 
     Returns:
         PageOfRESTLicensedUser | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            client=client,
-            limit=limit,
-            offset=offset,
-            organization_id=organization_id,
-            backed_up_organization_id=backed_up_organization_id,
-            name=name,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        client=client,
+limit=limit,
+offset=offset,
+organization_id=organization_id,
+backed_up_organization_id=backed_up_organization_id,
+name=name,
+
+    )).parsed

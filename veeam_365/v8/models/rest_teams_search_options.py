@@ -1,51 +1,67 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.rest_teams_search_options_type import RESTTeamsSearchOptionsType
+
+
+
+
+
 
 T = TypeVar("T", bound="RESTTeamsSearchOptions")
 
 
+
 @_attrs_define
 class RESTTeamsSearchOptions:
-    """
-    Attributes:
-        type_ (RESTTeamsSearchOptionsType): Specifies the type of Microsoft Teams items that you want to find.
-        query (str): Specifies query parameters used to search for Microsoft Teams items. For the complete list of
-            supported query parameters, see the [Appendix A. Item Search
-            Parameters](https://helpcenter.veeam.com/docs/vbo365/guide/appendix_search.html?ver=80) section of the Veeam
-            Backup for Microsoft 365 User Guide.
-    """
+    """ 
+        Attributes:
+            type_ (RESTTeamsSearchOptionsType): Specifies the type of Microsoft Teams items that you want to find.
+            query (str): Specifies query parameters used to search for Microsoft Teams items. For the complete list of
+                supported query parameters, see the [Appendix A. Item Search
+                Parameters](https://helpcenter.veeam.com/docs/vbo365/guide/appendix_search.html?ver=80) section of the Veeam
+                Backup for Microsoft 365 User Guide.
+     """
 
     type_: RESTTeamsSearchOptionsType
     query: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         type_ = self.type_.value
 
         query = self.query
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "type": type_,
-                "query": query,
-            }
-        )
+        field_dict.update({
+            "type": type_,
+            "query": query,
+        })
 
         return field_dict
+
+
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         type_ = RESTTeamsSearchOptionsType(d.pop("type"))
+
+
+
 
         query = d.pop("query")
 
@@ -53,6 +69,7 @@ class RESTTeamsSearchOptions:
             type_=type_,
             query=query,
         )
+
 
         rest_teams_search_options.additional_properties = d
         return rest_teams_search_options

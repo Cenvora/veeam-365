@@ -1,40 +1,47 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_protected_user_account_type import RESTProtectedUserAccountType
 from ..types import UNSET, Unset
 
+from ..models.rest_protected_user_account_type import RESTProtectedUserAccountType
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_protected_mailbox import RESTProtectedMailbox
-    from ..models.rest_protected_one_drive import RESTProtectedOneDrive
-    from ..models.rest_protected_site import RESTProtectedSite
+  from ..models.rest_protected_mailbox import RESTProtectedMailbox
+  from ..models.rest_protected_one_drive import RESTProtectedOneDrive
+  from ..models.rest_protected_site import RESTProtectedSite
+
+
+
 
 
 T = TypeVar("T", bound="RESTProtectedUser")
 
 
+
 @_attrs_define
 class RESTProtectedUser:
-    """
-    Attributes:
-        id (str | Unset): User ID.
-        msid (None | str | Unset): ID of the protected user assigned by Microsoft.
-        display_name (str | Unset): Display name of the backed-up user.
-        account_type (RESTProtectedUserAccountType | Unset): Type of the user account.
-        organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
-        backed_up_organization_id (str | Unset): ID of the backed-up organization in the backup.
-        mailboxes (list[RESTProtectedMailbox] | Unset): Array of protected mailboxes.
-        one_drives (list[RESTProtectedOneDrive] | Unset): Array of protected OneDrives.
-        sites (list[RESTProtectedSite] | Unset): Array of protected SharePoint sites.
-        e_tag (int | Unset): Version number that Veeam Backup for Microsoft 365 assigns if the protected user was
-            modified.
-    """
+    """ 
+        Attributes:
+            id (str | Unset): User ID.
+            msid (None | str | Unset): ID of the protected user assigned by Microsoft.
+            display_name (str | Unset): Display name of the backed-up user.
+            account_type (RESTProtectedUserAccountType | Unset): Type of the user account.
+            organization_id (None | Unset | UUID): Backed-up organization ID. Example: 00000000-0000-0000-0000-000000000000.
+            backed_up_organization_id (str | Unset): ID of the backed-up organization in the backup.
+            mailboxes (list[RESTProtectedMailbox] | Unset): Array of protected mailboxes.
+            one_drives (list[RESTProtectedOneDrive] | Unset): Array of protected OneDrives.
+            sites (list[RESTProtectedSite] | Unset): Array of protected SharePoint sites.
+            e_tag (int | Unset): Version number that Veeam Backup for Microsoft 365 assigns if the protected user was
+                modified.
+     """
 
     id: str | Unset = UNSET
     msid: None | str | Unset = UNSET
@@ -48,7 +55,14 @@ class RESTProtectedUser:
     e_tag: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_protected_mailbox import RESTProtectedMailbox
+        from ..models.rest_protected_one_drive import RESTProtectedOneDrive
+        from ..models.rest_protected_site import RESTProtectedSite
         id = self.id
 
         msid: None | str | Unset
@@ -62,6 +76,7 @@ class RESTProtectedUser:
         account_type: str | Unset = UNSET
         if not isinstance(self.account_type, Unset):
             account_type = self.account_type.value
+
 
         organization_id: None | str | Unset
         if isinstance(self.organization_id, Unset):
@@ -80,12 +95,16 @@ class RESTProtectedUser:
                 mailboxes_item = mailboxes_item_data.to_dict()
                 mailboxes.append(mailboxes_item)
 
+
+
         one_drives: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.one_drives, Unset):
             one_drives = []
             for one_drives_item_data in self.one_drives:
                 one_drives_item = one_drives_item_data.to_dict()
                 one_drives.append(one_drives_item)
+
+
 
         sites: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.sites, Unset):
@@ -94,11 +113,15 @@ class RESTProtectedUser:
                 sites_item = sites_item_data.to_dict()
                 sites.append(sites_item)
 
+
+
         e_tag = self.e_tag
+
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if id is not UNSET:
             field_dict["id"] = id
         if msid is not UNSET:
@@ -122,12 +145,13 @@ class RESTProtectedUser:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_protected_mailbox import RESTProtectedMailbox
         from ..models.rest_protected_one_drive import RESTProtectedOneDrive
         from ..models.rest_protected_site import RESTProtectedSite
-
         d = dict(src_dict)
         id = d.pop("id", UNSET)
 
@@ -140,14 +164,18 @@ class RESTProtectedUser:
 
         msid = _parse_msid(d.pop("msid", UNSET))
 
+
         display_name = d.pop("displayName", UNSET)
 
         _account_type = d.pop("accountType", UNSET)
         account_type: RESTProtectedUserAccountType | Unset
-        if isinstance(_account_type, Unset):
+        if isinstance(_account_type,  Unset):
             account_type = UNSET
         else:
             account_type = RESTProtectedUserAccountType(_account_type)
+
+
+
 
         def _parse_organization_id(data: object) -> None | Unset | UUID:
             if data is None:
@@ -159,12 +187,15 @@ class RESTProtectedUser:
                     raise TypeError()
                 organization_id_type_0 = UUID(data)
 
+
+
                 return organization_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         organization_id = _parse_organization_id(d.pop("organizationId", UNSET))
+
 
         backed_up_organization_id = d.pop("backedUpOrganizationId", UNSET)
 
@@ -175,7 +206,10 @@ class RESTProtectedUser:
             for mailboxes_item_data in _mailboxes:
                 mailboxes_item = RESTProtectedMailbox.from_dict(mailboxes_item_data)
 
+
+
                 mailboxes.append(mailboxes_item)
+
 
         _one_drives = d.pop("oneDrives", UNSET)
         one_drives: list[RESTProtectedOneDrive] | Unset = UNSET
@@ -184,7 +218,10 @@ class RESTProtectedUser:
             for one_drives_item_data in _one_drives:
                 one_drives_item = RESTProtectedOneDrive.from_dict(one_drives_item_data)
 
+
+
                 one_drives.append(one_drives_item)
+
 
         _sites = d.pop("sites", UNSET)
         sites: list[RESTProtectedSite] | Unset = UNSET
@@ -193,7 +230,10 @@ class RESTProtectedUser:
             for sites_item_data in _sites:
                 sites_item = RESTProtectedSite.from_dict(sites_item_data)
 
+
+
                 sites.append(sites_item)
+
 
         e_tag = d.pop("eTag", UNSET)
 
@@ -209,6 +249,7 @@ class RESTProtectedUser:
             sites=sites,
             e_tag=e_tag,
         )
+
 
         rest_protected_user.additional_properties = d
         return rest_protected_user

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTRestoreSessionState(str, Enum):
     STOPPED = "Stopped"
     WORKING = "Working"

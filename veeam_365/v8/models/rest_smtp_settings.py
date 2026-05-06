@@ -1,45 +1,52 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_authentication_type import RESTAuthenticationType
 from ..types import UNSET, Unset
 
+from ..models.rest_authentication_type import RESTAuthenticationType
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-    from ..models.rest_smtp_settings_actions import RESTSmtpSettingsActions
+  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+  from ..models.rest_smtp_settings_actions import RESTSmtpSettingsActions
+
+
+
 
 
 T = TypeVar("T", bound="RESTSmtpSettings")
 
 
+
 @_attrs_define
 class RESTSmtpSettings:
-    """
-    Attributes:
-        username (str | Unset): User name of the account used for authentication to the SMTP server.
-        enable_notification (bool | None | Unset): Defines whether Veeam Explorer is enabled to send email messages.
-        server (str | Unset): DNS name or IP address of the SMTP server for sending email messages.
-        port (int | None | Unset): Port used for connection to the SMTP server.
-        from_ (str | Unset): Email address of the notification sender.
-        use_authentication (bool | None | Unset): Defines whether the SMTP server requires authentication.
-        use_ssl (bool | None | Unset): Defines whether Veeam Explorer uses a secure connection to send email messages.
-        authentication_type (RESTAuthenticationType | Unset): Specifies authentication method that Veeam Backup for
-            Microsoft 365 and Veeam Explorers use to send emails.
-        client_id (str | Unset): Client ID obtained while registering an application in the Google Cloud console or
-            Microsoft Identity platform.
-        tenant_id (str | Unset): Tenant ID in Microsoft Entra ID.
-        user_id (None | str | Unset): Authenticated user account ID. Veeam Explorer will send email messages on behalf
-            of this user.
-        mail_api_url (None | str | Unset): Specifies the Microsoft Graph endpoint for sending emails.
-        is_authenticated (bool | None | Unset): Defines a user account authentication status.
-        field_links (RESTLinkHALDictionary | Unset): Related resources.
-        field_actions (RESTSmtpSettingsActions | Unset):
-    """
+    """ 
+        Attributes:
+            username (str | Unset): User name of the account used for authentication to the SMTP server.
+            enable_notification (bool | None | Unset): Defines whether Veeam Explorer is enabled to send email messages.
+            server (str | Unset): DNS name or IP address of the SMTP server for sending email messages.
+            port (int | None | Unset): Port used for connection to the SMTP server.
+            from_ (str | Unset): Email address of the notification sender.
+            use_authentication (bool | None | Unset): Defines whether the SMTP server requires authentication.
+            use_ssl (bool | None | Unset): Defines whether Veeam Explorer uses a secure connection to send email messages.
+            authentication_type (RESTAuthenticationType | Unset): Specifies authentication method that Veeam Backup for
+                Microsoft 365 and Veeam Explorers use to send emails.
+            client_id (str | Unset): Client ID obtained while registering an application in the Google Cloud console or
+                Microsoft Identity platform.
+            tenant_id (str | Unset): Tenant ID in Microsoft Entra ID.
+            user_id (None | str | Unset): Authenticated user account ID. Veeam Explorer will send email messages on behalf
+                of this user.
+            mail_api_url (None | str | Unset): Specifies the Microsoft Graph endpoint for sending emails.
+            is_authenticated (bool | None | Unset): Defines a user account authentication status.
+            field_links (RESTLinkHALDictionary | Unset): Related resources.
+            field_actions (RESTSmtpSettingsActions | Unset):
+     """
 
     username: str | Unset = UNSET
     enable_notification: bool | None | Unset = UNSET
@@ -58,7 +65,13 @@ class RESTSmtpSettings:
     field_actions: RESTSmtpSettingsActions | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+        from ..models.rest_smtp_settings_actions import RESTSmtpSettingsActions
         username = self.username
 
         enable_notification: bool | None | Unset
@@ -93,6 +106,7 @@ class RESTSmtpSettings:
         if not isinstance(self.authentication_type, Unset):
             authentication_type = self.authentication_type.value
 
+
         client_id = self.client_id
 
         tenant_id = self.tenant_id
@@ -123,9 +137,11 @@ class RESTSmtpSettings:
         if not isinstance(self.field_actions, Unset):
             field_actions = self.field_actions.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if username is not UNSET:
             field_dict["username"] = username
         if enable_notification is not UNSET:
@@ -159,11 +175,12 @@ class RESTSmtpSettings:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         from ..models.rest_smtp_settings_actions import RESTSmtpSettingsActions
-
         d = dict(src_dict)
         username = d.pop("username", UNSET)
 
@@ -176,6 +193,7 @@ class RESTSmtpSettings:
 
         enable_notification = _parse_enable_notification(d.pop("enableNotification", UNSET))
 
+
         server = d.pop("server", UNSET)
 
         def _parse_port(data: object) -> int | None | Unset:
@@ -186,6 +204,7 @@ class RESTSmtpSettings:
             return cast(int | None | Unset, data)
 
         port = _parse_port(d.pop("port", UNSET))
+
 
         from_ = d.pop("from", UNSET)
 
@@ -198,6 +217,7 @@ class RESTSmtpSettings:
 
         use_authentication = _parse_use_authentication(d.pop("useAuthentication", UNSET))
 
+
         def _parse_use_ssl(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -207,12 +227,16 @@ class RESTSmtpSettings:
 
         use_ssl = _parse_use_ssl(d.pop("useSSL", UNSET))
 
+
         _authentication_type = d.pop("authenticationType", UNSET)
         authentication_type: RESTAuthenticationType | Unset
-        if isinstance(_authentication_type, Unset):
+        if isinstance(_authentication_type,  Unset):
             authentication_type = UNSET
         else:
             authentication_type = RESTAuthenticationType(_authentication_type)
+
+
+
 
         client_id = d.pop("clientId", UNSET)
 
@@ -227,6 +251,7 @@ class RESTSmtpSettings:
 
         user_id = _parse_user_id(d.pop("userId", UNSET))
 
+
         def _parse_mail_api_url(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -235,6 +260,7 @@ class RESTSmtpSettings:
             return cast(None | str | Unset, data)
 
         mail_api_url = _parse_mail_api_url(d.pop("mailApiUrl", UNSET))
+
 
         def _parse_is_authenticated(data: object) -> bool | None | Unset:
             if data is None:
@@ -245,19 +271,26 @@ class RESTSmtpSettings:
 
         is_authenticated = _parse_is_authenticated(d.pop("isAuthenticated", UNSET))
 
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
 
+
+
+
         _field_actions = d.pop("_actions", UNSET)
         field_actions: RESTSmtpSettingsActions | Unset
-        if isinstance(_field_actions, Unset):
+        if isinstance(_field_actions,  Unset):
             field_actions = UNSET
         else:
             field_actions = RESTSmtpSettingsActions.from_dict(_field_actions)
+
+
+
 
         rest_smtp_settings = cls(
             username=username,
@@ -276,6 +309,7 @@ class RESTSmtpSettings:
             field_links=field_links,
             field_actions=field_actions,
         )
+
 
         rest_smtp_settings.additional_properties = d
         return rest_smtp_settings

@@ -1,43 +1,57 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_proxy import RESTProxy
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
     proxy_id: UUID,
+
 ) -> dict[str, Any]:
+    
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/Proxies/{proxy_id}".format(
-            proxy_id=quote(str(proxy_id), safe=""),
-        ),
+        "url": "/v8/Proxies/{proxy_id}".format(proxy_id=quote(str(proxy_id), safe=""),),
     }
 
+
     return _kwargs
+
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | RESTProxy:
     if response.status_code == 200:
         response_200 = RESTProxy.from_dict(response.json())
 
+
+
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTExceptionInfo | RESTProxy]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | RESTProxy]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -50,8 +64,9 @@ def sync_detailed(
     proxy_id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[RESTExceptionInfo | RESTProxy]:
-    """Get Backup Proxy Server
+    """ Get Backup Proxy Server
 
      Returns a resource representation of a backup proxy server with the specified ID.
 
@@ -64,10 +79,12 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTProxy]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         proxy_id=proxy_id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -76,13 +93,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     proxy_id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> RESTExceptionInfo | RESTProxy | None:
-    """Get Backup Proxy Server
+    """ Get Backup Proxy Server
 
      Returns a resource representation of a backup proxy server with the specified ID.
 
@@ -95,20 +112,22 @@ def sync(
 
     Returns:
         RESTExceptionInfo | RESTProxy
-    """
+     """
+
 
     return sync_detailed(
         proxy_id=proxy_id,
-        client=client,
-    ).parsed
+client=client,
 
+    ).parsed
 
 async def asyncio_detailed(
     proxy_id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[RESTExceptionInfo | RESTProxy]:
-    """Get Backup Proxy Server
+    """ Get Backup Proxy Server
 
      Returns a resource representation of a backup proxy server with the specified ID.
 
@@ -121,23 +140,27 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTProxy]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         proxy_id=proxy_id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     proxy_id: UUID,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> RESTExceptionInfo | RESTProxy | None:
-    """Get Backup Proxy Server
+    """ Get Backup Proxy Server
 
      Returns a resource representation of a backup proxy server with the specified ID.
 
@@ -150,11 +173,11 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | RESTProxy
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            proxy_id=proxy_id,
-            client=client,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        proxy_id=proxy_id,
+client=client,
+
+    )).parsed

@@ -1,15 +1,20 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.organization_team_get_data_source import OrganizationTeamGetDataSource
 from ...models.page_of_rest_team import PageOfRESTTeam
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -20,7 +25,12 @@ def _get_kwargs(
     set_id: UUID | Unset = UNSET,
     display_name: str | Unset = UNSET,
     data_source: OrganizationTeamGetDataSource | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     params["limit"] = limit
@@ -40,35 +50,38 @@ def _get_kwargs(
 
     params["dataSource"] = json_data_source
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/Organizations/{organization_id}/Teams".format(
-            organization_id=quote(str(organization_id), safe=""),
-        ),
+        "url": "/v8/Organizations/{organization_id}/Teams".format(organization_id=quote(str(organization_id), safe=""),),
         "params": params,
     }
+
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> PageOfRESTTeam | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTTeam | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTTeam.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[PageOfRESTTeam | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTTeam | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -86,8 +99,9 @@ def sync_detailed(
     set_id: UUID | Unset = UNSET,
     display_name: str | Unset = UNSET,
     data_source: OrganizationTeamGetDataSource | Unset = UNSET,
+
 ) -> Response[PageOfRESTTeam | RESTExceptionInfo]:
-    """Get Teams
+    """ Get Teams
 
      Returns a collection of organization teams.
 
@@ -105,15 +119,17 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTTeam | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-        limit=limit,
-        offset=offset,
-        set_id=set_id,
-        display_name=display_name,
-        data_source=data_source,
+limit=limit,
+offset=offset,
+set_id=set_id,
+display_name=display_name,
+data_source=data_source,
+
     )
 
     response = client.get_httpx_client().request(
@@ -121,7 +137,6 @@ def sync_detailed(
     )
 
     return _build_response(client=client, response=response)
-
 
 def sync(
     organization_id: UUID,
@@ -132,8 +147,9 @@ def sync(
     set_id: UUID | Unset = UNSET,
     display_name: str | Unset = UNSET,
     data_source: OrganizationTeamGetDataSource | Unset = UNSET,
+
 ) -> PageOfRESTTeam | RESTExceptionInfo | None:
-    """Get Teams
+    """ Get Teams
 
      Returns a collection of organization teams.
 
@@ -151,18 +167,19 @@ def sync(
 
     Returns:
         PageOfRESTTeam | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         organization_id=organization_id,
-        client=client,
-        limit=limit,
-        offset=offset,
-        set_id=set_id,
-        display_name=display_name,
-        data_source=data_source,
-    ).parsed
+client=client,
+limit=limit,
+offset=offset,
+set_id=set_id,
+display_name=display_name,
+data_source=data_source,
 
+    ).parsed
 
 async def asyncio_detailed(
     organization_id: UUID,
@@ -173,8 +190,9 @@ async def asyncio_detailed(
     set_id: UUID | Unset = UNSET,
     display_name: str | Unset = UNSET,
     data_source: OrganizationTeamGetDataSource | Unset = UNSET,
+
 ) -> Response[PageOfRESTTeam | RESTExceptionInfo]:
-    """Get Teams
+    """ Get Teams
 
      Returns a collection of organization teams.
 
@@ -192,21 +210,24 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTTeam | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-        limit=limit,
-        offset=offset,
-        set_id=set_id,
-        display_name=display_name,
-        data_source=data_source,
+limit=limit,
+offset=offset,
+set_id=set_id,
+display_name=display_name,
+data_source=data_source,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     organization_id: UUID,
@@ -217,8 +238,9 @@ async def asyncio(
     set_id: UUID | Unset = UNSET,
     display_name: str | Unset = UNSET,
     data_source: OrganizationTeamGetDataSource | Unset = UNSET,
+
 ) -> PageOfRESTTeam | RESTExceptionInfo | None:
-    """Get Teams
+    """ Get Teams
 
      Returns a collection of organization teams.
 
@@ -236,16 +258,16 @@ async def asyncio(
 
     Returns:
         PageOfRESTTeam | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            organization_id=organization_id,
-            client=client,
-            limit=limit,
-            offset=offset,
-            set_id=set_id,
-            display_name=display_name,
-            data_source=data_source,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        organization_id=organization_id,
+client=client,
+limit=limit,
+offset=offset,
+set_id=set_id,
+display_name=display_name,
+data_source=data_source,
+
+    )).parsed

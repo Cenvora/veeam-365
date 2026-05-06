@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class OrganizationUserGetDetectedSkuType(str, Enum):
     EDUCATION = "Education"
     OTHER = "Other"

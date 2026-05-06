@@ -1,47 +1,58 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_job_item_composed import RESTJobItemComposed
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
     job_id: UUID,
     item_id: str,
+
 ) -> dict[str, Any]:
+    
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/Jobs/{job_id}/SelectedItems/{item_id}".format(
-            job_id=quote(str(job_id), safe=""),
-            item_id=quote(str(item_id), safe=""),
-        ),
+        "url": "/v8/Jobs/{job_id}/SelectedItems/{item_id}".format(job_id=quote(str(job_id), safe=""),item_id=quote(str(item_id), safe=""),),
     }
+
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTExceptionInfo | RESTJobItemComposed:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | RESTJobItemComposed:
     if response.status_code == 200:
         response_200 = RESTJobItemComposed.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTExceptionInfo | RESTJobItemComposed]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | RESTJobItemComposed]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,8 +66,9 @@ def sync_detailed(
     item_id: str,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[RESTExceptionInfo | RESTJobItemComposed]:
-    """Get Backup Job Item
+    """ Get Backup Job Item
 
      Returns a resource representation of a backup item with the specified ID.
 
@@ -70,11 +82,13 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTJobItemComposed]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         job_id=job_id,
-        item_id=item_id,
+item_id=item_id,
+
     )
 
     response = client.get_httpx_client().request(
@@ -83,14 +97,14 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     job_id: UUID,
     item_id: str,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> RESTExceptionInfo | RESTJobItemComposed | None:
-    """Get Backup Job Item
+    """ Get Backup Job Item
 
      Returns a resource representation of a backup item with the specified ID.
 
@@ -104,22 +118,24 @@ def sync(
 
     Returns:
         RESTExceptionInfo | RESTJobItemComposed
-    """
+     """
+
 
     return sync_detailed(
         job_id=job_id,
-        item_id=item_id,
-        client=client,
-    ).parsed
+item_id=item_id,
+client=client,
 
+    ).parsed
 
 async def asyncio_detailed(
     job_id: UUID,
     item_id: str,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> Response[RESTExceptionInfo | RESTJobItemComposed]:
-    """Get Backup Job Item
+    """ Get Backup Job Item
 
      Returns a resource representation of a backup item with the specified ID.
 
@@ -133,25 +149,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTJobItemComposed]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         job_id=job_id,
-        item_id=item_id,
+item_id=item_id,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     job_id: UUID,
     item_id: str,
     *,
     client: AuthenticatedClient | Client,
+
 ) -> RESTExceptionInfo | RESTJobItemComposed | None:
-    """Get Backup Job Item
+    """ Get Backup Job Item
 
      Returns a resource representation of a backup item with the specified ID.
 
@@ -165,12 +185,12 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | RESTJobItemComposed
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            job_id=job_id,
-            item_id=item_id,
-            client=client,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        job_id=job_id,
+item_id=item_id,
+client=client,
+
+    )).parsed

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTTeamsNodeType(str, Enum):
     FILES = "Files"
     POSTS = "Posts"

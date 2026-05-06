@@ -1,15 +1,19 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_export_options import RESTExportOptions
 from ...models.teams_post_export_response_200 import TeamsPostExportResponse200
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -17,18 +21,22 @@ def _get_kwargs(
     team_id: UUID,
     *,
     body: RESTExportOptions,
+
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v8/RestoreSessions/{restore_session_id}/organization/teams/{team_id}/posts/export".format(
-            restore_session_id=quote(str(restore_session_id), safe=""),
-            team_id=quote(str(team_id), safe=""),
-        ),
+        "url": "/v8/RestoreSessions/{restore_session_id}/organization/teams/{team_id}/posts/export".format(restore_session_id=quote(str(restore_session_id), safe=""),team_id=quote(str(team_id), safe=""),),
     }
 
     _kwargs["json"] = body.to_dict()
+
 
     headers["Content-Type"] = "application/json"
 
@@ -36,22 +44,24 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTExceptionInfo | TeamsPostExportResponse200:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | TeamsPostExportResponse200:
     if response.status_code == 200:
         response_200 = TeamsPostExportResponse200.from_dict(response.content)
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTExceptionInfo | TeamsPostExportResponse200]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | TeamsPostExportResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -66,8 +76,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTExportOptions,
+
 ) -> Response[RESTExceptionInfo | TeamsPostExportResponse200]:
-    """Export Posts
+    """ Export Posts
 
      Exports backed-up Microsoft Teams posts.
 
@@ -87,12 +98,14 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | TeamsPostExportResponse200]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        team_id=team_id,
-        body=body,
+team_id=team_id,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -101,15 +114,15 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     restore_session_id: UUID,
     team_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTExportOptions,
+
 ) -> RESTExceptionInfo | TeamsPostExportResponse200 | None:
-    """Export Posts
+    """ Export Posts
 
      Exports backed-up Microsoft Teams posts.
 
@@ -129,15 +142,16 @@ def sync(
 
     Returns:
         RESTExceptionInfo | TeamsPostExportResponse200
-    """
+     """
+
 
     return sync_detailed(
         restore_session_id=restore_session_id,
-        team_id=team_id,
-        client=client,
-        body=body,
-    ).parsed
+team_id=team_id,
+client=client,
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     restore_session_id: UUID,
@@ -145,8 +159,9 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTExportOptions,
+
 ) -> Response[RESTExceptionInfo | TeamsPostExportResponse200]:
-    """Export Posts
+    """ Export Posts
 
      Exports backed-up Microsoft Teams posts.
 
@@ -166,18 +181,21 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | TeamsPostExportResponse200]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        team_id=team_id,
-        body=body,
+team_id=team_id,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     restore_session_id: UUID,
@@ -185,8 +203,9 @@ async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: RESTExportOptions,
+
 ) -> RESTExceptionInfo | TeamsPostExportResponse200 | None:
-    """Export Posts
+    """ Export Posts
 
      Exports backed-up Microsoft Teams posts.
 
@@ -206,13 +225,13 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | TeamsPostExportResponse200
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            restore_session_id=restore_session_id,
-            team_id=team_id,
-            client=client,
-            body=body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        restore_session_id=restore_session_id,
+team_id=team_id,
+client=client,
+body=body,
+
+    )).parsed

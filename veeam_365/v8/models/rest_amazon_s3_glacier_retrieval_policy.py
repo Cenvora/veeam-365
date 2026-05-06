@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTAmazonS3GlacierRetrievalPolicy(str, Enum):
     BULK = "Bulk"
     EXPEDITED = "Expedited"

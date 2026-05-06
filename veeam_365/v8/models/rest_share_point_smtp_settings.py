@@ -1,45 +1,52 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_authentication_type import RESTAuthenticationType
 from ..types import UNSET, Unset
 
+from ..models.rest_authentication_type import RESTAuthenticationType
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_share_point_smtp_settings_actions import RESTSharePointSmtpSettingsActions
-    from ..models.rest_share_point_smtp_settings_links import RESTSharePointSmtpSettingsLinks
+  from ..models.rest_share_point_smtp_settings_actions import RESTSharePointSmtpSettingsActions
+  from ..models.rest_share_point_smtp_settings_links import RESTSharePointSmtpSettingsLinks
+
+
+
 
 
 T = TypeVar("T", bound="RESTSharePointSmtpSettings")
 
 
+
 @_attrs_define
 class RESTSharePointSmtpSettings:
-    """
-    Attributes:
-        enable_notification (bool | Unset): Defines whether Veeam Explorer is enabled to send email messages.
-        server (str | Unset): DNS name or IP address of the SMTP server for sending email messages.
-        port (int | Unset): Port used for connection to the SMTP server.
-        from_ (str | Unset): Email address of the notification sender.
-        use_authentication (bool | Unset): Defines whether the SMTP server requires authentication.
-        use_ssl (bool | Unset): Defines whether Veeam Explorer uses a secure connection to send email messages.
-        username (str | Unset): User name of the account used for authentication to the SMTP server.
-        authentication_type (RESTAuthenticationType | Unset): Specifies authentication method that Veeam Backup for
-            Microsoft 365 and Veeam Explorers use to send emails.
-        client_id (str | Unset): Client ID obtained while registering an application in the Google Cloud console or
-            Microsoft Identity platform.
-        tenant_id (str | Unset): Tenant ID in Microsoft Entra ID.
-        user_id (str | Unset): Authenticated user account ID. Veeam Explorer will send email messages on behalf of this
-            user.
-        mail_api_url (None | str | Unset): Microsoft Graph endpoint for sending emails.
-        is_authenticated (bool | None | Unset): Defines a user account authentication status.
-        field_links (RESTSharePointSmtpSettingsLinks | Unset):
-        field_actions (RESTSharePointSmtpSettingsActions | Unset):
-    """
+    """ 
+        Attributes:
+            enable_notification (bool | Unset): Defines whether Veeam Explorer is enabled to send email messages.
+            server (str | Unset): DNS name or IP address of the SMTP server for sending email messages.
+            port (int | Unset): Port used for connection to the SMTP server.
+            from_ (str | Unset): Email address of the notification sender.
+            use_authentication (bool | Unset): Defines whether the SMTP server requires authentication.
+            use_ssl (bool | Unset): Defines whether Veeam Explorer uses a secure connection to send email messages.
+            username (str | Unset): User name of the account used for authentication to the SMTP server.
+            authentication_type (RESTAuthenticationType | Unset): Specifies authentication method that Veeam Backup for
+                Microsoft 365 and Veeam Explorers use to send emails.
+            client_id (str | Unset): Client ID obtained while registering an application in the Google Cloud console or
+                Microsoft Identity platform.
+            tenant_id (str | Unset): Tenant ID in Microsoft Entra ID.
+            user_id (str | Unset): Authenticated user account ID. Veeam Explorer will send email messages on behalf of this
+                user.
+            mail_api_url (None | str | Unset): Microsoft Graph endpoint for sending emails.
+            is_authenticated (bool | None | Unset): Defines a user account authentication status.
+            field_links (RESTSharePointSmtpSettingsLinks | Unset):
+            field_actions (RESTSharePointSmtpSettingsActions | Unset):
+     """
 
     enable_notification: bool | Unset = UNSET
     server: str | Unset = UNSET
@@ -58,7 +65,13 @@ class RESTSharePointSmtpSettings:
     field_actions: RESTSharePointSmtpSettingsActions | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_share_point_smtp_settings_actions import RESTSharePointSmtpSettingsActions
+        from ..models.rest_share_point_smtp_settings_links import RESTSharePointSmtpSettingsLinks
         enable_notification = self.enable_notification
 
         server = self.server
@@ -76,6 +89,7 @@ class RESTSharePointSmtpSettings:
         authentication_type: str | Unset = UNSET
         if not isinstance(self.authentication_type, Unset):
             authentication_type = self.authentication_type.value
+
 
         client_id = self.client_id
 
@@ -103,9 +117,11 @@ class RESTSharePointSmtpSettings:
         if not isinstance(self.field_actions, Unset):
             field_actions = self.field_actions.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if enable_notification is not UNSET:
             field_dict["enableNotification"] = enable_notification
         if server is not UNSET:
@@ -139,11 +155,12 @@ class RESTSharePointSmtpSettings:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_share_point_smtp_settings_actions import RESTSharePointSmtpSettingsActions
         from ..models.rest_share_point_smtp_settings_links import RESTSharePointSmtpSettingsLinks
-
         d = dict(src_dict)
         enable_notification = d.pop("enableNotification", UNSET)
 
@@ -161,10 +178,13 @@ class RESTSharePointSmtpSettings:
 
         _authentication_type = d.pop("authenticationType", UNSET)
         authentication_type: RESTAuthenticationType | Unset
-        if isinstance(_authentication_type, Unset):
+        if isinstance(_authentication_type,  Unset):
             authentication_type = UNSET
         else:
             authentication_type = RESTAuthenticationType(_authentication_type)
+
+
+
 
         client_id = d.pop("clientId", UNSET)
 
@@ -181,6 +201,7 @@ class RESTSharePointSmtpSettings:
 
         mail_api_url = _parse_mail_api_url(d.pop("mailApiUrl", UNSET))
 
+
         def _parse_is_authenticated(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -190,19 +211,26 @@ class RESTSharePointSmtpSettings:
 
         is_authenticated = _parse_is_authenticated(d.pop("isAuthenticated", UNSET))
 
+
         _field_links = d.pop("_links", UNSET)
         field_links: RESTSharePointSmtpSettingsLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTSharePointSmtpSettingsLinks.from_dict(_field_links)
 
+
+
+
         _field_actions = d.pop("_actions", UNSET)
         field_actions: RESTSharePointSmtpSettingsActions | Unset
-        if isinstance(_field_actions, Unset):
+        if isinstance(_field_actions,  Unset):
             field_actions = UNSET
         else:
             field_actions = RESTSharePointSmtpSettingsActions.from_dict(_field_actions)
+
+
+
 
         rest_share_point_smtp_settings = cls(
             enable_notification=enable_notification,
@@ -221,6 +249,7 @@ class RESTSharePointSmtpSettings:
             field_links=field_links,
             field_actions=field_actions,
         )
+
 
         rest_share_point_smtp_settings.additional_properties = d
         return rest_share_point_smtp_settings

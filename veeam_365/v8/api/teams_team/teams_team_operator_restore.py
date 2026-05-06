@@ -1,32 +1,41 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_operator_restore_team_options import RESTOperatorRestoreTeamOptions
 from ...models.rest_teams_operator_restore_session_response import RESTTeamsOperatorRestoreSessionResponse
-from ...types import Response
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
     restore_session_id: UUID,
     *,
     body: RESTOperatorRestoreTeamOptions,
+
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
+
+    
+
+    
+
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v8/RestoreSessions/{restore_session_id}/organization/teams/operatorRestore".format(
-            restore_session_id=quote(str(restore_session_id), safe=""),
-        ),
+        "url": "/v8/RestoreSessions/{restore_session_id}/organization/teams/operatorRestore".format(restore_session_id=quote(str(restore_session_id), safe=""),),
     }
 
     _kwargs["json"] = body.to_dict()
+
 
     headers["Content-Type"] = "application/json"
 
@@ -34,22 +43,24 @@ def _get_kwargs(
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTExceptionInfo | RESTTeamsOperatorRestoreSessionResponse:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | RESTTeamsOperatorRestoreSessionResponse:
     if response.status_code == 200:
         response_200 = RESTTeamsOperatorRestoreSessionResponse.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTExceptionInfo | RESTTeamsOperatorRestoreSessionResponse]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | RESTTeamsOperatorRestoreSessionResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -63,8 +74,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTOperatorRestoreTeamOptions,
+
 ) -> Response[RESTExceptionInfo | RESTTeamsOperatorRestoreSessionResponse]:
-    r"""Restore Teams by Restore Operator
+    r""" Restore Teams by Restore Operator
 
      Restores backed-up teams using Restore Portal. For more information about Restore Portal, see the
     [Data Restore Using Restore
@@ -72,7 +84,7 @@ def sync_detailed(
     Backup for Microsoft 365 User Guide. <div class=\"note\"><strong>NOTE</strong> </br> To restore data
     using Restore Portal, you must create a restore session for a restore operator. For more
     information, see [Create Restore Session for Restore
-    Operator](RestoreSession#operation/RestoreSession_OperatorExploreAction). </div>
+    Operator](#/RestoreSession/RestoreSession_OperatorExploreAction). </div>
 
     Args:
         restore_session_id (UUID):
@@ -84,11 +96,13 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTTeamsOperatorRestoreSessionResponse]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        body=body,
+body=body,
+
     )
 
     response = client.get_httpx_client().request(
@@ -97,14 +111,14 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
-
 def sync(
     restore_session_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTOperatorRestoreTeamOptions,
+
 ) -> RESTExceptionInfo | RESTTeamsOperatorRestoreSessionResponse | None:
-    r"""Restore Teams by Restore Operator
+    r""" Restore Teams by Restore Operator
 
      Restores backed-up teams using Restore Portal. For more information about Restore Portal, see the
     [Data Restore Using Restore
@@ -112,7 +126,7 @@ def sync(
     Backup for Microsoft 365 User Guide. <div class=\"note\"><strong>NOTE</strong> </br> To restore data
     using Restore Portal, you must create a restore session for a restore operator. For more
     information, see [Create Restore Session for Restore
-    Operator](RestoreSession#operation/RestoreSession_OperatorExploreAction). </div>
+    Operator](#/RestoreSession/RestoreSession_OperatorExploreAction). </div>
 
     Args:
         restore_session_id (UUID):
@@ -124,22 +138,24 @@ def sync(
 
     Returns:
         RESTExceptionInfo | RESTTeamsOperatorRestoreSessionResponse
-    """
+     """
+
 
     return sync_detailed(
         restore_session_id=restore_session_id,
-        client=client,
-        body=body,
-    ).parsed
+client=client,
+body=body,
 
+    ).parsed
 
 async def asyncio_detailed(
     restore_session_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTOperatorRestoreTeamOptions,
+
 ) -> Response[RESTExceptionInfo | RESTTeamsOperatorRestoreSessionResponse]:
-    r"""Restore Teams by Restore Operator
+    r""" Restore Teams by Restore Operator
 
      Restores backed-up teams using Restore Portal. For more information about Restore Portal, see the
     [Data Restore Using Restore
@@ -147,7 +163,7 @@ async def asyncio_detailed(
     Backup for Microsoft 365 User Guide. <div class=\"note\"><strong>NOTE</strong> </br> To restore data
     using Restore Portal, you must create a restore session for a restore operator. For more
     information, see [Create Restore Session for Restore
-    Operator](RestoreSession#operation/RestoreSession_OperatorExploreAction). </div>
+    Operator](#/RestoreSession/RestoreSession_OperatorExploreAction). </div>
 
     Args:
         restore_session_id (UUID):
@@ -159,25 +175,29 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTTeamsOperatorRestoreSessionResponse]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-        body=body,
+body=body,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     restore_session_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTOperatorRestoreTeamOptions,
+
 ) -> RESTExceptionInfo | RESTTeamsOperatorRestoreSessionResponse | None:
-    r"""Restore Teams by Restore Operator
+    r""" Restore Teams by Restore Operator
 
      Restores backed-up teams using Restore Portal. For more information about Restore Portal, see the
     [Data Restore Using Restore
@@ -185,7 +205,7 @@ async def asyncio(
     Backup for Microsoft 365 User Guide. <div class=\"note\"><strong>NOTE</strong> </br> To restore data
     using Restore Portal, you must create a restore session for a restore operator. For more
     information, see [Create Restore Session for Restore
-    Operator](RestoreSession#operation/RestoreSession_OperatorExploreAction). </div>
+    Operator](#/RestoreSession/RestoreSession_OperatorExploreAction). </div>
 
     Args:
         restore_session_id (UUID):
@@ -197,12 +217,12 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | RESTTeamsOperatorRestoreSessionResponse
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            restore_session_id=restore_session_id,
-            client=client,
-            body=body,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        restore_session_id=restore_session_id,
+client=client,
+body=body,
+
+    )).parsed

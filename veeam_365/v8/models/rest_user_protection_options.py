@@ -1,33 +1,46 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 from ..models.rest_user_protection_options_format import RESTUserProtectionOptionsFormat
 from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
+
+
+
+
 
 T = TypeVar("T", bound="RESTUserProtectionOptions")
 
 
+
 @_attrs_define
 class RESTUserProtectionOptions:
-    """
-    Attributes:
-        organization_id (None | Unset | UUID): Specifies the ID of an organization for which the report on protected and
-            unprotected users will be generated. Example: 00000000-0000-0000-0000-000000000000.
-        format_ (RESTUserProtectionOptionsFormat | Unset): Specifies the format in which to save a report.
-        timezone (str | Unset): Specifies a time zone for the reporting interval. If you do not specify this property,
-            the server will generate a report for the UTC time zone.
-    """
+    """ 
+        Attributes:
+            organization_id (None | Unset | UUID): Specifies the ID of an organization for which the report on protected and
+                unprotected users will be generated. Example: 00000000-0000-0000-0000-000000000000.
+            format_ (RESTUserProtectionOptionsFormat | Unset): Specifies the format in which to save a report.
+            timezone (str | Unset): Specifies a time zone for the reporting interval. If you do not specify this property,
+                the server will generate a report for the UTC time zone.
+     """
 
     organization_id: None | Unset | UUID = UNSET
     format_: RESTUserProtectionOptionsFormat | Unset = UNSET
     timezone: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+
+
+
 
     def to_dict(self) -> dict[str, Any]:
         organization_id: None | str | Unset
@@ -42,11 +55,14 @@ class RESTUserProtectionOptions:
         if not isinstance(self.format_, Unset):
             format_ = self.format_.value
 
+
         timezone = self.timezone
+
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if organization_id is not UNSET:
             field_dict["organizationId"] = organization_id
         if format_ is not UNSET:
@@ -56,10 +72,11 @@ class RESTUserProtectionOptions:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-
         def _parse_organization_id(data: object) -> None | Unset | UUID:
             if data is None:
                 return data
@@ -70,6 +87,8 @@ class RESTUserProtectionOptions:
                     raise TypeError()
                 organization_id_type_0 = UUID(data)
 
+
+
                 return organization_id_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
@@ -77,12 +96,16 @@ class RESTUserProtectionOptions:
 
         organization_id = _parse_organization_id(d.pop("organizationId", UNSET))
 
+
         _format_ = d.pop("format", UNSET)
         format_: RESTUserProtectionOptionsFormat | Unset
-        if isinstance(_format_, Unset):
+        if isinstance(_format_,  Unset):
             format_ = UNSET
         else:
             format_ = RESTUserProtectionOptionsFormat(_format_)
+
+
+
 
         timezone = d.pop("timezone", UNSET)
 
@@ -91,6 +114,7 @@ class RESTUserProtectionOptions:
             format_=format_,
             timezone=timezone,
         )
+
 
         rest_user_protection_options.additional_properties = d
         return rest_user_protection_options

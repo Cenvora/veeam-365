@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTUserProtectionOptionsFormat(str, Enum):
     CSV = "CSV"
     PDF = "PDF"

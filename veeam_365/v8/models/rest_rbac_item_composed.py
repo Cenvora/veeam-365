@@ -1,37 +1,44 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.rest_rbac_item_type import RESTRbacItemType
 from ..types import UNSET, Unset
 
+from ..models.rest_rbac_item_type import RESTRbacItemType
+from ..types import UNSET, Unset
+from typing import cast
+
 if TYPE_CHECKING:
-    from ..models.rest_rbac_group import RESTRbacGroup
-    from ..models.rest_rbac_item_composed_links import RESTRbacItemComposedLinks
-    from ..models.rest_rbac_site import RESTRbacSite
-    from ..models.rest_rbac_team import RESTRbacTeam
-    from ..models.rest_rbac_user import RESTRbacUser
+  from ..models.rest_rbac_group import RESTRbacGroup
+  from ..models.rest_rbac_item_composed_links import RESTRbacItemComposedLinks
+  from ..models.rest_rbac_site import RESTRbacSite
+  from ..models.rest_rbac_team import RESTRbacTeam
+  from ..models.rest_rbac_user import RESTRbacUser
+
+
+
 
 
 T = TypeVar("T", bound="RESTRbacItemComposed")
 
 
+
 @_attrs_define
 class RESTRbacItemComposed:
-    """
-    Attributes:
-        type_ (RESTRbacItemType | Unset): Type of the managed object.
-        user (RESTRbacUser | Unset):
-        id (str | Unset): ID of the organization user.
-        field_links (RESTRbacItemComposedLinks | Unset):
-        site (RESTRbacSite | Unset):
-        group (RESTRbacGroup | Unset):
-        team (RESTRbacTeam | Unset):
-    """
+    """ 
+        Attributes:
+            type_ (RESTRbacItemType | Unset): Type of the managed object.
+            user (RESTRbacUser | Unset):
+            id (str | Unset): ID of the organization user.
+            field_links (RESTRbacItemComposedLinks | Unset):
+            site (RESTRbacSite | Unset):
+            group (RESTRbacGroup | Unset):
+            team (RESTRbacTeam | Unset):
+     """
 
     type_: RESTRbacItemType | Unset = UNSET
     user: RESTRbacUser | Unset = UNSET
@@ -42,10 +49,20 @@ class RESTRbacItemComposed:
     team: RESTRbacTeam | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_rbac_group import RESTRbacGroup
+        from ..models.rest_rbac_item_composed_links import RESTRbacItemComposedLinks
+        from ..models.rest_rbac_site import RESTRbacSite
+        from ..models.rest_rbac_team import RESTRbacTeam
+        from ..models.rest_rbac_user import RESTRbacUser
         type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
+
 
         user: dict[str, Any] | Unset = UNSET
         if not isinstance(self.user, Unset):
@@ -69,9 +86,11 @@ class RESTRbacItemComposed:
         if not isinstance(self.team, Unset):
             team = self.team.to_dict()
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
+        field_dict.update({
+        })
         if type_ is not UNSET:
             field_dict["type"] = type_
         if user is not UNSET:
@@ -89,6 +108,8 @@ class RESTRbacItemComposed:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_rbac_group import RESTRbacGroup
@@ -96,51 +117,68 @@ class RESTRbacItemComposed:
         from ..models.rest_rbac_site import RESTRbacSite
         from ..models.rest_rbac_team import RESTRbacTeam
         from ..models.rest_rbac_user import RESTRbacUser
-
         d = dict(src_dict)
         _type_ = d.pop("type", UNSET)
         type_: RESTRbacItemType | Unset
-        if isinstance(_type_, Unset):
+        if isinstance(_type_,  Unset):
             type_ = UNSET
         else:
             type_ = RESTRbacItemType(_type_)
 
+
+
+
         _user = d.pop("user", UNSET)
         user: RESTRbacUser | Unset
-        if isinstance(_user, Unset):
+        if isinstance(_user,  Unset):
             user = UNSET
         else:
             user = RESTRbacUser.from_dict(_user)
+
+
+
 
         id = d.pop("id", UNSET)
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTRbacItemComposedLinks | Unset
-        if isinstance(_field_links, Unset):
+        if isinstance(_field_links,  Unset):
             field_links = UNSET
         else:
             field_links = RESTRbacItemComposedLinks.from_dict(_field_links)
 
+
+
+
         _site = d.pop("site", UNSET)
         site: RESTRbacSite | Unset
-        if isinstance(_site, Unset):
+        if isinstance(_site,  Unset):
             site = UNSET
         else:
             site = RESTRbacSite.from_dict(_site)
 
+
+
+
         _group = d.pop("group", UNSET)
         group: RESTRbacGroup | Unset
-        if isinstance(_group, Unset):
+        if isinstance(_group,  Unset):
             group = UNSET
         else:
             group = RESTRbacGroup.from_dict(_group)
 
+
+
+
         _team = d.pop("team", UNSET)
         team: RESTRbacTeam | Unset
-        if isinstance(_team, Unset):
+        if isinstance(_team,  Unset):
             team = UNSET
         else:
             team = RESTRbacTeam.from_dict(_team)
+
+
+
 
         rest_rbac_item_composed = cls(
             type_=type_,
@@ -151,6 +189,7 @@ class RESTRbacItemComposed:
             group=group,
             team=team,
         )
+
 
         rest_rbac_item_composed.additional_properties = d
         return rest_rbac_item_composed

@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTRestoreOneDriveDocumentConfigDocumentVersion(str, Enum):
     ALL = "All"
     LAST = "Last"

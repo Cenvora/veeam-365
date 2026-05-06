@@ -1,6 +1,5 @@
 from enum import Enum
 
-
 class RESTSharePointFolderType(str, Enum):
     LIBRARYFOLDER = "LibraryFolder"
     LISTFOLDER = "ListFolder"

@@ -1,14 +1,19 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
-from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
+from ...types import Response, UNSET
+from ... import errors
+
 from ...models.rest_amazon_bucket_s3_compatible import RESTAmazonBucketS3Compatible
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Response, Unset
+from ...types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 
 
 def _get_kwargs(
@@ -19,7 +24,12 @@ def _get_kwargs(
     custom_region_id: str,
     trusted_server_certificate_thumbprint: str | Unset = UNSET,
     trust_server_certificate: bool | Unset = UNSET,
+
 ) -> dict[str, Any]:
+    
+
+    
+
     params: dict[str, Any] = {}
 
     json_account_id = str(account_id)
@@ -33,35 +43,38 @@ def _get_kwargs(
 
     params["trustServerCertificate"] = trust_server_certificate
 
+
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/S3CompatibleResources/buckets/{name}".format(
-            name=quote(str(name), safe=""),
-        ),
+        "url": "/v8/S3CompatibleResources/buckets/{name}".format(name=quote(str(name), safe=""),),
         "params": params,
     }
+
 
     return _kwargs
 
 
-def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> RESTAmazonBucketS3Compatible | RESTExceptionInfo:
+
+def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTAmazonBucketS3Compatible | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = RESTAmazonBucketS3Compatible.from_dict(response.json())
+
+
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
+
+
     return response_default
 
 
-def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[RESTAmazonBucketS3Compatible | RESTExceptionInfo]:
+
+def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTAmazonBucketS3Compatible | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -79,8 +92,9 @@ def sync_detailed(
     custom_region_id: str,
     trusted_server_certificate_thumbprint: str | Unset = UNSET,
     trust_server_certificate: bool | Unset = UNSET,
+
 ) -> Response[RESTAmazonBucketS3Compatible | RESTExceptionInfo]:
-    """Get Bucket by Name
+    """ Get Bucket by Name
 
      Returns information about S3 Compatible, IBM Cloud or Wasabi Cloud object storage bucket with the
     specified name.
@@ -99,15 +113,17 @@ def sync_detailed(
 
     Returns:
         Response[RESTAmazonBucketS3Compatible | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         name=name,
-        account_id=account_id,
-        service_point=service_point,
-        custom_region_id=custom_region_id,
-        trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
-        trust_server_certificate=trust_server_certificate,
+account_id=account_id,
+service_point=service_point,
+custom_region_id=custom_region_id,
+trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
+trust_server_certificate=trust_server_certificate,
+
     )
 
     response = client.get_httpx_client().request(
@@ -115,7 +131,6 @@ def sync_detailed(
     )
 
     return _build_response(client=client, response=response)
-
 
 def sync(
     name: str,
@@ -126,8 +141,9 @@ def sync(
     custom_region_id: str,
     trusted_server_certificate_thumbprint: str | Unset = UNSET,
     trust_server_certificate: bool | Unset = UNSET,
+
 ) -> RESTAmazonBucketS3Compatible | RESTExceptionInfo | None:
-    """Get Bucket by Name
+    """ Get Bucket by Name
 
      Returns information about S3 Compatible, IBM Cloud or Wasabi Cloud object storage bucket with the
     specified name.
@@ -146,18 +162,19 @@ def sync(
 
     Returns:
         RESTAmazonBucketS3Compatible | RESTExceptionInfo
-    """
+     """
+
 
     return sync_detailed(
         name=name,
-        client=client,
-        account_id=account_id,
-        service_point=service_point,
-        custom_region_id=custom_region_id,
-        trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
-        trust_server_certificate=trust_server_certificate,
-    ).parsed
+client=client,
+account_id=account_id,
+service_point=service_point,
+custom_region_id=custom_region_id,
+trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
+trust_server_certificate=trust_server_certificate,
 
+    ).parsed
 
 async def asyncio_detailed(
     name: str,
@@ -168,8 +185,9 @@ async def asyncio_detailed(
     custom_region_id: str,
     trusted_server_certificate_thumbprint: str | Unset = UNSET,
     trust_server_certificate: bool | Unset = UNSET,
+
 ) -> Response[RESTAmazonBucketS3Compatible | RESTExceptionInfo]:
-    """Get Bucket by Name
+    """ Get Bucket by Name
 
      Returns information about S3 Compatible, IBM Cloud or Wasabi Cloud object storage bucket with the
     specified name.
@@ -188,21 +206,24 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTAmazonBucketS3Compatible | RESTExceptionInfo]
-    """
+     """
+
 
     kwargs = _get_kwargs(
         name=name,
-        account_id=account_id,
-        service_point=service_point,
-        custom_region_id=custom_region_id,
-        trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
-        trust_server_certificate=trust_server_certificate,
+account_id=account_id,
+service_point=service_point,
+custom_region_id=custom_region_id,
+trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
+trust_server_certificate=trust_server_certificate,
+
     )
 
-    response = await client.get_async_httpx_client().request(**kwargs)
+    response = await client.get_async_httpx_client().request(
+        **kwargs
+    )
 
     return _build_response(client=client, response=response)
-
 
 async def asyncio(
     name: str,
@@ -213,8 +234,9 @@ async def asyncio(
     custom_region_id: str,
     trusted_server_certificate_thumbprint: str | Unset = UNSET,
     trust_server_certificate: bool | Unset = UNSET,
+
 ) -> RESTAmazonBucketS3Compatible | RESTExceptionInfo | None:
-    """Get Bucket by Name
+    """ Get Bucket by Name
 
      Returns information about S3 Compatible, IBM Cloud or Wasabi Cloud object storage bucket with the
     specified name.
@@ -233,16 +255,16 @@ async def asyncio(
 
     Returns:
         RESTAmazonBucketS3Compatible | RESTExceptionInfo
-    """
+     """
 
-    return (
-        await asyncio_detailed(
-            name=name,
-            client=client,
-            account_id=account_id,
-            service_point=service_point,
-            custom_region_id=custom_region_id,
-            trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
-            trust_server_certificate=trust_server_certificate,
-        )
-    ).parsed
+
+    return (await asyncio_detailed(
+        name=name,
+client=client,
+account_id=account_id,
+service_point=service_point,
+custom_region_id=custom_region_id,
+trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
+trust_server_certificate=trust_server_certificate,
+
+    )).parsed

@@ -1,34 +1,41 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar, cast
-from uuid import UUID
+from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
+from ..types import UNSET, Unset
+from typing import cast
+from uuid import UUID
+
 if TYPE_CHECKING:
-    from ..models.rest_copy_job_schedule_policy import RESTCopyJobSchedulePolicy
+  from ..models.rest_copy_job_schedule_policy import RESTCopyJobSchedulePolicy
+
+
+
 
 
 T = TypeVar("T", bound="RESTCreateCopyJob")
 
 
+
 @_attrs_define
 class RESTCreateCopyJob:
-    """
-    Attributes:
-        backup_job_id (UUID): Backup job ID. Example: 00000000-0000-0000-0000-000000000000.
-        organization_id (UUID): ID of the Microsoft 365 organization. Example: 00000000-0000-0000-0000-000000000000.
-        repository_id (UUID): ID of one of the following object storage repositories: Azure Blob Storage Archive access
-            tier, Amazon S3 Glacier Instant Retrieval, Amazon S3 Glacier Flexible Retrieval or Amazon S3 Glacier Deep
-            Archive storage classes.
-             Example: 00000000-0000-0000-0000-000000000000.
-        schedule_policy (RESTCopyJobSchedulePolicy | Unset):
-        is_enabled (bool | None | Unset): Defines whether the backup copy job is enabled.
-    """
+    """ 
+        Attributes:
+            backup_job_id (UUID): Backup job ID. Example: 00000000-0000-0000-0000-000000000000.
+            organization_id (UUID): ID of the Microsoft 365 organization. Example: 00000000-0000-0000-0000-000000000000.
+            repository_id (UUID): ID of one of the following object storage repositories: Azure Blob Storage Archive access
+                tier, Amazon S3 Glacier Instant Retrieval, Amazon S3 Glacier Flexible Retrieval or Amazon S3 Glacier Deep
+                Archive storage classes.
+                 Example: 00000000-0000-0000-0000-000000000000.
+            schedule_policy (RESTCopyJobSchedulePolicy | Unset):
+            is_enabled (bool | None | Unset): Defines whether the backup copy job is enabled.
+     """
 
     backup_job_id: UUID
     organization_id: UUID
@@ -37,7 +44,12 @@ class RESTCreateCopyJob:
     is_enabled: bool | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
+
+
+
+
     def to_dict(self) -> dict[str, Any]:
+        from ..models.rest_copy_job_schedule_policy import RESTCopyJobSchedulePolicy
         backup_job_id = str(self.backup_job_id)
 
         organization_id = str(self.organization_id)
@@ -54,15 +66,14 @@ class RESTCreateCopyJob:
         else:
             is_enabled = self.is_enabled
 
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "backupJobId": backup_job_id,
-                "organizationId": organization_id,
-                "repositoryId": repository_id,
-            }
-        )
+        field_dict.update({
+            "backupJobId": backup_job_id,
+            "organizationId": organization_id,
+            "repositoryId": repository_id,
+        })
         if schedule_policy is not UNSET:
             field_dict["schedulePolicy"] = schedule_policy
         if is_enabled is not UNSET:
@@ -70,23 +81,36 @@ class RESTCreateCopyJob:
 
         return field_dict
 
+
+
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_copy_job_schedule_policy import RESTCopyJobSchedulePolicy
-
         d = dict(src_dict)
         backup_job_id = UUID(d.pop("backupJobId"))
 
+
+
+
         organization_id = UUID(d.pop("organizationId"))
+
+
+
 
         repository_id = UUID(d.pop("repositoryId"))
 
+
+
+
         _schedule_policy = d.pop("schedulePolicy", UNSET)
         schedule_policy: RESTCopyJobSchedulePolicy | Unset
-        if isinstance(_schedule_policy, Unset):
+        if isinstance(_schedule_policy,  Unset):
             schedule_policy = UNSET
         else:
             schedule_policy = RESTCopyJobSchedulePolicy.from_dict(_schedule_policy)
+
+
+
 
         def _parse_is_enabled(data: object) -> bool | None | Unset:
             if data is None:
@@ -97,6 +121,7 @@ class RESTCreateCopyJob:
 
         is_enabled = _parse_is_enabled(d.pop("isEnabled", UNSET))
 
+
         rest_create_copy_job = cls(
             backup_job_id=backup_job_id,
             organization_id=organization_id,
@@ -104,6 +129,7 @@ class RESTCreateCopyJob:
             schedule_policy=schedule_policy,
             is_enabled=is_enabled,
         )
+
 
         rest_create_copy_job.additional_properties = d
         return rest_create_copy_job
