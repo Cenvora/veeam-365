@@ -112,6 +112,63 @@ asyncio.run(main())
 - `verify_ssl` (bool, default: `True`): Enable/disable SSL certificate verification
 - `disable_antiforgery_token` (bool, default: `True`): Disable antiforgery token requirement. Set to `True` for programmatic/API clients (recommended). Set to `False` only if using browser-based authentication with cookies.
 
+#### Detect the API version a server serves
+
+The REST API has no endpoint that reports its supported versions, and nothing negotiates one
+for you — the version is part of every path, so a client picks one up front. That path is
+also what makes detection possible: `/{version}/ServiceInstance` exists in every version and
+requires a token, so an anonymous probe gets 401 where the version is served and 404 where it
+is not. `detect_api_version` returns the newest version that both the server serves and this
+library can speak:
+
+```python
+import asyncio
+from veeam_365.client import VeeamClient
+from veeam_365.discovery import detect_api_version
+
+async def main():
+    base_url = "https://vb365.example.com:4443"
+
+    api_version = await detect_api_version(base_url, verify_ssl=False)
+    if api_version is None:
+        # The server may be unreachable or behind a proxy — choose your own default
+        api_version = "v8"
+
+    vc = VeeamClient(
+        host=base_url,
+        username="administrator",
+        password="SuperSecretPassword",
+        api_version=api_version,
+        verify_ssl=False,
+    )
+    await vc.connect()
+
+asyncio.run(main())
+```
+
+Detection needs no credentials, so it can run before you have any. Probes are concurrent, so
+it costs roughly one round trip regardless of how many versions this library supports.
+
+If you do not know the port either, `detect_rest_api` finds both at once. The REST API
+service listens on 4443 out of the box, but the port is configurable in the console, so pass
+your own candidates when a deployment uses something else:
+
+```python
+from veeam_365.discovery import detect_rest_api
+
+endpoint = await detect_rest_api("vb365.example.com", verify_ssl=False)
+if endpoint:
+    print(endpoint.port, endpoint.api_version)  # e.g. 4443 v8
+    base_url = f"https://vb365.example.com{endpoint.base_url_suffix}"
+```
+
+Ports are tried in preference order and the newest version served by the winning port is
+returned.
+
+Resolve it once and store the result rather than detecting on every start: a server upgrade
+would otherwise silently move you onto a newer version, and versions rename enum values and
+add required fields.
+
 #### Call an API endpoint (async)
 ```python
 repos = await vc.call(
