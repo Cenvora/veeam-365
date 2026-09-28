@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTRbacRoleRoleType(str, Enum):
     ENTIREORGANIZATION = "EntireOrganization"
     SPECIFICOBJECTS = "SpecificObjects"

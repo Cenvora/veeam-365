@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTExceptionInfoErrorCode(str, Enum):
     HTTPERROR = "HttpError"
     OPERATIONCONFLICT = "OperationConflict"

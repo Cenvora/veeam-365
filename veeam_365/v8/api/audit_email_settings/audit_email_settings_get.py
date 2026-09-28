@@ -1,55 +1,40 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.rest_audit_email_settings_response import RESTAuditEmailSettingsResponse
 from ...models.rest_exception_info import RESTExceptionInfo
-from typing import cast
+from ...types import Response
 
 
-
-def _get_kwargs(
-    
-) -> dict[str, Any]:
-    
-
-    
-
-    
+def _get_kwargs() -> dict[str, Any]:
 
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/v8/AuditEmailSettings",
     }
 
-
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTAuditEmailSettingsResponse | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> RESTAuditEmailSettingsResponse | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = RESTAuditEmailSettingsResponse.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTAuditEmailSettingsResponse | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[RESTAuditEmailSettingsResponse | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -61,9 +46,8 @@ def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[RESTAuditEmailSettingsResponse | RESTExceptionInfo]:
-    """ Get Audit Notification Settings
+    """Get Audit Notification Settings
 
      Returns a resource representation of audit notification settings.
 
@@ -73,12 +57,9 @@ def sync_detailed(
 
     Returns:
         Response[RESTAuditEmailSettingsResponse | RESTExceptionInfo]
-     """
+    """
 
-
-    kwargs = _get_kwargs(
-        
-    )
+    kwargs = _get_kwargs()
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -86,12 +67,12 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
-
 ) -> RESTAuditEmailSettingsResponse | RESTExceptionInfo | None:
-    """ Get Audit Notification Settings
+    """Get Audit Notification Settings
 
      Returns a resource representation of audit notification settings.
 
@@ -101,20 +82,18 @@ def sync(
 
     Returns:
         RESTAuditEmailSettingsResponse | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[RESTAuditEmailSettingsResponse | RESTExceptionInfo]:
-    """ Get Audit Notification Settings
+    """Get Audit Notification Settings
 
      Returns a resource representation of audit notification settings.
 
@@ -124,25 +103,20 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTAuditEmailSettingsResponse | RESTExceptionInfo]
-     """
+    """
 
+    kwargs = _get_kwargs()
 
-    kwargs = _get_kwargs(
-        
-    )
-
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
-
 ) -> RESTAuditEmailSettingsResponse | RESTExceptionInfo | None:
-    """ Get Audit Notification Settings
+    """Get Audit Notification Settings
 
      Returns a resource representation of audit notification settings.
 
@@ -152,10 +126,10 @@ async def asyncio(
 
     Returns:
         RESTAuditEmailSettingsResponse | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+        )
+    ).parsed

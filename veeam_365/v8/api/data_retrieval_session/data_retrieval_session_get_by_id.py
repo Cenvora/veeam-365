@@ -1,57 +1,46 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.rest_data_retrieval_session import RESTDataRetrievalSession
 from ...models.rest_exception_info import RESTExceptionInfo
-from typing import cast
-from uuid import UUID
-
+from ...types import Response
 
 
 def _get_kwargs(
     data_retrieval_session_id: UUID,
-
 ) -> dict[str, Any]:
-    
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/DataRetrievalSessions/{data_retrieval_session_id}".format(data_retrieval_session_id=quote(str(data_retrieval_session_id), safe=""),),
+        "url": "/v8/DataRetrievalSessions/{data_retrieval_session_id}".format(
+            data_retrieval_session_id=quote(str(data_retrieval_session_id), safe=""),
+        ),
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTDataRetrievalSession | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> RESTDataRetrievalSession | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = RESTDataRetrievalSession.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTDataRetrievalSession | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[RESTDataRetrievalSession | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -64,9 +53,8 @@ def sync_detailed(
     data_retrieval_session_id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[RESTDataRetrievalSession | RESTExceptionInfo]:
-    """ Get Data Retrieval Session by Session ID
+    """Get Data Retrieval Session by Session ID
 
      Returns a resource representation of a data retrieval session with the specified ID.
 
@@ -79,12 +67,10 @@ def sync_detailed(
 
     Returns:
         Response[RESTDataRetrievalSession | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         data_retrieval_session_id=data_retrieval_session_id,
-
     )
 
     response = client.get_httpx_client().request(
@@ -93,13 +79,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     data_retrieval_session_id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> RESTDataRetrievalSession | RESTExceptionInfo | None:
-    """ Get Data Retrieval Session by Session ID
+    """Get Data Retrieval Session by Session ID
 
      Returns a resource representation of a data retrieval session with the specified ID.
 
@@ -112,22 +98,20 @@ def sync(
 
     Returns:
         RESTDataRetrievalSession | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         data_retrieval_session_id=data_retrieval_session_id,
-client=client,
-
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     data_retrieval_session_id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[RESTDataRetrievalSession | RESTExceptionInfo]:
-    """ Get Data Retrieval Session by Session ID
+    """Get Data Retrieval Session by Session ID
 
      Returns a resource representation of a data retrieval session with the specified ID.
 
@@ -140,27 +124,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTDataRetrievalSession | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         data_retrieval_session_id=data_retrieval_session_id,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     data_retrieval_session_id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> RESTDataRetrievalSession | RESTExceptionInfo | None:
-    """ Get Data Retrieval Session by Session ID
+    """Get Data Retrieval Session by Session ID
 
      Returns a resource representation of a data retrieval session with the specified ID.
 
@@ -173,11 +153,11 @@ async def asyncio(
 
     Returns:
         RESTDataRetrievalSession | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        data_retrieval_session_id=data_retrieval_session_id,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            data_retrieval_session_id=data_retrieval_session_id,
+            client=client,
+        )
+    ).parsed

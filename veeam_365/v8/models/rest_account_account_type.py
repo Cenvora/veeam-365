@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTAccountAccountType(str, Enum):
     AMAZONS3ACCOUNT = "amazonS3Account"
     AMAZONS3COMPATIBLEACCOUNT = "amazonS3CompatibleAccount"

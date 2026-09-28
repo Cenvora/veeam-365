@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTVersionBackupOptionsSharePointBackupMode(str, Enum):
     ALL = "All"
     LATEST = "Latest"

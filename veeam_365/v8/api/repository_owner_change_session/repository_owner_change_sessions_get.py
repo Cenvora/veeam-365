@@ -1,29 +1,19 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.page_of_rest_backup_repository_owner_change_session import PageOfRESTBackupRepositoryOwnerChangeSession
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -31,9 +21,7 @@ def _get_kwargs(
 
     params["offset"] = offset
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -41,28 +29,25 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTBackupRepositoryOwnerChangeSession | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> PageOfRESTBackupRepositoryOwnerChangeSession | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTBackupRepositoryOwnerChangeSession.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTBackupRepositoryOwnerChangeSession | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[PageOfRESTBackupRepositoryOwnerChangeSession | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -76,9 +61,8 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> Response[PageOfRESTBackupRepositoryOwnerChangeSession | RESTExceptionInfo]:
-    """ Get Change Owner Sessions
+    """Get Change Owner Sessions
 
      Returns a collection of change owner sessions when Veeam Backup for Microsoft 365 changes an owner
     for backup repositories from one to another.
@@ -93,13 +77,11 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTBackupRepositoryOwnerChangeSession | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         limit=limit,
-offset=offset,
-
+        offset=offset,
     )
 
     response = client.get_httpx_client().request(
@@ -108,14 +90,14 @@ offset=offset,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> PageOfRESTBackupRepositoryOwnerChangeSession | RESTExceptionInfo | None:
-    """ Get Change Owner Sessions
+    """Get Change Owner Sessions
 
      Returns a collection of change owner sessions when Veeam Backup for Microsoft 365 changes an owner
     for backup repositories from one to another.
@@ -130,24 +112,22 @@ def sync(
 
     Returns:
         PageOfRESTBackupRepositoryOwnerChangeSession | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-limit=limit,
-offset=offset,
-
+        limit=limit,
+        offset=offset,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> Response[PageOfRESTBackupRepositoryOwnerChangeSession | RESTExceptionInfo]:
-    """ Get Change Owner Sessions
+    """Get Change Owner Sessions
 
      Returns a collection of change owner sessions when Veeam Backup for Microsoft 365 changes an owner
     for backup repositories from one to another.
@@ -162,29 +142,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTBackupRepositoryOwnerChangeSession | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         limit=limit,
-offset=offset,
-
+        offset=offset,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> PageOfRESTBackupRepositoryOwnerChangeSession | RESTExceptionInfo | None:
-    """ Get Change Owner Sessions
+    """Get Change Owner Sessions
 
      Returns a collection of change owner sessions when Veeam Backup for Microsoft 365 changes an owner
     for backup repositories from one to another.
@@ -199,12 +175,12 @@ async def asyncio(
 
     Returns:
         PageOfRESTBackupRepositoryOwnerChangeSession | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-limit=limit,
-offset=offset,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            limit=limit,
+            offset=offset,
+        )
+    ).parsed

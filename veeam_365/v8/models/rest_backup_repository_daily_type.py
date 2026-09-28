@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTBackupRepositoryDailyType(str, Enum):
     EVERYDAY = "Everyday"
     FRIDAY = "Friday"

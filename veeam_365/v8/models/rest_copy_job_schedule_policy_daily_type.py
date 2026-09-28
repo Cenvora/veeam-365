@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTCopyJobSchedulePolicyDailyType(str, Enum):
     EVERYDAY = "Everyday"
     FRIDAY = "Friday"

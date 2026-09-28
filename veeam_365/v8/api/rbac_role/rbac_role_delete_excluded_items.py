@@ -1,46 +1,36 @@
 from http import HTTPStatus
 from typing import Any, cast
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.rest_exception_info import RESTExceptionInfo
-from typing import cast
-from uuid import UUID
-
+from ...types import UNSET, Response
 
 
 def _get_kwargs(
     role_id: UUID,
     *,
     ids: str,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
     params["ids"] = ids
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "delete",
-        "url": "/v8/RbacRoles/{role_id}/excludedItems".format(role_id=quote(str(role_id), safe=""),),
+        "url": "/v8/RbacRoles/{role_id}/excludedItems".format(
+            role_id=quote(str(role_id), safe=""),
+        ),
         "params": params,
     }
 
-
     return _kwargs
-
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | RESTExceptionInfo:
@@ -50,13 +40,12 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Any | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Any | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -70,9 +59,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     ids: str,
-
 ) -> Response[Any | RESTExceptionInfo]:
-    """ Remove Excluded Objects
+    """Remove Excluded Objects
 
      Removes objects excluded from the restore operator role scope from a restore operator role with the
     specified ID.
@@ -87,13 +75,11 @@ def sync_detailed(
 
     Returns:
         Response[Any | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         role_id=role_id,
-ids=ids,
-
+        ids=ids,
     )
 
     response = client.get_httpx_client().request(
@@ -102,14 +88,14 @@ ids=ids,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     role_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     ids: str,
-
 ) -> Any | RESTExceptionInfo | None:
-    """ Remove Excluded Objects
+    """Remove Excluded Objects
 
      Removes objects excluded from the restore operator role scope from a restore operator role with the
     specified ID.
@@ -124,24 +110,22 @@ def sync(
 
     Returns:
         Any | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         role_id=role_id,
-client=client,
-ids=ids,
-
+        client=client,
+        ids=ids,
     ).parsed
+
 
 async def asyncio_detailed(
     role_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     ids: str,
-
 ) -> Response[Any | RESTExceptionInfo]:
-    """ Remove Excluded Objects
+    """Remove Excluded Objects
 
      Removes objects excluded from the restore operator role scope from a restore operator role with the
     specified ID.
@@ -156,29 +140,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         role_id=role_id,
-ids=ids,
-
+        ids=ids,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     role_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     ids: str,
-
 ) -> Any | RESTExceptionInfo | None:
-    """ Remove Excluded Objects
+    """Remove Excluded Objects
 
      Removes objects excluded from the restore operator role scope from a restore operator role with the
     specified ID.
@@ -193,12 +173,12 @@ async def asyncio(
 
     Returns:
         Any | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        role_id=role_id,
-client=client,
-ids=ids,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            role_id=role_id,
+            client=client,
+            ids=ids,
+        )
+    ).parsed

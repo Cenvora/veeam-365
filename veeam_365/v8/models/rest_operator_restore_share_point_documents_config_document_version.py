@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTOperatorRestoreSharePointDocumentsConfigDocumentVersion(str, Enum):
     ALL = "All"
     LAST = "Last"

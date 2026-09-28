@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTGroupType(str, Enum):
     DISTRIBUTION = "Distribution"
     DYNAMICDISTRIBUTION = "DynamicDistribution"

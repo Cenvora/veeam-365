@@ -1,19 +1,14 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.page_of_rest_restore_session_event import PageOfRESTRestoreSessionEvent
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -21,11 +16,7 @@ def _get_kwargs(
     *,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -33,38 +24,35 @@ def _get_kwargs(
 
     params["offset"] = offset
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/RestoreSessions/{restore_session_id}/Events".format(restore_session_id=quote(str(restore_session_id), safe=""),),
+        "url": "/v8/RestoreSessions/{restore_session_id}/Events".format(
+            restore_session_id=quote(str(restore_session_id), safe=""),
+        ),
         "params": params,
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTRestoreSessionEvent | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> PageOfRESTRestoreSessionEvent | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTRestoreSessionEvent.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTRestoreSessionEvent | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[PageOfRESTRestoreSessionEvent | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -79,9 +67,8 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> Response[PageOfRESTRestoreSessionEvent | RESTExceptionInfo]:
-    """ Get Restore Session Events
+    """Get Restore Session Events
 
      Returns a collection of events for a restore session with the specified ID.
 
@@ -96,14 +83,12 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTRestoreSessionEvent | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-limit=limit,
-offset=offset,
-
+        limit=limit,
+        offset=offset,
     )
 
     response = client.get_httpx_client().request(
@@ -112,15 +97,15 @@ offset=offset,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     restore_session_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> PageOfRESTRestoreSessionEvent | RESTExceptionInfo | None:
-    """ Get Restore Session Events
+    """Get Restore Session Events
 
      Returns a collection of events for a restore session with the specified ID.
 
@@ -135,16 +120,15 @@ def sync(
 
     Returns:
         PageOfRESTRestoreSessionEvent | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         restore_session_id=restore_session_id,
-client=client,
-limit=limit,
-offset=offset,
-
+        client=client,
+        limit=limit,
+        offset=offset,
     ).parsed
+
 
 async def asyncio_detailed(
     restore_session_id: UUID,
@@ -152,9 +136,8 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> Response[PageOfRESTRestoreSessionEvent | RESTExceptionInfo]:
-    """ Get Restore Session Events
+    """Get Restore Session Events
 
      Returns a collection of events for a restore session with the specified ID.
 
@@ -169,21 +152,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTRestoreSessionEvent | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-limit=limit,
-offset=offset,
-
+        limit=limit,
+        offset=offset,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     restore_session_id: UUID,
@@ -191,9 +171,8 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> PageOfRESTRestoreSessionEvent | RESTExceptionInfo | None:
-    """ Get Restore Session Events
+    """Get Restore Session Events
 
      Returns a collection of events for a restore session with the specified ID.
 
@@ -208,13 +187,13 @@ async def asyncio(
 
     Returns:
         PageOfRESTRestoreSessionEvent | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        restore_session_id=restore_session_id,
-client=client,
-limit=limit,
-offset=offset,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            restore_session_id=restore_session_id,
+            client=client,
+            limit=limit,
+            offset=offset,
+        )
+    ).parsed

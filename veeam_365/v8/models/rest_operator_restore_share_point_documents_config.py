@@ -1,51 +1,48 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.rest_operator_restore_share_point_documents_config_document_last_version_action import (
+    RESTOperatorRestoreSharePointDocumentsConfigDocumentLastVersionAction,
+)
+from ..models.rest_operator_restore_share_point_documents_config_document_version import (
+    RESTOperatorRestoreSharePointDocumentsConfigDocumentVersion,
+)
 from ..types import UNSET, Unset
-
-from ..models.rest_operator_restore_share_point_documents_config_document_last_version_action import RESTOperatorRestoreSharePointDocumentsConfigDocumentLastVersionAction
-from ..models.rest_operator_restore_share_point_documents_config_document_version import RESTOperatorRestoreSharePointDocumentsConfigDocumentVersion
-from ..types import UNSET, Unset
-from typing import cast
 
 if TYPE_CHECKING:
-  from ..models.rest_restore_share_point_document_config import RESTRestoreSharePointDocumentConfig
-
-
-
+    from ..models.rest_restore_share_point_document_config import RESTRestoreSharePointDocumentConfig
 
 
 T = TypeVar("T", bound="RESTOperatorRestoreSharePointDocumentsConfig")
 
 
-
 @_attrs_define
 class RESTOperatorRestoreSharePointDocumentsConfig:
-    """ 
-        Attributes:
-            documents_restore_configs (list[RESTRestoreSharePointDocumentConfig]): Specifies settings to restore the
-                SharePoint document.
-            list_ (str | Unset): Specifies the target SharePoint list.
-            restore_permissions (bool | None | Unset): Defines whether the SharePoint documents will be restored with all
-                permissions.
-            send_shared_links_notification (bool | None | Unset): Defines whether the shared links notifications will be
-                sent.
-            document_version (RESTOperatorRestoreSharePointDocumentsConfigDocumentVersion | Unset): Specifies what version
-                of the SharePoint documents will be restored.
-            document_last_version_action (RESTOperatorRestoreSharePointDocumentsConfigDocumentLastVersionAction | Unset):
-                Specifies the action that will be performed with the last version of the restored SharePoint document on the
-                destination server.
-            restore_changed_items (bool | None | Unset): Defines whether to restore the documents that have been modified in
-                the original location.
-            restore_deleted_items (bool | None | Unset): Defines whether to restore the documents that have been deleted in
-                the original location.
-            reason (str | Unset): Specifies a reason for the restore operation.
-     """
+    """
+    Attributes:
+        documents_restore_configs (list[RESTRestoreSharePointDocumentConfig]): Specifies settings to restore the
+            SharePoint document.
+        list_ (str | Unset): Specifies the target SharePoint list.
+        restore_permissions (bool | None | Unset): Defines whether the SharePoint documents will be restored with all
+            permissions.
+        send_shared_links_notification (bool | None | Unset): Defines whether the shared links notifications will be
+            sent.
+        document_version (RESTOperatorRestoreSharePointDocumentsConfigDocumentVersion | Unset): Specifies what version
+            of the SharePoint documents will be restored.
+        document_last_version_action (RESTOperatorRestoreSharePointDocumentsConfigDocumentLastVersionAction | Unset):
+            Specifies the action that will be performed with the last version of the restored SharePoint document on the
+            destination server.
+        restore_changed_items (bool | None | Unset): Defines whether to restore the documents that have been modified in
+            the original location.
+        restore_deleted_items (bool | None | Unset): Defines whether to restore the documents that have been deleted in
+            the original location.
+        reason (str | Unset): Specifies a reason for the restore operation.
+    """
 
     documents_restore_configs: list[RESTRestoreSharePointDocumentConfig]
     list_: str | Unset = UNSET
@@ -58,18 +55,11 @@ class RESTOperatorRestoreSharePointDocumentsConfig:
     reason: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.rest_restore_share_point_document_config import RESTRestoreSharePointDocumentConfig
         documents_restore_configs = []
         for documents_restore_configs_item_data in self.documents_restore_configs:
             documents_restore_configs_item = documents_restore_configs_item_data.to_dict()
             documents_restore_configs.append(documents_restore_configs_item)
-
-
 
         list_ = self.list_
 
@@ -89,11 +79,9 @@ class RESTOperatorRestoreSharePointDocumentsConfig:
         if not isinstance(self.document_version, Unset):
             document_version = self.document_version.value
 
-
         document_last_version_action: str | Unset = UNSET
         if not isinstance(self.document_last_version_action, Unset):
             document_last_version_action = self.document_last_version_action.value
-
 
         restore_changed_items: bool | None | Unset
         if isinstance(self.restore_changed_items, Unset):
@@ -109,12 +97,13 @@ class RESTOperatorRestoreSharePointDocumentsConfig:
 
         reason = self.reason
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "documentsRestoreConfigs": documents_restore_configs,
-        })
+        field_dict.update(
+            {
+                "documentsRestoreConfigs": documents_restore_configs,
+            }
+        )
         if list_ is not UNSET:
             field_dict["list"] = list_
         if restore_permissions is not UNSET:
@@ -134,21 +123,19 @@ class RESTOperatorRestoreSharePointDocumentsConfig:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_restore_share_point_document_config import RESTRestoreSharePointDocumentConfig
+
         d = dict(src_dict)
         documents_restore_configs = []
         _documents_restore_configs = d.pop("documentsRestoreConfigs")
-        for documents_restore_configs_item_data in (_documents_restore_configs):
-            documents_restore_configs_item = RESTRestoreSharePointDocumentConfig.from_dict(documents_restore_configs_item_data)
-
-
+        for documents_restore_configs_item_data in _documents_restore_configs:
+            documents_restore_configs_item = RESTRestoreSharePointDocumentConfig.from_dict(
+                documents_restore_configs_item_data
+            )
 
             documents_restore_configs.append(documents_restore_configs_item)
-
 
         list_ = d.pop("list", UNSET)
 
@@ -161,7 +148,6 @@ class RESTOperatorRestoreSharePointDocumentsConfig:
 
         restore_permissions = _parse_restore_permissions(d.pop("restorePermissions", UNSET))
 
-
         def _parse_send_shared_links_notification(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -169,28 +155,25 @@ class RESTOperatorRestoreSharePointDocumentsConfig:
                 return data
             return cast(bool | None | Unset, data)
 
-        send_shared_links_notification = _parse_send_shared_links_notification(d.pop("sendSharedLinksNotification", UNSET))
-
+        send_shared_links_notification = _parse_send_shared_links_notification(
+            d.pop("sendSharedLinksNotification", UNSET)
+        )
 
         _document_version = d.pop("documentVersion", UNSET)
         document_version: RESTOperatorRestoreSharePointDocumentsConfigDocumentVersion | Unset
-        if isinstance(_document_version,  Unset):
+        if isinstance(_document_version, Unset):
             document_version = UNSET
         else:
             document_version = RESTOperatorRestoreSharePointDocumentsConfigDocumentVersion(_document_version)
 
-
-
-
         _document_last_version_action = d.pop("documentLastVersionAction", UNSET)
         document_last_version_action: RESTOperatorRestoreSharePointDocumentsConfigDocumentLastVersionAction | Unset
-        if isinstance(_document_last_version_action,  Unset):
+        if isinstance(_document_last_version_action, Unset):
             document_last_version_action = UNSET
         else:
-            document_last_version_action = RESTOperatorRestoreSharePointDocumentsConfigDocumentLastVersionAction(_document_last_version_action)
-
-
-
+            document_last_version_action = RESTOperatorRestoreSharePointDocumentsConfigDocumentLastVersionAction(
+                _document_last_version_action
+            )
 
         def _parse_restore_changed_items(data: object) -> bool | None | Unset:
             if data is None:
@@ -201,7 +184,6 @@ class RESTOperatorRestoreSharePointDocumentsConfig:
 
         restore_changed_items = _parse_restore_changed_items(d.pop("restoreChangedItems", UNSET))
 
-
         def _parse_restore_deleted_items(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -210,7 +192,6 @@ class RESTOperatorRestoreSharePointDocumentsConfig:
             return cast(bool | None | Unset, data)
 
         restore_deleted_items = _parse_restore_deleted_items(d.pop("restoreDeletedItems", UNSET))
-
 
         reason = d.pop("reason", UNSET)
 
@@ -225,7 +206,6 @@ class RESTOperatorRestoreSharePointDocumentsConfig:
             restore_deleted_items=restore_deleted_items,
             reason=reason,
         )
-
 
         rest_operator_restore_share_point_documents_config.additional_properties = d
         return rest_operator_restore_share_point_documents_config

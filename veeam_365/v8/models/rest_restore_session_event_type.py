@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTRestoreSessionEventType(str, Enum):
     EXPORT = "Export"
     NONE = "None"

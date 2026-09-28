@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTJobSessionObjectStatus(str, Enum):
     FAILED = "Failed"
     SUCCESS = "Success"

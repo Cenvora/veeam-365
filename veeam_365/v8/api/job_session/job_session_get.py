@@ -1,23 +1,16 @@
+import datetime
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.job_session_get_status import JobSessionGetStatus
 from ...models.page_of_rest_job_session import PageOfRESTJobSession
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_job_session_type import RESTJobSessionType
-from ...types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from uuid import UUID
-import datetime
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -26,14 +19,10 @@ def _get_kwargs(
     job_type: RESTJobSessionType | Unset = UNSET,
     end_time_lower_bound: datetime.datetime | Unset = UNSET,
     end_time_upper_bound: datetime.datetime | Unset = UNSET,
-    limit: int | Unset = UNSET,
-    offset: int | Unset = UNSET,
     status: JobSessionGetStatus | Unset = UNSET,
-
+    limit: int | Unset = 30,
+    offset: int | Unset = 0,
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -58,19 +47,17 @@ def _get_kwargs(
         json_end_time_upper_bound = end_time_upper_bound.isoformat()
     params["endTimeUpperBound"] = json_end_time_upper_bound
 
-    params["limit"] = limit
-
-    params["offset"] = offset
-
     json_status: str | Unset = UNSET
     if not isinstance(status, Unset):
         json_status = status.value
 
     params["status"] = json_status
 
+    params["limit"] = limit
+
+    params["offset"] = offset
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -78,28 +65,25 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTJobSession | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> PageOfRESTJobSession | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTJobSession.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTJobSession | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[PageOfRESTJobSession | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -115,12 +99,11 @@ def sync_detailed(
     job_type: RESTJobSessionType | Unset = UNSET,
     end_time_lower_bound: datetime.datetime | Unset = UNSET,
     end_time_upper_bound: datetime.datetime | Unset = UNSET,
-    limit: int | Unset = UNSET,
-    offset: int | Unset = UNSET,
     status: JobSessionGetStatus | Unset = UNSET,
-
+    limit: int | Unset = 30,
+    offset: int | Unset = 0,
 ) -> Response[PageOfRESTJobSession | RESTExceptionInfo]:
-    """ Get Job Sessions
+    """Get Job Sessions
 
      Returns a collection of all job sessions created for backup and backup copy jobs or a backup job
     with the specified ID.
@@ -130,9 +113,9 @@ def sync_detailed(
         job_type (RESTJobSessionType | Unset): Type of the job session.
         end_time_lower_bound (datetime.datetime | Unset):
         end_time_upper_bound (datetime.datetime | Unset):
-        limit (int | Unset):
-        offset (int | Unset):
         status (JobSessionGetStatus | Unset):
+        limit (int | Unset):  Default: 30.
+        offset (int | Unset):  Default: 0.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -140,18 +123,16 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTJobSession | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         job_id=job_id,
-job_type=job_type,
-end_time_lower_bound=end_time_lower_bound,
-end_time_upper_bound=end_time_upper_bound,
-limit=limit,
-offset=offset,
-status=status,
-
+        job_type=job_type,
+        end_time_lower_bound=end_time_lower_bound,
+        end_time_upper_bound=end_time_upper_bound,
+        status=status,
+        limit=limit,
+        offset=offset,
     )
 
     response = client.get_httpx_client().request(
@@ -160,6 +141,7 @@ status=status,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
@@ -167,12 +149,11 @@ def sync(
     job_type: RESTJobSessionType | Unset = UNSET,
     end_time_lower_bound: datetime.datetime | Unset = UNSET,
     end_time_upper_bound: datetime.datetime | Unset = UNSET,
-    limit: int | Unset = UNSET,
-    offset: int | Unset = UNSET,
     status: JobSessionGetStatus | Unset = UNSET,
-
+    limit: int | Unset = 30,
+    offset: int | Unset = 0,
 ) -> PageOfRESTJobSession | RESTExceptionInfo | None:
-    """ Get Job Sessions
+    """Get Job Sessions
 
      Returns a collection of all job sessions created for backup and backup copy jobs or a backup job
     with the specified ID.
@@ -182,9 +163,9 @@ def sync(
         job_type (RESTJobSessionType | Unset): Type of the job session.
         end_time_lower_bound (datetime.datetime | Unset):
         end_time_upper_bound (datetime.datetime | Unset):
-        limit (int | Unset):
-        offset (int | Unset):
         status (JobSessionGetStatus | Unset):
+        limit (int | Unset):  Default: 30.
+        offset (int | Unset):  Default: 0.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -192,20 +173,19 @@ def sync(
 
     Returns:
         PageOfRESTJobSession | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-job_id=job_id,
-job_type=job_type,
-end_time_lower_bound=end_time_lower_bound,
-end_time_upper_bound=end_time_upper_bound,
-limit=limit,
-offset=offset,
-status=status,
-
+        job_id=job_id,
+        job_type=job_type,
+        end_time_lower_bound=end_time_lower_bound,
+        end_time_upper_bound=end_time_upper_bound,
+        status=status,
+        limit=limit,
+        offset=offset,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
@@ -214,12 +194,11 @@ async def asyncio_detailed(
     job_type: RESTJobSessionType | Unset = UNSET,
     end_time_lower_bound: datetime.datetime | Unset = UNSET,
     end_time_upper_bound: datetime.datetime | Unset = UNSET,
-    limit: int | Unset = UNSET,
-    offset: int | Unset = UNSET,
     status: JobSessionGetStatus | Unset = UNSET,
-
+    limit: int | Unset = 30,
+    offset: int | Unset = 0,
 ) -> Response[PageOfRESTJobSession | RESTExceptionInfo]:
-    """ Get Job Sessions
+    """Get Job Sessions
 
      Returns a collection of all job sessions created for backup and backup copy jobs or a backup job
     with the specified ID.
@@ -229,9 +208,9 @@ async def asyncio_detailed(
         job_type (RESTJobSessionType | Unset): Type of the job session.
         end_time_lower_bound (datetime.datetime | Unset):
         end_time_upper_bound (datetime.datetime | Unset):
-        limit (int | Unset):
-        offset (int | Unset):
         status (JobSessionGetStatus | Unset):
+        limit (int | Unset):  Default: 30.
+        offset (int | Unset):  Default: 0.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -239,25 +218,22 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTJobSession | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         job_id=job_id,
-job_type=job_type,
-end_time_lower_bound=end_time_lower_bound,
-end_time_upper_bound=end_time_upper_bound,
-limit=limit,
-offset=offset,
-status=status,
-
+        job_type=job_type,
+        end_time_lower_bound=end_time_lower_bound,
+        end_time_upper_bound=end_time_upper_bound,
+        status=status,
+        limit=limit,
+        offset=offset,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
@@ -266,12 +242,11 @@ async def asyncio(
     job_type: RESTJobSessionType | Unset = UNSET,
     end_time_lower_bound: datetime.datetime | Unset = UNSET,
     end_time_upper_bound: datetime.datetime | Unset = UNSET,
-    limit: int | Unset = UNSET,
-    offset: int | Unset = UNSET,
     status: JobSessionGetStatus | Unset = UNSET,
-
+    limit: int | Unset = 30,
+    offset: int | Unset = 0,
 ) -> PageOfRESTJobSession | RESTExceptionInfo | None:
-    """ Get Job Sessions
+    """Get Job Sessions
 
      Returns a collection of all job sessions created for backup and backup copy jobs or a backup job
     with the specified ID.
@@ -281,9 +256,9 @@ async def asyncio(
         job_type (RESTJobSessionType | Unset): Type of the job session.
         end_time_lower_bound (datetime.datetime | Unset):
         end_time_upper_bound (datetime.datetime | Unset):
-        limit (int | Unset):
-        offset (int | Unset):
         status (JobSessionGetStatus | Unset):
+        limit (int | Unset):  Default: 30.
+        offset (int | Unset):  Default: 0.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -291,17 +266,17 @@ async def asyncio(
 
     Returns:
         PageOfRESTJobSession | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-job_id=job_id,
-job_type=job_type,
-end_time_lower_bound=end_time_lower_bound,
-end_time_upper_bound=end_time_upper_bound,
-limit=limit,
-offset=offset,
-status=status,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            job_id=job_id,
+            job_type=job_type,
+            end_time_lower_bound=end_time_lower_bound,
+            end_time_upper_bound=end_time_upper_bound,
+            status=status,
+            limit=limit,
+            offset=offset,
+        )
+    ).parsed

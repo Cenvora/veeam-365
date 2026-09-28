@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTRestoreToItemConfigOfficeRegion(str, Enum):
     CHINA = "China"
     GERMANY = "Germany"

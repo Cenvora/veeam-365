@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTLicenseStatus(str, Enum):
     EXPIRED = "Expired"
     VALID = "Valid"

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTUserLocationType(str, Enum):
     CLOUD = "Cloud"
     HYBRID = "Hybrid"

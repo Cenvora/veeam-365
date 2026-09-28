@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTJobSessionStatus(str, Enum):
     DISCONNECTED = "Disconnected"
     FAILED = "Failed"

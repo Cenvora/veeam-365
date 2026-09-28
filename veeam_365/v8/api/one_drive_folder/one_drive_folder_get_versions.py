@@ -1,19 +1,14 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.page_of_rest_one_drive_folder import PageOfRESTOneDriveFolder
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -23,11 +18,7 @@ def _get_kwargs(
     *,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -35,38 +26,37 @@ def _get_kwargs(
 
     params["limit"] = limit
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/RestoreSessions/{restore_session_id}/Organization/OneDrives/{one_drive_id}/Folders/{folder_id}/Versions".format(restore_session_id=quote(str(restore_session_id), safe=""),one_drive_id=quote(str(one_drive_id), safe=""),folder_id=quote(str(folder_id), safe=""),),
+        "url": "/v8/RestoreSessions/{restore_session_id}/Organization/OneDrives/{one_drive_id}/Folders/{folder_id}/Versions".format(
+            restore_session_id=quote(str(restore_session_id), safe=""),
+            one_drive_id=quote(str(one_drive_id), safe=""),
+            folder_id=quote(str(folder_id), safe=""),
+        ),
         "params": params,
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTOneDriveFolder | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> PageOfRESTOneDriveFolder | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTOneDriveFolder.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTOneDriveFolder | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[PageOfRESTOneDriveFolder | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -83,16 +73,15 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
-
 ) -> Response[PageOfRESTOneDriveFolder | RESTExceptionInfo]:
-    """ Get Previous Versions of OneDrive Folder
+    """Get Previous Versions of OneDrive Folder
 
      Returns a collection of versions of a backed-up OneDrive folder with the specified ID.
 
     When you get OneDrive folder versions, the server returns information about previous versions of the
     folder. To get the latest version, use either [Get OneDrive
-    Folder](#/OneDriveFolder/OneDriveFolder_GetById) or [Get Specific Version of OneDrive
-    Folder](#/OneDriveFolder/OneDriveFolder_GetByIdByVersionId).
+    Folder](OneDriveFolder#operation/OneDriveFolder_GetById) or [Get Specific Version of OneDrive
+    Folder](OneDriveFolder#operation/OneDriveFolder_GetByIdByVersionId).
 
     Args:
         restore_session_id (UUID):
@@ -107,16 +96,14 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTOneDriveFolder | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-one_drive_id=one_drive_id,
-folder_id=folder_id,
-offset=offset,
-limit=limit,
-
+        one_drive_id=one_drive_id,
+        folder_id=folder_id,
+        offset=offset,
+        limit=limit,
     )
 
     response = client.get_httpx_client().request(
@@ -124,6 +111,7 @@ limit=limit,
     )
 
     return _build_response(client=client, response=response)
+
 
 def sync(
     restore_session_id: UUID,
@@ -133,16 +121,15 @@ def sync(
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
-
 ) -> PageOfRESTOneDriveFolder | RESTExceptionInfo | None:
-    """ Get Previous Versions of OneDrive Folder
+    """Get Previous Versions of OneDrive Folder
 
      Returns a collection of versions of a backed-up OneDrive folder with the specified ID.
 
     When you get OneDrive folder versions, the server returns information about previous versions of the
     folder. To get the latest version, use either [Get OneDrive
-    Folder](#/OneDriveFolder/OneDriveFolder_GetById) or [Get Specific Version of OneDrive
-    Folder](#/OneDriveFolder/OneDriveFolder_GetByIdByVersionId).
+    Folder](OneDriveFolder#operation/OneDriveFolder_GetById) or [Get Specific Version of OneDrive
+    Folder](OneDriveFolder#operation/OneDriveFolder_GetByIdByVersionId).
 
     Args:
         restore_session_id (UUID):
@@ -157,18 +144,17 @@ def sync(
 
     Returns:
         PageOfRESTOneDriveFolder | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         restore_session_id=restore_session_id,
-one_drive_id=one_drive_id,
-folder_id=folder_id,
-client=client,
-offset=offset,
-limit=limit,
-
+        one_drive_id=one_drive_id,
+        folder_id=folder_id,
+        client=client,
+        offset=offset,
+        limit=limit,
     ).parsed
+
 
 async def asyncio_detailed(
     restore_session_id: UUID,
@@ -178,16 +164,15 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
-
 ) -> Response[PageOfRESTOneDriveFolder | RESTExceptionInfo]:
-    """ Get Previous Versions of OneDrive Folder
+    """Get Previous Versions of OneDrive Folder
 
      Returns a collection of versions of a backed-up OneDrive folder with the specified ID.
 
     When you get OneDrive folder versions, the server returns information about previous versions of the
     folder. To get the latest version, use either [Get OneDrive
-    Folder](#/OneDriveFolder/OneDriveFolder_GetById) or [Get Specific Version of OneDrive
-    Folder](#/OneDriveFolder/OneDriveFolder_GetByIdByVersionId).
+    Folder](OneDriveFolder#operation/OneDriveFolder_GetById) or [Get Specific Version of OneDrive
+    Folder](OneDriveFolder#operation/OneDriveFolder_GetByIdByVersionId).
 
     Args:
         restore_session_id (UUID):
@@ -202,23 +187,20 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTOneDriveFolder | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-one_drive_id=one_drive_id,
-folder_id=folder_id,
-offset=offset,
-limit=limit,
-
+        one_drive_id=one_drive_id,
+        folder_id=folder_id,
+        offset=offset,
+        limit=limit,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     restore_session_id: UUID,
@@ -228,16 +210,15 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     offset: int | Unset = UNSET,
     limit: int | Unset = UNSET,
-
 ) -> PageOfRESTOneDriveFolder | RESTExceptionInfo | None:
-    """ Get Previous Versions of OneDrive Folder
+    """Get Previous Versions of OneDrive Folder
 
      Returns a collection of versions of a backed-up OneDrive folder with the specified ID.
 
     When you get OneDrive folder versions, the server returns information about previous versions of the
     folder. To get the latest version, use either [Get OneDrive
-    Folder](#/OneDriveFolder/OneDriveFolder_GetById) or [Get Specific Version of OneDrive
-    Folder](#/OneDriveFolder/OneDriveFolder_GetByIdByVersionId).
+    Folder](OneDriveFolder#operation/OneDriveFolder_GetById) or [Get Specific Version of OneDrive
+    Folder](OneDriveFolder#operation/OneDriveFolder_GetByIdByVersionId).
 
     Args:
         restore_session_id (UUID):
@@ -252,15 +233,15 @@ async def asyncio(
 
     Returns:
         PageOfRESTOneDriveFolder | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        restore_session_id=restore_session_id,
-one_drive_id=one_drive_id,
-folder_id=folder_id,
-client=client,
-offset=offset,
-limit=limit,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            restore_session_id=restore_session_id,
+            one_drive_id=one_drive_id,
+            folder_id=folder_id,
+            client=client,
+            offset=offset,
+            limit=limit,
+        )
+    ).parsed

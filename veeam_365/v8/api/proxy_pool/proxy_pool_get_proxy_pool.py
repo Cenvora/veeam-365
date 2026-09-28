@@ -1,57 +1,46 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_proxy_pool import RESTProxyPool
-from typing import cast
-from uuid import UUID
-
+from ...types import Response
 
 
 def _get_kwargs(
     pool_id: UUID,
-
 ) -> dict[str, Any]:
-    
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/ProxyPools/{pool_id}".format(pool_id=quote(str(pool_id), safe=""),),
+        "url": "/v8/ProxyPools/{pool_id}".format(
+            pool_id=quote(str(pool_id), safe=""),
+        ),
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | RESTProxyPool:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> RESTExceptionInfo | RESTProxyPool:
     if response.status_code == 200:
         response_200 = RESTProxyPool.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | RESTProxyPool]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[RESTExceptionInfo | RESTProxyPool]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -64,9 +53,8 @@ def sync_detailed(
     pool_id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[RESTExceptionInfo | RESTProxyPool]:
-    """ Get Backup Proxy Pool
+    """Get Backup Proxy Pool
 
      Returns a resource representation of a backup proxy pool with the specified ID.
 
@@ -79,12 +67,10 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTProxyPool]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         pool_id=pool_id,
-
     )
 
     response = client.get_httpx_client().request(
@@ -93,13 +79,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     pool_id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> RESTExceptionInfo | RESTProxyPool | None:
-    """ Get Backup Proxy Pool
+    """Get Backup Proxy Pool
 
      Returns a resource representation of a backup proxy pool with the specified ID.
 
@@ -112,22 +98,20 @@ def sync(
 
     Returns:
         RESTExceptionInfo | RESTProxyPool
-     """
-
+    """
 
     return sync_detailed(
         pool_id=pool_id,
-client=client,
-
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     pool_id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[RESTExceptionInfo | RESTProxyPool]:
-    """ Get Backup Proxy Pool
+    """Get Backup Proxy Pool
 
      Returns a resource representation of a backup proxy pool with the specified ID.
 
@@ -140,27 +124,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTProxyPool]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         pool_id=pool_id,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     pool_id: UUID,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> RESTExceptionInfo | RESTProxyPool | None:
-    """ Get Backup Proxy Pool
+    """Get Backup Proxy Pool
 
      Returns a resource representation of a backup proxy pool with the specified ID.
 
@@ -173,11 +153,11 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | RESTProxyPool
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        pool_id=pool_id,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            pool_id=pool_id,
+            client=client,
+        )
+    ).parsed

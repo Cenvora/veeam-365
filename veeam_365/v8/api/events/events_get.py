@@ -1,18 +1,12 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.events_get_response import EventsGetResponse
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Unset
-from typing import cast
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -20,11 +14,7 @@ def _get_kwargs(
     from_: str,
     limit: int | Unset = UNSET,
     timeout_seconds: int | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -34,9 +24,7 @@ def _get_kwargs(
 
     params["timeoutSeconds"] = timeout_seconds
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -44,28 +32,25 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> EventsGetResponse | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> EventsGetResponse | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = EventsGetResponse.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[EventsGetResponse | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[EventsGetResponse | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -80,11 +65,10 @@ def sync_detailed(
     from_: str,
     limit: int | Unset = UNSET,
     timeout_seconds: int | Unset = UNSET,
-
 ) -> Response[EventsGetResponse | RESTExceptionInfo]:
-    """ Get Events
+    """Get Events
 
-     Returns a resource representation of events occurred in Veeam Backup for Microsoft 365.
+     Returns a resource representation of events that occurred in Veeam Backup for Microsoft 365.
 
     Args:
         from_ (str): Specifies a change token. To get events from the latest change token, specify
@@ -101,14 +85,12 @@ def sync_detailed(
 
     Returns:
         Response[EventsGetResponse | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         from_=from_,
-limit=limit,
-timeout_seconds=timeout_seconds,
-
+        limit=limit,
+        timeout_seconds=timeout_seconds,
     )
 
     response = client.get_httpx_client().request(
@@ -117,17 +99,17 @@ timeout_seconds=timeout_seconds,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     from_: str,
     limit: int | Unset = UNSET,
     timeout_seconds: int | Unset = UNSET,
-
 ) -> EventsGetResponse | RESTExceptionInfo | None:
-    """ Get Events
+    """Get Events
 
-     Returns a resource representation of events occurred in Veeam Backup for Microsoft 365.
+     Returns a resource representation of events that occurred in Veeam Backup for Microsoft 365.
 
     Args:
         from_ (str): Specifies a change token. To get events from the latest change token, specify
@@ -144,16 +126,15 @@ def sync(
 
     Returns:
         EventsGetResponse | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-from_=from_,
-limit=limit,
-timeout_seconds=timeout_seconds,
-
+        from_=from_,
+        limit=limit,
+        timeout_seconds=timeout_seconds,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
@@ -161,11 +142,10 @@ async def asyncio_detailed(
     from_: str,
     limit: int | Unset = UNSET,
     timeout_seconds: int | Unset = UNSET,
-
 ) -> Response[EventsGetResponse | RESTExceptionInfo]:
-    """ Get Events
+    """Get Events
 
-     Returns a resource representation of events occurred in Veeam Backup for Microsoft 365.
+     Returns a resource representation of events that occurred in Veeam Backup for Microsoft 365.
 
     Args:
         from_ (str): Specifies a change token. To get events from the latest change token, specify
@@ -182,21 +162,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[EventsGetResponse | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         from_=from_,
-limit=limit,
-timeout_seconds=timeout_seconds,
-
+        limit=limit,
+        timeout_seconds=timeout_seconds,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
@@ -204,11 +181,10 @@ async def asyncio(
     from_: str,
     limit: int | Unset = UNSET,
     timeout_seconds: int | Unset = UNSET,
-
 ) -> EventsGetResponse | RESTExceptionInfo | None:
-    """ Get Events
+    """Get Events
 
-     Returns a resource representation of events occurred in Veeam Backup for Microsoft 365.
+     Returns a resource representation of events that occurred in Veeam Backup for Microsoft 365.
 
     Args:
         from_ (str): Specifies a change token. To get events from the latest change token, specify
@@ -225,13 +201,13 @@ async def asyncio(
 
     Returns:
         EventsGetResponse | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-from_=from_,
-limit=limit,
-timeout_seconds=timeout_seconds,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            from_=from_,
+            limit=limit,
+            timeout_seconds=timeout_seconds,
+        )
+    ).parsed

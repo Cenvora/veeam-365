@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTRestoreFilesOptionsFileVersion(str, Enum):
     ALL = "All"
     LAST = "Last"

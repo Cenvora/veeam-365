@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTJobBackupItemType(str, Enum):
     GROUP = "Group"
     ONEDRIVEFOLDERS = "OneDriveFolders"

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTLicenseType(str, Enum):
     AWSPRIVATEOFFER = "AwsPrivateOffer"
     COMMUNITY = "Community"

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTJobSessionJobSessionConfigType(str, Enum):
     FULL = "Full"
     INCREMENTAL = "Incremental"

@@ -1,4 +1,4 @@
-""" Contains all the data models used in inputs/outputs """
+"""Contains all the data models used in inputs/outputs"""
 
 from .account_get_accounts_account_type import AccountGetAccountsAccountType
 from .amazon_s3_aws_region_type import AmazonS3AwsRegionType
@@ -12,17 +12,25 @@ from .exchange_item_export_item_to_pst_action_response_200 import ExchangeItemEx
 from .exchange_item_export_items_to_pst_action_response_200 import ExchangeItemExportItemsToPstActionResponse200
 from .exchange_item_save_item_action_response_200 import ExchangeItemSaveItemActionResponse200
 from .exchange_item_save_items_response_200 import ExchangeItemSaveItemsResponse200
-from .exchange_mailbox_export_mailbox_to_pst_action_response_200 import ExchangeMailboxExportMailboxToPstActionResponse200
+from .exchange_mailbox_export_mailbox_to_pst_action_response_200 import (
+    ExchangeMailboxExportMailboxToPstActionResponse200,
+)
 from .job_session_get_status import JobSessionGetStatus
 from .job_session_log_get_batch_by_session_id_type import JobSessionLogGetBatchBySessionIdType
 from .o_auth_token_response import OAuthTokenResponse
-from .one_drive_document_save_document_action_by_version_id_response_200 import OneDriveDocumentSaveDocumentActionByVersionIdResponse200
+from .one_drive_document_save_document_action_by_version_id_response_200 import (
+    OneDriveDocumentSaveDocumentActionByVersionIdResponse200,
+)
 from .one_drive_document_save_document_action_response_200 import OneDriveDocumentSaveDocumentActionResponse200
 from .one_drive_document_save_documents_action_response_200 import OneDriveDocumentSaveDocumentsActionResponse200
-from .one_drive_folder_save_folder_action_by_version_id_response_200 import OneDriveFolderSaveFolderActionByVersionIdResponse200
+from .one_drive_folder_save_folder_action_by_version_id_response_200 import (
+    OneDriveFolderSaveFolderActionByVersionIdResponse200,
+)
 from .one_drive_folder_save_folder_action_response_200 import OneDriveFolderSaveFolderActionResponse200
 from .one_drive_folder_save_folders_action_response_200 import OneDriveFolderSaveFoldersActionResponse200
-from .one_drive_folder_search_one_drive_folder_by_options_item_type import OneDriveFolderSearchOneDriveFolderByOptionsItemType
+from .one_drive_folder_search_one_drive_folder_by_options_item_type import (
+    OneDriveFolderSearchOneDriveFolderByOptionsItemType,
+)
 from .one_drive_save_one_drive_action_response_200 import OneDriveSaveOneDriveActionResponse200
 from .one_drive_search_one_drive_by_options_item_type import OneDriveSearchOneDriveByOptionsItemType
 from .one_drive_search_one_drives_by_options_item_type import OneDriveSearchOneDrivesByOptionsItemType
@@ -46,6 +54,7 @@ from .page_of_rest_backup_mailbox_data import PageOfRESTBackupMailboxData
 from .page_of_rest_backup_one_drive_data import PageOfRESTBackupOneDriveData
 from .page_of_rest_backup_organization_data import PageOfRESTBackupOrganizationData
 from .page_of_rest_backup_repository import PageOfRESTBackupRepository
+from .page_of_rest_backup_repository_maintenance_session import PageOfRESTBackupRepositoryMaintenanceSession
 from .page_of_rest_backup_repository_owner_change_session import PageOfRESTBackupRepositoryOwnerChangeSession
 from .page_of_rest_backup_repository_storage_usage_info import PageOfRESTBackupRepositoryStorageUsageInfo
 from .page_of_rest_backup_site_data import PageOfRESTBackupSiteData
@@ -94,6 +103,7 @@ from .page_of_rest_share_point_list import PageOfRESTSharePointList
 from .page_of_rest_share_point_site import PageOfRESTSharePointSite
 from .page_of_rest_site import PageOfRESTSite
 from .page_of_rest_team import PageOfRESTTeam
+from .page_of_rest_team_entity import PageOfRESTTeamEntity
 from .page_of_rest_teams_channel_preview import PageOfRESTTeamsChannelPreview
 from .page_of_rest_teams_file import PageOfRESTTeamsFile
 from .page_of_rest_teams_node import PageOfRESTTeamsNode
@@ -103,8 +113,12 @@ from .page_of_rest_teams_team import PageOfRESTTeamsTeam
 from .page_of_rest_user import PageOfRESTUser
 from .reports_generate_license_overview_action_response_200 import ReportsGenerateLicenseOverviewActionResponse200
 from .reports_generate_mailbox_protection_action_response_200 import ReportsGenerateMailboxProtectionActionResponse200
-from .reports_generate_one_drive_protection_action_response_200 import ReportsGenerateOneDriveProtectionActionResponse200
-from .reports_generate_sharepoint_protection_action_response_200 import ReportsGenerateSharepointProtectionActionResponse200
+from .reports_generate_one_drive_protection_action_response_200 import (
+    ReportsGenerateOneDriveProtectionActionResponse200,
+)
+from .reports_generate_sharepoint_protection_action_response_200 import (
+    ReportsGenerateSharepointProtectionActionResponse200,
+)
 from .reports_generate_storage_consumption_action_response_200 import ReportsGenerateStorageConsumptionActionResponse200
 from .reports_generate_teams_protection_action_response_200 import ReportsGenerateTeamsProtectionActionResponse200
 from .reports_generate_user_protection_action_response_200 import ReportsGenerateUserProtectionActionResponse200
@@ -178,10 +192,21 @@ from .rest_backup_repository_from_client import RESTBackupRepositoryFromClient
 from .rest_backup_repository_from_client_daily_type import RESTBackupRepositoryFromClientDailyType
 from .rest_backup_repository_from_client_monthly_daynumber import RESTBackupRepositoryFromClientMonthlyDaynumber
 from .rest_backup_repository_from_client_monthly_dayofweek import RESTBackupRepositoryFromClientMonthlyDayofweek
-from .rest_backup_repository_from_client_retention_frequency_type import RESTBackupRepositoryFromClientRetentionFrequencyType
+from .rest_backup_repository_from_client_retention_frequency_type import (
+    RESTBackupRepositoryFromClientRetentionFrequencyType,
+)
 from .rest_backup_repository_from_client_retention_period_type import RESTBackupRepositoryFromClientRetentionPeriodType
 from .rest_backup_repository_from_client_retention_type import RESTBackupRepositoryFromClientRetentionType
-from .rest_backup_repository_from_client_yearly_retention_period import RESTBackupRepositoryFromClientYearlyRetentionPeriod
+from .rest_backup_repository_from_client_yearly_retention_period import (
+    RESTBackupRepositoryFromClientYearlyRetentionPeriod,
+)
+from .rest_backup_repository_maintenance_mode import RESTBackupRepositoryMaintenanceMode
+from .rest_backup_repository_maintenance_session import RESTBackupRepositoryMaintenanceSession
+from .rest_backup_repository_maintenance_session_start_request import RESTBackupRepositoryMaintenanceSessionStartRequest
+from .rest_backup_repository_maintenance_session_status import RESTBackupRepositoryMaintenanceSessionStatus
+from .rest_backup_repository_maintenance_session_waiting_config import (
+    RESTBackupRepositoryMaintenanceSessionWaitingConfig,
+)
 from .rest_backup_repository_monthly_daynumber import RESTBackupRepositoryMonthlyDaynumber
 from .rest_backup_repository_monthly_dayofweek import RESTBackupRepositoryMonthlyDayofweek
 from .rest_backup_repository_owner_change_session import RESTBackupRepositoryOwnerChangeSession
@@ -247,8 +272,12 @@ from .rest_data_retrieval_composed_actions import RESTDataRetrievalComposedActio
 from .rest_data_retrieval_composed_links import RESTDataRetrievalComposedLinks
 from .rest_data_retrieval_data_state import RESTDataRetrievalDataState
 from .rest_data_retrieval_from_client import RESTDataRetrievalFromClient
-from .rest_data_retrieval_from_client_amazon_s3_glacier_retrieval_policy import RESTDataRetrievalFromClientAmazonS3GlacierRetrievalPolicy
-from .rest_data_retrieval_from_client_azure_archive_retrieval_policy import RESTDataRetrievalFromClientAzureArchiveRetrievalPolicy
+from .rest_data_retrieval_from_client_amazon_s3_glacier_retrieval_policy import (
+    RESTDataRetrievalFromClientAmazonS3GlacierRetrievalPolicy,
+)
+from .rest_data_retrieval_from_client_azure_archive_retrieval_policy import (
+    RESTDataRetrievalFromClientAzureArchiveRetrievalPolicy,
+)
 from .rest_data_retrieval_mailbox import RESTDataRetrievalMailbox
 from .rest_data_retrieval_mailbox_links import RESTDataRetrievalMailboxLinks
 from .rest_data_retrieval_one_drive import RESTDataRetrievalOneDrive
@@ -303,7 +332,10 @@ from .rest_exclusion_settings_to_client_actions import RESTExclusionSettingsToCl
 from .rest_explore_options import RESTExploreOptions
 from .rest_explore_options_type import RESTExploreOptionsType
 from .rest_export_folder_to_pst import RESTExportFolderToPst
+from .rest_export_object_storage_type import RESTExportObjectStorageType
 from .rest_export_options import RESTExportOptions
+from .rest_export_to_azure_options import RESTExportToAzureOptions
+from .rest_export_to_object_storage_options import RESTExportToObjectStorageOptions
 from .rest_export_to_pst_options import RESTExportToPstOptions
 from .rest_file_save_options import RESTFileSaveOptions
 from .rest_files_save_options import RESTFilesSaveOptions
@@ -442,15 +474,25 @@ from .rest_operator_restore_posts_options import RESTOperatorRestorePostsOptions
 from .rest_operator_restore_response import RESTOperatorRestoreResponse
 from .rest_operator_restore_session_response import RESTOperatorRestoreSessionResponse
 from .rest_operator_restore_share_point_documents_config import RESTOperatorRestoreSharePointDocumentsConfig
-from .rest_operator_restore_share_point_documents_config_document_last_version_action import RESTOperatorRestoreSharePointDocumentsConfigDocumentLastVersionAction
-from .rest_operator_restore_share_point_documents_config_document_version import RESTOperatorRestoreSharePointDocumentsConfigDocumentVersion
+from .rest_operator_restore_share_point_documents_config_document_last_version_action import (
+    RESTOperatorRestoreSharePointDocumentsConfigDocumentLastVersionAction,
+)
+from .rest_operator_restore_share_point_documents_config_document_version import (
+    RESTOperatorRestoreSharePointDocumentsConfigDocumentVersion,
+)
 from .rest_operator_restore_share_point_items_config import RESTOperatorRestoreSharePointItemsConfig
-from .rest_operator_restore_share_point_items_config_document_last_version_action import RESTOperatorRestoreSharePointItemsConfigDocumentLastVersionAction
-from .rest_operator_restore_share_point_items_config_document_version import RESTOperatorRestoreSharePointItemsConfigDocumentVersion
+from .rest_operator_restore_share_point_items_config_document_last_version_action import (
+    RESTOperatorRestoreSharePointItemsConfigDocumentLastVersionAction,
+)
+from .rest_operator_restore_share_point_items_config_document_version import (
+    RESTOperatorRestoreSharePointItemsConfigDocumentVersion,
+)
 from .rest_operator_restore_tabs_options import RESTOperatorRestoreTabsOptions
 from .rest_operator_restore_team_options import RESTOperatorRestoreTeamOptions
 from .rest_operator_restore_to_original_one_drive_documents import RESTOperatorRestoreToOriginalOneDriveDocuments
-from .rest_operator_restore_to_original_one_drive_documents_document_action import RESTOperatorRestoreToOriginalOneDriveDocumentsDocumentAction
+from .rest_operator_restore_to_original_one_drive_documents_document_action import (
+    RESTOperatorRestoreToOriginalOneDriveDocumentsDocumentAction,
+)
 from .rest_operator_start_export_task_options import RESTOperatorStartExportTaskOptions
 from .rest_operator_start_export_task_response import RESTOperatorStartExportTaskResponse
 from .rest_organization_composed import RestOrganizationComposed
@@ -468,6 +510,8 @@ from .rest_organization_last_sync_state_result import RESTOrganizationLastSyncSt
 from .rest_organization_last_sync_state_type import RESTOrganizationLastSyncStateType
 from .rest_organization_license_usage import RESTOrganizationLicenseUsage
 from .rest_organization_licensing_information import RESTOrganizationLicensingInformation
+from .rest_organization_part_sync_state import RESTOrganizationPartSyncState
+from .rest_organization_parts_sync_state import RESTOrganizationPartsSyncState
 from .rest_organization_region import RestOrganizationRegion
 from .rest_organization_site_delete_event import RESTOrganizationSiteDeleteEvent
 from .rest_organization_site_update_event import RESTOrganizationSiteUpdateEvent
@@ -475,6 +519,7 @@ from .rest_organization_storage_space_usage import RESTOrganizationStorageSpaceU
 from .rest_organization_storage_space_usage_links import RESTOrganizationStorageSpaceUsageLinks
 from .rest_organization_sync_options import RESTOrganizationSyncOptions
 from .rest_organization_sync_options_type import RESTOrganizationSyncOptionsType
+from .rest_organization_sync_part import RESTOrganizationSyncPart
 from .rest_organization_sync_state import RESTOrganizationSyncState
 from .rest_organization_team_delete_event import RESTOrganizationTeamDeleteEvent
 from .rest_organization_team_update_event import RESTOrganizationTeamUpdateEvent
@@ -557,7 +602,9 @@ from .rest_repository_synchronize_session_state import RESTRepositorySynchronize
 from .rest_rescan_options import RESTRescanOptions
 from .rest_restore_channel_options import RESTRestoreChannelOptions
 from .rest_restore_documents_config import RESTRestoreDocumentsConfig
-from .rest_restore_documents_config_document_last_version_action import RESTRestoreDocumentsConfigDocumentLastVersionAction
+from .rest_restore_documents_config_document_last_version_action import (
+    RESTRestoreDocumentsConfigDocumentLastVersionAction,
+)
 from .rest_restore_documents_config_document_version import RESTRestoreDocumentsConfigDocumentVersion
 from .rest_restore_file_options import RESTRestoreFileOptions
 from .rest_restore_file_options_file_version import RESTRestoreFileOptionsFileVersion
@@ -596,7 +643,9 @@ from .rest_restore_session_statistics import RESTRestoreSessionStatistics
 from .rest_restore_session_type import RESTRestoreSessionType
 from .rest_restore_session_update_event import RESTRestoreSessionUpdateEvent
 from .rest_restore_share_point_document_config import RESTRestoreSharePointDocumentConfig
-from .rest_restore_share_point_document_config_document_version import RESTRestoreSharePointDocumentConfigDocumentVersion
+from .rest_restore_share_point_document_config_document_version import (
+    RESTRestoreSharePointDocumentConfigDocumentVersion,
+)
 from .rest_restore_share_point_item_config import RESTRestoreSharePointItemConfig
 from .rest_restore_share_point_item_config_document_version import RESTRestoreSharePointItemConfigDocumentVersion
 from .rest_restore_site_config import RESTRestoreSiteConfig
@@ -609,13 +658,19 @@ from .rest_restore_team_options import RESTRestoreTeamOptions
 from .rest_restore_to_different_location import RESTRestoreToDifferentLocation
 from .rest_restore_to_different_location_office_region import RESTRestoreToDifferentLocationOfficeRegion
 from .rest_restore_to_different_location_selected_items import RESTRestoreToDifferentLocationSelectedItems
-from .rest_restore_to_different_location_selected_items_office_region import RESTRestoreToDifferentLocationSelectedItemsOfficeRegion
+from .rest_restore_to_different_location_selected_items_office_region import (
+    RESTRestoreToDifferentLocationSelectedItemsOfficeRegion,
+)
 from .rest_restore_to_documents_config import RESTRestoreToDocumentsConfig
-from .rest_restore_to_documents_config_document_last_version_action import RESTRestoreToDocumentsConfigDocumentLastVersionAction
+from .rest_restore_to_documents_config_document_last_version_action import (
+    RESTRestoreToDocumentsConfigDocumentLastVersionAction,
+)
 from .rest_restore_to_documents_config_document_version import RESTRestoreToDocumentsConfigDocumentVersion
 from .rest_restore_to_documents_config_office_region import RESTRestoreToDocumentsConfigOfficeRegion
 from .rest_restore_to_folders_config import RESTRestoreToFoldersConfig
-from .rest_restore_to_folders_config_document_last_version_action import RESTRestoreToFoldersConfigDocumentLastVersionAction
+from .rest_restore_to_folders_config_document_last_version_action import (
+    RESTRestoreToFoldersConfigDocumentLastVersionAction,
+)
 from .rest_restore_to_folders_config_document_version import RESTRestoreToFoldersConfigDocumentVersion
 from .rest_restore_to_folders_config_office_region import RESTRestoreToFoldersConfigOfficeRegion
 from .rest_restore_to_item_config import RESTRestoreToItemConfig
@@ -646,7 +701,9 @@ from .rest_restore_to_site_config_document_last_version_action import RESTRestor
 from .rest_restore_to_site_config_document_version import RESTRestoreToSiteConfigDocumentVersion
 from .rest_restore_to_site_config_office_region import RESTRestoreToSiteConfigOfficeRegion
 from .rest_restore_to_version_config import RESTRestoreToVersionConfig
-from .rest_restore_to_version_config_document_last_version_action import RESTRestoreToVersionConfigDocumentLastVersionAction
+from .rest_restore_to_version_config_document_last_version_action import (
+    RESTRestoreToVersionConfigDocumentLastVersionAction,
+)
 from .rest_restore_to_version_config_office_region import RESTRestoreToVersionConfigOfficeRegion
 from .rest_restore_version_config import RESTRestoreVersionConfig
 from .rest_restore_version_config_document_last_version_action import RESTRestoreVersionConfigDocumentLastVersionAction
@@ -709,7 +766,10 @@ from .rest_smtp_settings_from_client import RestSmtpSettingsFromClient
 from .rest_smtp_settings_from_client_actions import RestSmtpSettingsFromClientActions
 from .rest_ssh_connection_config_validation_result import RESTSshConnectionConfigValidationResult
 from .rest_ssh_settings_from_client import RESTSshSettingsFromClient
+from .rest_start_export_to_object_storage_response import RESTStartExportToObjectStorageResponse
 from .rest_start_job_options import RESTStartJobOptions
+from .rest_start_save_one_drive_document_options import RESTStartSaveOneDriveDocumentOptions
+from .rest_start_save_one_drive_documents_options import RESTStartSaveOneDriveDocumentsOptions
 from .rest_sticky_note_item import RESTStickyNoteItem
 from .rest_sticky_note_item_actions import RESTStickyNoteItemActions
 from .rest_sticky_note_item_links import RESTStickyNoteItemLinks
@@ -720,11 +780,16 @@ from .rest_task_item_actions import RESTTaskItemActions
 from .rest_task_item_links import RESTTaskItemLinks
 from .rest_task_item_status import RESTTaskItemStatus
 from .rest_team import RESTTeam
+from .rest_team_entity import RESTTeamEntity
+from .rest_team_entity_file_type import RESTTeamEntityFileType
+from .rest_team_entity_links import RESTTeamEntityLinks
 from .rest_teams_channel import RESTTeamsChannel
 from .rest_teams_channel_links import RESTTeamsChannelLinks
 from .rest_teams_channel_preview import RESTTeamsChannelPreview
 from .rest_teams_channel_preview_links import RESTTeamsChannelPreviewLinks
 from .rest_teams_channel_preview_type import RESTTeamsChannelPreviewType
+from .rest_teams_channel_search_options import RESTTeamsChannelSearchOptions
+from .rest_teams_channel_search_options_type import RESTTeamsChannelSearchOptionsType
 from .rest_teams_file import RESTTeamsFile
 from .rest_teams_file_file_type import RESTTeamsFileFileType
 from .rest_teams_file_links import RESTTeamsFileLinks
@@ -760,29 +825,43 @@ from .rest_user_protection_options_format import RESTUserProtectionOptionsFormat
 from .rest_user_type import RESTUserType
 from .rest_version_backup_options import RESTVersionBackupOptions
 from .rest_version_backup_options_from_client import RESTVersionBackupOptionsFromClient
-from .rest_version_backup_options_from_client_share_point_backup_mode import RESTVersionBackupOptionsFromClientSharePointBackupMode
+from .rest_version_backup_options_from_client_share_point_backup_mode import (
+    RESTVersionBackupOptionsFromClientSharePointBackupMode,
+)
 from .rest_version_backup_options_share_point_backup_mode import RESTVersionBackupOptionsSharePointBackupMode
 from .restm365_backup_storage_policy_delete_event import RESTM365BackupStoragePolicyDeleteEvent
-from .restm365_backup_storage_policy_selected_items_change_event import RESTM365BackupStoragePolicySelectedItemsChangeEvent
+from .restm365_backup_storage_policy_selected_items_change_event import (
+    RESTM365BackupStoragePolicySelectedItemsChangeEvent,
+)
 from .restm365_backup_storage_policy_update_event import RESTM365BackupStoragePolicyUpdateEvent
 from .resto_auth_2_service_kind import RESTOAuth2ServiceKind
 from .restore_session_get_page_order_by import RestoreSessionGetPageOrderBy
 from .rests3_compatible_object_storage import RESTS3CompatibleObjectStorage
 from .rests3_compatible_object_storage_links import RESTS3CompatibleObjectStorageLinks
 from .restvesp_search_options import RESTVESPSearchOptions
-from .share_point_attachment_save_attachment_action_response_200 import SharePointAttachmentSaveAttachmentActionResponse200
-from .share_point_attachment_save_attachments_action_response_200 import SharePointAttachmentSaveAttachmentsActionResponse200
-from .share_point_document_save_document_action_by_version_id_response_200 import SharePointDocumentSaveDocumentActionByVersionIdResponse200
+from .share_point_attachment_save_attachment_action_response_200 import (
+    SharePointAttachmentSaveAttachmentActionResponse200,
+)
+from .share_point_attachment_save_attachments_action_response_200 import (
+    SharePointAttachmentSaveAttachmentsActionResponse200,
+)
+from .share_point_document_save_document_action_by_version_id_response_200 import (
+    SharePointDocumentSaveDocumentActionByVersionIdResponse200,
+)
 from .share_point_document_save_document_action_response_200 import SharePointDocumentSaveDocumentActionResponse200
 from .share_point_document_save_documents_action_response_200 import SharePointDocumentSaveDocumentsActionResponse200
-from .share_point_folder_save_folder_action_by_version_id_response_200 import SharePointFolderSaveFolderActionByVersionIdResponse200
+from .share_point_folder_save_folder_action_by_version_id_response_200 import (
+    SharePointFolderSaveFolderActionByVersionIdResponse200,
+)
 from .share_point_folder_save_folder_action_response_200 import SharePointFolderSaveFolderActionResponse200
 from .share_point_folder_save_folders_action_response_200 import SharePointFolderSaveFoldersActionResponse200
 from .share_point_folder_search_folder_by_options_item_type import SharePointFolderSearchFolderByOptionsItemType
 from .share_point_library_save_library_action_response_200 import SharePointLibrarySaveLibraryActionResponse200
 from .share_point_library_search_library_by_options_item_type import SharePointLibrarySearchLibraryByOptionsItemType
 from .share_point_list_search_list_by_options_item_type import SharePointListSearchListByOptionsItemType
+from .share_point_site_search_site_by_options_container_type import SharePointSiteSearchSiteByOptionsContainerType
 from .share_point_site_search_site_by_options_item_type import SharePointSiteSearchSiteByOptionsItemType
+from .share_point_site_search_sites_by_options_container_type import SharePointSiteSearchSitesByOptionsContainerType
 from .share_point_site_search_sites_by_options_item_type import SharePointSiteSearchSitesByOptionsItemType
 from .teams_channel_download_exported_posts_response_200 import TeamsChannelDownloadExportedPostsResponse200
 from .teams_file_save_by_id_response_200 import TeamsFileSaveByIdResponse200
@@ -844,6 +923,7 @@ __all__ = (
     "PageOfRESTBackupOneDriveData",
     "PageOfRESTBackupOrganizationData",
     "PageOfRESTBackupRepository",
+    "PageOfRESTBackupRepositoryMaintenanceSession",
     "PageOfRESTBackupRepositoryOwnerChangeSession",
     "PageOfRESTBackupRepositoryStorageUsageInfo",
     "PageOfRESTBackupSiteData",
@@ -892,6 +972,7 @@ __all__ = (
     "PageOfRESTSharePointSite",
     "PageOfRESTSite",
     "PageOfRESTTeam",
+    "PageOfRESTTeamEntity",
     "PageOfRESTTeamsChannelPreview",
     "PageOfRESTTeamsFile",
     "PageOfRESTTeamsNode",
@@ -980,6 +1061,11 @@ __all__ = (
     "RESTBackupRepositoryFromClientRetentionPeriodType",
     "RESTBackupRepositoryFromClientRetentionType",
     "RESTBackupRepositoryFromClientYearlyRetentionPeriod",
+    "RESTBackupRepositoryMaintenanceMode",
+    "RESTBackupRepositoryMaintenanceSession",
+    "RESTBackupRepositoryMaintenanceSessionStartRequest",
+    "RESTBackupRepositoryMaintenanceSessionStatus",
+    "RESTBackupRepositoryMaintenanceSessionWaitingConfig",
     "RESTBackupRepositoryMonthlyDaynumber",
     "RESTBackupRepositoryMonthlyDayofweek",
     "RESTBackupRepositoryOwnerChangeSession",
@@ -1101,7 +1187,10 @@ __all__ = (
     "RESTExploreOptions",
     "RESTExploreOptionsType",
     "RESTExportFolderToPst",
+    "RESTExportObjectStorageType",
     "RESTExportOptions",
+    "RESTExportToAzureOptions",
+    "RESTExportToObjectStorageOptions",
     "RESTExportToPstOptions",
     "RESTFileSaveOptions",
     "RESTFilesSaveOptions",
@@ -1271,6 +1360,8 @@ __all__ = (
     "RESTOrganizationLastSyncStateType",
     "RESTOrganizationLicenseUsage",
     "RESTOrganizationLicensingInformation",
+    "RESTOrganizationPartsSyncState",
+    "RESTOrganizationPartSyncState",
     "RestOrganizationRegion",
     "RESTOrganizationSiteDeleteEvent",
     "RESTOrganizationSiteUpdateEvent",
@@ -1278,6 +1369,7 @@ __all__ = (
     "RESTOrganizationStorageSpaceUsageLinks",
     "RESTOrganizationSyncOptions",
     "RESTOrganizationSyncOptionsType",
+    "RESTOrganizationSyncPart",
     "RESTOrganizationSyncState",
     "RESTOrganizationTeamDeleteEvent",
     "RESTOrganizationTeamUpdateEvent",
@@ -1514,7 +1606,10 @@ __all__ = (
     "RestSmtpSettingsFromClientActions",
     "RESTSshConnectionConfigValidationResult",
     "RESTSshSettingsFromClient",
+    "RESTStartExportToObjectStorageResponse",
     "RESTStartJobOptions",
+    "RESTStartSaveOneDriveDocumentOptions",
+    "RESTStartSaveOneDriveDocumentsOptions",
     "RESTStickyNoteItem",
     "RESTStickyNoteItemActions",
     "RESTStickyNoteItemLinks",
@@ -1525,11 +1620,16 @@ __all__ = (
     "RESTTaskItemLinks",
     "RESTTaskItemStatus",
     "RESTTeam",
+    "RESTTeamEntity",
+    "RESTTeamEntityFileType",
+    "RESTTeamEntityLinks",
     "RESTTeamsChannel",
     "RESTTeamsChannelLinks",
     "RESTTeamsChannelPreview",
     "RESTTeamsChannelPreviewLinks",
     "RESTTeamsChannelPreviewType",
+    "RESTTeamsChannelSearchOptions",
+    "RESTTeamsChannelSearchOptionsType",
     "RESTTeamsFile",
     "RESTTeamsFileFileType",
     "RESTTeamsFileLinks",
@@ -1580,7 +1680,9 @@ __all__ = (
     "SharePointLibrarySaveLibraryActionResponse200",
     "SharePointLibrarySearchLibraryByOptionsItemType",
     "SharePointListSearchListByOptionsItemType",
+    "SharePointSiteSearchSiteByOptionsContainerType",
     "SharePointSiteSearchSiteByOptionsItemType",
+    "SharePointSiteSearchSitesByOptionsContainerType",
     "SharePointSiteSearchSitesByOptionsItemType",
     "TeamsChannelDownloadExportedPostsResponse200",
     "TeamsFileSaveByIdResponse200",

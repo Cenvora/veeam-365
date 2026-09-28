@@ -1,31 +1,20 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_proxy_pool import RESTProxyPool
 from ...models.rest_proxy_pool_from_client import RESTProxyPoolFromClient
-from typing import cast
-
+from ...types import Response
 
 
 def _get_kwargs(
     *,
     body: RESTProxyPoolFromClient,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
-
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -34,31 +23,28 @@ def _get_kwargs(
 
     _kwargs["json"] = body.to_dict()
 
-
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | RESTProxyPool:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> RESTExceptionInfo | RESTProxyPool:
     if response.status_code == 201:
         response_201 = RESTProxyPool.from_dict(response.json())
-
-
 
         return response_201
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | RESTProxyPool]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[RESTExceptionInfo | RESTProxyPool]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -71,9 +57,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTProxyPoolFromClient,
-
 ) -> Response[RESTExceptionInfo | RESTProxyPool]:
-    """ Add Backup Proxy Pool
+    """Add Backup Proxy Pool
 
      Adds a backup proxy pool to the Veeam Backup for Microsoft 365 infrastructure.
 
@@ -86,12 +71,10 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTProxyPool]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
     response = client.get_httpx_client().request(
@@ -100,13 +83,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     body: RESTProxyPoolFromClient,
-
 ) -> RESTExceptionInfo | RESTProxyPool | None:
-    """ Add Backup Proxy Pool
+    """Add Backup Proxy Pool
 
      Adds a backup proxy pool to the Veeam Backup for Microsoft 365 infrastructure.
 
@@ -119,22 +102,20 @@ def sync(
 
     Returns:
         RESTExceptionInfo | RESTProxyPool
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTProxyPoolFromClient,
-
 ) -> Response[RESTExceptionInfo | RESTProxyPool]:
-    """ Add Backup Proxy Pool
+    """Add Backup Proxy Pool
 
      Adds a backup proxy pool to the Veeam Backup for Microsoft 365 infrastructure.
 
@@ -147,27 +128,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTProxyPool]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: RESTProxyPoolFromClient,
-
 ) -> RESTExceptionInfo | RESTProxyPool | None:
-    """ Add Backup Proxy Pool
+    """Add Backup Proxy Pool
 
      Adds a backup proxy pool to the Veeam Backup for Microsoft 365 infrastructure.
 
@@ -180,11 +157,11 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | RESTProxyPool
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+        )
+    ).parsed

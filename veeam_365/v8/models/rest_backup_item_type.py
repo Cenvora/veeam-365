@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTBackupItemType(str, Enum):
     GROUP = "Group"
     MAILBOX = "Mailbox"

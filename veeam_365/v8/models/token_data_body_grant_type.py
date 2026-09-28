@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class TokenDataBodyGrantType(str, Enum):
     OPERATOR = "operator"
     PASSWORD = "password"

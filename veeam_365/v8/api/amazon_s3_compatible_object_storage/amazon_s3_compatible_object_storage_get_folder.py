@@ -1,19 +1,14 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.rest_amazon_folder_to_receive_s3_compatible import RESTAmazonFolderToReceiveS3Compatible
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -25,11 +20,7 @@ def _get_kwargs(
     custom_region_id: str,
     trusted_server_certificate_thumbprint: str | Unset = UNSET,
     trust_server_certificate: bool | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -44,38 +35,36 @@ def _get_kwargs(
 
     params["trustServerCertificate"] = trust_server_certificate
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/S3CompatibleResources/buckets/{bucket_name}/folders/{name}".format(bucket_name=quote(str(bucket_name), safe=""),name=quote(str(name), safe=""),),
+        "url": "/v8/S3CompatibleResources/buckets/{bucket_name}/folders/{name}".format(
+            bucket_name=quote(str(bucket_name), safe=""),
+            name=quote(str(name), safe=""),
+        ),
         "params": params,
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTAmazonFolderToReceiveS3Compatible | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> RESTAmazonFolderToReceiveS3Compatible | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = RESTAmazonFolderToReceiveS3Compatible.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTAmazonFolderToReceiveS3Compatible | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[RESTAmazonFolderToReceiveS3Compatible | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -94,9 +83,8 @@ def sync_detailed(
     custom_region_id: str,
     trusted_server_certificate_thumbprint: str | Unset = UNSET,
     trust_server_certificate: bool | Unset = UNSET,
-
 ) -> Response[RESTAmazonFolderToReceiveS3Compatible | RESTExceptionInfo]:
-    """ Get Folder by Name
+    """Get Folder by Name
 
      Returns information about S3 Compatible, IBM Cloud or Wasabi Cloud object storage folder with the
     specified name.
@@ -116,18 +104,16 @@ def sync_detailed(
 
     Returns:
         Response[RESTAmazonFolderToReceiveS3Compatible | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         bucket_name=bucket_name,
-name=name,
-account_id=account_id,
-service_point=service_point,
-custom_region_id=custom_region_id,
-trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
-trust_server_certificate=trust_server_certificate,
-
+        name=name,
+        account_id=account_id,
+        service_point=service_point,
+        custom_region_id=custom_region_id,
+        trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
+        trust_server_certificate=trust_server_certificate,
     )
 
     response = client.get_httpx_client().request(
@@ -135,6 +121,7 @@ trust_server_certificate=trust_server_certificate,
     )
 
     return _build_response(client=client, response=response)
+
 
 def sync(
     bucket_name: str,
@@ -146,9 +133,8 @@ def sync(
     custom_region_id: str,
     trusted_server_certificate_thumbprint: str | Unset = UNSET,
     trust_server_certificate: bool | Unset = UNSET,
-
 ) -> RESTAmazonFolderToReceiveS3Compatible | RESTExceptionInfo | None:
-    """ Get Folder by Name
+    """Get Folder by Name
 
      Returns information about S3 Compatible, IBM Cloud or Wasabi Cloud object storage folder with the
     specified name.
@@ -168,20 +154,19 @@ def sync(
 
     Returns:
         RESTAmazonFolderToReceiveS3Compatible | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         bucket_name=bucket_name,
-name=name,
-client=client,
-account_id=account_id,
-service_point=service_point,
-custom_region_id=custom_region_id,
-trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
-trust_server_certificate=trust_server_certificate,
-
+        name=name,
+        client=client,
+        account_id=account_id,
+        service_point=service_point,
+        custom_region_id=custom_region_id,
+        trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
+        trust_server_certificate=trust_server_certificate,
     ).parsed
+
 
 async def asyncio_detailed(
     bucket_name: str,
@@ -193,9 +178,8 @@ async def asyncio_detailed(
     custom_region_id: str,
     trusted_server_certificate_thumbprint: str | Unset = UNSET,
     trust_server_certificate: bool | Unset = UNSET,
-
 ) -> Response[RESTAmazonFolderToReceiveS3Compatible | RESTExceptionInfo]:
-    """ Get Folder by Name
+    """Get Folder by Name
 
      Returns information about S3 Compatible, IBM Cloud or Wasabi Cloud object storage folder with the
     specified name.
@@ -215,25 +199,22 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTAmazonFolderToReceiveS3Compatible | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         bucket_name=bucket_name,
-name=name,
-account_id=account_id,
-service_point=service_point,
-custom_region_id=custom_region_id,
-trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
-trust_server_certificate=trust_server_certificate,
-
+        name=name,
+        account_id=account_id,
+        service_point=service_point,
+        custom_region_id=custom_region_id,
+        trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
+        trust_server_certificate=trust_server_certificate,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     bucket_name: str,
@@ -245,9 +226,8 @@ async def asyncio(
     custom_region_id: str,
     trusted_server_certificate_thumbprint: str | Unset = UNSET,
     trust_server_certificate: bool | Unset = UNSET,
-
 ) -> RESTAmazonFolderToReceiveS3Compatible | RESTExceptionInfo | None:
-    """ Get Folder by Name
+    """Get Folder by Name
 
      Returns information about S3 Compatible, IBM Cloud or Wasabi Cloud object storage folder with the
     specified name.
@@ -267,17 +247,17 @@ async def asyncio(
 
     Returns:
         RESTAmazonFolderToReceiveS3Compatible | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        bucket_name=bucket_name,
-name=name,
-client=client,
-account_id=account_id,
-service_point=service_point,
-custom_region_id=custom_region_id,
-trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
-trust_server_certificate=trust_server_certificate,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            bucket_name=bucket_name,
+            name=name,
+            client=client,
+            account_id=account_id,
+            service_point=service_point,
+            custom_region_id=custom_region_id,
+            trusted_server_certificate_thumbprint=trusted_server_certificate_thumbprint,
+            trust_server_certificate=trust_server_certificate,
+        )
+    ).parsed

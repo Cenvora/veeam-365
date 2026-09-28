@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTObjectStorageType(str, Enum):
     AMAZONS3 = "AmazonS3"
     AMAZONS3COMPATIBLE = "AmazonS3Compatible"

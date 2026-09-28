@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTBackupRepositoryMonthlyDayofweek(str, Enum):
     FRIDAY = "Friday"
     MONDAY = "Monday"

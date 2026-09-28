@@ -1,36 +1,27 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..types import UNSET, Unset
-
 from ..models.rest_rbac_group_type import RESTRbacGroupType
 from ..types import UNSET, Unset
-from typing import cast
-
-
-
-
-
 
 T = TypeVar("T", bound="RESTRbacGroup")
 
 
-
 @_attrs_define
 class RESTRbacGroup:
-    """ 
-        Attributes:
-            id (str): ID of the organization group.
-            display_name (str): Display name of the organization group.
-            name (None | str): Name of the organization group.
-            type_ (RESTRbacGroupType): Type of the organization group.
-            on_premises_sid (None | str | Unset): ID of the organization group in the on-premises organization.
-     """
+    """
+    Attributes:
+        id (str): ID of the organization group.
+        display_name (str): Display name of the organization group.
+        name (None | str): Email address of the organization group.
+        type_ (RESTRbacGroupType): Type of the organization group.
+        on_premises_sid (None | str | Unset): ID of the organization group in the on-premises organization.
+    """
 
     id: str
     display_name: str
@@ -38,10 +29,6 @@ class RESTRbacGroup:
     type_: RESTRbacGroupType
     on_premises_sid: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         id = self.id
@@ -59,21 +46,20 @@ class RESTRbacGroup:
         else:
             on_premises_sid = self.on_premises_sid
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "id": id,
-            "displayName": display_name,
-            "name": name,
-            "type": type_,
-        })
+        field_dict.update(
+            {
+                "id": id,
+                "displayName": display_name,
+                "name": name,
+                "type": type_,
+            }
+        )
         if on_premises_sid is not UNSET:
             field_dict["onPremisesSid"] = on_premises_sid
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -89,11 +75,7 @@ class RESTRbacGroup:
 
         name = _parse_name(d.pop("name"))
 
-
         type_ = RESTRbacGroupType(d.pop("type"))
-
-
-
 
         def _parse_on_premises_sid(data: object) -> None | str | Unset:
             if data is None:
@@ -104,7 +86,6 @@ class RESTRbacGroup:
 
         on_premises_sid = _parse_on_premises_sid(d.pop("onPremisesSid", UNSET))
 
-
         rest_rbac_group = cls(
             id=id,
             display_name=display_name,
@@ -112,7 +93,6 @@ class RESTRbacGroup:
             type_=type_,
             on_premises_sid=on_premises_sid,
         )
-
 
         rest_rbac_group.additional_properties = d
         return rest_rbac_group

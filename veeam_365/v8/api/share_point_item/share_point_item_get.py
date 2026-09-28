@@ -1,19 +1,14 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.page_of_rest_share_point_item import PageOfRESTSharePointItem
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -24,11 +19,7 @@ def _get_kwargs(
     limit: int | Unset = UNSET,
     parent_id: str | Unset = UNSET,
     include_folders: bool | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -40,38 +31,36 @@ def _get_kwargs(
 
     params["includeFolders"] = include_folders
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/RestoreSessions/{restore_session_id}/Organization/Sites/{site_id}/Items".format(restore_session_id=quote(str(restore_session_id), safe=""),site_id=quote(str(site_id), safe=""),),
+        "url": "/v8/RestoreSessions/{restore_session_id}/Organization/Sites/{site_id}/Items".format(
+            restore_session_id=quote(str(restore_session_id), safe=""),
+            site_id=quote(str(site_id), safe=""),
+        ),
         "params": params,
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTSharePointItem | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> PageOfRESTSharePointItem | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTSharePointItem.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTSharePointItem | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[PageOfRESTSharePointItem | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -89,9 +78,8 @@ def sync_detailed(
     limit: int | Unset = UNSET,
     parent_id: str | Unset = UNSET,
     include_folders: bool | Unset = UNSET,
-
 ) -> Response[PageOfRESTSharePointItem | RESTExceptionInfo]:
-    """ Get SharePoint Items
+    """Get SharePoint Items
 
      Returns a collection of backed-up SharePoint items to explore and restore.
 
@@ -109,17 +97,15 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTSharePointItem | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-site_id=site_id,
-offset=offset,
-limit=limit,
-parent_id=parent_id,
-include_folders=include_folders,
-
+        site_id=site_id,
+        offset=offset,
+        limit=limit,
+        parent_id=parent_id,
+        include_folders=include_folders,
     )
 
     response = client.get_httpx_client().request(
@@ -127,6 +113,7 @@ include_folders=include_folders,
     )
 
     return _build_response(client=client, response=response)
+
 
 def sync(
     restore_session_id: UUID,
@@ -137,9 +124,8 @@ def sync(
     limit: int | Unset = UNSET,
     parent_id: str | Unset = UNSET,
     include_folders: bool | Unset = UNSET,
-
 ) -> PageOfRESTSharePointItem | RESTExceptionInfo | None:
-    """ Get SharePoint Items
+    """Get SharePoint Items
 
      Returns a collection of backed-up SharePoint items to explore and restore.
 
@@ -157,19 +143,18 @@ def sync(
 
     Returns:
         PageOfRESTSharePointItem | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         restore_session_id=restore_session_id,
-site_id=site_id,
-client=client,
-offset=offset,
-limit=limit,
-parent_id=parent_id,
-include_folders=include_folders,
-
+        site_id=site_id,
+        client=client,
+        offset=offset,
+        limit=limit,
+        parent_id=parent_id,
+        include_folders=include_folders,
     ).parsed
+
 
 async def asyncio_detailed(
     restore_session_id: UUID,
@@ -180,9 +165,8 @@ async def asyncio_detailed(
     limit: int | Unset = UNSET,
     parent_id: str | Unset = UNSET,
     include_folders: bool | Unset = UNSET,
-
 ) -> Response[PageOfRESTSharePointItem | RESTExceptionInfo]:
-    """ Get SharePoint Items
+    """Get SharePoint Items
 
      Returns a collection of backed-up SharePoint items to explore and restore.
 
@@ -200,24 +184,21 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTSharePointItem | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-site_id=site_id,
-offset=offset,
-limit=limit,
-parent_id=parent_id,
-include_folders=include_folders,
-
+        site_id=site_id,
+        offset=offset,
+        limit=limit,
+        parent_id=parent_id,
+        include_folders=include_folders,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     restore_session_id: UUID,
@@ -228,9 +209,8 @@ async def asyncio(
     limit: int | Unset = UNSET,
     parent_id: str | Unset = UNSET,
     include_folders: bool | Unset = UNSET,
-
 ) -> PageOfRESTSharePointItem | RESTExceptionInfo | None:
-    """ Get SharePoint Items
+    """Get SharePoint Items
 
      Returns a collection of backed-up SharePoint items to explore and restore.
 
@@ -248,16 +228,16 @@ async def asyncio(
 
     Returns:
         PageOfRESTSharePointItem | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        restore_session_id=restore_session_id,
-site_id=site_id,
-client=client,
-offset=offset,
-limit=limit,
-parent_id=parent_id,
-include_folders=include_folders,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            restore_session_id=restore_session_id,
+            site_id=site_id,
+            client=client,
+            offset=offset,
+            limit=limit,
+            parent_id=parent_id,
+            include_folders=include_folders,
+        )
+    ).parsed

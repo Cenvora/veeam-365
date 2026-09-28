@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTCopyJobSchedulePolicyType(str, Enum):
     DAILYATTIME = "DailyAtTime"
     IMMEDIATE = "Immediate"

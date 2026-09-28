@@ -1,19 +1,13 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.page_of_rest_backup_repository import PageOfRESTBackupRepository
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -24,11 +18,7 @@ def _get_kwargs(
     long_term: bool | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -53,9 +43,7 @@ def _get_kwargs(
 
     params["offset"] = offset
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -63,28 +51,25 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTBackupRepository | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> PageOfRESTBackupRepository | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTBackupRepository.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTBackupRepository | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[PageOfRESTBackupRepository | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -102,9 +87,8 @@ def sync_detailed(
     long_term: bool | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> Response[PageOfRESTBackupRepository | RESTExceptionInfo]:
-    """ Get Backup Repositories
+    """Get Backup Repositories
 
      Returns a collection of backup repositories.
 
@@ -122,17 +106,15 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTBackupRepository | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         proxy_id=proxy_id,
-proxy_pool_id=proxy_pool_id,
-organization_id=organization_id,
-long_term=long_term,
-limit=limit,
-offset=offset,
-
+        proxy_pool_id=proxy_pool_id,
+        organization_id=organization_id,
+        long_term=long_term,
+        limit=limit,
+        offset=offset,
     )
 
     response = client.get_httpx_client().request(
@@ -140,6 +122,7 @@ offset=offset,
     )
 
     return _build_response(client=client, response=response)
+
 
 def sync(
     *,
@@ -150,9 +133,8 @@ def sync(
     long_term: bool | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> PageOfRESTBackupRepository | RESTExceptionInfo | None:
-    """ Get Backup Repositories
+    """Get Backup Repositories
 
      Returns a collection of backup repositories.
 
@@ -170,19 +152,18 @@ def sync(
 
     Returns:
         PageOfRESTBackupRepository | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-proxy_id=proxy_id,
-proxy_pool_id=proxy_pool_id,
-organization_id=organization_id,
-long_term=long_term,
-limit=limit,
-offset=offset,
-
+        proxy_id=proxy_id,
+        proxy_pool_id=proxy_pool_id,
+        organization_id=organization_id,
+        long_term=long_term,
+        limit=limit,
+        offset=offset,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
@@ -193,9 +174,8 @@ async def asyncio_detailed(
     long_term: bool | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> Response[PageOfRESTBackupRepository | RESTExceptionInfo]:
-    """ Get Backup Repositories
+    """Get Backup Repositories
 
      Returns a collection of backup repositories.
 
@@ -213,24 +193,21 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTBackupRepository | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         proxy_id=proxy_id,
-proxy_pool_id=proxy_pool_id,
-organization_id=organization_id,
-long_term=long_term,
-limit=limit,
-offset=offset,
-
+        proxy_pool_id=proxy_pool_id,
+        organization_id=organization_id,
+        long_term=long_term,
+        limit=limit,
+        offset=offset,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
@@ -241,9 +218,8 @@ async def asyncio(
     long_term: bool | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> PageOfRESTBackupRepository | RESTExceptionInfo | None:
-    """ Get Backup Repositories
+    """Get Backup Repositories
 
      Returns a collection of backup repositories.
 
@@ -261,16 +237,16 @@ async def asyncio(
 
     Returns:
         PageOfRESTBackupRepository | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-proxy_id=proxy_id,
-proxy_pool_id=proxy_pool_id,
-organization_id=organization_id,
-long_term=long_term,
-limit=limit,
-offset=offset,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            proxy_id=proxy_id,
+            proxy_pool_id=proxy_pool_id,
+            organization_id=organization_id,
+            long_term=long_term,
+            limit=limit,
+            offset=offset,
+        )
+    ).parsed

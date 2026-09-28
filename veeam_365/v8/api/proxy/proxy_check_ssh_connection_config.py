@@ -1,38 +1,27 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_ssh_connection_config_validation_result import RESTSshConnectionConfigValidationResult
 from ...models.rest_ssh_settings_from_client import RESTSshSettingsFromClient
-from typing import cast
-
+from ...types import UNSET, Response
 
 
 def _get_kwargs(
     *,
     body: RESTSshSettingsFromClient,
     host: str,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
-
-
-    
 
     params: dict[str, Any] = {}
 
     params["host"] = host
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -42,31 +31,28 @@ def _get_kwargs(
 
     _kwargs["json"] = body.to_dict()
 
-
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | RESTSshConnectionConfigValidationResult:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> RESTExceptionInfo | RESTSshConnectionConfigValidationResult:
     if response.status_code == 200:
         response_200 = RESTSshConnectionConfigValidationResult.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | RESTSshConnectionConfigValidationResult]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[RESTExceptionInfo | RESTSshConnectionConfigValidationResult]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -80,9 +66,8 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     body: RESTSshSettingsFromClient,
     host: str,
-
 ) -> Response[RESTExceptionInfo | RESTSshConnectionConfigValidationResult]:
-    """ Check SSH Connection
+    """Check SSH Connection
 
      Allows you to check the SSH connection to a Linux machine.
 
@@ -97,13 +82,11 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTSshConnectionConfigValidationResult]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-host=host,
-
+        host=host,
     )
 
     response = client.get_httpx_client().request(
@@ -112,14 +95,14 @@ host=host,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     body: RESTSshSettingsFromClient,
     host: str,
-
 ) -> RESTExceptionInfo | RESTSshConnectionConfigValidationResult | None:
-    """ Check SSH Connection
+    """Check SSH Connection
 
      Allows you to check the SSH connection to a Linux machine.
 
@@ -134,24 +117,22 @@ def sync(
 
     Returns:
         RESTExceptionInfo | RESTSshConnectionConfigValidationResult
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-host=host,
-
+        body=body,
+        host=host,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTSshSettingsFromClient,
     host: str,
-
 ) -> Response[RESTExceptionInfo | RESTSshConnectionConfigValidationResult]:
-    """ Check SSH Connection
+    """Check SSH Connection
 
      Allows you to check the SSH connection to a Linux machine.
 
@@ -166,29 +147,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTSshConnectionConfigValidationResult]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-host=host,
-
+        host=host,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: RESTSshSettingsFromClient,
     host: str,
-
 ) -> RESTExceptionInfo | RESTSshConnectionConfigValidationResult | None:
-    """ Check SSH Connection
+    """Check SSH Connection
 
      Allows you to check the SSH connection to a Linux machine.
 
@@ -203,12 +180,12 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | RESTSshConnectionConfigValidationResult
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-host=host,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+            host=host,
+        )
+    ).parsed

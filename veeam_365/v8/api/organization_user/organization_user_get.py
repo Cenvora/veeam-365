@@ -1,22 +1,17 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.organization_user_get_data_source import OrganizationUserGetDataSource
 from ...models.organization_user_get_detected_sku_type import OrganizationUserGetDetectedSkuType
 from ...models.organization_user_get_location_filter import OrganizationUserGetLocationFilter
 from ...models.page_of_rest_user import PageOfRESTUser
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -30,11 +25,7 @@ def _get_kwargs(
     location_filter: OrganizationUserGetLocationFilter | Unset = UNSET,
     data_source: OrganizationUserGetDataSource | Unset = UNSET,
     detected_sku_type: OrganizationUserGetDetectedSkuType | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -69,38 +60,35 @@ def _get_kwargs(
 
     params["detectedSkuType"] = json_detected_sku_type
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/Organizations/{organization_id}/Users".format(organization_id=quote(str(organization_id), safe=""),),
+        "url": "/v8/Organizations/{organization_id}/Users".format(
+            organization_id=quote(str(organization_id), safe=""),
+        ),
         "params": params,
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTUser | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> PageOfRESTUser | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTUser.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTUser | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[PageOfRESTUser | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -121,9 +109,8 @@ def sync_detailed(
     location_filter: OrganizationUserGetLocationFilter | Unset = UNSET,
     data_source: OrganizationUserGetDataSource | Unset = UNSET,
     detected_sku_type: OrganizationUserGetDetectedSkuType | Unset = UNSET,
-
 ) -> Response[PageOfRESTUser | RESTExceptionInfo]:
-    """ Get Organization Users
+    """Get Organization Users
 
      Returns a collection of organization users.
 
@@ -144,20 +131,18 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTUser | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-limit=limit,
-offset=offset,
-set_id=set_id,
-user_name=user_name,
-display_name=display_name,
-location_filter=location_filter,
-data_source=data_source,
-detected_sku_type=detected_sku_type,
-
+        limit=limit,
+        offset=offset,
+        set_id=set_id,
+        user_name=user_name,
+        display_name=display_name,
+        location_filter=location_filter,
+        data_source=data_source,
+        detected_sku_type=detected_sku_type,
     )
 
     response = client.get_httpx_client().request(
@@ -165,6 +150,7 @@ detected_sku_type=detected_sku_type,
     )
 
     return _build_response(client=client, response=response)
+
 
 def sync(
     organization_id: UUID,
@@ -178,9 +164,8 @@ def sync(
     location_filter: OrganizationUserGetLocationFilter | Unset = UNSET,
     data_source: OrganizationUserGetDataSource | Unset = UNSET,
     detected_sku_type: OrganizationUserGetDetectedSkuType | Unset = UNSET,
-
 ) -> PageOfRESTUser | RESTExceptionInfo | None:
-    """ Get Organization Users
+    """Get Organization Users
 
      Returns a collection of organization users.
 
@@ -201,22 +186,21 @@ def sync(
 
     Returns:
         PageOfRESTUser | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         organization_id=organization_id,
-client=client,
-limit=limit,
-offset=offset,
-set_id=set_id,
-user_name=user_name,
-display_name=display_name,
-location_filter=location_filter,
-data_source=data_source,
-detected_sku_type=detected_sku_type,
-
+        client=client,
+        limit=limit,
+        offset=offset,
+        set_id=set_id,
+        user_name=user_name,
+        display_name=display_name,
+        location_filter=location_filter,
+        data_source=data_source,
+        detected_sku_type=detected_sku_type,
     ).parsed
+
 
 async def asyncio_detailed(
     organization_id: UUID,
@@ -230,9 +214,8 @@ async def asyncio_detailed(
     location_filter: OrganizationUserGetLocationFilter | Unset = UNSET,
     data_source: OrganizationUserGetDataSource | Unset = UNSET,
     detected_sku_type: OrganizationUserGetDetectedSkuType | Unset = UNSET,
-
 ) -> Response[PageOfRESTUser | RESTExceptionInfo]:
-    """ Get Organization Users
+    """Get Organization Users
 
      Returns a collection of organization users.
 
@@ -253,27 +236,24 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTUser | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-limit=limit,
-offset=offset,
-set_id=set_id,
-user_name=user_name,
-display_name=display_name,
-location_filter=location_filter,
-data_source=data_source,
-detected_sku_type=detected_sku_type,
-
+        limit=limit,
+        offset=offset,
+        set_id=set_id,
+        user_name=user_name,
+        display_name=display_name,
+        location_filter=location_filter,
+        data_source=data_source,
+        detected_sku_type=detected_sku_type,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     organization_id: UUID,
@@ -287,9 +267,8 @@ async def asyncio(
     location_filter: OrganizationUserGetLocationFilter | Unset = UNSET,
     data_source: OrganizationUserGetDataSource | Unset = UNSET,
     detected_sku_type: OrganizationUserGetDetectedSkuType | Unset = UNSET,
-
 ) -> PageOfRESTUser | RESTExceptionInfo | None:
-    """ Get Organization Users
+    """Get Organization Users
 
      Returns a collection of organization users.
 
@@ -310,19 +289,19 @@ async def asyncio(
 
     Returns:
         PageOfRESTUser | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        organization_id=organization_id,
-client=client,
-limit=limit,
-offset=offset,
-set_id=set_id,
-user_name=user_name,
-display_name=display_name,
-location_filter=location_filter,
-data_source=data_source,
-detected_sku_type=detected_sku_type,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            organization_id=organization_id,
+            client=client,
+            limit=limit,
+            offset=offset,
+            set_id=set_id,
+            user_name=user_name,
+            display_name=display_name,
+            location_filter=location_filter,
+            data_source=data_source,
+            detected_sku_type=detected_sku_type,
+        )
+    ).parsed

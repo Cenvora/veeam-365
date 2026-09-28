@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class SharePointFolderSearchFolderByOptionsItemType(str, Enum):
     ALL = "All"
     FOLDERS = "Folders"

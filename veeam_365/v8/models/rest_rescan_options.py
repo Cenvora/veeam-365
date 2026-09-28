@@ -1,44 +1,32 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.rest_item_guid_id import RESTItemGuidId
-
-
-
+    from ..models.rest_item_guid_id import RESTItemGuidId
 
 
 T = TypeVar("T", bound="RESTRescanOptions")
 
 
-
 @_attrs_define
 class RESTRescanOptions:
-    """ 
-        Attributes:
-            proxies (list[RESTItemGuidId] | Unset): Specifies IDs of the backup proxy servers that you want to rescan. For
-                more information on how to get such IDs, see [Get Backup Proxy Servers](#/Proxy/Proxy_GetProxies).
-     """
+    """
+    Attributes:
+        proxies (list[RESTItemGuidId] | Unset): Specifies IDs of the backup proxy servers that you want to rescan. For
+            more information on how to get such IDs, see [Get Backup Proxy Servers](Proxy#operation/Proxy_GetProxies).
+    """
 
     proxies: list[RESTItemGuidId] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.rest_item_guid_id import RESTItemGuidId
         proxies: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.proxies, Unset):
             proxies = []
@@ -46,23 +34,18 @@ class RESTRescanOptions:
                 proxies_item = proxies_item_data.to_dict()
                 proxies.append(proxies_item)
 
-
-
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if proxies is not UNSET:
             field_dict["proxies"] = proxies
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_item_guid_id import RESTItemGuidId
+
         d = dict(src_dict)
         _proxies = d.pop("proxies", UNSET)
         proxies: list[RESTItemGuidId] | Unset = UNSET
@@ -71,15 +54,11 @@ class RESTRescanOptions:
             for proxies_item_data in _proxies:
                 proxies_item = RESTItemGuidId.from_dict(proxies_item_data)
 
-
-
                 proxies.append(proxies_item)
-
 
         rest_rescan_options = cls(
             proxies=proxies,
         )
-
 
         rest_rescan_options.additional_properties = d
         return rest_rescan_options

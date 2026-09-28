@@ -1,30 +1,19 @@
 from http import HTTPStatus
 from typing import Any, cast
-from urllib.parse import quote
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_share_point_smtp_settings_from_client import RESTSharePointSmtpSettingsFromClient
-from typing import cast
-
+from ...types import Response
 
 
 def _get_kwargs(
     *,
     body: RESTSharePointSmtpSettingsFromClient,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
-
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "put",
@@ -33,12 +22,10 @@ def _get_kwargs(
 
     _kwargs["json"] = body.to_dict()
 
-
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
-
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | RESTExceptionInfo:
@@ -48,13 +35,12 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Any | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Any | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -67,11 +53,10 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTSharePointSmtpSettingsFromClient,
-
 ) -> Response[Any | RESTExceptionInfo]:
-    """ Edit Email Settings
+    """Edit Email Settings
 
-     Modifies email settings for Veeam Explorer for Microsoft OneDrive for Business.
+     Modifies email settings for Veeam Explorer for Microsoft OneDrive.
 
     Args:
         body (RESTSharePointSmtpSettingsFromClient):
@@ -82,12 +67,10 @@ def sync_detailed(
 
     Returns:
         Response[Any | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
     response = client.get_httpx_client().request(
@@ -96,15 +79,15 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     body: RESTSharePointSmtpSettingsFromClient,
-
 ) -> Any | RESTExceptionInfo | None:
-    """ Edit Email Settings
+    """Edit Email Settings
 
-     Modifies email settings for Veeam Explorer for Microsoft OneDrive for Business.
+     Modifies email settings for Veeam Explorer for Microsoft OneDrive.
 
     Args:
         body (RESTSharePointSmtpSettingsFromClient):
@@ -115,24 +98,22 @@ def sync(
 
     Returns:
         Any | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTSharePointSmtpSettingsFromClient,
-
 ) -> Response[Any | RESTExceptionInfo]:
-    """ Edit Email Settings
+    """Edit Email Settings
 
-     Modifies email settings for Veeam Explorer for Microsoft OneDrive for Business.
+     Modifies email settings for Veeam Explorer for Microsoft OneDrive.
 
     Args:
         body (RESTSharePointSmtpSettingsFromClient):
@@ -143,29 +124,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: RESTSharePointSmtpSettingsFromClient,
-
 ) -> Any | RESTExceptionInfo | None:
-    """ Edit Email Settings
+    """Edit Email Settings
 
-     Modifies email settings for Veeam Explorer for Microsoft OneDrive for Business.
+     Modifies email settings for Veeam Explorer for Microsoft OneDrive.
 
     Args:
         body (RESTSharePointSmtpSettingsFromClient):
@@ -176,11 +153,11 @@ async def asyncio(
 
     Returns:
         Any | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+        )
+    ).parsed

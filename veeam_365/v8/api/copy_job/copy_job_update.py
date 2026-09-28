@@ -1,46 +1,36 @@
 from http import HTTPStatus
 from typing import Any, cast
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.rest_edit_copy_job import RESTEditCopyJob
 from ...models.rest_exception_info import RESTExceptionInfo
-from typing import cast
-from uuid import UUID
-
+from ...types import Response
 
 
 def _get_kwargs(
     id: UUID,
     *,
     body: RESTEditCopyJob,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
-
-    
-
-    
-
     _kwargs: dict[str, Any] = {
         "method": "put",
-        "url": "/v8/CopyJobs/{id}".format(id=quote(str(id), safe=""),),
+        "url": "/v8/CopyJobs/{id}".format(
+            id=quote(str(id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
-
 
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
-
 
 
 def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Any | RESTExceptionInfo:
@@ -50,13 +40,12 @@ def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Res
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[Any | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Any | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -70,9 +59,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTEditCopyJob,
-
 ) -> Response[Any | RESTExceptionInfo]:
-    """ Edit Backup Copy Job Settings
+    """Edit Backup Copy Job Settings
 
      Modifies settings of a backup copy job with the specified ID.
 
@@ -86,13 +74,11 @@ def sync_detailed(
 
     Returns:
         Response[Any | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -101,14 +87,14 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTEditCopyJob,
-
 ) -> Any | RESTExceptionInfo | None:
-    """ Edit Backup Copy Job Settings
+    """Edit Backup Copy Job Settings
 
      Modifies settings of a backup copy job with the specified ID.
 
@@ -122,24 +108,22 @@ def sync(
 
     Returns:
         Any | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         id=id,
-client=client,
-body=body,
-
+        client=client,
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTEditCopyJob,
-
 ) -> Response[Any | RESTExceptionInfo]:
-    """ Edit Backup Copy Job Settings
+    """Edit Backup Copy Job Settings
 
      Modifies settings of a backup copy job with the specified ID.
 
@@ -153,29 +137,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[Any | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-body=body,
-
+        body=body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTEditCopyJob,
-
 ) -> Any | RESTExceptionInfo | None:
-    """ Edit Backup Copy Job Settings
+    """Edit Backup Copy Job Settings
 
      Modifies settings of a backup copy job with the specified ID.
 
@@ -189,12 +169,12 @@ async def asyncio(
 
     Returns:
         Any | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        id=id,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            id=id,
+            client=client,
+            body=body,
+        )
+    ).parsed

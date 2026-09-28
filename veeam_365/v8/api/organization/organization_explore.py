@@ -1,41 +1,32 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_organization_explore_options import RESTOrganizationExploreOptions
 from ...models.rest_restore_session import RESTRestoreSession
-from typing import cast
-from uuid import UUID
-
+from ...types import Response
 
 
 def _get_kwargs(
     organization_id: UUID,
     *,
     body: RESTOrganizationExploreOptions,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
-
-    
-
-    
-
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v8/Organizations/{organization_id}/explore".format(organization_id=quote(str(organization_id), safe=""),),
+        "url": "/v8/Organizations/{organization_id}/explore".format(
+            organization_id=quote(str(organization_id), safe=""),
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
-
 
     headers["Content-Type"] = "application/json"
 
@@ -43,24 +34,22 @@ def _get_kwargs(
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | RESTRestoreSession:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> RESTExceptionInfo | RESTRestoreSession:
     if response.status_code == 201:
         response_201 = RESTRestoreSession.from_dict(response.json())
-
-
 
         return response_201
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | RESTRestoreSession]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[RESTExceptionInfo | RESTRestoreSession]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -74,9 +63,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTOrganizationExploreOptions,
-
 ) -> Response[RESTExceptionInfo | RESTRestoreSession]:
-    """ Create Restore Session for Organization by Organization ID
+    """Create Restore Session for Organization by Organization ID
 
      Creates and starts a restore session to explore and restore data from backups for an organization
     with the specified ID.
@@ -91,13 +79,11 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTRestoreSession]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-body=body,
-
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -106,14 +92,14 @@ body=body,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTOrganizationExploreOptions,
-
 ) -> RESTExceptionInfo | RESTRestoreSession | None:
-    """ Create Restore Session for Organization by Organization ID
+    """Create Restore Session for Organization by Organization ID
 
      Creates and starts a restore session to explore and restore data from backups for an organization
     with the specified ID.
@@ -128,24 +114,22 @@ def sync(
 
     Returns:
         RESTExceptionInfo | RESTRestoreSession
-     """
-
+    """
 
     return sync_detailed(
         organization_id=organization_id,
-client=client,
-body=body,
-
+        client=client,
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTOrganizationExploreOptions,
-
 ) -> Response[RESTExceptionInfo | RESTRestoreSession]:
-    """ Create Restore Session for Organization by Organization ID
+    """Create Restore Session for Organization by Organization ID
 
      Creates and starts a restore session to explore and restore data from backups for an organization
     with the specified ID.
@@ -160,29 +144,25 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTRestoreSession]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-body=body,
-
+        body=body,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     organization_id: UUID,
     *,
     client: AuthenticatedClient | Client,
     body: RESTOrganizationExploreOptions,
-
 ) -> RESTExceptionInfo | RESTRestoreSession | None:
-    """ Create Restore Session for Organization by Organization ID
+    """Create Restore Session for Organization by Organization ID
 
      Creates and starts a restore session to explore and restore data from backups for an organization
     with the specified ID.
@@ -197,12 +177,12 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | RESTRestoreSession
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        organization_id=organization_id,
-client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            organization_id=organization_id,
+            client=client,
+            body=body,
+        )
+    ).parsed

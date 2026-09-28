@@ -1,41 +1,34 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-
 if TYPE_CHECKING:
-  from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
-
-
-
+    from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
 
 
 T = TypeVar("T", bound="RESTTeam")
 
 
-
 @_attrs_define
 class RESTTeam:
-    """ 
-        Attributes:
-            id (UUID): Team ID. Example: 00000000-0000-0000-0000-000000000000.
-            display_name (str): Display name of the team.
-            mail (str): Email address of the team.
-            e_tag (int | None | Unset): Version number that Veeam Backup for Microsoft 365 assigns if the team was modified.
-            description (str | Unset): Description of the team.
-            msid (None | Unset | UUID): ID of the team assigned by Microsoft.
-            data_location (None | str | Unset): Data location of the team.
-            field_links (RESTLinkHALDictionary | Unset): Related resources.
-     """
+    """
+    Attributes:
+        id (UUID): Team ID. Example: 00000000-0000-0000-0000-000000000000.
+        display_name (str): Display name of the team.
+        mail (str): Email address of the team.
+        e_tag (int | None | Unset): Version number that Veeam Backup for Microsoft 365 assigns if the team was modified.
+        description (str | Unset): Description of the team.
+        msid (None | Unset | UUID): ID of the team assigned by Microsoft.
+        data_location (None | str | Unset): Data location of the team.
+        field_links (RESTLinkHALDictionary | Unset): Related resources.
+    """
 
     id: UUID
     display_name: str
@@ -47,12 +40,7 @@ class RESTTeam:
     field_links: RESTLinkHALDictionary | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
         id = str(self.id)
 
         display_name = self.display_name
@@ -85,14 +73,15 @@ class RESTTeam:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "id": id,
-            "displayName": display_name,
-            "mail": mail,
-        })
+        field_dict.update(
+            {
+                "id": id,
+                "displayName": display_name,
+                "mail": mail,
+            }
+        )
         if e_tag is not UNSET:
             field_dict["eTag"] = e_tag
         if description is not UNSET:
@@ -106,16 +95,12 @@ class RESTTeam:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_link_hal_dictionary import RESTLinkHALDictionary
+
         d = dict(src_dict)
         id = UUID(d.pop("id"))
-
-
-
 
         display_name = d.pop("displayName")
 
@@ -130,7 +115,6 @@ class RESTTeam:
 
         e_tag = _parse_e_tag(d.pop("eTag", UNSET))
 
-
         description = d.pop("description", UNSET)
 
         def _parse_msid(data: object) -> None | Unset | UUID:
@@ -143,15 +127,12 @@ class RESTTeam:
                     raise TypeError()
                 msid_type_0 = UUID(data)
 
-
-
                 return msid_type_0
             except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             return cast(None | Unset | UUID, data)
 
         msid = _parse_msid(d.pop("msid", UNSET))
-
 
         def _parse_data_location(data: object) -> None | str | Unset:
             if data is None:
@@ -162,16 +143,12 @@ class RESTTeam:
 
         data_location = _parse_data_location(d.pop("dataLocation", UNSET))
 
-
         _field_links = d.pop("_links", UNSET)
         field_links: RESTLinkHALDictionary | Unset
-        if isinstance(_field_links,  Unset):
+        if isinstance(_field_links, Unset):
             field_links = UNSET
         else:
             field_links = RESTLinkHALDictionary.from_dict(_field_links)
-
-
-
 
         rest_team = cls(
             id=id,
@@ -183,7 +160,6 @@ class RESTTeam:
             data_location=data_location,
             field_links=field_links,
         )
-
 
         rest_team.additional_properties = d
         return rest_team

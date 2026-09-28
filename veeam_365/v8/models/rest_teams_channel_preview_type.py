@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTTeamsChannelPreviewType(str, Enum):
     PRIVATE = "Private"
     SHARED = "Shared"
