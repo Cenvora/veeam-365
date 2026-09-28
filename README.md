@@ -108,8 +108,17 @@ async def main():
 asyncio.run(main())
 ```
 
+The client is also an async context manager, which closes it on exit:
+
+```python
+async with VeeamClient(host=..., username=..., password=..., api_version="v8") as vc:
+    await vc.connect()
+    ...
+```
+
 **Optional Parameters:**
-- `verify_ssl` (bool, default: `True`): Enable/disable SSL certificate verification
+- `verify_ssl` (bool | `ssl.SSLContext` | str, default: `True`): Enable/disable SSL certificate verification, or pass an `ssl.SSLContext` or a CA bundle path
+- `timeout` (float | `httpx.Timeout` | None, default: `30.0`): Timeout for every request, in seconds. `None` disables timeouts.
 - `disable_antiforgery_token` (bool, default: `True`): Disable antiforgery token requirement. Set to `True` for programmatic/API clients (recommended). Set to `False` only if using browser-based authentication with cookies.
 
 #### Detect the API version a server serves
@@ -214,6 +223,38 @@ result = await vc.call(
 #### Close the client
 ```python
 await vc.close()
+```
+
+`close()` drops the session and closes the underlying HTTP connections. `async with` does this for you.
+
+#### Errors
+
+`VeeamClient` authenticates on first use and refreshes its token as it expires. When the
+refresh token is refused it falls back to the password grant. Concurrent calls share a
+single refresh.
+
+| Exception | Meaning |
+|---|---|
+| `veeam_365.exceptions.VeeamAuthenticationError` | The server refused the username/password at login. Ask for new credentials. |
+| `veeam_365.exceptions.VeeamSessionError` | The session was rejected mid-use (the server answered with an undecodable, usually empty, body). The session has been dropped; the next call logs in again. The operation is **not** retried. |
+| `httpx.HTTPError`, `OSError`, `TimeoutError` | The server could not be reached, timed out, or answered the login with a 5xx/429. Retry later. These are never wrapped. |
+
+Both Veeam exceptions subclass `veeam_365.exceptions.VeeamError` and `PermissionError`.
+A documented error response from an endpoint (such as a 404) is returned as a
+`RESTExceptionInfo` model rather than raised.
+
+```python
+import httpx
+from veeam_365.exceptions import VeeamAuthenticationError, VeeamSessionError
+
+try:
+    result = await vc.call(vc.api("backup_repository").backup_repository_get_repositories)
+except VeeamAuthenticationError:
+    ...  # bad credentials: prompt the user
+except VeeamSessionError:
+    ...  # transient: the next call re-authenticates
+except (httpx.HTTPError, OSError, TimeoutError):
+    ...  # server unreachable
 ```
 
 ## Contributing
