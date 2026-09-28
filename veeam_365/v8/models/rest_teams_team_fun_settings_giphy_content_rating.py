@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTTeamsTeamFunSettingsGiphyContentRating(str, Enum):
     MODERATE = "Moderate"
     STRICT = "Strict"

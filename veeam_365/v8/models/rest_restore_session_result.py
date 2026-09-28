@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTRestoreSessionResult(str, Enum):
     FAILED = "Failed"
     SUCCESS = "Success"

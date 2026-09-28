@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTExchangeItemImportance(str, Enum):
     HIGH = "High"
     LOW = "Low"

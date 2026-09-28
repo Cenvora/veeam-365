@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTRbacGroupType(str, Enum):
     DISTRIBUTION = "Distribution"
     DYNAMICDISTRIBUTION = "DynamicDistribution"

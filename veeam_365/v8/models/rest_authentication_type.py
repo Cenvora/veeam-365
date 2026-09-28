@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTAuthenticationType(str, Enum):
     CUSTOMSMTP = "CustomSmtp"
     GOOGLEGMAIL = "GoogleGmail"

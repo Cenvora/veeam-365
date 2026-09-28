@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTCloudServiceAccountType(str, Enum):
     AWS = "AWS"
     AZURE = "Azure"

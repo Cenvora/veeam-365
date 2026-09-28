@@ -1,21 +1,14 @@
+import datetime
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.page_of_rest_restore_point import PageOfRESTRestorePoint
 from ...models.rest_exception_info import RESTExceptionInfo
-from ...types import UNSET, Unset
-from dateutil.parser import isoparse
-from typing import cast
-from uuid import UUID
-import datetime
-
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -35,11 +28,7 @@ def _get_kwargs(
     team_id: UUID | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -91,9 +80,7 @@ def _get_kwargs(
 
     params["offset"] = offset
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
@@ -101,28 +88,25 @@ def _get_kwargs(
         "params": params,
     }
 
-
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> PageOfRESTRestorePoint | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> PageOfRESTRestorePoint | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = PageOfRESTRestorePoint.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[PageOfRESTRestorePoint | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[PageOfRESTRestorePoint | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -149,9 +133,8 @@ def sync_detailed(
     team_id: UUID | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> Response[PageOfRESTRestorePoint | RESTExceptionInfo]:
-    """ Get Restore Points
+    """Get Restore Points
 
      Returns a collection of restore points created by Veeam Backup for Microsoft 365.
 
@@ -178,26 +161,24 @@ def sync_detailed(
 
     Returns:
         Response[PageOfRESTRestorePoint | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-job_id=job_id,
-repository_id=repository_id,
-from_=from_,
-to=to,
-order_asc=order_asc,
-is_long_term_copy=is_long_term_copy,
-is_copy=is_copy,
-is_retrieved=is_retrieved,
-user_id=user_id,
-group_id=group_id,
-site_id=site_id,
-team_id=team_id,
-limit=limit,
-offset=offset,
-
+        job_id=job_id,
+        repository_id=repository_id,
+        from_=from_,
+        to=to,
+        order_asc=order_asc,
+        is_long_term_copy=is_long_term_copy,
+        is_copy=is_copy,
+        is_retrieved=is_retrieved,
+        user_id=user_id,
+        group_id=group_id,
+        site_id=site_id,
+        team_id=team_id,
+        limit=limit,
+        offset=offset,
     )
 
     response = client.get_httpx_client().request(
@@ -205,6 +186,7 @@ offset=offset,
     )
 
     return _build_response(client=client, response=response)
+
 
 def sync(
     *,
@@ -224,9 +206,8 @@ def sync(
     team_id: UUID | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> PageOfRESTRestorePoint | RESTExceptionInfo | None:
-    """ Get Restore Points
+    """Get Restore Points
 
      Returns a collection of restore points created by Veeam Backup for Microsoft 365.
 
@@ -253,28 +234,27 @@ def sync(
 
     Returns:
         PageOfRESTRestorePoint | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-organization_id=organization_id,
-job_id=job_id,
-repository_id=repository_id,
-from_=from_,
-to=to,
-order_asc=order_asc,
-is_long_term_copy=is_long_term_copy,
-is_copy=is_copy,
-is_retrieved=is_retrieved,
-user_id=user_id,
-group_id=group_id,
-site_id=site_id,
-team_id=team_id,
-limit=limit,
-offset=offset,
-
+        organization_id=organization_id,
+        job_id=job_id,
+        repository_id=repository_id,
+        from_=from_,
+        to=to,
+        order_asc=order_asc,
+        is_long_term_copy=is_long_term_copy,
+        is_copy=is_copy,
+        is_retrieved=is_retrieved,
+        user_id=user_id,
+        group_id=group_id,
+        site_id=site_id,
+        team_id=team_id,
+        limit=limit,
+        offset=offset,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
@@ -294,9 +274,8 @@ async def asyncio_detailed(
     team_id: UUID | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> Response[PageOfRESTRestorePoint | RESTExceptionInfo]:
-    """ Get Restore Points
+    """Get Restore Points
 
      Returns a collection of restore points created by Veeam Backup for Microsoft 365.
 
@@ -323,33 +302,30 @@ async def asyncio_detailed(
 
     Returns:
         Response[PageOfRESTRestorePoint | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         organization_id=organization_id,
-job_id=job_id,
-repository_id=repository_id,
-from_=from_,
-to=to,
-order_asc=order_asc,
-is_long_term_copy=is_long_term_copy,
-is_copy=is_copy,
-is_retrieved=is_retrieved,
-user_id=user_id,
-group_id=group_id,
-site_id=site_id,
-team_id=team_id,
-limit=limit,
-offset=offset,
-
+        job_id=job_id,
+        repository_id=repository_id,
+        from_=from_,
+        to=to,
+        order_asc=order_asc,
+        is_long_term_copy=is_long_term_copy,
+        is_copy=is_copy,
+        is_retrieved=is_retrieved,
+        user_id=user_id,
+        group_id=group_id,
+        site_id=site_id,
+        team_id=team_id,
+        limit=limit,
+        offset=offset,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
@@ -369,9 +345,8 @@ async def asyncio(
     team_id: UUID | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
-
 ) -> PageOfRESTRestorePoint | RESTExceptionInfo | None:
-    """ Get Restore Points
+    """Get Restore Points
 
      Returns a collection of restore points created by Veeam Backup for Microsoft 365.
 
@@ -398,25 +373,25 @@ async def asyncio(
 
     Returns:
         PageOfRESTRestorePoint | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-organization_id=organization_id,
-job_id=job_id,
-repository_id=repository_id,
-from_=from_,
-to=to,
-order_asc=order_asc,
-is_long_term_copy=is_long_term_copy,
-is_copy=is_copy,
-is_retrieved=is_retrieved,
-user_id=user_id,
-group_id=group_id,
-site_id=site_id,
-team_id=team_id,
-limit=limit,
-offset=offset,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            organization_id=organization_id,
+            job_id=job_id,
+            repository_id=repository_id,
+            from_=from_,
+            to=to,
+            order_asc=order_asc,
+            is_long_term_copy=is_long_term_copy,
+            is_copy=is_copy,
+            is_retrieved=is_retrieved,
+            user_id=user_id,
+            group_id=group_id,
+            site_id=site_id,
+            team_id=team_id,
+            limit=limit,
+            offset=offset,
+        )
+    ).parsed

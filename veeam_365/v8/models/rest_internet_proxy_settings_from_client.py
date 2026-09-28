@@ -1,37 +1,28 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-
-
-
-
-
-
 T = TypeVar("T", bound="RESTInternetProxySettingsFromClient")
-
 
 
 @_attrs_define
 class RESTInternetProxySettingsFromClient:
-    """ 
-        Attributes:
-            user_password (str | Unset): Specifies a password.
-            host_name (str | Unset): Specifies a name of the internet proxy server.
-            port (int | None | Unset): Specifies the port number which is used to connect to the specified internet proxy
-                server. The default port is *3128*.
-            use_authentication (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will use an
-                authentication credentials when connecting to the internet proxy server.
-            username (str | Unset): Specifies a user name for the authentication to the internet proxy server.
-     """
+    """
+    Attributes:
+        user_password (str | Unset): Specifies a password.
+        host_name (str | Unset): Specifies a name of the internet proxy server.
+        port (int | None | Unset): Specifies the port number which is used to connect to the specified internet proxy
+            server. The default port is *3128*.
+        use_authentication (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will use authentication
+            credentials when connecting to the internet proxy server.
+        username (str | Unset): Specifies a user name for the authentication to the internet proxy server.
+    """
 
     user_password: str | Unset = UNSET
     host_name: str | Unset = UNSET
@@ -39,10 +30,6 @@ class RESTInternetProxySettingsFromClient:
     use_authentication: bool | None | Unset = UNSET
     username: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
-
-
-
-
 
     def to_dict(self) -> dict[str, Any]:
         user_password = self.user_password
@@ -63,11 +50,9 @@ class RESTInternetProxySettingsFromClient:
 
         username = self.username
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if user_password is not UNSET:
             field_dict["userPassword"] = user_password
         if host_name is not UNSET:
@@ -80,8 +65,6 @@ class RESTInternetProxySettingsFromClient:
             field_dict["username"] = username
 
         return field_dict
-
-
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
@@ -99,7 +82,6 @@ class RESTInternetProxySettingsFromClient:
 
         port = _parse_port(d.pop("port", UNSET))
 
-
         def _parse_use_authentication(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -108,7 +90,6 @@ class RESTInternetProxySettingsFromClient:
             return cast(bool | None | Unset, data)
 
         use_authentication = _parse_use_authentication(d.pop("useAuthentication", UNSET))
-
 
         username = d.pop("username", UNSET)
 
@@ -119,7 +100,6 @@ class RESTInternetProxySettingsFromClient:
             use_authentication=use_authentication,
             username=username,
         )
-
 
         rest_internet_proxy_settings_from_client.additional_properties = d
         return rest_internet_proxy_settings_from_client

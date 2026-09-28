@@ -1,39 +1,32 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.rest_share_point_attachment_links import RESTSharePointAttachmentLinks
-
-
-
+    from ..models.rest_share_point_attachment_links import RESTSharePointAttachmentLinks
 
 
 T = TypeVar("T", bound="RESTSharePointAttachment")
 
 
-
 @_attrs_define
 class RESTSharePointAttachment:
-    """ 
-        Attributes:
-            size_bytes (int | Unset): Size of the SharePoint item attachment in *Bytes*.
-            id (str | Unset): ID of the backed-up SharePoint item attachment.
-            name (str | Unset): Name of the backed-up SharePoint item attachment.
-            url (str | Unset): Path to the SharePoint item attachment.
-            site_id (str | Unset): ID of the SharePoint site.
-            item_id (str | Unset): ID of the SharePoint item.
-            field_links (RESTSharePointAttachmentLinks | Unset):
-     """
+    """
+    Attributes:
+        size_bytes (int | Unset): Size of the SharePoint item attachment in *Bytes*.
+        id (str | Unset): ID of the backed-up SharePoint item attachment.
+        name (str | Unset): Name of the backed-up SharePoint item attachment.
+        url (str | Unset): Path to the SharePoint item attachment.
+        site_id (str | Unset): ID of the SharePoint site.
+        item_id (str | Unset): ID of the SharePoint item.
+        field_links (RESTSharePointAttachmentLinks | Unset):
+    """
 
     size_bytes: int | Unset = UNSET
     id: str | Unset = UNSET
@@ -44,12 +37,7 @@ class RESTSharePointAttachment:
     field_links: RESTSharePointAttachmentLinks | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.rest_share_point_attachment_links import RESTSharePointAttachmentLinks
         size_bytes = self.size_bytes
 
         id = self.id
@@ -66,11 +54,9 @@ class RESTSharePointAttachment:
         if not isinstance(self.field_links, Unset):
             field_links = self.field_links.to_dict()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if size_bytes is not UNSET:
             field_dict["sizeBytes"] = size_bytes
         if id is not UNSET:
@@ -88,11 +74,10 @@ class RESTSharePointAttachment:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_share_point_attachment_links import RESTSharePointAttachmentLinks
+
         d = dict(src_dict)
         size_bytes = d.pop("sizeBytes", UNSET)
 
@@ -108,13 +93,10 @@ class RESTSharePointAttachment:
 
         _field_links = d.pop("_links", UNSET)
         field_links: RESTSharePointAttachmentLinks | Unset
-        if isinstance(_field_links,  Unset):
+        if isinstance(_field_links, Unset):
             field_links = UNSET
         else:
             field_links = RESTSharePointAttachmentLinks.from_dict(_field_links)
-
-
-
 
         rest_share_point_attachment = cls(
             size_bytes=size_bytes,
@@ -125,7 +107,6 @@ class RESTSharePointAttachment:
             item_id=item_id,
             field_links=field_links,
         )
-
 
         rest_share_point_attachment.additional_properties = d
         return rest_share_point_attachment

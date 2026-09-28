@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTExploreOptionsType(str, Enum):
     VEOD = "Veod"
     VESP = "Vesp"

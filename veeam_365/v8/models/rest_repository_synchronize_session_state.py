@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTRepositorySynchronizeSessionState(str, Enum):
     FAILED = "Failed"
     NONE = "None"

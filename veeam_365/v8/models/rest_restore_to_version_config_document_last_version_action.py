@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTRestoreToVersionConfigDocumentLastVersionAction(str, Enum):
     MERGE = "Merge"
     OVERWRITE = "Overwrite"

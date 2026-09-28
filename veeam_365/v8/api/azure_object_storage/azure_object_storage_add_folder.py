@@ -1,20 +1,16 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.azure_storage_endpoint import AzureStorageEndpoint
 from ...models.rest_azure_folder_to_receive import RESTAzureFolderToReceive
 from ...models.rest_azure_folder_to_send import RESTAzureFolderToSend
 from ...models.rest_exception_info import RESTExceptionInfo
-from typing import cast
-from uuid import UUID
-
+from ...types import UNSET, Response
 
 
 def _get_kwargs(
@@ -23,12 +19,8 @@ def _get_kwargs(
     body: RESTAzureFolderToSend,
     account_id: UUID,
     region_type: AzureStorageEndpoint,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
-
-
-    
 
     params: dict[str, Any] = {}
 
@@ -38,18 +30,17 @@ def _get_kwargs(
     json_region_type = region_type.value
     params["RegionType"] = json_region_type
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v8/AzureResources/containers/{container_name}/folders".format(container_name=quote(str(container_name), safe=""),),
+        "url": "/v8/AzureResources/containers/{container_name}/folders".format(
+            container_name=quote(str(container_name), safe=""),
+        ),
         "params": params,
     }
 
     _kwargs["json"] = body.to_dict()
-
 
     headers["Content-Type"] = "application/json"
 
@@ -57,24 +48,22 @@ def _get_kwargs(
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTAzureFolderToReceive | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> RESTAzureFolderToReceive | RESTExceptionInfo:
     if response.status_code == 201:
         response_201 = RESTAzureFolderToReceive.from_dict(response.json())
-
-
 
         return response_201
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTAzureFolderToReceive | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[RESTAzureFolderToReceive | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -90,9 +79,8 @@ def sync_detailed(
     body: RESTAzureFolderToSend,
     account_id: UUID,
     region_type: AzureStorageEndpoint,
-
 ) -> Response[RESTAzureFolderToReceive | RESTExceptionInfo]:
-    """ Create Folders
+    """Create Folders
 
      Creates a new folder in the specified Azure container.
 
@@ -108,15 +96,13 @@ def sync_detailed(
 
     Returns:
         Response[RESTAzureFolderToReceive | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         container_name=container_name,
-body=body,
-account_id=account_id,
-region_type=region_type,
-
+        body=body,
+        account_id=account_id,
+        region_type=region_type,
     )
 
     response = client.get_httpx_client().request(
@@ -125,6 +111,7 @@ region_type=region_type,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     container_name: str,
     *,
@@ -132,9 +119,8 @@ def sync(
     body: RESTAzureFolderToSend,
     account_id: UUID,
     region_type: AzureStorageEndpoint,
-
 ) -> RESTAzureFolderToReceive | RESTExceptionInfo | None:
-    """ Create Folders
+    """Create Folders
 
      Creates a new folder in the specified Azure container.
 
@@ -150,17 +136,16 @@ def sync(
 
     Returns:
         RESTAzureFolderToReceive | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         container_name=container_name,
-client=client,
-body=body,
-account_id=account_id,
-region_type=region_type,
-
+        client=client,
+        body=body,
+        account_id=account_id,
+        region_type=region_type,
     ).parsed
+
 
 async def asyncio_detailed(
     container_name: str,
@@ -169,9 +154,8 @@ async def asyncio_detailed(
     body: RESTAzureFolderToSend,
     account_id: UUID,
     region_type: AzureStorageEndpoint,
-
 ) -> Response[RESTAzureFolderToReceive | RESTExceptionInfo]:
-    """ Create Folders
+    """Create Folders
 
      Creates a new folder in the specified Azure container.
 
@@ -187,22 +171,19 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTAzureFolderToReceive | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         container_name=container_name,
-body=body,
-account_id=account_id,
-region_type=region_type,
-
+        body=body,
+        account_id=account_id,
+        region_type=region_type,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     container_name: str,
@@ -211,9 +192,8 @@ async def asyncio(
     body: RESTAzureFolderToSend,
     account_id: UUID,
     region_type: AzureStorageEndpoint,
-
 ) -> RESTAzureFolderToReceive | RESTExceptionInfo | None:
-    """ Create Folders
+    """Create Folders
 
      Creates a new folder in the specified Azure container.
 
@@ -229,14 +209,14 @@ async def asyncio(
 
     Returns:
         RESTAzureFolderToReceive | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        container_name=container_name,
-client=client,
-body=body,
-account_id=account_id,
-region_type=region_type,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            container_name=container_name,
+            client=client,
+            body=body,
+            account_id=account_id,
+            region_type=region_type,
+        )
+    ).parsed

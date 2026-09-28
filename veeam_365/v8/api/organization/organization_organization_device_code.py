@@ -1,31 +1,20 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.rest_common_device_code_request_options import RESTCommonDeviceCodeRequestOptions
 from ...models.rest_device_code_response import RESTDeviceCodeResponse
 from ...models.rest_exception_info import RESTExceptionInfo
-from typing import cast
-
+from ...types import Response
 
 
 def _get_kwargs(
     *,
     body: RESTCommonDeviceCodeRequestOptions,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
-
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -34,31 +23,28 @@ def _get_kwargs(
 
     _kwargs["json"] = body.to_dict()
 
-
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTDeviceCodeResponse | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> RESTDeviceCodeResponse | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = RESTDeviceCodeResponse.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTDeviceCodeResponse | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[RESTDeviceCodeResponse | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -71,9 +57,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTCommonDeviceCodeRequestOptions,
-
 ) -> Response[RESTDeviceCodeResponse | RESTExceptionInfo]:
-    """ Get Device Code
+    """Get Device Code
 
      Allows you to obtain a device code to sign in to Microsoft Identity platform.
 
@@ -86,12 +71,10 @@ def sync_detailed(
 
     Returns:
         Response[RESTDeviceCodeResponse | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
     response = client.get_httpx_client().request(
@@ -100,13 +83,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     body: RESTCommonDeviceCodeRequestOptions,
-
 ) -> RESTDeviceCodeResponse | RESTExceptionInfo | None:
-    """ Get Device Code
+    """Get Device Code
 
      Allows you to obtain a device code to sign in to Microsoft Identity platform.
 
@@ -119,22 +102,20 @@ def sync(
 
     Returns:
         RESTDeviceCodeResponse | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTCommonDeviceCodeRequestOptions,
-
 ) -> Response[RESTDeviceCodeResponse | RESTExceptionInfo]:
-    """ Get Device Code
+    """Get Device Code
 
      Allows you to obtain a device code to sign in to Microsoft Identity platform.
 
@@ -147,27 +128,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTDeviceCodeResponse | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: RESTCommonDeviceCodeRequestOptions,
-
 ) -> RESTDeviceCodeResponse | RESTExceptionInfo | None:
-    """ Get Device Code
+    """Get Device Code
 
      Allows you to obtain a device code to sign in to Microsoft Identity platform.
 
@@ -180,11 +157,11 @@ async def asyncio(
 
     Returns:
         RESTDeviceCodeResponse | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+        )
+    ).parsed

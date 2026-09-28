@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTGroupLocationType(str, Enum):
     CLOUD = "Cloud"
     HYBRID = "Hybrid"

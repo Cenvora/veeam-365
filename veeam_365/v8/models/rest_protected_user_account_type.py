@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTProtectedUserAccountType(str, Enum):
     PUBLICMAILBOX = "PublicMailbox"
     SHAREDMAILBOX = "SharedMailbox"

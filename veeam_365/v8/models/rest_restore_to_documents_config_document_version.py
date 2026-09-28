@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTRestoreToDocumentsConfigDocumentVersion(str, Enum):
     ALL = "All"
     LAST = "Last"

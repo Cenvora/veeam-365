@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class OneDriveSearchOneDriveByOptionsItemType(str, Enum):
     ALL = "All"
     DOCUMENTS = "Documents"

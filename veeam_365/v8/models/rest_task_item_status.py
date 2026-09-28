@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTTaskItemStatus(str, Enum):
     COMPLETED = "Completed"
     DEFERRED = "Deferred"

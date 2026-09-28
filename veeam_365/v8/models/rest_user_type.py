@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTUserType(str, Enum):
     PUBLIC = "Public"
     SHARED = "Shared"

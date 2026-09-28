@@ -1,18 +1,14 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.rest_azure_subnet import RESTAzureSubnet
 from ...models.rest_exception_info import RESTExceptionInfo
-from typing import cast
-from uuid import UUID
-
+from ...types import Response
 
 
 def _get_kwargs(
@@ -21,41 +17,38 @@ def _get_kwargs(
     resource_group_name: str,
     virtual_network_name: str,
     subnet_name: str,
-
 ) -> dict[str, Any]:
-    
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/AzureServiceAccounts/{service_account_id}/Subscriptions/{subscription_id}/ResourceGroups/{resource_group_name}/VirtualNetworks/{virtual_network_name}/Subnets/{subnet_name}".format(service_account_id=quote(str(service_account_id), safe=""),subscription_id=quote(str(subscription_id), safe=""),resource_group_name=quote(str(resource_group_name), safe=""),virtual_network_name=quote(str(virtual_network_name), safe=""),subnet_name=quote(str(subnet_name), safe=""),),
+        "url": "/v8/AzureServiceAccounts/{service_account_id}/Subscriptions/{subscription_id}/ResourceGroups/{resource_group_name}/VirtualNetworks/{virtual_network_name}/Subnets/{subnet_name}".format(
+            service_account_id=quote(str(service_account_id), safe=""),
+            subscription_id=quote(str(subscription_id), safe=""),
+            resource_group_name=quote(str(resource_group_name), safe=""),
+            virtual_network_name=quote(str(virtual_network_name), safe=""),
+            subnet_name=quote(str(subnet_name), safe=""),
+        ),
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTAzureSubnet | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> RESTAzureSubnet | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = RESTAzureSubnet.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTAzureSubnet | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[RESTAzureSubnet | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -72,9 +65,8 @@ def sync_detailed(
     subnet_name: str,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[RESTAzureSubnet | RESTExceptionInfo]:
-    """ Get Subnet by Name
+    """Get Subnet by Name
 
      Returns information about a subnet with the specified name within a virtual network with the
     specified name.
@@ -92,16 +84,14 @@ def sync_detailed(
 
     Returns:
         Response[RESTAzureSubnet | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         service_account_id=service_account_id,
-subscription_id=subscription_id,
-resource_group_name=resource_group_name,
-virtual_network_name=virtual_network_name,
-subnet_name=subnet_name,
-
+        subscription_id=subscription_id,
+        resource_group_name=resource_group_name,
+        virtual_network_name=virtual_network_name,
+        subnet_name=subnet_name,
     )
 
     response = client.get_httpx_client().request(
@@ -109,6 +99,7 @@ subnet_name=subnet_name,
     )
 
     return _build_response(client=client, response=response)
+
 
 def sync(
     service_account_id: UUID,
@@ -118,9 +109,8 @@ def sync(
     subnet_name: str,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> RESTAzureSubnet | RESTExceptionInfo | None:
-    """ Get Subnet by Name
+    """Get Subnet by Name
 
      Returns information about a subnet with the specified name within a virtual network with the
     specified name.
@@ -138,18 +128,17 @@ def sync(
 
     Returns:
         RESTAzureSubnet | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         service_account_id=service_account_id,
-subscription_id=subscription_id,
-resource_group_name=resource_group_name,
-virtual_network_name=virtual_network_name,
-subnet_name=subnet_name,
-client=client,
-
+        subscription_id=subscription_id,
+        resource_group_name=resource_group_name,
+        virtual_network_name=virtual_network_name,
+        subnet_name=subnet_name,
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     service_account_id: UUID,
@@ -159,9 +148,8 @@ async def asyncio_detailed(
     subnet_name: str,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[RESTAzureSubnet | RESTExceptionInfo]:
-    """ Get Subnet by Name
+    """Get Subnet by Name
 
      Returns information about a subnet with the specified name within a virtual network with the
     specified name.
@@ -179,23 +167,20 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTAzureSubnet | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         service_account_id=service_account_id,
-subscription_id=subscription_id,
-resource_group_name=resource_group_name,
-virtual_network_name=virtual_network_name,
-subnet_name=subnet_name,
-
+        subscription_id=subscription_id,
+        resource_group_name=resource_group_name,
+        virtual_network_name=virtual_network_name,
+        subnet_name=subnet_name,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     service_account_id: UUID,
@@ -205,9 +190,8 @@ async def asyncio(
     subnet_name: str,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> RESTAzureSubnet | RESTExceptionInfo | None:
-    """ Get Subnet by Name
+    """Get Subnet by Name
 
      Returns information about a subnet with the specified name within a virtual network with the
     specified name.
@@ -225,15 +209,15 @@ async def asyncio(
 
     Returns:
         RESTAzureSubnet | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        service_account_id=service_account_id,
-subscription_id=subscription_id,
-resource_group_name=resource_group_name,
-virtual_network_name=virtual_network_name,
-subnet_name=subnet_name,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            service_account_id=service_account_id,
+            subscription_id=subscription_id,
+            resource_group_name=resource_group_name,
+            virtual_network_name=virtual_network_name,
+            subnet_name=subnet_name,
+            client=client,
+        )
+    ).parsed

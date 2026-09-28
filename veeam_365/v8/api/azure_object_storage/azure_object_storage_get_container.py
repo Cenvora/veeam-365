@@ -1,19 +1,15 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.azure_storage_endpoint import AzureStorageEndpoint
 from ...models.rest_azure_container import RESTAzureContainer
 from ...models.rest_exception_info import RESTExceptionInfo
-from typing import cast
-from uuid import UUID
-
+from ...types import UNSET, Response
 
 
 def _get_kwargs(
@@ -21,11 +17,7 @@ def _get_kwargs(
     *,
     account_id: UUID,
     region_type: AzureStorageEndpoint,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -35,38 +27,35 @@ def _get_kwargs(
     json_region_type = region_type.value
     params["RegionType"] = json_region_type
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/AzureResources/containers/{name}".format(name=quote(str(name), safe=""),),
+        "url": "/v8/AzureResources/containers/{name}".format(
+            name=quote(str(name), safe=""),
+        ),
         "params": params,
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTAzureContainer | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> RESTAzureContainer | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = RESTAzureContainer.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTAzureContainer | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[RESTAzureContainer | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -81,9 +70,8 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     account_id: UUID,
     region_type: AzureStorageEndpoint,
-
 ) -> Response[RESTAzureContainer | RESTExceptionInfo]:
-    """ Get Container by Name
+    """Get Container by Name
 
      Returns information about an Azure container with the specified name.
 
@@ -98,14 +86,12 @@ def sync_detailed(
 
     Returns:
         Response[RESTAzureContainer | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         name=name,
-account_id=account_id,
-region_type=region_type,
-
+        account_id=account_id,
+        region_type=region_type,
     )
 
     response = client.get_httpx_client().request(
@@ -114,15 +100,15 @@ region_type=region_type,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     name: str,
     *,
     client: AuthenticatedClient | Client,
     account_id: UUID,
     region_type: AzureStorageEndpoint,
-
 ) -> RESTAzureContainer | RESTExceptionInfo | None:
-    """ Get Container by Name
+    """Get Container by Name
 
      Returns information about an Azure container with the specified name.
 
@@ -137,16 +123,15 @@ def sync(
 
     Returns:
         RESTAzureContainer | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         name=name,
-client=client,
-account_id=account_id,
-region_type=region_type,
-
+        client=client,
+        account_id=account_id,
+        region_type=region_type,
     ).parsed
+
 
 async def asyncio_detailed(
     name: str,
@@ -154,9 +139,8 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     account_id: UUID,
     region_type: AzureStorageEndpoint,
-
 ) -> Response[RESTAzureContainer | RESTExceptionInfo]:
-    """ Get Container by Name
+    """Get Container by Name
 
      Returns information about an Azure container with the specified name.
 
@@ -171,21 +155,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTAzureContainer | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         name=name,
-account_id=account_id,
-region_type=region_type,
-
+        account_id=account_id,
+        region_type=region_type,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     name: str,
@@ -193,9 +174,8 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     account_id: UUID,
     region_type: AzureStorageEndpoint,
-
 ) -> RESTAzureContainer | RESTExceptionInfo | None:
-    """ Get Container by Name
+    """Get Container by Name
 
      Returns information about an Azure container with the specified name.
 
@@ -210,13 +190,13 @@ async def asyncio(
 
     Returns:
         RESTAzureContainer | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        name=name,
-client=client,
-account_id=account_id,
-region_type=region_type,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            name=name,
+            client=client,
+            account_id=account_id,
+            region_type=region_type,
+        )
+    ).parsed

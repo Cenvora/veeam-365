@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTOrganizationLastSyncStateResult(str, Enum):
     ERROR = "Error"
     SUCCESS = "Success"

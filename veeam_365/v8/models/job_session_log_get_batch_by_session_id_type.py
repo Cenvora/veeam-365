@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class JobSessionLogGetBatchBySessionIdType(str, Enum):
     ERROR = "Error"
     RUNNING = "Running"

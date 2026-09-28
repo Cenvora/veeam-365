@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class OrganizationSiteGetByIdDataSource(str, Enum):
     PREFERLOCAL = "PreferLocal"
     PREFERLOCALRESYNCED = "PreferLocalResynced"

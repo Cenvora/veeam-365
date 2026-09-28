@@ -1,59 +1,50 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.teams_post_save_by_id_response_200 import TeamsPostSaveByIdResponse200
-from typing import cast
-from uuid import UUID
-
+from ...types import Response
 
 
 def _get_kwargs(
     restore_session_id: UUID,
     team_id: UUID,
     post_id: int,
-
 ) -> dict[str, Any]:
-    
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/v8/RestoreSessions/{restore_session_id}/organization/teams/{team_id}/posts/{post_id}/save".format(restore_session_id=quote(str(restore_session_id), safe=""),team_id=quote(str(team_id), safe=""),post_id=quote(str(post_id), safe=""),),
+        "url": "/v8/RestoreSessions/{restore_session_id}/organization/teams/{team_id}/posts/{post_id}/save".format(
+            restore_session_id=quote(str(restore_session_id), safe=""),
+            team_id=quote(str(team_id), safe=""),
+            post_id=quote(str(post_id), safe=""),
+        ),
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | TeamsPostSaveByIdResponse200:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> RESTExceptionInfo | TeamsPostSaveByIdResponse200:
     if response.status_code == 200:
         response_200 = TeamsPostSaveByIdResponse200.from_dict(response.content)
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | TeamsPostSaveByIdResponse200]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[RESTExceptionInfo | TeamsPostSaveByIdResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -68,9 +59,8 @@ def sync_detailed(
     post_id: int,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[RESTExceptionInfo | TeamsPostSaveByIdResponse200]:
-    """ Save Post
+    """Save Post
 
      Saves a backed-up Microsoft Teams post with the specified ID.
 
@@ -93,14 +83,12 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | TeamsPostSaveByIdResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-team_id=team_id,
-post_id=post_id,
-
+        team_id=team_id,
+        post_id=post_id,
     )
 
     response = client.get_httpx_client().request(
@@ -109,15 +97,15 @@ post_id=post_id,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     restore_session_id: UUID,
     team_id: UUID,
     post_id: int,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> RESTExceptionInfo | TeamsPostSaveByIdResponse200 | None:
-    """ Save Post
+    """Save Post
 
      Saves a backed-up Microsoft Teams post with the specified ID.
 
@@ -140,16 +128,15 @@ def sync(
 
     Returns:
         RESTExceptionInfo | TeamsPostSaveByIdResponse200
-     """
-
+    """
 
     return sync_detailed(
         restore_session_id=restore_session_id,
-team_id=team_id,
-post_id=post_id,
-client=client,
-
+        team_id=team_id,
+        post_id=post_id,
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     restore_session_id: UUID,
@@ -157,9 +144,8 @@ async def asyncio_detailed(
     post_id: int,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[RESTExceptionInfo | TeamsPostSaveByIdResponse200]:
-    """ Save Post
+    """Save Post
 
      Saves a backed-up Microsoft Teams post with the specified ID.
 
@@ -182,21 +168,18 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | TeamsPostSaveByIdResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         restore_session_id=restore_session_id,
-team_id=team_id,
-post_id=post_id,
-
+        team_id=team_id,
+        post_id=post_id,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     restore_session_id: UUID,
@@ -204,9 +187,8 @@ async def asyncio(
     post_id: int,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> RESTExceptionInfo | TeamsPostSaveByIdResponse200 | None:
-    """ Save Post
+    """Save Post
 
      Saves a backed-up Microsoft Teams post with the specified ID.
 
@@ -229,13 +211,13 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | TeamsPostSaveByIdResponse200
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        restore_session_id=restore_session_id,
-team_id=team_id,
-post_id=post_id,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            restore_session_id=restore_session_id,
+            team_id=team_id,
+            post_id=post_id,
+            client=client,
+        )
+    ).parsed

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class ConnectionStatus(str, Enum):
     FAILED = "Failed"
     SUCCESS = "Success"

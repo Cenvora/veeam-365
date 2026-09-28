@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class OrganizationSiteGetLocationFilter(str, Enum):
     ANY = "Any"
     CLOUD = "Cloud"

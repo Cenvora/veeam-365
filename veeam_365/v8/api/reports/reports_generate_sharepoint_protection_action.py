@@ -1,31 +1,22 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
-from ...models.reports_generate_sharepoint_protection_action_response_200 import ReportsGenerateSharepointProtectionActionResponse200
+from ...models.reports_generate_sharepoint_protection_action_response_200 import (
+    ReportsGenerateSharepointProtectionActionResponse200,
+)
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_sharepoint_protection_options import RESTSharepointProtectionOptions
-from typing import cast
-
+from ...types import Response
 
 
 def _get_kwargs(
     *,
     body: RESTSharepointProtectionOptions,
-
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
-
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "post",
@@ -34,31 +25,28 @@ def _get_kwargs(
 
     _kwargs["json"] = body.to_dict()
 
-
     headers["Content-Type"] = "application/json"
 
     _kwargs["headers"] = headers
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | ReportsGenerateSharepointProtectionActionResponse200:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> RESTExceptionInfo | ReportsGenerateSharepointProtectionActionResponse200:
     if response.status_code == 200:
         response_200 = ReportsGenerateSharepointProtectionActionResponse200.from_dict(response.content)
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | ReportsGenerateSharepointProtectionActionResponse200]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[RESTExceptionInfo | ReportsGenerateSharepointProtectionActionResponse200]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -71,9 +59,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTSharepointProtectionOptions,
-
 ) -> Response[RESTExceptionInfo | ReportsGenerateSharepointProtectionActionResponse200]:
-    """ Generate SharePoint Protection Report
+    """Generate SharePoint Protection Report
 
      Generates SharePoint protection report on the user SharePoint sites protected by the Veeam Backup
     for Microsoft 365 server.
@@ -87,12 +74,10 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | ReportsGenerateSharepointProtectionActionResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
     response = client.get_httpx_client().request(
@@ -101,13 +86,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     *,
     client: AuthenticatedClient | Client,
     body: RESTSharepointProtectionOptions,
-
 ) -> RESTExceptionInfo | ReportsGenerateSharepointProtectionActionResponse200 | None:
-    """ Generate SharePoint Protection Report
+    """Generate SharePoint Protection Report
 
      Generates SharePoint protection report on the user SharePoint sites protected by the Veeam Backup
     for Microsoft 365 server.
@@ -121,22 +106,20 @@ def sync(
 
     Returns:
         RESTExceptionInfo | ReportsGenerateSharepointProtectionActionResponse200
-     """
-
+    """
 
     return sync_detailed(
         client=client,
-body=body,
-
+        body=body,
     ).parsed
+
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     body: RESTSharepointProtectionOptions,
-
 ) -> Response[RESTExceptionInfo | ReportsGenerateSharepointProtectionActionResponse200]:
-    """ Generate SharePoint Protection Report
+    """Generate SharePoint Protection Report
 
      Generates SharePoint protection report on the user SharePoint sites protected by the Veeam Backup
     for Microsoft 365 server.
@@ -150,27 +133,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | ReportsGenerateSharepointProtectionActionResponse200]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         body=body,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     body: RESTSharepointProtectionOptions,
-
 ) -> RESTExceptionInfo | ReportsGenerateSharepointProtectionActionResponse200 | None:
-    """ Generate SharePoint Protection Report
+    """Generate SharePoint Protection Report
 
      Generates SharePoint protection report on the user SharePoint sites protected by the Veeam Backup
     for Microsoft 365 server.
@@ -184,11 +163,11 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | ReportsGenerateSharepointProtectionActionResponse200
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        client=client,
-body=body,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            client=client,
+            body=body,
+        )
+    ).parsed

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTCommonDeviceCodeRequestOptionsTargetRegion(str, Enum):
     CHINA = "China"
     GERMANY = "Germany"

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTProxyThrottlingUnit(str, Enum):
     KBS = "KBs"
     MBPS = "Mbps"

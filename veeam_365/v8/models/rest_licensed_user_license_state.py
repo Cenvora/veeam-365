@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTLicensedUserLicenseState(str, Enum):
     EXCEEDED = "Exceeded"
     LICENSED = "Licensed"

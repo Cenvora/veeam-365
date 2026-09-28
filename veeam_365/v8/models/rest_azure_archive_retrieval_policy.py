@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTAzureArchiveRetrievalPolicy(str, Enum):
     HIGHPRIORITY = "HighPriority"
     STANDARDPRIORITY = "StandardPriority"

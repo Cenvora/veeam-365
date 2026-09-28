@@ -1,56 +1,45 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.rest_exception_info import RESTExceptionInfo
 from ...models.rest_restore_point import RESTRestorePoint
-from typing import cast
-
+from ...types import Response
 
 
 def _get_kwargs(
     restore_point_id: str,
-
 ) -> dict[str, Any]:
-    
-
-    
-
-    
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/RestorePoints/{restore_point_id}".format(restore_point_id=quote(str(restore_point_id), safe=""),),
+        "url": "/v8/RestorePoints/{restore_point_id}".format(
+            restore_point_id=quote(str(restore_point_id), safe=""),
+        ),
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTExceptionInfo | RESTRestorePoint:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> RESTExceptionInfo | RESTRestorePoint:
     if response.status_code == 200:
         response_200 = RESTRestorePoint.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTExceptionInfo | RESTRestorePoint]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[RESTExceptionInfo | RESTRestorePoint]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -63,9 +52,8 @@ def sync_detailed(
     restore_point_id: str,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[RESTExceptionInfo | RESTRestorePoint]:
-    """ Get Restore Point
+    """Get Restore Point
 
      Returns a resource representation of a restore point with the specified ID.
 
@@ -78,12 +66,10 @@ def sync_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTRestorePoint]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         restore_point_id=restore_point_id,
-
     )
 
     response = client.get_httpx_client().request(
@@ -92,13 +78,13 @@ def sync_detailed(
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     restore_point_id: str,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> RESTExceptionInfo | RESTRestorePoint | None:
-    """ Get Restore Point
+    """Get Restore Point
 
      Returns a resource representation of a restore point with the specified ID.
 
@@ -111,22 +97,20 @@ def sync(
 
     Returns:
         RESTExceptionInfo | RESTRestorePoint
-     """
-
+    """
 
     return sync_detailed(
         restore_point_id=restore_point_id,
-client=client,
-
+        client=client,
     ).parsed
+
 
 async def asyncio_detailed(
     restore_point_id: str,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> Response[RESTExceptionInfo | RESTRestorePoint]:
-    """ Get Restore Point
+    """Get Restore Point
 
      Returns a resource representation of a restore point with the specified ID.
 
@@ -139,27 +123,23 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTExceptionInfo | RESTRestorePoint]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         restore_point_id=restore_point_id,
-
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     restore_point_id: str,
     *,
     client: AuthenticatedClient | Client,
-
 ) -> RESTExceptionInfo | RESTRestorePoint | None:
-    """ Get Restore Point
+    """Get Restore Point
 
      Returns a resource representation of a restore point with the specified ID.
 
@@ -172,11 +152,11 @@ async def asyncio(
 
     Returns:
         RESTExceptionInfo | RESTRestorePoint
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        restore_point_id=restore_point_id,
-client=client,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            restore_point_id=restore_point_id,
+            client=client,
+        )
+    ).parsed

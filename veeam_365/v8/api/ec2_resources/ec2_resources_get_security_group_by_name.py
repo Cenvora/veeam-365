@@ -1,18 +1,14 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
+from uuid import UUID
 
 import httpx
 
 from ...client import AuthenticatedClient, Client
-from ...types import Response, UNSET
-from ... import errors
-
 from ...models.rest_amazon_security_group import RESTAmazonSecurityGroup
 from ...models.rest_exception_info import RESTExceptionInfo
-from typing import cast
-from uuid import UUID
-
+from ...types import UNSET, Response
 
 
 def _get_kwargs(
@@ -21,11 +17,7 @@ def _get_kwargs(
     *,
     account_id: UUID,
     region_id: str,
-
 ) -> dict[str, Any]:
-    
-
-    
 
     params: dict[str, Any] = {}
 
@@ -34,38 +26,36 @@ def _get_kwargs(
 
     params["regionId"] = region_id
 
-
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
-
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/v8/EC2Resources/VirtualPrivateCloud/{id}/SecurityGroup/{security_group_name}".format(id=quote(str(id), safe=""),security_group_name=quote(str(security_group_name), safe=""),),
+        "url": "/v8/EC2Resources/VirtualPrivateCloud/{id}/SecurityGroup/{security_group_name}".format(
+            id=quote(str(id), safe=""),
+            security_group_name=quote(str(security_group_name), safe=""),
+        ),
         "params": params,
     }
-
 
     return _kwargs
 
 
-
-def _parse_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> RESTAmazonSecurityGroup | RESTExceptionInfo:
+def _parse_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> RESTAmazonSecurityGroup | RESTExceptionInfo:
     if response.status_code == 200:
         response_200 = RESTAmazonSecurityGroup.from_dict(response.json())
-
-
 
         return response_200
 
     response_default = RESTExceptionInfo.from_dict(response.json())
 
-
-
     return response_default
 
 
-
-def _build_response(*, client: AuthenticatedClient | Client, response: httpx.Response) -> Response[RESTAmazonSecurityGroup | RESTExceptionInfo]:
+def _build_response(
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[RESTAmazonSecurityGroup | RESTExceptionInfo]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -81,9 +71,8 @@ def sync_detailed(
     client: AuthenticatedClient | Client,
     account_id: UUID,
     region_id: str,
-
 ) -> Response[RESTAmazonSecurityGroup | RESTExceptionInfo]:
-    """ Get Security Group by Name
+    """Get Security Group by Name
 
      Returns information about a security group with the specified name.
 
@@ -99,15 +88,13 @@ def sync_detailed(
 
     Returns:
         Response[RESTAmazonSecurityGroup | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-security_group_name=security_group_name,
-account_id=account_id,
-region_id=region_id,
-
+        security_group_name=security_group_name,
+        account_id=account_id,
+        region_id=region_id,
     )
 
     response = client.get_httpx_client().request(
@@ -116,6 +103,7 @@ region_id=region_id,
 
     return _build_response(client=client, response=response)
 
+
 def sync(
     id: str,
     security_group_name: str,
@@ -123,9 +111,8 @@ def sync(
     client: AuthenticatedClient | Client,
     account_id: UUID,
     region_id: str,
-
 ) -> RESTAmazonSecurityGroup | RESTExceptionInfo | None:
-    """ Get Security Group by Name
+    """Get Security Group by Name
 
      Returns information about a security group with the specified name.
 
@@ -141,17 +128,16 @@ def sync(
 
     Returns:
         RESTAmazonSecurityGroup | RESTExceptionInfo
-     """
-
+    """
 
     return sync_detailed(
         id=id,
-security_group_name=security_group_name,
-client=client,
-account_id=account_id,
-region_id=region_id,
-
+        security_group_name=security_group_name,
+        client=client,
+        account_id=account_id,
+        region_id=region_id,
     ).parsed
+
 
 async def asyncio_detailed(
     id: str,
@@ -160,9 +146,8 @@ async def asyncio_detailed(
     client: AuthenticatedClient | Client,
     account_id: UUID,
     region_id: str,
-
 ) -> Response[RESTAmazonSecurityGroup | RESTExceptionInfo]:
-    """ Get Security Group by Name
+    """Get Security Group by Name
 
      Returns information about a security group with the specified name.
 
@@ -178,22 +163,19 @@ async def asyncio_detailed(
 
     Returns:
         Response[RESTAmazonSecurityGroup | RESTExceptionInfo]
-     """
-
+    """
 
     kwargs = _get_kwargs(
         id=id,
-security_group_name=security_group_name,
-account_id=account_id,
-region_id=region_id,
-
+        security_group_name=security_group_name,
+        account_id=account_id,
+        region_id=region_id,
     )
 
-    response = await client.get_async_httpx_client().request(
-        **kwargs
-    )
+    response = await client.get_async_httpx_client().request(**kwargs)
 
     return _build_response(client=client, response=response)
+
 
 async def asyncio(
     id: str,
@@ -202,9 +184,8 @@ async def asyncio(
     client: AuthenticatedClient | Client,
     account_id: UUID,
     region_id: str,
-
 ) -> RESTAmazonSecurityGroup | RESTExceptionInfo | None:
-    """ Get Security Group by Name
+    """Get Security Group by Name
 
      Returns information about a security group with the specified name.
 
@@ -220,14 +201,14 @@ async def asyncio(
 
     Returns:
         RESTAmazonSecurityGroup | RESTExceptionInfo
-     """
+    """
 
-
-    return (await asyncio_detailed(
-        id=id,
-security_group_name=security_group_name,
-client=client,
-account_id=account_id,
-region_id=region_id,
-
-    )).parsed
+    return (
+        await asyncio_detailed(
+            id=id,
+            security_group_name=security_group_name,
+            client=client,
+            account_id=account_id,
+            region_id=region_id,
+        )
+    ).parsed

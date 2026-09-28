@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTOrganizationExploreOptionsType(str, Enum):
     VEOD = "Veod"
     VESP = "Vesp"

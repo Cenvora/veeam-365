@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTJobStatisticsBottleneck(str, Enum):
     DETECTING = "Detecting"
     NA = "NA"

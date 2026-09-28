@@ -1,46 +1,37 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import Any, TypeVar, cast
+from uuid import UUID
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-from uuid import UUID
-
-
-
-
-
-
 T = TypeVar("T", bound="RESTTenantInformation")
-
 
 
 @_attrs_define
 class RESTTenantInformation:
-    """ 
-        Attributes:
-            msid (UUID | Unset): ID of the organization assigned by Microsoft. Example:
-                00000000-0000-0000-0000-000000000000.
-            multiple_data_locations_enabled (bool | Unset): Defines whether the Multi-Geo tenants are available for the
-                Microsoft organization.
-            primary_location (None | str | Unset): Primary geographic location for the Microsoft organization.
-            enable_location_protection (bool | Unset): Defines whether protection of geographic locations is enabled for the
-                organization.
-            protect_invalid_locations (bool | Unset): Defines whether protection of objects with invalid geographic location
-                is enabled.
-            protect_empty_locations (bool | Unset): Defines whether protection of objects with empty geographic location is
-                enabled.
-            protected_locations (list[str] | None | Unset): Array of geographic locations that must be protected.
-     """
+    """
+    Attributes:
+        msid (UUID | Unset): ID of the organization assigned by Microsoft. Example:
+            00000000-0000-0000-0000-000000000000.
+        multiple_data_locations_enabled (bool | None | Unset): Defines whether the Multi-Geo tenants are available for
+            the Microsoft organization.
+        primary_location (None | str | Unset): Primary geographic location for the Microsoft organization.
+        enable_location_protection (bool | Unset): Defines whether protection of geographic locations is enabled for the
+            organization.
+        protect_invalid_locations (bool | Unset): Defines whether protection of objects with invalid geographic location
+            is enabled.
+        protect_empty_locations (bool | Unset): Defines whether protection of objects with empty geographic location is
+            enabled.
+        protected_locations (list[str] | None | Unset): Array of geographic locations that must be protected.
+    """
 
     msid: UUID | Unset = UNSET
-    multiple_data_locations_enabled: bool | Unset = UNSET
+    multiple_data_locations_enabled: bool | None | Unset = UNSET
     primary_location: None | str | Unset = UNSET
     enable_location_protection: bool | Unset = UNSET
     protect_invalid_locations: bool | Unset = UNSET
@@ -48,16 +39,16 @@ class RESTTenantInformation:
     protected_locations: list[str] | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
         msid: str | Unset = UNSET
         if not isinstance(self.msid, Unset):
             msid = str(self.msid)
 
-        multiple_data_locations_enabled = self.multiple_data_locations_enabled
+        multiple_data_locations_enabled: bool | None | Unset
+        if isinstance(self.multiple_data_locations_enabled, Unset):
+            multiple_data_locations_enabled = UNSET
+        else:
+            multiple_data_locations_enabled = self.multiple_data_locations_enabled
 
         primary_location: None | str | Unset
         if isinstance(self.primary_location, Unset):
@@ -77,15 +68,12 @@ class RESTTenantInformation:
         elif isinstance(self.protected_locations, list):
             protected_locations = self.protected_locations
 
-
         else:
             protected_locations = self.protected_locations
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if msid is not UNSET:
             field_dict["msid"] = msid
         if multiple_data_locations_enabled is not UNSET:
@@ -103,22 +91,26 @@ class RESTTenantInformation:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _msid = d.pop("msid", UNSET)
         msid: UUID | Unset
-        if isinstance(_msid,  Unset):
+        if isinstance(_msid, Unset):
             msid = UNSET
         else:
             msid = UUID(_msid)
 
+        def _parse_multiple_data_locations_enabled(data: object) -> bool | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(bool | None | Unset, data)
 
-
-
-        multiple_data_locations_enabled = d.pop("multipleDataLocationsEnabled", UNSET)
+        multiple_data_locations_enabled = _parse_multiple_data_locations_enabled(
+            d.pop("multipleDataLocationsEnabled", UNSET)
+        )
 
         def _parse_primary_location(data: object) -> None | str | Unset:
             if data is None:
@@ -128,7 +120,6 @@ class RESTTenantInformation:
             return cast(None | str | Unset, data)
 
         primary_location = _parse_primary_location(d.pop("primaryLocation", UNSET))
-
 
         enable_location_protection = d.pop("enableLocationProtection", UNSET)
 
@@ -153,7 +144,6 @@ class RESTTenantInformation:
 
         protected_locations = _parse_protected_locations(d.pop("protectedLocations", UNSET))
 
-
         rest_tenant_information = cls(
             msid=msid,
             multiple_data_locations_enabled=multiple_data_locations_enabled,
@@ -163,7 +153,6 @@ class RESTTenantInformation:
             protect_empty_locations=protect_empty_locations,
             protected_locations=protected_locations,
         )
-
 
         rest_tenant_information.additional_properties = d
         return rest_tenant_information

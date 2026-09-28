@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTOperatorRestoreSharePointItemsConfigDocumentLastVersionAction(str, Enum):
     MERGE = "Merge"
     OVERWRITE = "Overwrite"

@@ -1,55 +1,48 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
 
 from ..models.rest_job_schedule_policy_daily_type import RESTJobSchedulePolicyDailyType
 from ..models.rest_job_schedule_policy_periodically_every import RESTJobSchedulePolicyPeriodicallyEvery
 from ..models.rest_job_schedule_policy_type import RESTJobSchedulePolicyType
 from ..types import UNSET, Unset
-from typing import cast
 
 if TYPE_CHECKING:
-  from ..models.rest_backup_window_settings import RESTBackupWindowSettings
-
-
-
+    from ..models.rest_backup_window_settings import RESTBackupWindowSettings
 
 
 T = TypeVar("T", bound="RESTJobSchedulePolicy")
 
 
-
 @_attrs_define
 class RESTJobSchedulePolicy:
-    """ 
-        Attributes:
-            schedule_enabled (bool | None | Unset): Defines whether the schedule feature is enabled for this job. Use this
-                property only with the `periodicallyEvery` property and the time interval specified in hours.
-            backup_window_enabled (bool | None | Unset): Defines whether the backup window feature is enabled for this job.
-            backup_window_settings (RESTBackupWindowSettings | Unset):
-            periodically_window_enabled (bool | None | Unset): Defines whether this job is configured to run periodically
-                every N hours.
-            periodically_window_settings (RESTBackupWindowSettings | Unset):
-            periodically_offset_minutes (int | None | Unset): Number of minutes for which you want to shift starting of the
-                backup job within an hour if several backup jobs are scheduled to be started simultaneously. Use this property
-                only with the `periodicallyEvery` property and the time interval specified in hours.
-            type_ (RESTJobSchedulePolicyType | Unset): Backup job schedule type. The following types are available: <ul>
-                <li>*Daily*. The backup job runs on specific days.</li> <li>*Periodically*. The backup job runs repeatedly
-                throughout a day with a specific time interval.</li> <li>*ManualOnly*. The backup job runs manually.</li> </ul>
-            periodically_every (RESTJobSchedulePolicyPeriodicallyEvery | Unset): Time interval between the job runs.
-            daily_type (RESTJobSchedulePolicyDailyType | Unset): Days when the backup job will run.
-            daily_time (str | Unset): Time to start the backup job.
-            retry_enabled (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will attempt to restart the
-                backup job if it fails for some reason.
-            retry_number (int | None | Unset): Number of attempts to restart the backup job.
-            retry_wait_interval (int | None | Unset): Time intervals between the backup job retry attempts in *Minutes*.
-     """
+    """
+    Attributes:
+        schedule_enabled (bool | None | Unset): Defines whether the schedule feature is enabled for this job. Use this
+            property only with the `periodicallyEvery` property and the time interval specified in hours.
+        backup_window_enabled (bool | None | Unset): Defines whether the backup window feature is enabled for this job.
+        backup_window_settings (RESTBackupWindowSettings | Unset):
+        periodically_window_enabled (bool | None | Unset): Defines whether this job is configured to run periodically
+            every N hours.
+        periodically_window_settings (RESTBackupWindowSettings | Unset):
+        periodically_offset_minutes (int | None | Unset): Number of minutes for which you want to shift the start of the
+            backup job within an hour if several backup jobs are scheduled to be started simultaneously. Use this property
+            only with the `periodicallyEvery` property and the time interval specified in hours.
+        type_ (RESTJobSchedulePolicyType | Unset): Backup job schedule type. The following types are available: <ul>
+            <li>*Daily*. The backup job runs on specific days.</li> <li>*Periodically*. The backup job runs repeatedly
+            throughout a day with a specific time interval.</li> <li>*ManualOnly*. The backup job runs manually.</li> </ul>
+        periodically_every (RESTJobSchedulePolicyPeriodicallyEvery | Unset): Time interval between the job runs.
+        daily_type (RESTJobSchedulePolicyDailyType | Unset): Days when the backup job will run.
+        daily_time (str | Unset): Time to start the backup job.
+        retry_enabled (bool | None | Unset): Defines whether Veeam Backup for Microsoft 365 will attempt to restart the
+            backup job if it fails for some reason.
+        retry_number (int | None | Unset): Number of attempts to restart the backup job.
+        retry_wait_interval (int | None | Unset): Time intervals between the backup job retry attempts in *Minutes*.
+    """
 
     schedule_enabled: bool | None | Unset = UNSET
     backup_window_enabled: bool | None | Unset = UNSET
@@ -66,12 +59,7 @@ class RESTJobSchedulePolicy:
     retry_wait_interval: int | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.rest_backup_window_settings import RESTBackupWindowSettings
         schedule_enabled: bool | None | Unset
         if isinstance(self.schedule_enabled, Unset):
             schedule_enabled = UNSET
@@ -108,16 +96,13 @@ class RESTJobSchedulePolicy:
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
-
         periodically_every: str | Unset = UNSET
         if not isinstance(self.periodically_every, Unset):
             periodically_every = self.periodically_every.value
 
-
         daily_type: str | Unset = UNSET
         if not isinstance(self.daily_type, Unset):
             daily_type = self.daily_type.value
-
 
         daily_time = self.daily_time
 
@@ -139,11 +124,9 @@ class RESTJobSchedulePolicy:
         else:
             retry_wait_interval = self.retry_wait_interval
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if schedule_enabled is not UNSET:
             field_dict["scheduleEnabled"] = schedule_enabled
         if backup_window_enabled is not UNSET:
@@ -173,12 +156,12 @@ class RESTJobSchedulePolicy:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_backup_window_settings import RESTBackupWindowSettings
+
         d = dict(src_dict)
+
         def _parse_schedule_enabled(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -187,7 +170,6 @@ class RESTJobSchedulePolicy:
             return cast(bool | None | Unset, data)
 
         schedule_enabled = _parse_schedule_enabled(d.pop("scheduleEnabled", UNSET))
-
 
         def _parse_backup_window_enabled(data: object) -> bool | None | Unset:
             if data is None:
@@ -198,16 +180,12 @@ class RESTJobSchedulePolicy:
 
         backup_window_enabled = _parse_backup_window_enabled(d.pop("backupWindowEnabled", UNSET))
 
-
         _backup_window_settings = d.pop("backupWindowSettings", UNSET)
         backup_window_settings: RESTBackupWindowSettings | Unset
-        if isinstance(_backup_window_settings,  Unset):
+        if isinstance(_backup_window_settings, Unset):
             backup_window_settings = UNSET
         else:
             backup_window_settings = RESTBackupWindowSettings.from_dict(_backup_window_settings)
-
-
-
 
         def _parse_periodically_window_enabled(data: object) -> bool | None | Unset:
             if data is None:
@@ -218,16 +196,12 @@ class RESTJobSchedulePolicy:
 
         periodically_window_enabled = _parse_periodically_window_enabled(d.pop("periodicallyWindowEnabled", UNSET))
 
-
         _periodically_window_settings = d.pop("periodicallyWindowSettings", UNSET)
         periodically_window_settings: RESTBackupWindowSettings | Unset
-        if isinstance(_periodically_window_settings,  Unset):
+        if isinstance(_periodically_window_settings, Unset):
             periodically_window_settings = UNSET
         else:
             periodically_window_settings = RESTBackupWindowSettings.from_dict(_periodically_window_settings)
-
-
-
 
         def _parse_periodically_offset_minutes(data: object) -> int | None | Unset:
             if data is None:
@@ -238,36 +212,26 @@ class RESTJobSchedulePolicy:
 
         periodically_offset_minutes = _parse_periodically_offset_minutes(d.pop("periodicallyOffsetMinutes", UNSET))
 
-
         _type_ = d.pop("type", UNSET)
         type_: RESTJobSchedulePolicyType | Unset
-        if isinstance(_type_,  Unset):
+        if isinstance(_type_, Unset):
             type_ = UNSET
         else:
             type_ = RESTJobSchedulePolicyType(_type_)
 
-
-
-
         _periodically_every = d.pop("periodicallyEvery", UNSET)
         periodically_every: RESTJobSchedulePolicyPeriodicallyEvery | Unset
-        if isinstance(_periodically_every,  Unset):
+        if isinstance(_periodically_every, Unset):
             periodically_every = UNSET
         else:
             periodically_every = RESTJobSchedulePolicyPeriodicallyEvery(_periodically_every)
 
-
-
-
         _daily_type = d.pop("dailyType", UNSET)
         daily_type: RESTJobSchedulePolicyDailyType | Unset
-        if isinstance(_daily_type,  Unset):
+        if isinstance(_daily_type, Unset):
             daily_type = UNSET
         else:
             daily_type = RESTJobSchedulePolicyDailyType(_daily_type)
-
-
-
 
         daily_time = d.pop("dailyTime", UNSET)
 
@@ -280,7 +244,6 @@ class RESTJobSchedulePolicy:
 
         retry_enabled = _parse_retry_enabled(d.pop("retryEnabled", UNSET))
 
-
         def _parse_retry_number(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -290,7 +253,6 @@ class RESTJobSchedulePolicy:
 
         retry_number = _parse_retry_number(d.pop("retryNumber", UNSET))
 
-
         def _parse_retry_wait_interval(data: object) -> int | None | Unset:
             if data is None:
                 return data
@@ -299,7 +261,6 @@ class RESTJobSchedulePolicy:
             return cast(int | None | Unset, data)
 
         retry_wait_interval = _parse_retry_wait_interval(d.pop("retryWaitInterval", UNSET))
-
 
         rest_job_schedule_policy = cls(
             schedule_enabled=schedule_enabled,
@@ -316,7 +277,6 @@ class RESTJobSchedulePolicy:
             retry_number=retry_number,
             retry_wait_interval=retry_wait_interval,
         )
-
 
         rest_job_schedule_policy.additional_properties = d
         return rest_job_schedule_policy

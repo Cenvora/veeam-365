@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTOfficeLicenseDetectedSkuType(str, Enum):
     EDUCATION = "Education"
     OTHER = "Other"

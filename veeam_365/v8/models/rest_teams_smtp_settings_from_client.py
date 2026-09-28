@@ -1,47 +1,40 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, BinaryIO, TextIO, TYPE_CHECKING, Generator
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
-from ..types import UNSET, Unset
-from typing import cast
-
 if TYPE_CHECKING:
-  from ..models.rest_teams_smtp_settings_from_client_actions import RESTTeamsSmtpSettingsFromClientActions
-  from ..models.rest_teams_smtp_settings_from_client_links import RESTTeamsSmtpSettingsFromClientLinks
-
-
-
+    from ..models.rest_teams_smtp_settings_from_client_actions import RESTTeamsSmtpSettingsFromClientActions
+    from ..models.rest_teams_smtp_settings_from_client_links import RESTTeamsSmtpSettingsFromClientLinks
 
 
 T = TypeVar("T", bound="RESTTeamsSmtpSettingsFromClient")
 
 
-
 @_attrs_define
 class RESTTeamsSmtpSettingsFromClient:
-    """ 
-        Attributes:
-            user_password (str | Unset): Specifies a password.
-            enable_notification (bool | None | Unset): Defines whether Veeam Explorer will send email messages.
-            server (str | Unset): Specifies the full DNS name or IP address of the SMTP server for sending email messages.
-            port (int | None | Unset): Specifies the port used for connection to the SMTP server.
-            from_ (str | Unset): Specifies email address of the notification sender.
-            use_authentication (bool | None | Unset): Defines whether the SMTP server requires authentication.
-            use_ssl (bool | None | Unset): Defines whether Veeam Explorer uses a secure connection to send email messages.
-            username (str | Unset): Specifies the user name of the account used for authentication to the SMTP server.
-            user_id (None | str | Unset): Specifies the authenticated user account ID. Veeam Explorer will send email
-                messages on behalf of this user.
-            mail_api_url (None | str | Unset): Specifies the Microsoft Graph endpoint for sending emails.
-            request_id (None | str | Unset): Specifies the authentication request ID.
-            field_links (RESTTeamsSmtpSettingsFromClientLinks | Unset):
-            field_actions (RESTTeamsSmtpSettingsFromClientActions | Unset):
-     """
+    """
+    Attributes:
+        user_password (str | Unset): Specifies a password.
+        enable_notification (bool | None | Unset): Defines whether Veeam Explorer will send email messages.
+        server (str | Unset): Specifies the full DNS name or IP address of the SMTP server for sending email messages.
+        port (int | None | Unset): Specifies the port used for connection to the SMTP server.
+        from_ (str | Unset): Specifies the email address of the notification sender.
+        use_authentication (bool | None | Unset): Defines whether the SMTP server requires authentication.
+        use_ssl (bool | None | Unset): Defines whether Veeam Explorer uses a secure connection to send email messages.
+        username (str | Unset): Specifies the user name of the account used for authentication to the SMTP server.
+        user_id (None | str | Unset): Specifies the authenticated user account ID. Veeam Explorer will send email
+            messages on behalf of this user.
+        mail_api_url (None | str | Unset): Specifies the Microsoft Graph endpoint for sending emails.
+        request_id (None | str | Unset): Specifies the authentication request ID.
+        field_links (RESTTeamsSmtpSettingsFromClientLinks | Unset):
+        field_actions (RESTTeamsSmtpSettingsFromClientActions | Unset):
+    """
 
     user_password: str | Unset = UNSET
     enable_notification: bool | None | Unset = UNSET
@@ -58,13 +51,7 @@ class RESTTeamsSmtpSettingsFromClient:
     field_actions: RESTTeamsSmtpSettingsFromClientActions | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-
-
-
-
     def to_dict(self) -> dict[str, Any]:
-        from ..models.rest_teams_smtp_settings_from_client_actions import RESTTeamsSmtpSettingsFromClientActions
-        from ..models.rest_teams_smtp_settings_from_client_links import RESTTeamsSmtpSettingsFromClientLinks
         user_password = self.user_password
 
         enable_notification: bool | None | Unset
@@ -123,11 +110,9 @@ class RESTTeamsSmtpSettingsFromClient:
         if not isinstance(self.field_actions, Unset):
             field_actions = self.field_actions.to_dict()
 
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-        })
+        field_dict.update({})
         if user_password is not UNSET:
             field_dict["userPassword"] = user_password
         if enable_notification is not UNSET:
@@ -157,12 +142,11 @@ class RESTTeamsSmtpSettingsFromClient:
 
         return field_dict
 
-
-
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.rest_teams_smtp_settings_from_client_actions import RESTTeamsSmtpSettingsFromClientActions
         from ..models.rest_teams_smtp_settings_from_client_links import RESTTeamsSmtpSettingsFromClientLinks
+
         d = dict(src_dict)
         user_password = d.pop("userPassword", UNSET)
 
@@ -175,7 +159,6 @@ class RESTTeamsSmtpSettingsFromClient:
 
         enable_notification = _parse_enable_notification(d.pop("enableNotification", UNSET))
 
-
         server = d.pop("server", UNSET)
 
         def _parse_port(data: object) -> int | None | Unset:
@@ -186,7 +169,6 @@ class RESTTeamsSmtpSettingsFromClient:
             return cast(int | None | Unset, data)
 
         port = _parse_port(d.pop("port", UNSET))
-
 
         from_ = d.pop("from", UNSET)
 
@@ -199,7 +181,6 @@ class RESTTeamsSmtpSettingsFromClient:
 
         use_authentication = _parse_use_authentication(d.pop("useAuthentication", UNSET))
 
-
         def _parse_use_ssl(data: object) -> bool | None | Unset:
             if data is None:
                 return data
@@ -208,7 +189,6 @@ class RESTTeamsSmtpSettingsFromClient:
             return cast(bool | None | Unset, data)
 
         use_ssl = _parse_use_ssl(d.pop("useSSL", UNSET))
-
 
         username = d.pop("username", UNSET)
 
@@ -221,7 +201,6 @@ class RESTTeamsSmtpSettingsFromClient:
 
         user_id = _parse_user_id(d.pop("userId", UNSET))
 
-
         def _parse_mail_api_url(data: object) -> None | str | Unset:
             if data is None:
                 return data
@@ -230,7 +209,6 @@ class RESTTeamsSmtpSettingsFromClient:
             return cast(None | str | Unset, data)
 
         mail_api_url = _parse_mail_api_url(d.pop("mailApiUrl", UNSET))
-
 
         def _parse_request_id(data: object) -> None | str | Unset:
             if data is None:
@@ -241,26 +219,19 @@ class RESTTeamsSmtpSettingsFromClient:
 
         request_id = _parse_request_id(d.pop("requestId", UNSET))
 
-
         _field_links = d.pop("_links", UNSET)
         field_links: RESTTeamsSmtpSettingsFromClientLinks | Unset
-        if isinstance(_field_links,  Unset):
+        if isinstance(_field_links, Unset):
             field_links = UNSET
         else:
             field_links = RESTTeamsSmtpSettingsFromClientLinks.from_dict(_field_links)
 
-
-
-
         _field_actions = d.pop("_actions", UNSET)
         field_actions: RESTTeamsSmtpSettingsFromClientActions | Unset
-        if isinstance(_field_actions,  Unset):
+        if isinstance(_field_actions, Unset):
             field_actions = UNSET
         else:
             field_actions = RESTTeamsSmtpSettingsFromClientActions.from_dict(_field_actions)
-
-
-
 
         rest_teams_smtp_settings_from_client = cls(
             user_password=user_password,
@@ -277,7 +248,6 @@ class RESTTeamsSmtpSettingsFromClient:
             field_links=field_links,
             field_actions=field_actions,
         )
-
 
         rest_teams_smtp_settings_from_client.additional_properties = d
         return rest_teams_smtp_settings_from_client

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class RESTRestoreStatus(str, Enum):
     FAILED = "Failed"
     SKIPPED = "Skipped"
