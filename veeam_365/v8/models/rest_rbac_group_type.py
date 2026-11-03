@@ -1,5 +1,7 @@
 from enum import Enum
 
+from ..._lenient_enum import keep_unknown_value
+
 
 class RESTRbacGroupType(str, Enum):
     DISTRIBUTION = "Distribution"
@@ -7,6 +9,8 @@ class RESTRbacGroupType(str, Enum):
     OFFICE365 = "Office365"
     SECURITY = "Security"
     UNKNOWN = "Unknown"
+
+    _missing_ = classmethod(keep_unknown_value)
 
     def __str__(self) -> str:
         return str(self.value)
